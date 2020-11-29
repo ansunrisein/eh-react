@@ -15,19 +15,21 @@
     "graphql": "^15.4.0",
     "normalize.css": "^8.0.1",
     "react": "^17.0.1",
+    "react-app-rewire-aliases": "^0.2.0",
+    "react-app-rewired": "^2.1.6",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
     "react-timer-hook": "^2.0.3",
     "reflexbox": "^4.0.6",
     "rsuite": "^4.8.5",
-    "sb": "^6.1.9",
+    "sb": "6.1.8",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "codegen": "apollo client:codegen types --no-addTypename --target=typescript --globalTypesFile=./src/.types/globalTypes.ts --localSchemaFile=./schema.graphql",
     "lint": "eslint src/",
@@ -48,12 +50,12 @@
     ]
   },
   "devDependencies": {
-    "@storybook/addon-actions": "^6.1.9",
-    "@storybook/addon-essentials": "^6.1.9",
-    "@storybook/addon-links": "^6.1.9",
-    "@storybook/node-logger": "^6.1.9",
+    "@storybook/addon-actions": "6.1.9",
+    "@storybook/addon-essentials": "6.1.9",
+    "@storybook/addon-links": "6.1.9",
+    "@storybook/node-logger": "6.1.9",
     "@storybook/preset-create-react-app": "^3.1.5",
-    "@storybook/react": "^6.1.9",
+    "@storybook/react": "6.1.9",
     "@types/reflexbox": "^4.0.2",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-import": "^2.22.1",
@@ -67,5 +69,8 @@
     "hooks": {
       "pre-commit": "yarn pretty-quick && yarn lint --max-warnings=0"
     }
+  },
+  "resolutions": {
+    "babel-loader": "8.1.0"
   }
 }

@@ -1,4 +1,11 @@
+const path = require('path')
+const rewireAliases = require('react-app-rewire-aliases')
+const {paths} = require('react-app-rewired')
+
 module.exports = {
+  webpackFinal: rewireAliases.aliasesOptions({
+    '@eh/react': path.resolve(__dirname, '..', `${paths.appSrc}/`),
+  }),
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
