@@ -17,6 +17,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-scripts": "4.0.1",
+    "react-timer-hook": "^2.0.3",
     "reflexbox": "^4.0.6",
     "rsuite": "^4.8.5",
     "sb": "^6.1.9",
