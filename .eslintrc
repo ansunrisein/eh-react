@@ -30,7 +30,12 @@
       }
     ],
     "import/no-internal-modules": [
-      "error"
+      "error",
+      {
+        "allow": [
+          "rsuite/dist/styles/*"
+        ]
+      }
     ],
     "import/no-useless-path-segments": "error",
     "import/no-commonjs": "error",
