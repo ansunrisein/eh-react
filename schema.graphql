@@ -1,0 +1,31 @@
+scalar Date
+
+enum EventType {
+    TEXT
+    LIST
+    PICTURE
+}
+
+interface Event {
+    type: EventType!
+    header: String
+    deadline: Date
+}
+
+type TextEvent implements Event {
+    type: EventType!
+    header: String
+    deadline: Date
+    text: String!
+}
+
+type ListEvent implements Event {
+    type: EventType!
+    header: String
+    deadline: Date
+    list: [String!]!
+}
+
+type Query {
+    event: Event
+}
