@@ -33,7 +33,9 @@
       "error",
       {
         "allow": [
-          "rsuite/dist/styles/*"
+          "rsuite/dist/styles/*",
+          "swiper/react",
+          "swiper/swiper-bundle.min.css"
         ]
       }
     ],
