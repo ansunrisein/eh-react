@@ -1,7 +1,7 @@
 import React from 'react'
 import {List, Panel} from 'rsuite'
 import {Flex} from 'reflexbox'
-import {EventFragment} from '../../graphql/types/EventFragment'
+import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
 import {TimerBadge} from '../TimerBadge'
 import {isTextEvent} from './helpers'
 

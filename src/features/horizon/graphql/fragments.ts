@@ -1,18 +1,5 @@
 import {gql} from '@apollo/client'
-
-export const EVENT_FRAGMENT = gql`
-  fragment EventFragment on Event {
-    type
-    header
-    deadline
-    ... on TextEvent {
-      text
-    }
-    ... on ListEvent {
-      list
-    }
-  }
-`
+import {EVENT_FRAGMENT} from '@eh/react/features/shared/graphql'
 
 export const BOARD_FRAGMENT = gql`
   fragment BoardFragment on Board {
