@@ -10,12 +10,14 @@ interface Event {
     type: EventType!
     header: String
     deadline: Date
+    pinned: Boolean!
 }
 
 type TextEvent implements Event {
     type: EventType!
     header: String
     deadline: Date
+    pinned: Boolean!
     text: String!
 }
 
@@ -23,7 +25,13 @@ type ListEvent implements Event {
     type: EventType!
     header: String
     deadline: Date
+    pinned: Boolean!
     list: [String!]!
+}
+
+type Board {
+    name: String!
+    events: [Event!]!
 }
 
 type Query {

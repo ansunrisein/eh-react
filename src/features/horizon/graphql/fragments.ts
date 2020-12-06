@@ -13,3 +13,14 @@ export const EVENT_FRAGMENT = gql`
     }
   }
 `
+
+export const BOARD_FRAGMENT = gql`
+  fragment BoardFragment on Board {
+    name
+    events {
+      ...EventFragment
+      pinned
+    }
+  }
+  ${EVENT_FRAGMENT}
+`
