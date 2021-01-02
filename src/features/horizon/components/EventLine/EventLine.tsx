@@ -4,7 +4,7 @@ import SwiperCore, {Navigation} from 'swiper'
 import {SwiperSlide} from 'swiper/react'
 import {MySwiper} from '../MySwiper'
 import {BoardFragment_events} from '../../graphql/types/BoardFragment'
-import {EventCard} from '..'
+import {EventCard} from '../EventCard'
 
 SwiperCore.use([Navigation])
 

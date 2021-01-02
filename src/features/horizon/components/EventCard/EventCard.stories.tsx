@@ -1,8 +1,8 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react/types-6-0'
+import {Meta, Story} from '@storybook/react'
 import {Box, Flex} from 'reflexbox'
+import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
 import {EventType} from '@eh/react/.types/globalTypes'
-import {EventFragment} from '../../graphql/types/EventFragment'
 import {EventCard} from './EventCard'
 
 export default {

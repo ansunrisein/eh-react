@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react/types-6-0'
+import {Meta, Story} from '@storybook/react'
 import 'swiper/swiper-bundle.min.css'
 import {EventType} from '@eh/react/.types/globalTypes'
 import {EventLine} from './EventLine'

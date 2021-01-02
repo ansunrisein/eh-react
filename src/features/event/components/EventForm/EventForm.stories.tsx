@@ -1,5 +1,5 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react/types-6-0'
+import {Meta, Story} from '@storybook/react'
 import {EventForm} from '@eh/react/features/event/components'
 
 export default {
