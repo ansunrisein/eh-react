@@ -8,8 +8,8 @@ import {EventLine} from '../EventLine'
 export type BoardProps = {
   board: BoardFragment
   expandable?: boolean
-  onExpand?: () => unknown
-  onCollapse?: () => unknown
+  onExpand?: (board: BoardFragment) => unknown
+  onCollapse?: (board: BoardFragment) => unknown
 }
 
 export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onCollapse}) => {
@@ -17,13 +17,13 @@ export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onColl
 
   const expand = useCallback(() => {
     setExpanded(true)
-    onExpand?.()
-  }, [setExpanded, onExpand])
+    onExpand?.(board)
+  }, [setExpanded, onExpand, board])
 
   const collapse = useCallback(() => {
     setExpanded(false)
-    onCollapse?.()
-  }, [setExpanded, onCollapse])
+    onCollapse?.(board)
+  }, [setExpanded, onCollapse, board])
 
   const toggle = useCallback(() => (expanded ? collapse() : expand()), [expanded, collapse, expand])
 
