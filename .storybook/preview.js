@@ -1,3 +1,4 @@
+import '@eh/react/index.css'
 import 'normalize.css'
 import 'rsuite/dist/styles/rsuite-dark.css'
 
