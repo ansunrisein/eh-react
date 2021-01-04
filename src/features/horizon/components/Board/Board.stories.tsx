@@ -12,6 +12,7 @@ export default {
 } as Meta
 
 const board = {
+  id: '123',
   name: 'My board',
   events: [
     {

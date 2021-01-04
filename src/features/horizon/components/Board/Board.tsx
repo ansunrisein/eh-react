@@ -1,12 +1,12 @@
 import React, {useCallback, useState} from 'react'
 import {Button, Icon, Panel} from 'rsuite'
 import {Box, Flex} from 'reflexbox'
-import {BoardFragment_events} from '../../graphql/types/BoardFragment'
+import {BoardFragment} from '../../graphql/types/BoardFragment'
 import {EventGrid} from '../EventGrid'
 import {EventLine} from '../EventLine'
 
 export type BoardProps = {
-  board: {name: string; events: BoardFragment_events[]}
+  board: BoardFragment
   expandable?: boolean
   onExpand?: () => unknown
   onCollapse?: () => unknown
