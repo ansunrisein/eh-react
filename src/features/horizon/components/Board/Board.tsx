@@ -43,7 +43,7 @@ export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onColl
             zIndex: 9999,
           }}
         >
-          <Button onClick={toggle}>
+          <Button onClick={toggle} data-testid="expand-button">
             <Icon icon={expanded ? 'up' : 'down'} />
           </Button>
         </Box>
