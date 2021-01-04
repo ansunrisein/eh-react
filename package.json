@@ -70,6 +70,11 @@
     "prettier": "^2.2.1",
     "pretty-quick": "^3.1.0"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "@eh/react/(.*)$": "<rootDir>/src/$1"
+    }
+  },
   "husky": {
     "hooks": {
       "pre-commit": "yarn pretty-quick && yarn lint --max-warnings=0"
