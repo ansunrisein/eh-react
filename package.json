@@ -24,6 +24,7 @@
     "react-scripts": "4.0.1",
     "react-test-renderer": "^17.0.1",
     "react-timer-hook": "^2.0.3",
+    "react-use": "^15.3.6",
     "reflexbox": "^4.0.6",
     "rsuite": "^4.8.5",
     "sb": "6.1.8",
