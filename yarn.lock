@@ -2077,6 +2077,11 @@
     estree-walker "^1.0.1"
     picomatch "^2.2.2"
 
+"@rooks/use-did-update@^4.5.0":
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/@rooks/use-did-update/-/use-did-update-4.5.0.tgz#a9d8534f78ddc52ce4cf9d5d3307e58ae6cf624d"
+  integrity sha512-+QRSHhubrJQw+Vip/eGK7xB1rhIP0zsbl5zIFOhQ28ocdJBEgyvfxzERMINC11OnM3kvNcUXZrs4SdJ4cg9tiQ==
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.1.tgz#a21117b19ee9be70c379ec1877537ef2e1c63301"
