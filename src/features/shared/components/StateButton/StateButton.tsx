@@ -1,14 +1,8 @@
-import React, {
-  EventHandler,
-  ReactNode,
-  SyntheticEvent,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import React, {EventHandler, ReactNode, SyntheticEvent, useCallback, useMemo, useState} from 'react'
 import {Button, IconButtonProps} from 'rsuite'
 import c from 'classnames'
+import {useLatest} from 'react-use'
+import useDidUpdate from '@rooks/use-did-update'
 import S from './styles.module.css'
 
 export type StateButtonProps = {
@@ -29,6 +23,7 @@ export const StateButton: React.FC<StateButtonProps> = ({
   ...props
 }) => {
   const [state, setState] = useState(defaultState)
+  const onChangeRef = useLatest(onChange)
 
   const realStates = useMemo(() => (neutralState && children ? ['', ...states] : states), [
     neutralState,
@@ -36,9 +31,9 @@ export const StateButton: React.FC<StateButtonProps> = ({
     children,
   ])
 
-  useEffect(() => {
-    onChange?.(state)
-  }, [state, onChange])
+  useDidUpdate(() => {
+    onChangeRef.current?.(state)
+  }, [state, onChangeRef])
 
   const rotateState = useCallback(() => setState(prev => (prev + 1) % realStates.length), [
     realStates.length,
