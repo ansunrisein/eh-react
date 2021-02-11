@@ -1,6 +1,6 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {EventForm} from '@eh/react/features/event/components'
+import {EventForm} from './EventForm'
 
 export default {
   component: EventForm,
