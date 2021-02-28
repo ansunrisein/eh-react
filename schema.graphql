@@ -36,6 +36,32 @@ type Board {
     events: [Event!]!
 }
 
+input Page {
+    before: ID
+    after: ID
+    first: Int
+    last: Int
+}
+
+type DashboardConnection {
+    pageInfo: PageInfo!
+    edges: [DashboardEdge!]!
+}
+
+type DashboardEdge {
+    node: Board!
+    cursor: ID!
+}
+
+type PageInfo {
+    startCursor: ID
+    endCursor: ID
+    hasNextPage: Boolean!
+    hasPreviousPage: Boolean!
+}
+
 type Query {
     event: Event
+
+    dashboard(page: Page): DashboardConnection!
 }
