@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { Page, EventType } from "./../../../../.types/globalTypes";
+import { DashboardFilter, DashboardSort, Page, EventType } from "./../../../../.types/globalTypes";
 
 // ====================================================
 // GraphQL query operation: Dashboard
@@ -56,5 +56,7 @@ export interface Dashboard {
 }
 
 export interface DashboardVariables {
+  filter?: DashboardFilter | null;
+  sort?: DashboardSort | null;
   page?: Page | null;
 }

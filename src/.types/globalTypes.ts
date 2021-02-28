@@ -13,6 +13,19 @@ export enum EventType {
   TEXT = "TEXT",
 }
 
+export interface DashboardFilter {
+  ownership?: number | null;
+  favorite?: number | null;
+  pin?: number | null;
+}
+
+export interface DashboardSort {
+  nearestEvent?: string | null;
+  favorite?: string | null;
+  subsCount?: string | null;
+  pin?: string | null;
+}
+
 export interface Page {
   before?: string | null;
   after?: string | null;

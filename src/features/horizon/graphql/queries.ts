@@ -2,8 +2,8 @@ import {gql} from '@apollo/client'
 import {BOARD_FRAGMENT} from './fragments'
 
 export const DASHBOARD = gql`
-  query Dashboard($page: Page) {
-    dashboard(page: $page) {
+  query Dashboard($filter: DashboardFilter, $sort: DashboardSort, $page: Page) {
+    dashboard(filter: $filter, sort: $sort, page: $page) {
       pageInfo {
         startCursor
         endCursor

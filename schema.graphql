@@ -36,6 +36,19 @@ type Board {
     events: [Event!]!
 }
 
+input DashboardFilter {
+    ownership: Int
+    favorite: Int
+    pin: Int
+}
+
+input DashboardSort {
+    nearestEvent: String
+    favorite: String
+    subsCount: String
+    pin: String
+}
+
 input Page {
     before: ID
     after: ID
@@ -63,5 +76,5 @@ type PageInfo {
 type Query {
     event: Event
 
-    dashboard(page: Page): DashboardConnection!
+    dashboard(filter: DashboardFilter, sort: DashboardSort, page: Page): DashboardConnection!
 }
