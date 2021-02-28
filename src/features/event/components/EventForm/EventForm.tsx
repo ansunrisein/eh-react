@@ -1,47 +1,77 @@
-import React, {useState} from 'react'
-import {Button, DatePicker, Input, Steps} from 'rsuite'
+import React from 'react'
+import {Button, DatePicker, Input, List, Radio, RadioGroup, Steps} from 'rsuite'
 import {Box, Flex} from 'reflexbox'
+import {Controller} from 'react-hook-form'
 import {EventType} from '@eh/react/.types/globalTypes'
-import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
+import {useEventForm} from '@eh/react/features/event/hooks'
+import {Spacing} from '@eh/react/ui'
 import {hasContent} from './helpers'
 import {Item} from './Item'
-import {ContentForm} from './ContentForm'
 
 export const EventForm: React.FC = () => {
-  const [event, setEvent] = useState<EventFragment>({
-    header: null,
-    text: '',
-    type: EventType.TEXT,
-    deadline: null,
-  })
-
-  const setEventType = (type: EventType) =>
-    setEvent({
-      ...event,
-      type,
-      ...(type === EventType.LIST ? {list: ['']} : {text: ''}),
-    })
-
-  const setContent = (content: string | string[]) =>
-    setEvent({...event, ...(Array.isArray(content) ? {list: content} : {text: content})})
-
-  const setHeader = (header: string) => setEvent({...event, header})
+  const {register, control, setValue, event, fields, append, remove} = useEventForm()
 
   return (
     <Flex as="form" flexDirection="column">
       <Steps vertical>
         <Item status={event.header ? 'finish' : 'wait'} icon="pencil" title="Header">
-          <Input name="header" value={event.header || ''} onChange={setHeader} />
+          <Input name="header" inputRef={register} />
         </Item>
         <Item status={hasContent(event) ? 'finish' : 'wait'} icon="pencil" title="Content">
-          <ContentForm
-            event={event}
-            onContentChange={setContent}
-            onContentTypeChange={setEventType}
-          />
+          <RadioGroup
+            inline
+            appearance="picker"
+            onChange={value => setValue('type', value)}
+            value={event.type}
+          >
+            <Radio value={EventType.TEXT}>Text</Radio>
+            <Radio value={EventType.LIST}>List</Radio>
+            <Radio value={EventType.PICTURE}>Picture</Radio>
+          </RadioGroup>
+          <Spacing space="1rem" vertical />
+          {event.type === EventType.TEXT ? (
+            <Input inputRef={register} name="text" componentClass="textarea" />
+          ) : event.type === EventType.LIST ? (
+            <>
+              <List bordered>
+                {fields.map((e, i) => (
+                  <List.Item key={e.id}>
+                    <Flex>
+                      <Input name={`list[${i}].value`} inputRef={register()} />
+                      <Spacing space="1rem" />
+                      <Button onClick={() => remove(i)}>Delete</Button>
+                    </Flex>
+                  </List.Item>
+                ))}
+              </List>
+              <Spacing space="0.8rem" vertical />
+              <Button
+                style={{paddingRight: '4rem', paddingLeft: '4rem', float: 'right'}}
+                onClick={() => append({value: ''})}
+              >
+                Add
+              </Button>
+            </>
+          ) : event.type === EventType.PICTURE ? (
+            <div>Picture</div>
+          ) : (
+            <></>
+          )}
         </Item>
         <Item status={event.deadline ? 'finish' : 'wait'} icon="pencil" title="Deadline">
-          <DatePicker disabled={!hasContent(event)} format="YYYY-MM-DD HH:mm:ss" />
+          <Controller
+            control={control}
+            name="deadline"
+            render={({value, onChange}) => (
+              <DatePicker
+                value={value}
+                onChange={onChange}
+                placement="rightEnd"
+                disabled={!hasContent(event)}
+                format="YYYY-MM-DD HH:mm:ss"
+              />
+            )}
+          />
         </Item>
       </Steps>
       <Box alignSelf="flex-end">
