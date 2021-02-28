@@ -28,8 +28,8 @@ export interface BoardFragment_events_ListEvent {
 export type BoardFragment_events = BoardFragment_events_TextEvent | BoardFragment_events_ListEvent
 
 export interface BoardFragment {
-  id: string;
-  name: string;
-  description: string | null;
-  events: BoardFragment_events[];
+  id: string
+  name: string
+  description: string | null
+  events: BoardFragment_events[]
 }

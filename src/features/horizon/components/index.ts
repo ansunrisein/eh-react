@@ -1,4 +1,5 @@
 export * from './Board'
+export * from './BoardForm'
 export * from './BoardList'
 export * from './EventCard'
 export * from './EventLine'
