@@ -48,6 +48,7 @@ export const sorts = [
 ]
 export const board = {
   name: 'My board',
+  description: 'Best board',
   events: [
     {
       type: EventType.TEXT,

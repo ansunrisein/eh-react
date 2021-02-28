@@ -14,6 +14,7 @@ export default {
 const board = {
   id: '123',
   name: 'My board',
+  description: 'Best board',
   events: [
     {
       type: EventType.TEXT,

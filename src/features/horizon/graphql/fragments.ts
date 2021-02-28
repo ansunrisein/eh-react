@@ -5,6 +5,7 @@ export const BOARD_FRAGMENT = gql`
   fragment BoardFragment on Board {
     id
     name
+    description
     events {
       ...EventFragment
       pinned

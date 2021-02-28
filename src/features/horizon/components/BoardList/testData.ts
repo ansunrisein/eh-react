@@ -2,6 +2,7 @@ import {EventType} from '@eh/react/.types/globalTypes'
 
 const board = {
   name: 'My board',
+  description: 'Best board',
   events: [
     {
       type: EventType.TEXT,

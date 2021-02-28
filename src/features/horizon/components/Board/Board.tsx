@@ -31,7 +31,7 @@ export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onColl
     <Panel bordered shaded style={{position: 'relative'}}>
       <Flex justifyContent="space-between" marginBottom="1rem">
         <h5>{board.name}</h5>
-        <span>{board.name}</span>
+        <span>{board.description}</span>
       </Flex>
       {expanded ? <EventGrid events={board.events} /> : <EventLine events={board.events} />}
       {expandable && (

@@ -32,6 +32,7 @@ type ListEvent implements Event {
 type Board {
     id: ID!
     name: String!
+    description: String
     events: [Event!]!
 }
 
