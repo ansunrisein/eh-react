@@ -12,22 +12,18 @@ export const MySwiper: React.FC = ({children}) => {
   const [nextDisabled, setNextDisabled] = useState(false)
 
   useLayoutEffect(() => {
-    if (!next.current || !prev.current) {
-      return
-    }
-
-    const observer = new MutationObserver(records => {
-      records.forEach(record => {
-        const target = record.target as HTMLDivElement
-        const setter = target === next.current ? setNextDisabled : setPrevDisabled
-        setter(target.classList.contains('swiper-button-disabled'))
+    if (next.current && prev.current) {
+      const observer = new MutationObserver(records => {
+        records.forEach(record => {
+          const target = record.target as HTMLDivElement
+          const setter = target === next.current ? setNextDisabled : setPrevDisabled
+          setter(target.classList.contains('swiper-button-disabled'))
+        })
       })
-    })
-
-    observer.observe(next.current, {attributes: true})
-    observer.observe(prev.current, {attributes: true})
-
-    return () => observer.disconnect()
+      observer.observe(next.current, {attributes: true})
+      observer.observe(prev.current, {attributes: true})
+      return () => observer.disconnect()
+    }
   }, [next, prev, setNextDisabled, setPrevDisabled])
 
   return (
