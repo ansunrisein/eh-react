@@ -10,7 +10,9 @@ export const useScrollToId = (): UseScrollToIdResult => {
 
   const register = useCallback(
     (element: HTMLElement | null) => {
-      if (element) refs.current[element.id] = element
+      if (element) {
+        refs.current[element.id] = element
+      }
     },
     [refs],
   )

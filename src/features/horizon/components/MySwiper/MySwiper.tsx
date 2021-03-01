@@ -12,7 +12,9 @@ export const MySwiper: React.FC = ({children}) => {
   const [nextDisabled, setNextDisabled] = useState(false)
 
   useLayoutEffect(() => {
-    if (!next.current || !prev.current) return
+    if (!next.current || !prev.current) {
+      return
+    }
 
     const observer = new MutationObserver(records => {
       records.forEach(record => {

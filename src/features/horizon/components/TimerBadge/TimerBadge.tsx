@@ -10,7 +10,9 @@ export const TimerBadge: React.FC<TimerSettings> = props => {
 
   const time = formatTime(rest)
 
-  if (!time) return <Badge content="Time is up" />
+  if (!time) {
+    return <Badge content="Time is up" />
+  }
 
   return <Tag color="violet">{time}</Tag>
 }
