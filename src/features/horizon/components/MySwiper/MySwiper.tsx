@@ -2,7 +2,7 @@ import React, {useLayoutEffect, useRef, useState} from 'react'
 import c from 'classnames'
 import {Swiper} from 'swiper/react'
 import {Icon, IconButton} from 'rsuite'
-import styles from './styles.module.css'
+import styles from './MySwiper.module.css'
 
 export const MySwiper: React.FC = ({children}) => {
   const next = useRef<HTMLDivElement>(null)
