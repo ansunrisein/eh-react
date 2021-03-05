@@ -1,15 +1,8 @@
 import React from 'react'
 import {Box, Flex} from 'reflexbox'
 import {Icon, IconButton} from 'rsuite'
-import {
-  BoardList,
-  BoardListProps,
-  Filters,
-  FiltersProps,
-  Sorts,
-  SortsProps,
-} from '@eh/react/features/horizon/components'
 import {Spacing} from '@eh/react/ui'
+import {BoardList, BoardListProps, Filters, FiltersProps, Sorts, SortsProps} from '../../components'
 
 export type DashboardProps = {
   filters: FiltersProps['filters']
