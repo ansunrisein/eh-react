@@ -1,21 +1,21 @@
 import React from 'react'
-import {Icon} from 'rsuite'
+import {ActionIcon} from '@eh/react/ui'
 
 export const sortConfig = [
   {
     name: 'nearestEvent',
-    icon: <Icon icon="pie-chart" />,
+    icon: <ActionIcon icon="timer" />,
   },
   {
     name: 'favorite',
-    icon: <Icon icon="star" />,
+    icon: <ActionIcon icon="fav" />,
   },
   {
     name: 'subsCount',
-    icon: <Icon icon="group" />,
+    icon: <ActionIcon icon="team" />,
   },
   {
     name: 'pin',
-    icon: <Icon icon="thumb-tack" />,
+    icon: <ActionIcon icon="pin" />,
   },
 ]
