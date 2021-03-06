@@ -417,7 +417,7 @@ const events = [
     deadline: '2020-11-15T21:57:03.365Z',
   },
 ]
-const board = {id: '123', name: 'Name', events}
+const board = {id: '123', name: 'Name', description: '', events}
 
 describe('Board', () => {
   it('should not render expand button when not expandable', () => {
