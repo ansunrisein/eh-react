@@ -12,7 +12,7 @@ describe('BoardList', () => {
 
   it('should scroll to board on expand', () => {
     render(<BoardList boards={boards} />)
-    const board = screen.getByTestId('board-' + boards[0].id)
+    const board = screen.getByTestId('board-' + boards[0].cursor)
     act(() => getByTestId(board, 'expand-button').click())
     expect(scrollIntoView).toBeCalled()
   })
