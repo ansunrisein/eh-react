@@ -1,5 +1,6 @@
 import React from 'react'
 import {Flex} from 'reflexbox'
+import {Header} from '@eh/react/features/common/components'
 import {Dashboard} from '../../views'
 import {useDashboard, useFilter, useSort} from '../../hooks'
 import {filterConfig} from './filters'
@@ -18,14 +19,17 @@ export const Horizon: React.FC<HorizonProps> = () => {
   }
 
   return (
-    <Flex>
-      <Dashboard
-        filters={filterConfig}
-        sorts={sortConfig}
-        boards={dashboard}
-        onFiltersChange={setFiltersState}
-        onSortsChange={setSortsState}
-      />
-    </Flex>
+    <>
+      <Header />
+      <Flex>
+        <Dashboard
+          filters={filterConfig}
+          sorts={sortConfig}
+          boards={dashboard}
+          onFiltersChange={setFiltersState}
+          onSortsChange={setSortsState}
+        />
+      </Flex>
+    </>
   )
 }
