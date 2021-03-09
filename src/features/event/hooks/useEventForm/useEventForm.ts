@@ -5,14 +5,14 @@ import {EventType} from '@eh/react/.types/globalTypes'
 
 export type UseEventFormResult = Pick<
   UseFormMethods<EventFragment>,
-  'register' | 'control' | 'setValue'
+  'register' | 'control' | 'setValue' | 'handleSubmit'
 > &
   Pick<UseFieldArrayMethods<{value: string}>, 'fields' | 'append' | 'remove'> & {
     event: EventFragment
   }
 
 export const useEventForm = (): UseEventFormResult => {
-  const {register, watch, setValue, control} = useForm<EventFragment>({
+  const {register, watch, setValue, control, handleSubmit} = useForm<EventFragment>({
     defaultValues: {
       header: null,
       text: '',
@@ -51,5 +51,6 @@ export const useEventForm = (): UseEventFormResult => {
     fields,
     append,
     remove,
+    handleSubmit,
   }
 }
