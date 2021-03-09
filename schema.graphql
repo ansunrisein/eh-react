@@ -80,5 +80,14 @@ type Query {
 }
 
 type Mutation {
-    createBoard(title: String!, description: String): Board!
+  createBoard(title: String!, description: String): Board!
+  createEvent(
+    boardId: ID!
+    type: EventType!
+    header: String
+    deadline: Date
+    pinned: Boolean!
+    text: String
+    list: [String!]
+  ): Event!
 }
