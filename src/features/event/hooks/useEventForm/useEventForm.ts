@@ -1,18 +1,24 @@
 import {useEffect, useMemo} from 'react'
 import {useFieldArray, UseFieldArrayMethods, useForm, UseFormMethods} from 'react-hook-form'
-import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
 import {EventType} from '@eh/react/.types/globalTypes'
+import {CreateEventVariables} from '../../graphql/types/CreateEvent'
+
+export type EventFormFields = Omit<CreateEventVariables, 'boardId'>
+
+export type EventFormFieldsWithList = Omit<EventFormFields, 'list'> & {
+  list: Array<{value?: string}>
+}
 
 export type UseEventFormResult = Pick<
-  UseFormMethods<EventFragment>,
+  UseFormMethods<EventFormFieldsWithList>,
   'register' | 'control' | 'setValue' | 'handleSubmit'
 > &
   Pick<UseFieldArrayMethods<{value: string}>, 'fields' | 'append' | 'remove'> & {
-    event: EventFragment
+    event: EventFormFields
   }
 
 export const useEventForm = (): UseEventFormResult => {
-  const {register, watch, setValue, control, handleSubmit} = useForm<EventFragment>({
+  const {register, watch, setValue, control, handleSubmit} = useForm<EventFormFieldsWithList>({
     defaultValues: {
       header: null,
       text: '',
@@ -32,7 +38,7 @@ export const useEventForm = (): UseEventFormResult => {
 
   const formData = watch()
   const list = watch('list', fields)
-  const event = useMemo<EventFragment>(
+  const event = useMemo<EventFormFields>(
     () =>
       'list' in formData
         ? {
