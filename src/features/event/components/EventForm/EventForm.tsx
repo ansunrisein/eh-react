@@ -2,17 +2,23 @@ import React from 'react'
 import {Button, DatePicker, Input, List, Radio, RadioGroup, Steps} from 'rsuite'
 import {Box, Flex} from 'reflexbox'
 import {Controller} from 'react-hook-form'
+import noop from 'noop6'
 import {EventType} from '@eh/react/.types/globalTypes'
 import {Spacing} from '@eh/react/ui'
 import {useEventForm} from '../../hooks'
+import {CreateEventVariables} from '../../graphql/types/CreateEvent'
 import {hasContent} from './helpers'
 import {Item} from './Item'
 
-export const EventForm: React.FC = () => {
-  const {register, control, setValue, event, fields, append, remove} = useEventForm()
+export type EventFormProps = {
+  onSubmit?: (data: Omit<CreateEventVariables, 'boardId'>) => unknown
+}
+
+export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop}) => {
+  const {register, control, setValue, event, fields, append, remove, handleSubmit} = useEventForm()
 
   return (
-    <Flex as="form" flexDirection="column">
+    <Flex as="form" flexDirection="column" onSubmit={handleSubmit(onSubmit)}>
       <Steps vertical>
         <Item status={event.header ? 'finish' : 'wait'} icon="pencil" title="Header">
           <Input name="header" inputRef={register} />
@@ -75,7 +81,7 @@ export const EventForm: React.FC = () => {
         </Item>
       </Steps>
       <Box alignSelf="flex-end">
-        <Button appearance="primary" disabled={!hasContent(event)}>
+        <Button type="submit" appearance="primary" disabled={!hasContent(event)}>
           Save
         </Button>
       </Box>

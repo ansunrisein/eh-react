@@ -1,13 +1,19 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {EventForm} from './EventForm'
+import {Box} from 'reflexbox'
+import {EventForm, EventFormProps} from './EventForm'
 
 export default {
   component: EventForm,
   title: 'EventForm',
   parameters: {
     controls: {hideNoControlsWarning: true},
+    layout: 'centered',
   },
 } as Meta
 
-export const Usual: Story = () => <EventForm />
+export const Usual: Story<EventFormProps> = props => (
+  <Box width="40vw">
+    <EventForm {...props} />
+  </Box>
+)
