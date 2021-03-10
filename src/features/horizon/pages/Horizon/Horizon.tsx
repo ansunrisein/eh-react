@@ -1,5 +1,6 @@
 import React from 'react'
 import {Flex} from 'reflexbox'
+import {Loader} from 'rsuite'
 import {Header} from '@eh/react/features/common/components'
 import {useModal} from '@eh/react/features/shared/contexts/ModalContext'
 import {useDashboard, useFilter, useSort} from '../../hooks'
@@ -16,10 +17,10 @@ export const Horizon: React.FC<HorizonProps> = () => {
   const {filtersState, setFiltersState} = useFilter(filterConfig)
   const {sortsState, setSortsState} = useSort(sortConfig)
 
-  const {dashboard} = useDashboard({filters: filtersState, sorts: sortsState})
+  const {dashboard, loading} = useDashboard({filters: filtersState, sorts: sortsState})
 
-  if (!dashboard) {
-    return null
+  if (!dashboard || loading) {
+    return <Loader center backdrop size="lg" />
   }
 
   return (
