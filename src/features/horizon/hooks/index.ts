@@ -1,4 +1,5 @@
 export * from './useBoard'
+export * from './useCreateBoard'
 export * from './useDashboard'
 export * from './useFilter'
 export * from './useScrollToId'
