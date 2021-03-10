@@ -11,6 +11,7 @@ export type DashboardProps = {
   sorts: SortsProps['sorts']
   onFiltersChange?: FiltersProps['onChange']
   onSortsChange?: SortsProps['onChange']
+  onCreateBoardClick?: () => unknown
   defaultDisplay?: 'list' | 'grid'
 }
 
@@ -20,6 +21,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   sorts,
   onFiltersChange,
   onSortsChange,
+  onCreateBoardClick,
   defaultDisplay = 'list',
 }) => {
   const [display, setDisplay] = useState(defaultDisplay)
@@ -45,7 +47,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             data-testid="switch-display"
           />
           <Spacing space="1rem" vertical />
-          <IconButton icon={<Icon icon="plus" />} size="lg" />
+          <IconButton icon={<Icon icon="plus" />} size="lg" onClick={onCreateBoardClick} />
         </Box>
       </Flex>
       <Spacing space="0.5rem" />
