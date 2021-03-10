@@ -1,4 +1,4 @@
-import {ApolloError, FetchResult, useMutation} from '@apollo/client'
+import {ApolloError, FetchResult, MutationHookOptions, useMutation} from '@apollo/client'
 import {useCallback} from 'react'
 import {CreateEvent, CreateEventVariables} from '../../graphql/types/CreateEvent'
 import {CREATE_EVENT} from '../../graphql'
@@ -11,8 +11,10 @@ export type UseCreateEventResult = {
   error?: ApolloError
 }
 
-export const useCreateEvent = (): UseCreateEventResult => {
-  const [mutate, {loading, error}] = useMutation<CreateEvent, CreateEventVariables>(CREATE_EVENT)
+export const useCreateEvent = (
+  options?: MutationHookOptions<CreateEvent, CreateEventVariables>,
+): UseCreateEventResult => {
+  const [mutate, {loading, error}] = useMutation(CREATE_EVENT, options)
 
   const create = useCallback<Create>(variables => mutate({variables}), [mutate])
 

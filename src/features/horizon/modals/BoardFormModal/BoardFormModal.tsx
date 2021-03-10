@@ -12,7 +12,7 @@ export type BoardFormModalProps = {
 export const BoardFormModal: React.FC<BoardFormModalProps> = ({show, onHide}) => {
   const {isOpened, close} = useModal(BoardFormModal)
 
-  const {create, loading} = useCreateBoard()
+  const {create, loading} = useCreateBoard({onCompleted: onHide || close})
 
   return (
     <Modal show={show ?? isOpened} onHide={onHide || close}>

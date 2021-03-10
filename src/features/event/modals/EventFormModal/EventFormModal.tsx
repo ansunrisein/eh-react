@@ -14,7 +14,7 @@ export const EventFormModal: React.FC<EventFormModalProps> = ({boardId, show, on
   const {isOpened, close, props} = useModal(EventFormModal)
   const id = boardId ?? props?.boardId
 
-  const {create, loading} = useCreateEvent()
+  const {create, loading} = useCreateEvent({onCompleted: onHide || close})
 
   const onEventFormSubmit = useCallback(data => create({...data, boardId: id}), [create, id])
 
