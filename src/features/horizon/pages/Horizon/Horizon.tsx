@@ -9,9 +9,7 @@ import {BoardFormModal} from '../../modals'
 import {filterConfig} from './filters'
 import {sortConfig} from './sorts'
 
-export type HorizonProps = any
-
-export const Horizon: React.FC<HorizonProps> = () => {
+export const Horizon: React.FC = () => {
   const {open} = useModal(BoardFormModal)
 
   const {filtersState, setFiltersState} = useFilter(filterConfig)
