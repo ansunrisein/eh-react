@@ -35,7 +35,8 @@
         "allow": [
           "rsuite/dist/styles/*",
           "swiper/react",
-          "swiper/swiper-bundle.min.css"
+          "swiper/swiper-bundle.min.css",
+          "@apollo/client/testing"
         ]
       }
     ],
