@@ -20,3 +20,12 @@ export const DASHBOARD = gql`
   }
   ${BOARD_FRAGMENT}
 `
+
+export const BOARD = gql`
+  query Board($id: ID!) {
+    board(id: $id) {
+      ...BoardFragment
+    }
+  }
+  ${BOARD_FRAGMENT}
+`

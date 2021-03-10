@@ -74,9 +74,8 @@ type PageInfo {
 }
 
 type Query {
-    event: Event
-
-    dashboard(filter: DashboardFilter, sort: DashboardSort, page: Page): DashboardConnection!
+  dashboard(filter: DashboardFilter, sort: DashboardSort, page: Page): DashboardConnection!
+  board(id: ID!): Board!
 }
 
 type Mutation {
