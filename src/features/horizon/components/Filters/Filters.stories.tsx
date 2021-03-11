@@ -5,7 +5,7 @@ import {Filters} from './Filters'
 
 export default {
   component: Filters,
-  title: 'Filters',
+  title: 'horizon/Filters',
 } as Meta
 
 const filters = [

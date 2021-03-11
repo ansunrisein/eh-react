@@ -5,7 +5,7 @@ import {boards} from './testData'
 
 export default {
   component: BoardList,
-  title: 'BoardList',
+  title: 'horizon/BoardList',
 } as Meta
 
 export const Usual: Story = () => <BoardList boards={boards} />

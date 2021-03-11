@@ -4,7 +4,7 @@ import {FilterButton} from './FilterButton'
 
 export default {
   component: FilterButton,
-  title: 'FilterButton',
+  title: 'horizon/FilterButton',
 } as Meta
 
 export const Usual: Story = () => (

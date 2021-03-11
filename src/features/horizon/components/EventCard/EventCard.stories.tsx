@@ -7,7 +7,7 @@ import {EventCard} from './EventCard'
 
 export default {
   component: EventCard,
-  title: 'EventCard',
+  title: 'horizon/EventCard',
 } as Meta
 
 const Card: Story<EventFragment> = event => (

@@ -6,7 +6,7 @@ import {StateButton} from './StateButton'
 
 export default {
   component: StateButton,
-  title: 'StateButton',
+  title: 'shared/StateButton',
 } as Meta
 
 const icons = ['vk', 'twitter', 'instagram', 'twitch'].map((e: any, i) => <Icon key={i} icon={e} />)

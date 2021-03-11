@@ -6,7 +6,7 @@ import {board} from './testData'
 
 export default {
   component: BoardCard,
-  title: 'BoardCard',
+  title: 'horizon/BoardCard',
 } as Meta
 
 export const Usual: Story = () => (

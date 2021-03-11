@@ -6,7 +6,7 @@ import {BoardControl} from './BoardControl'
 
 export default {
   component: BoardControl,
-  title: 'BoardControl',
+  title: 'horizon/BoardControl',
 } as Meta
 
 export const Usual: Story = () => (

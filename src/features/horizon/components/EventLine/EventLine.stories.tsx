@@ -5,7 +5,7 @@ import {EventType} from '@eh/react/.types/globalTypes'
 import {EventLine} from './EventLine'
 
 export default {
-  title: 'EventLine',
+  title: 'horizon/EventLine',
   component: EventLine,
   parameters: {
     controls: {hideNoControlsWarning: true},

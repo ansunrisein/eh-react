@@ -4,7 +4,7 @@ import {SortButton} from './SortButton'
 
 export default {
   component: SortButton,
-  title: 'SortButton',
+  title: 'horizon/SortButton',
 } as Meta
 
 export const Usual: Story = () => <SortButton />

@@ -5,7 +5,7 @@ import {EventGrid} from './EventGrid'
 
 export default {
   component: EventGrid,
-  title: 'EventGrid',
+  title: 'horizon/EventGrid',
 } as Meta
 
 const events = [

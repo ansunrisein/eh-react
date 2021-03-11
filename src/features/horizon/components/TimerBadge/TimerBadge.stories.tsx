@@ -4,7 +4,7 @@ import {Box, Flex} from 'reflexbox'
 import {TimerBadge} from './TimerBadge'
 
 export default {
-  title: 'TimerBadge',
+  title: 'horizon/TimerBadge',
   component: TimerBadge,
 } as Meta
 

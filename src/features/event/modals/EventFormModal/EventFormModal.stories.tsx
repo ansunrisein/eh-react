@@ -5,7 +5,7 @@ import {EventFormModal, EventFormModalProps} from './EventFormModal'
 
 export default {
   component: EventFormModal,
-  title: 'EventFormModal',
+  title: 'event/EventFormModal',
   decorators: [
     Story => (
       <MockedProvider mocks={[]}>

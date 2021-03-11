@@ -5,7 +5,7 @@ import {BoardForm} from './BoardForm'
 
 export default {
   component: BoardForm,
-  title: 'BoardForm',
+  title: 'horizon/BoardForm',
 } as Meta
 
 export const Usual: Story = () => (

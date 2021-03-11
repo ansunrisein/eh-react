@@ -5,7 +5,7 @@ import {EventForm, EventFormProps} from './EventForm'
 
 export default {
   component: EventForm,
-  title: 'EventForm',
+  title: 'event/EventForm',
   parameters: {
     controls: {hideNoControlsWarning: true},
     layout: 'centered',

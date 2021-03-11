@@ -6,7 +6,7 @@ import {boards, filters, sorts} from './testData'
 
 export default {
   component: Dashboard,
-  title: 'Dashboard',
+  title: 'horizon/Dashboard',
 } as Meta
 
 export const Usual: Story = () => (

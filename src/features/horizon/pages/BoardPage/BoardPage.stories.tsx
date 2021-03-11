@@ -4,7 +4,7 @@ import {BoardPage} from './BoardPage'
 
 export default {
   component: BoardPage,
-  title: 'BoardPage',
+  title: 'horizon/BoardPage',
 } as Meta
 
 export const Usual: Story = () => <BoardPage />

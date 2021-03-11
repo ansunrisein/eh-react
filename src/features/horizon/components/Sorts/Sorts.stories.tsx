@@ -5,7 +5,7 @@ import {Sorts} from './Sorts'
 
 export default {
   component: Sorts,
-  title: 'Sorts',
+  title: 'horizon/Sorts',
 } as Meta
 
 const sorts = [

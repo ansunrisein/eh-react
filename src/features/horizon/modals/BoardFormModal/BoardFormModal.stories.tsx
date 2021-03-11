@@ -5,7 +5,7 @@ import {BoardFormModal, BoardFormModalProps} from './BoardFormModal'
 
 export default {
   component: BoardFormModal,
-  title: 'BoardFormModal',
+  title: 'horizon/BoardFormModal',
   decorators: [
     Story => (
       <MockedProvider mocks={[]}>

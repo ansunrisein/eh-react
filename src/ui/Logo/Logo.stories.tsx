@@ -4,7 +4,7 @@ import {Logo} from './Logo'
 
 export default {
   component: Logo,
-  title: 'Logo',
+  title: 'ui/Logo',
 } as Meta
 
 export const Usual: Story = () => <Logo />
