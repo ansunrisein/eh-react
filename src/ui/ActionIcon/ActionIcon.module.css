@@ -1,7 +1,7 @@
 .disabled {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .pin.checked {
-    transform: rotate(45deg);
+  transform: rotate(45deg);
 }

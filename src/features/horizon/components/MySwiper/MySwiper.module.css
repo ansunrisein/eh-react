@@ -1,16 +1,16 @@
 .control {
-    z-index: 1;
-    position: absolute;
-    top: 0;
-    height: 100%;
-    display: flex;
-    align-items: center;
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .next {
-    right: 0;
+  right: 0;
 }
 
 .prev {
-    left: 0;
+  left: 0;
 }
