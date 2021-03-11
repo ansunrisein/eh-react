@@ -2,7 +2,7 @@ import React, {useLayoutEffect, useRef, useState} from 'react'
 import c from 'classnames'
 import {Swiper} from 'swiper/react'
 import {Icon, IconButton} from 'rsuite'
-import styles from './MySwiper.module.css'
+import s from './MySwiper.module.css'
 
 export const MySwiper: React.FC = ({children}) => {
   const next = useRef<HTMLDivElement>(null)
@@ -45,7 +45,7 @@ export const MySwiper: React.FC = ({children}) => {
       }}
     >
       {children}
-      <div className={c(styles.control, styles.prev)} ref={prev}>
+      <div className={c(s.control, s.prev)} ref={prev}>
         <IconButton
           size="sm"
           circle
@@ -53,7 +53,7 @@ export const MySwiper: React.FC = ({children}) => {
           icon={<Icon icon="arrow-left-line" />}
         />
       </div>
-      <div className={c(styles.control, styles.next)} ref={next}>
+      <div className={c(s.control, s.next)} ref={next}>
         <IconButton
           size="sm"
           circle

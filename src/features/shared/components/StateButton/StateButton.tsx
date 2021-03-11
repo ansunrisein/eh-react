@@ -3,7 +3,7 @@ import {Button, IconButtonProps} from 'rsuite'
 import c from 'classnames'
 import {useLatest} from 'react-use'
 import useDidUpdate from '@rooks/use-did-update'
-import S from './styles.module.css'
+import s from './StateButton.module.css'
 
 export type StateButtonProps = {
   defaultState?: number
@@ -52,13 +52,13 @@ export const StateButton: React.FC<StateButtonProps> = ({
     <Button
       onClick={handleClick}
       data-testid="state-button"
-      className={c(S.relative, className)}
+      className={c(s.relative, className)}
       {...props}
     >
-      <div className={children ? c(S.absolute, S.right, S.top) : S.padding}>
+      <div className={children ? c(s.absolute, s.right, s.top) : s.padding}>
         {realStates[state]}
       </div>
-      {children && <div className={S.padding}>{children}</div>}
+      {children && <div className={s.padding}>{children}</div>}
     </Button>
   )
 }
