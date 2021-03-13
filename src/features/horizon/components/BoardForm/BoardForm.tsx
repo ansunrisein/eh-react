@@ -1,8 +1,8 @@
 import React from 'react'
 import {Box, Flex} from 'reflexbox'
-import {Button, ControlLabel, Input, Tooltip, Whisper} from 'rsuite'
-import {useForm} from 'react-hook-form'
+import {Button, Input, Steps, Toggle, Tooltip, Whisper} from 'rsuite'
 import noop from 'noop6'
+import {StepItem} from '@eh/react/ui'
 import {useBoardForm} from '../../hooks'
 import {CreateBoardVariables} from '../../graphql/types/CreateBoard'
 
@@ -10,23 +10,29 @@ export type BoardFormProps = {
   onSubmit?: (board: CreateBoardVariables) => unknown
 }
 
-export const BoardForm: React.FC<BoardFormProps> = ({onSubmit = noop, ...props}) => {
-  const {register, handleSubmit} = useBoardForm()
+export const BoardForm: React.FC<BoardFormProps> = ({onSubmit = noop}) => {
+  const {register, handleSubmit, board} = useBoardForm()
 
   return (
-    <form {...props} onSubmit={handleSubmit(onSubmit)}>
-      <Flex flexDirection="column">
-        <ControlLabel>Title</ControlLabel>
-        <Whisper trigger="focus" speaker={<Tooltip>Required</Tooltip>}>
-          <Input inputRef={register({required: true})} name="title" />
-        </Whisper>
-        <Spacing space="1rem" vertical />
-        <ControlLabel>Description</ControlLabel>
-        <Input name="description" inputRef={register()} componentClass="textarea" />
-        <Box alignSelf="flex-end" marginTop="1rem">
-          <Button type="submit">Create</Button>
-        </Box>
-      </Flex>
-    </form>
+    <Flex as="form" flexDirection="column" onSubmit={handleSubmit(onSubmit)}>
+      <Steps vertical>
+        <StepItem status={board.title ? 'finish' : 'wait'} icon="pencil" title="Title">
+          <Whisper trigger="focus" speaker={<Tooltip>Required</Tooltip>}>
+            <Input inputRef={register({required: true})} name="title" />
+          </Whisper>
+        </StepItem>
+        <StepItem status={board.description ? 'finish' : 'wait'} icon="pencil" title="Description">
+          <Input name="description" inputRef={register()} componentClass="textarea" />
+        </StepItem>
+        <StepItem status="wait" icon="lock" title="Private">
+          <Toggle />
+        </StepItem>
+      </Steps>
+      <Box alignSelf="flex-end" marginTop="1rem">
+        <Button appearance="primary" type="submit">
+          Create
+        </Button>
+      </Box>
+    </Flex>
   )
 }
