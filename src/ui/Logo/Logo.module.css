@@ -1,5 +1,13 @@
 .logo {
   text-transform: uppercase;
-  letter-spacing: 5px;
   font-weight: 100;
+}
+
+.logo.size-md {
+  letter-spacing: 5px;
+}
+
+.logo.size-lg {
+  font-size: xx-large;
+  letter-spacing: 25px;
 }
