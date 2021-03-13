@@ -4,11 +4,10 @@ import {Box, Flex} from 'reflexbox'
 import {Controller} from 'react-hook-form'
 import noop from 'noop6'
 import {EventType} from '@eh/react/.types/globalTypes'
-import {Spacing} from '@eh/react/ui'
+import {Spacing, StepItem} from '@eh/react/ui'
 import {useEventForm} from '../../hooks'
 import {CreateEventVariables} from '../../graphql/types/CreateEvent'
 import {hasContent} from './helpers'
-import {Item} from './Item'
 
 export type EventFormProps = {
   onSubmit?: (data: Omit<CreateEventVariables, 'boardId'>) => unknown
@@ -20,10 +19,10 @@ export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop}) => {
   return (
     <Flex as="form" flexDirection="column" onSubmit={handleSubmit(onSubmit)}>
       <Steps vertical>
-        <Item status={event.header ? 'finish' : 'wait'} icon="pencil" title="Header">
+        <StepItem status={event.header ? 'finish' : 'wait'} icon="pencil" title="Header">
           <Input name="header" inputRef={register} />
-        </Item>
-        <Item status={hasContent(event) ? 'finish' : 'wait'} icon="pencil" title="Content">
+        </StepItem>
+        <StepItem status={hasContent(event) ? 'finish' : 'wait'} icon="pencil" title="Content">
           <RadioGroup
             inline
             appearance="picker"
@@ -63,8 +62,8 @@ export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop}) => {
           ) : (
             <></>
           )}
-        </Item>
-        <Item status={event.deadline ? 'finish' : 'wait'} icon="pencil" title="Deadline">
+        </StepItem>
+        <StepItem status={event.deadline ? 'finish' : 'wait'} icon="pencil" title="Deadline">
           <Controller
             control={control}
             name="deadline"
@@ -78,7 +77,7 @@ export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop}) => {
               />
             )}
           />
-        </Item>
+        </StepItem>
       </Steps>
       <Box alignSelf="flex-end">
         <Button type="submit" appearance="primary" disabled={!hasContent(event)}>
