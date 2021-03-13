@@ -3,7 +3,7 @@ import {Box, Flex} from 'reflexbox'
 import {Button, ControlLabel, Input, Tooltip, Whisper} from 'rsuite'
 import {useForm} from 'react-hook-form'
 import noop from 'noop6'
-import {Spacing} from '@eh/react/ui'
+import {useBoardForm} from '../../hooks'
 import {CreateBoardVariables} from '../../graphql/types/CreateBoard'
 
 export type BoardFormProps = {
@@ -11,7 +11,7 @@ export type BoardFormProps = {
 }
 
 export const BoardForm: React.FC<BoardFormProps> = ({onSubmit = noop, ...props}) => {
-  const {register, handleSubmit} = useForm<CreateBoardVariables>()
+  const {register, handleSubmit} = useBoardForm()
 
   return (
     <form {...props} onSubmit={handleSubmit(onSubmit)}>
