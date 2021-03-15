@@ -37,6 +37,7 @@ export const AvatarUploader: React.FC<AvatarUploaderProps> = ({
         className={s.uploader}
         fileList={[]}
         draggable
+        key={avatar}
       >
         <Button aria-busy={loading} appearance="subtle" aria-label="avatar">
           {avatar ? (
