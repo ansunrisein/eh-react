@@ -2510,6 +2510,21 @@
   resolved "https://registry.yarnpkg.com/@rooks/use-did-update/-/use-did-update-4.5.0.tgz#a9d8534f78ddc52ce4cf9d5d3307e58ae6cf624d"
   integrity sha512-+QRSHhubrJQw+Vip/eGK7xB1rhIP0zsbl5zIFOhQ28ocdJBEgyvfxzERMINC11OnM3kvNcUXZrs4SdJ4cg9tiQ==
 
+"@rsuite/icon-font@^4.0.0-alpha.2":
+  version "4.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/@rsuite/icon-font/-/icon-font-4.0.0-alpha.2.tgz#c31166e7d5123f24f6d1ebea918947d63eb8caf5"
+  integrity sha512-U7jy6W5kDQJXRMPoYzA9TxQfoLA6xR2IWm1O3BE/k4xg9l9xgin1qL6SBrI13bLJJCb3yzOX1tlbNN/BsO7Uww==
+
+"@rsuite/icons@^1.0.0-12":
+  version "1.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@rsuite/icons/-/icons-1.0.0-alpha.3.tgz#51fdbcd8864b3d31fa0399ad5c47fe504913dfac"
+  integrity sha512-MPWq1GZ0wEntb08qkFhdxaMQOGpCV06knoP1sg4GPtpiNSmaTW3S12Y7M4KnaSl0a4gHvH3kOd7NXUefJqoScQ==
+  dependencies:
+    "@rsuite/icon-font" "^4.0.0-alpha.2"
+    classnames "^2.2.5"
+    insert-css "^2.0.0"
+    lodash "^4.17.20"
+
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.1.tgz#a21117b19ee9be70c379ec1877537ef2e1c63301"
@@ -10268,6 +10283,11 @@ inquirer@^7.0.0:
     strip-ansi "^6.0.0"
     through "^2.3.6"
 
+insert-css@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/insert-css/-/insert-css-2.0.0.tgz#eb5d1097b7542f4c79ea3060d3aee07d053880f4"
+  integrity sha1-610Ql7dUL0x56jBg067gfQU4gPQ=
+
 internal-ip@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/internal-ip/-/internal-ip-4.3.0.tgz#845452baad9d2ca3b69c635a137acb9a0dad0907"
@@ -15677,21 +15697,22 @@ rollup@^1.31.1:
     "@types/node" "*"
     acorn "^7.1.0"
 
-rsuite-table@^3.14.2:
-  version "3.14.2"
-  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-3.14.2.tgz#f3a481deb43abea9f3e108ef67a38c4918abc3b4"
-  integrity sha512-8uhsjORkaLVRmSpDL2wr0gbh1IZzfRlKz8vz8IV29JRhdxUL6uzKs8bTR6E9g55jJj10VdgMLWS3cnY9beIzew==
+rsuite-table@^3.14.4:
+  version "3.14.5"
+  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-3.14.5.tgz#75110d1ad7c0e39f502af1d51abcb0613a474a26"
+  integrity sha512-WlBHrijN2vNk/mlEtBGNjbLhKXVurzY/GWuiyNVTOvhtBp7y3CyLWxPVm48ZwBCyhrhA39urTDZaEjaPI8FP/Q==
   dependencies:
-    "@babel/runtime" "^7.8.4"
+    "@babel/runtime" "^7.12.5"
+    "@rsuite/icons" "^1.0.0-12"
     classnames "^2.2.5"
     dom-lib "^1.2.1"
     element-resize-event "^3.0.2"
-    lodash "^4.17.5"
+    lodash "^4.17.20"
 
-rsuite@^4.8.7:
-  version "4.8.7"
-  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-4.8.7.tgz#ad4d961d8aa940c2d18a5d639b1bf14326db0144"
-  integrity sha512-moqy/+DlO5MITri4hVSR47X6uXwNrpvvV+Ia8X8Gx2CpKSMVMq0zd+gT9fIoFlleLxFPAW60aj2hoi1UIfDpBA==
+rsuite@^4.9.3:
+  version "4.9.3"
+  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-4.9.3.tgz#f0b4fd130fb61fac6e9765e3bef849ff52c51086"
+  integrity sha512-OpUsnrMhrE7nSDKiVfUUbwG4AhK2lgbe7sAGYk0GnFgDeD3rtznKrukhQNi9T1W/MBuTib0BGzCHq1k1MoD6PQ==
   dependencies:
     "@babel/runtime" "^7.8.4"
     classnames ">=2.0.0"
@@ -15703,7 +15724,7 @@ rsuite@^4.8.7:
     react-lifecycles-compat "^3.0.4"
     react-virtualized "^9.21.0"
     recompose "^0.30.0"
-    rsuite-table "^3.14.2"
+    rsuite-table "^3.14.4"
     schema-typed "^1.5.1"
 
 rsvp@^4.8.4:
