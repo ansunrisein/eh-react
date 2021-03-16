@@ -1,8 +1,7 @@
 import React from 'react'
-import {Flex} from 'reflexbox'
 import {Loader} from 'rsuite'
-import {Header} from '@eh/react/features/common/components'
 import {useModal} from '@eh/react/features/shared/contexts/ModalContext'
+import {PageTemplate} from '@eh/react/features/shared/templates'
 import {useDashboard, useFilter, useSort} from '../../hooks'
 import {Dashboard} from '../../views'
 import {BoardFormModal} from '../../modals'
@@ -22,18 +21,15 @@ export const Horizon: React.FC = () => {
   }
 
   return (
-    <>
-      <Header />
-      <Flex>
-        <Dashboard
-          filters={filterConfig}
-          sorts={sortConfig}
-          boards={dashboard}
-          onFiltersChange={setFiltersState}
-          onSortsChange={setSortsState}
-          onCreateBoardClick={open}
-        />
-      </Flex>
-    </>
+    <PageTemplate>
+      <Dashboard
+        filters={filterConfig}
+        sorts={sortConfig}
+        boards={dashboard}
+        onFiltersChange={setFiltersState}
+        onSortsChange={setSortsState}
+        onCreateBoardClick={open}
+      />
+    </PageTemplate>
   )
 }
