@@ -1,38 +1,24 @@
 import React from 'react'
-import {Box, Flex} from 'reflexbox'
-import {Button, Panel} from 'rsuite'
-import {LoginForm, LoginFormProps} from '@eh/react/features/shared/components'
-import {Logo, Spacing} from '@eh/react/ui'
+import {Flex} from 'reflexbox'
+import {Button, Icon, Tooltip, Whisper} from 'rsuite'
+import {Logo} from '@eh/react/ui'
+import s from './Login.module.css'
 
 export type LoginProps = {
-  onLogin?: LoginFormProps['onSubmit']
-  onGoogleLogin?: LoginFormProps['onGoogleClick']
-  onSignUpClick?: () => unknown
-  onForgotClick?: () => unknown
+  onGoogleLogin?: () => unknown
 }
 
-export const Login: React.FC<LoginProps> = ({
-  onLogin,
-  onGoogleLogin,
-  onSignUpClick,
-  onForgotClick,
-}) => (
-  <Flex flexDirection="column" alignItems="center" marginTop="9rem">
+export const Login: React.FC<LoginProps> = ({onGoogleLogin}) => (
+  <div className={s.background}>
+    <div className={s.button}>
+      <Whisper placement="auto" trigger="hover" speaker={<Tooltip>Login with Google</Tooltip>}>
+        <Flex>
+          <Button aria-label="login with google" appearance="subtle" onClick={onGoogleLogin}>
+            <Icon icon="sign-in" size="2x" />
+          </Button>
+        </Flex>
+      </Whisper>
+    </div>
     <Logo size="lg" />
-    <Spacing space="6rem" vertical />
-    <Panel bordered shaded>
-      <Flex flexDirection="column" width="18rem">
-        <LoginForm onSubmit={onLogin} onGoogleClick={onGoogleLogin} />
-        <Spacing space="0.5rem" vertical />
-        <Box alignSelf="flex-end">
-          <Button appearance="link" onClick={onSignUpClick}>
-            Sign up
-          </Button>
-          <Button appearance="link" onClick={onForgotClick}>
-            Forgot password?
-          </Button>
-        </Box>
-      </Flex>
-    </Panel>
-  </Flex>
+  </div>
 )
