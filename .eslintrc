@@ -37,7 +37,8 @@
           "swiper/react",
           "swiper/swiper-bundle.min.css",
           "simplebar/dist/simplebar.min.css",
-          "@apollo/client/testing"
+          "@apollo/client/testing",
+          "firebase/*"
         ]
       }
     ],
