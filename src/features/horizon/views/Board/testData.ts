@@ -1,6 +1,7 @@
 import {EventType} from '@eh/react/.types/globalTypes'
 
 export const board = {
+  __typename: 'Board',
   id: 'board1',
   name: 'My board',
   description: 'Best board',
@@ -69,5 +70,5 @@ export const board = {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
       deadline: '2020-11-15T21:57:03.365Z',
     },
-  ],
+  ].map(e => ({...e, __typename: 'TextEvent'})),
 }
