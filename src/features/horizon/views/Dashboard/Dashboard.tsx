@@ -33,7 +33,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
   return (
     <Flex height="100%" overflow="hidden">
-      <Flex flexDirection="column" justifyContent="space-between">
+      <Flex flexShrink={0} flexDirection="column" justifyContent="space-between">
         <Flex flexDirection="column">
           <Filters filters={filters} onChange={onFiltersChange} />
           <Spacing space="0.5rem" vertical />
@@ -51,13 +51,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </Box>
       </Flex>
       <Spacing space="0.5rem" />
-      <Box flex="1" height="100%" overflow="hidden auto">
-        {display === 'list' ? (
-          <BoardList boards={boards} />
-        ) : display === 'grid' ? (
-          <BoardGrid boards={boards} />
-        ) : null}
-      </Box>
+      <Flex flexGrow={1} flexDirection="column">
+        <Flex flexBasis={0} flexGrow={1} overflowY="hidden">
+          {display === 'list' ? (
+            <BoardList boards={boards} />
+          ) : display === 'grid' ? (
+            <BoardGrid boards={boards} />
+          ) : null}
+        </Flex>
+      </Flex>
     </Flex>
   )
 }
