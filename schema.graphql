@@ -97,4 +97,6 @@ type Mutation {
     text: String
     list: [String!]
   ): Event!
+  updateAvatar(avatar: String): User!
+  updateProfile(nickname: String!, name: String): User!
 }
