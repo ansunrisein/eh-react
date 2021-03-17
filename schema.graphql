@@ -73,9 +73,17 @@ type PageInfo {
     hasPreviousPage: Boolean!
 }
 
+type User {
+  id: ID!
+  nickname: String!
+  name: String
+  avatar: String
+}
+
 type Query {
   dashboard(filter: DashboardFilter, sort: DashboardSort, page: Page): DashboardConnection!
   board(id: ID!): Board!
+  me: User
 }
 
 type Mutation {
