@@ -1,14 +1,16 @@
 import {useCallback, useEffect, useState} from 'react'
-import {CloudinaryResponse, uploadFileToCloudinary} from './helpers'
+import {useUpload} from '@eh/react/features/shared/contexts/FileUploadContext'
 
 export type UseUploadAvatarResult = {
-  upload: (file: Blob) => Promise<CloudinaryResponse | undefined>
+  upload: (file: Blob) => Promise<string | null>
   remove: () => void
   avatar: string | null
   loading: boolean
 }
 
 export const useUploadAvatar = (defaultAvatar: string | null = null): UseUploadAvatarResult => {
+  const uploadFile = useUpload()
+
   const [avatar, setAvatar] = useState(defaultAvatar)
   const [loading, setLoading] = useState(false)
 
@@ -16,16 +18,19 @@ export const useUploadAvatar = (defaultAvatar: string | null = null): UseUploadA
 
   const remove = useCallback(() => setAvatar(null), [])
 
-  const upload = useCallback(async (file: Blob) => {
-    setLoading(true)
+  const upload = useCallback(
+    async (file: Blob) => {
+      setLoading(true)
 
-    return uploadFileToCloudinary(file)
-      .then(res => {
-        setAvatar(res.secure_url)
-        return res
-      })
-      .finally(() => setLoading(false))
-  }, [])
+      return uploadFile(file)
+        .then(res => {
+          setAvatar(res)
+          return res
+        })
+        .finally(() => setLoading(false))
+    },
+    [uploadFile],
+  )
 
   return {
     upload,
