@@ -3,7 +3,7 @@ import {Button, FileType, Icon, IconButton, Loader, Uploader} from 'rsuite'
 import s from './AvatarUploader.module.css'
 
 export type AvatarUploaderProps = {
-  avatar: string | undefined
+  avatar: string | null
   loading?: boolean
   onFileSelected?: (file: File) => unknown
   onRemove?: () => unknown

@@ -4,10 +4,10 @@ import {AvatarUploader} from '../AvatarUploader'
 import s from './AvatarForm.module.css'
 
 export type AvatarFormProps = {
-  defaultAvatar: string | undefined
-  avatar: string | undefined
+  defaultAvatar: string | null
+  avatar: string | null
   loading?: boolean
-  onSubmit?: (avatar: string | undefined) => unknown
+  onSubmit?: (avatar: string | null) => unknown
   onFileSelected?: (file: File) => unknown
   onRemove?: () => unknown
 }

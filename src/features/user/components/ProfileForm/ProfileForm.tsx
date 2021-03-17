@@ -4,13 +4,11 @@ import noop from 'noop6'
 import {Button, ControlLabel, Icon, Input, InputGroup} from 'rsuite'
 import {Flex} from 'reflexbox'
 import {Spacing} from '@eh/react/ui'
+import {UpdateProfileVariables} from '../../graphql/types/UpdateProfile'
 
 export type ProfileFormProps = {
-  defaultValues?: {
-    nickname: string
-    name: string
-  }
-  onSubmit?: (data: {nickname: string; avatar: string}) => unknown
+  defaultValues?: UpdateProfileVariables
+  onSubmit?: (data: UpdateProfileVariables) => unknown
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({defaultValues, onSubmit = noop}) => {

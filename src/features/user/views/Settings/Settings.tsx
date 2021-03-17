@@ -2,18 +2,16 @@ import React from 'react'
 import {Flex} from 'reflexbox'
 import {Spacing} from '@eh/react/ui'
 import {AvatarForm, ProfileForm} from '../../components'
+import {UpdateProfileVariables} from '../../graphql/types/UpdateProfile'
 
 export type SettingsProps = {
-  defaultProfileFormValues?: {
-    nickname: string
-    name: string
-  }
-  onProfileFormSubmit?: (data: {nickname: string; avatar: string}) => unknown
-  avatar: string | undefined
-  defaultAvatar: string | undefined
+  defaultProfileFormValues?: UpdateProfileVariables
+  onProfileFormSubmit?: (data: UpdateProfileVariables) => unknown
+  avatar: string | null
+  defaultAvatar: string | null
   isAvatarUploading?: boolean
   onAvatarSelected?: (file: File) => unknown
-  onAvatarSubmit?: (avatar: string | undefined) => unknown
+  onAvatarSubmit?: (avatar: string | null) => unknown
   onRemoveAvatar?: () => unknown
 }
 
