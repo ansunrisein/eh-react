@@ -1,76 +1,76 @@
 scalar Date
 
 enum EventType {
-    TEXT
-    LIST
-    PICTURE
+  TEXT
+  LIST
+  PICTURE
 }
 
 interface Event {
-    type: EventType!
-    header: String
-    deadline: Date
-    pinned: Boolean!
+  type: EventType!
+  header: String
+  deadline: Date
+  pinned: Boolean!
 }
 
 type TextEvent implements Event {
-    type: EventType!
-    header: String
-    deadline: Date
-    pinned: Boolean!
-    text: String!
+  type: EventType!
+  header: String
+  deadline: Date
+  pinned: Boolean!
+  text: String!
 }
 
 type ListEvent implements Event {
-    type: EventType!
-    header: String
-    deadline: Date
-    pinned: Boolean!
-    list: [String!]!
+  type: EventType!
+  header: String
+  deadline: Date
+  pinned: Boolean!
+  list: [String!]!
 }
 
 type Board {
-    id: ID!
-    name: String!
-    description: String
-    events: [Event!]!
+  id: ID!
+  name: String!
+  description: String
+  events: [Event!]!
 }
 
 input DashboardFilter {
-    ownership: Int
-    favorite: Int
-    pin: Int
+  ownership: Int
+  favorite: Int
+  pin: Int
 }
 
 input DashboardSort {
-    nearestEvent: String
-    favorite: String
-    subsCount: String
-    pin: String
+  nearestEvent: String
+  favorite: String
+  subsCount: String
+  pin: String
 }
 
 input Page {
-    before: ID
-    after: ID
-    first: Int
-    last: Int
+  before: ID
+  after: ID
+  first: Int
+  last: Int
 }
 
 type DashboardConnection {
-    pageInfo: PageInfo!
-    edges: [DashboardEdge!]!
+  pageInfo: PageInfo!
+  edges: [DashboardEdge!]!
 }
 
 type DashboardEdge {
-    node: Board!
-    cursor: ID!
+  node: Board!
+  cursor: ID!
 }
 
 type PageInfo {
-    startCursor: ID
-    endCursor: ID
-    hasNextPage: Boolean!
-    hasPreviousPage: Boolean!
+  startCursor: ID
+  endCursor: ID
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
 }
 
 type User {
