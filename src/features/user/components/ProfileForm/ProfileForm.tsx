@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {useForm} from 'react-hook-form'
 import noop from 'noop6'
 import {Button, ControlLabel, Icon, Input, InputGroup} from 'rsuite'
@@ -12,7 +12,9 @@ export type ProfileFormProps = {
 }
 
 export const ProfileForm: React.FC<ProfileFormProps> = ({defaultValues, onSubmit = noop}) => {
-  const {register, handleSubmit, formState} = useForm({defaultValues})
+  const {register, handleSubmit, formState, reset} = useForm({defaultValues})
+
+  useEffect(() => reset(defaultValues), [defaultValues, reset])
 
   return (
     <Flex as="form" flexDirection="column" onSubmit={handleSubmit(onSubmit)}>
