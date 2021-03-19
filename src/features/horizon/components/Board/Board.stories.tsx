@@ -1,13 +1,18 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {EventType} from '@eh/react/.types/globalTypes'
-import {Board} from './Board'
+import {Board, BoardProps} from './Board'
 
 export default {
   title: 'horizon/Board',
   component: Board,
   parameters: {
     controls: {hideNoControlsWarning: true},
+  },
+  argTypes: {
+    board: {table: {disable: true}},
+    onExpand: {table: {disable: true}},
+    onCollapse: {table: {disable: true}},
   },
 } as Meta
 
@@ -85,6 +90,4 @@ const board = {
   ].map((e, i) => ({...e, id: `event-${i}`})),
 }
 
-export const Usual: Story = () => <Board board={board} />
-
-export const Expandable: Story = () => <Board board={board} expandable />
+export const Usual: Story<BoardProps> = props => <Board {...props} board={board} />

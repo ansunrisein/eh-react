@@ -10,7 +10,7 @@ import {BoardPage} from './BoardPage'
 export default {
   component: BoardPage,
   title: 'horizon/BoardPage',
-  parameters: {layout: 'fullscreen'},
+  parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
   decorators: [
     Story => (
       <MockedProvider

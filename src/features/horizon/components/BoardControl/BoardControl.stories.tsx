@@ -1,24 +1,17 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {Flex} from 'reflexbox'
-import {Spacing} from '@eh/react/ui'
-import {BoardControl} from './BoardControl'
+import {BoardControl, BoardControlProps} from './BoardControl'
 
 export default {
   component: BoardControl,
   title: 'horizon/BoardControl',
+  parameters: {layout: 'centered'},
+  argTypes: {
+    onFavClick: {table: {disable: true}},
+    onPinClick: {table: {disable: true}},
+    vertical: {control: {type: 'boolean'}},
+    size: {control: {type: 'inline-radio'}},
+  },
 } as Meta
 
-export const Usual: Story = () => (
-  <Flex>
-    <BoardControl vertical />
-    <Spacing space="1rem" />
-    <BoardControl />
-    <Spacing space="1rem" />
-    <BoardControl isPinned />
-    <Spacing space="1rem" />
-    <BoardControl isFav />
-    <Spacing space="1rem" />
-    <BoardControl isFav isPinned />
-  </Flex>
-)
+export const Usual: Story<BoardControlProps> = props => <BoardControl {...props} />

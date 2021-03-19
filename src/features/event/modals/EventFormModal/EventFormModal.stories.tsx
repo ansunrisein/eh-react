@@ -17,20 +17,10 @@ export default {
     ),
   ],
   argTypes: {
-    onHide: {
-      table: {
-        disable: true,
-      },
-    },
-    boardId: {
-      table: {
-        disable: true,
-      },
-    },
+    onHide: {table: {disable: true}},
+    boardId: {table: {disable: true}},
   },
-  args: {
-    show: true,
-  },
+  args: {show: true},
 } as Meta
 
 const client = createMockClient()

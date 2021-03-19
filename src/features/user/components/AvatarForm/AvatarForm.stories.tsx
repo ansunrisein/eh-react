@@ -12,6 +12,7 @@ export default {
       defaultValue:
         'https://avatars.githubusercontent.com/u/31159587?s=400&u=56eb4d76bbeae350f4d2699eca2ec364da11a2cb&v=4',
     },
+    defaultAvatar: {table: {disable: true}},
     onSubmit: {table: {disable: true}},
     onFileSelected: {table: {disable: true}},
     onRemove: {table: {disable: true}},

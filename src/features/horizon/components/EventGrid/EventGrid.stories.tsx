@@ -1,11 +1,14 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react/types-6-0'
 import {EventType} from '@eh/react/.types/globalTypes'
-import {EventGrid} from './EventGrid'
+import {EventGrid, EventGridProps} from './EventGrid'
 
 export default {
   component: EventGrid,
   title: 'horizon/EventGrid',
+  argTypes: {
+    events: {table: {disable: true}},
+  },
 } as Meta
 
 const events = [
@@ -423,4 +426,4 @@ const events = [
   },
 ].map((e, i) => ({...e, id: `event-${i}`}))
 
-export const Usual: Story = () => <EventGrid events={events} />
+export const Usual: Story<EventGridProps> = props => <EventGrid {...props} events={events} />

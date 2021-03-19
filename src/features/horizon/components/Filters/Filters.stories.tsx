@@ -1,11 +1,16 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Icon} from 'rsuite'
-import {Filters} from './Filters'
+import {Filters, FiltersProps} from './Filters'
 
 export default {
   component: Filters,
   title: 'horizon/Filters',
+  parameters: {layout: 'centered'},
+  argTypes: {
+    onChange: {table: {disable: true}},
+    filters: {table: {disable: true}},
+  },
 } as Meta
 
 const filters = [
@@ -35,4 +40,4 @@ const filters = [
   },
 ]
 
-export const Usual: Story = () => <Filters filters={filters} />
+export const Usual: Story<FiltersProps> = props => <Filters {...props} filters={filters} />

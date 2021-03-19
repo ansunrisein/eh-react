@@ -8,6 +8,12 @@ import {EventCard} from './EventCard'
 export default {
   component: EventCard,
   title: 'horizon/EventCard',
+  parameters: {layout: 'centered'},
+  argTypes: {
+    deadline: {control: {type: 'date'}, defaultValue: new Date()},
+    type: {table: {disable: true}},
+    event: {table: {disable: true}},
+  },
 } as Meta
 
 const Card: Story<EventFragment> = event => (
@@ -32,7 +38,6 @@ Text.args = {
   type: EventType.TEXT,
   header: 'Story',
   text: 'Aaaaaa aaaaaaa aaa aaa aaaaaaaaaaaa Aaaaaa aaaaaaa aaa aaa aaaaaaaaaaaa',
-  deadline: '2020-12-20T21:57:03.365Z',
 }
 
 export const List = Card.bind({})
@@ -40,5 +45,4 @@ List.args = {
   type: EventType.LIST,
   header: 'Story',
   list: ['Do do do do do', 'Do do do do do', 'Do do do do do', 'Do do do do do', 'Do do do do do'],
-  deadline: '2020-12-20T21:57:03.365Z',
 }

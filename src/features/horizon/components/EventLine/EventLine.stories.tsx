@@ -2,13 +2,13 @@ import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import 'swiper/swiper-bundle.min.css'
 import {EventType} from '@eh/react/.types/globalTypes'
-import {EventLine} from './EventLine'
+import {EventLine, EventLineProps} from './EventLine'
 
 export default {
   title: 'horizon/EventLine',
   component: EventLine,
-  parameters: {
-    controls: {hideNoControlsWarning: true},
+  argTypes: {
+    events: {table: {disable: true}},
   },
 } as Meta
 
@@ -427,6 +427,8 @@ const events = [
   },
 ].map((e, i) => ({...e, id: `event-${i}`}))
 
-export const WithPinned: Story = () => <EventLine events={events} />
+export const WithPinned: Story<EventLineProps> = props => <EventLine {...props} events={events} />
 
-export const WithoutPinned: Story = () => <EventLine events={events.slice(1)} />
+export const WithoutPinned: Story<EventLineProps> = props => (
+  <EventLine {...props} events={events.slice(1)} />
+)

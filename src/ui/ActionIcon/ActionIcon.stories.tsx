@@ -5,8 +5,8 @@ import {ActionIcon, ActionIconProps} from './ActionIcon'
 export default {
   component: ActionIcon,
   title: 'ui/ActionIcon',
-  args: {
-    icon: 'pin',
+  argTypes: {
+    icon: {control: {type: 'inline-radio'}, defaultValue: 'pin'},
   },
 } as Meta
 

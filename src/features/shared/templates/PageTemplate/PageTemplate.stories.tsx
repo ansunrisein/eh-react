@@ -5,7 +5,7 @@ import {PageTemplate} from './PageTemplate'
 export default {
   component: PageTemplate,
   title: 'shared/PageTemplate',
-  parameters: {layout: 'fullscreen'},
+  parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
 } as Meta
 
 export const Usual: Story = props => <PageTemplate {...props} />

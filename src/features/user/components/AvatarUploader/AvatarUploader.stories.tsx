@@ -6,8 +6,9 @@ export default {
   component: AvatarUploader,
   title: 'user/AvatarUploader',
   argTypes: {
-    onFileSelected: {table: {disable: true}},
     avatar: {table: {disable: true}},
+    onFileSelected: {table: {disable: true}},
+    onRemove: {table: {disable: true}},
   },
 } as Meta
 
