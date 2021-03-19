@@ -1,14 +1,15 @@
 import React, {useCallback, useState} from 'react'
 import {Box, Flex} from 'reflexbox'
-import {Icon, IconButton} from 'rsuite'
+import {Icon, IconButton, Loader} from 'rsuite'
 import {Spacing} from '@eh/react/ui'
 import {Dashboard_dashboard_edges} from '../../graphql/types/Dashboard'
 import {BoardGrid, BoardList, Filters, FiltersProps, Sorts, SortsProps} from '../../components'
 
 export type DashboardProps = {
-  boards: Dashboard_dashboard_edges[]
+  boards?: Dashboard_dashboard_edges[]
   filters: FiltersProps['filters']
   sorts: SortsProps['sorts']
+  loading?: boolean
   onFiltersChange?: FiltersProps['onChange']
   onSortsChange?: SortsProps['onChange']
   onCreateBoardClick?: () => unknown
@@ -19,6 +20,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
   boards,
   filters,
   sorts,
+  loading = false,
   onFiltersChange,
   onSortsChange,
   onCreateBoardClick,
@@ -52,12 +54,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
       </Flex>
       <Spacing space="0.5rem" />
       <Flex flexGrow={1} flexDirection="column">
-        <Flex flexBasis={0} flexGrow={1} overflowY="hidden">
-          {display === 'list' ? (
+        <Flex flexBasis={0} flexGrow={1} overflowY="hidden" style={{position: 'relative'}}>
+          {!boards ? (
+            <Loader backdrop size="lg" />
+          ) : display === 'list' ? (
             <BoardList boards={boards} />
           ) : display === 'grid' ? (
             <BoardGrid boards={boards} />
           ) : null}
+          {loading && <Loader center backdrop size="lg" />}
         </Flex>
       </Flex>
     </Flex>
