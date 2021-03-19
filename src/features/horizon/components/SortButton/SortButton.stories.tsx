@@ -1,5 +1,6 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
+import {Icon} from 'rsuite'
 import {SortButton} from './SortButton'
 
 export default {
@@ -7,4 +8,8 @@ export default {
   title: 'horizon/SortButton',
 } as Meta
 
-export const Usual: Story = () => <SortButton />
+export const Usual: Story = () => (
+  <SortButton>
+    <Icon icon="heart" />
+  </SortButton>
+)

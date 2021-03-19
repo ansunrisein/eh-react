@@ -20,16 +20,16 @@ const lines = ['plus', 'minus'].map((e: any, i) => (
 export const WithChildren: Story = () => (
   <Flex width="20vw" justifyContent="space-between">
     <StateButton states={lines}>
-      <Icon icon={'vk'} />
+      <Icon icon="vk" />
     </StateButton>
     <StateButton states={lines} defaultState={1}>
-      <Icon icon={'apple'} />
+      <Icon icon="apple" />
     </StateButton>
     <StateButton states={lines} defaultState={2}>
-      <Icon icon={'youtube-play'} />
+      <Icon icon="youtube-play" />
     </StateButton>
     <StateButton states={lines}>
-      <Icon icon={'wifi'} />
+      <Icon icon="wifi" />
     </StateButton>
   </Flex>
 )
@@ -37,16 +37,16 @@ export const WithChildren: Story = () => (
 export const WithoutNeutralState: Story = () => (
   <Flex width="20vw" justifyContent="space-between">
     <StateButton states={lines} neutralState={false}>
-      <Icon icon={'vk'} />
+      <Icon icon="vk" />
     </StateButton>
     <StateButton states={lines} neutralState={false}>
-      <Icon icon={'apple'} />
+      <Icon icon="apple" />
     </StateButton>
     <StateButton states={lines} neutralState={false}>
-      <Icon icon={'youtube-play'} />
+      <Icon icon="youtube-play" />
     </StateButton>
     <StateButton states={lines} neutralState={false}>
-      <Icon icon={'wifi'} />
+      <Icon icon="wifi" />
     </StateButton>
   </Flex>
 )
