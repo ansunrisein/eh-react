@@ -118,7 +118,7 @@ export const board = {
     },
   ],
 }
-export const boards = Array(10)
+export const boards = Array(35)
   .fill(board)
   .map((e, i) => (i % 3 ? e : {...e, events: e.events.slice(1)}))
   .map((board, i) => ({
