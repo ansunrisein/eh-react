@@ -4,7 +4,7 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: useUpdateProfile
+// GraphQL mutation operation: UpdateProfile
 // ====================================================
 
 export interface UpdateProfile_updateProfile {
