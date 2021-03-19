@@ -1,14 +1,9 @@
 import React from 'react'
-import {PageTemplate} from '@eh/react/features/shared/templates'
 import {useLogin} from '@eh/react/features/shared/hooks'
 import {Login} from '../../views'
 
 export const LoginPage: React.FC = () => {
   const {login, loading} = useLogin()
 
-  return (
-    <PageTemplate>
-      <Login onGoogleLogin={login} loading={loading} />
-    </PageTemplate>
-  )
+  return <Login onGoogleLogin={login} loading={loading} />
 }
