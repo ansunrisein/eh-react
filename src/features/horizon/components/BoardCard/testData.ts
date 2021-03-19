@@ -2,6 +2,7 @@ import {EventType} from '@eh/react/.types/globalTypes'
 
 const events = [
   {
+    id: 'event0',
     type: EventType.TEXT,
     pinned: true,
     header: 'Pinned',

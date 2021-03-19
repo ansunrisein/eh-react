@@ -1,6 +1,7 @@
 import React from 'react'
 import {EventType} from '@eh/react/.types/globalTypes'
 import {ActionIcon} from '@eh/react/ui'
+import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
 
 export const filters = [
   {
@@ -120,5 +121,12 @@ export const board = {
 export const boards = Array(10)
   .fill(board)
   .map((e, i) => (i % 3 ? e : {...e, events: e.events.slice(1)}))
-  .map((e, i) => ({...e, id: 'id' + i}))
+  .map((board, i) => ({
+    ...board,
+    id: 'id' + i,
+    events: board.events.map((e: EventFragment, i: number) => ({
+      ...e,
+      id: `${board.id}-event${i}`,
+    })),
+  }))
   .map(e => ({node: e, cursor: e.id}))

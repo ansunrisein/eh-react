@@ -425,7 +425,7 @@ const events = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
     deadline: '2020-11-15T21:57:03.365Z',
   },
-]
+].map((e, i) => ({...e, id: `event-${i}`}))
 
 export const WithPinned: Story = () => <EventLine events={events} />
 

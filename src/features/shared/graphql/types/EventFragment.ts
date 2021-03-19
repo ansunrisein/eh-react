@@ -10,6 +10,7 @@ import {EventType} from './../../../../.types/globalTypes'
 // ====================================================
 
 export interface EventFragment_TextEvent {
+  id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -17,6 +18,7 @@ export interface EventFragment_TextEvent {
 }
 
 export interface EventFragment_ListEvent {
+  id: string
   type: EventType
   header: string | null
   deadline: any | null

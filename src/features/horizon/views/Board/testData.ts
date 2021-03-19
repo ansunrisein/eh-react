@@ -70,5 +70,5 @@ export const board = {
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
       deadline: '2020-11-15T21:57:03.365Z',
     },
-  ].map(e => ({...e, __typename: 'TextEvent'})),
+  ].map((e, i) => ({...e, id: `event-${i}`, __typename: 'TextEvent'})),
 }
