@@ -14,7 +14,7 @@ export const Horizon: React.FC = () => {
   const {filtersState, setFiltersState} = useFilter(filterConfig)
   const {sortsState, setSortsState} = useSort(sortConfig)
 
-  const {dashboard, loading} = useDashboard({filters: filtersState, sorts: sortsState})
+  const {dashboard, loading} = useDashboard({filter: filtersState, sort: sortsState})
 
   if (!dashboard || loading) {
     return <Loader center backdrop size="lg" />
