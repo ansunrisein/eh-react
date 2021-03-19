@@ -4,6 +4,8 @@ export const board = {
   __typename: 'Board',
   id: 'board1',
   name: 'My board',
+  pinned: false,
+  favorite: false,
   description: 'Best board',
   events: [
     {

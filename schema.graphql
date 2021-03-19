@@ -36,6 +36,8 @@ type Board {
   id: ID!
   name: String!
   description: String
+  pinned: Boolean!
+  favorite: Boolean!
   events: [Event!]!
 }
 

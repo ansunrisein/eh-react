@@ -42,6 +42,8 @@ export interface Dashboard_dashboard_edges_node {
   id: string
   name: string
   description: string | null
+  pinned: boolean
+  favorite: boolean
   events: Dashboard_dashboard_edges_node_events[]
 }
 

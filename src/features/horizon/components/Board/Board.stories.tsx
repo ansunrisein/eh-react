@@ -15,6 +15,8 @@ const board = {
   id: '123',
   name: 'My board',
   description: 'Best board',
+  pinned: true,
+  favorite: true,
   events: [
     {
       type: EventType.TEXT,

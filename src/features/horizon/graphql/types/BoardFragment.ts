@@ -33,5 +33,7 @@ export interface BoardFragment {
   id: string
   name: string
   description: string | null
+  pinned: boolean
+  favorite: boolean
   events: BoardFragment_events[]
 }

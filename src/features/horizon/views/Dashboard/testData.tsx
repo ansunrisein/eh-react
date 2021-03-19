@@ -124,6 +124,9 @@ export const boards = Array(10)
   .map((board, i) => ({
     ...board,
     id: 'id' + i,
+    pinned: i === 1,
+    favorite: [2, 3].includes(i),
+    name: i === 1 ? 'Pinned' : [2, 3].includes(i) ? 'FAVORITE' : board.name,
     events: board.events.map((e: EventFragment, i: number) => ({
       ...e,
       id: `${board.id}-event${i}`,

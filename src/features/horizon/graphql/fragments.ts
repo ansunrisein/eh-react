@@ -6,6 +6,8 @@ export const BOARD_FRAGMENT = gql`
     id
     name
     description
+    pinned
+    favorite
     events {
       ...EventFragment
       pinned

@@ -33,6 +33,8 @@ export interface Board_board {
   id: string
   name: string
   description: string | null
+  pinned: boolean
+  favorite: boolean
   events: Board_board_events[]
 }
 

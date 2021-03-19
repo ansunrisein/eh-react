@@ -35,6 +35,8 @@ export interface CreateBoard_createBoard {
   id: string
   name: string
   description: string | null
+  pinned: boolean
+  favorite: boolean
   events: CreateBoard_createBoard_events[]
 }
 
