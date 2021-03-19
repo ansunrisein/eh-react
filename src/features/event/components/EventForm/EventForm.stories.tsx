@@ -5,11 +5,12 @@ import {EventForm, EventFormProps} from './EventForm'
 
 export default {
   component: EventForm,
-  title: 'event/EventForm',
+  title: 'event/components/EventForm',
   parameters: {
-    controls: {hideNoControlsWarning: true},
     layout: 'centered',
+    controls: {hideNoControlsWarning: true},
   },
+  argTypes: {onSubmit: {table: {disable: true}}},
 } as Meta
 
 export const Usual: Story<EventFormProps> = props => (

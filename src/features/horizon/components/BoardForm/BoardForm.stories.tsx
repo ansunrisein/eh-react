@@ -5,7 +5,8 @@ import {BoardForm, BoardFormProps} from './BoardForm'
 
 export default {
   component: BoardForm,
-  title: 'horizon/BoardForm',
+  title: 'horizon/components/BoardForm',
+  parameters: {layout: 'centered', controls: {hideNoControlsWarning: true}},
   argTypes: {
     onSubmit: {table: {disable: true}},
   },

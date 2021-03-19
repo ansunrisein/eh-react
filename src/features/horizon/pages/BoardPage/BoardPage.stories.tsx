@@ -9,8 +9,8 @@ import {BoardPage} from './BoardPage'
 
 export default {
   component: BoardPage,
-  title: 'horizon/BoardPage',
-  parameters: {layout: 'fullscreen'},
+  title: 'horizon/pages/BoardPage',
+  parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
   decorators: [
     Story => (
       <MockedProvider

@@ -4,10 +4,11 @@ import {AvatarUploader, AvatarUploaderProps} from './AvatarUploader'
 
 export default {
   component: AvatarUploader,
-  title: 'user/AvatarUploader',
+  title: 'user/components/AvatarUploader',
   argTypes: {
-    onFileSelected: {table: {disable: true}},
     avatar: {table: {disable: true}},
+    onFileSelected: {table: {disable: true}},
+    onRemove: {table: {disable: true}},
   },
 } as Meta
 

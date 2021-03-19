@@ -10,6 +10,7 @@ import {EventType} from './../../../../.types/globalTypes'
 // ====================================================
 
 export interface Board_board_events_TextEvent {
+  id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -18,6 +19,7 @@ export interface Board_board_events_TextEvent {
 }
 
 export interface Board_board_events_ListEvent {
+  id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -31,6 +33,8 @@ export interface Board_board {
   id: string
   name: string
   description: string | null
+  pinned: boolean
+  favorite: boolean
   events: Board_board_events[]
 }
 

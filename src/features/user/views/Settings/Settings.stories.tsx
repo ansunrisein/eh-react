@@ -5,7 +5,7 @@ import {Settings, SettingsProps} from './Settings'
 
 export default {
   component: Settings,
-  title: 'user/Settings',
+  title: 'user/views/Settings',
   parameters: {layout: 'centered'},
   argTypes: {
     defaultProfileFormValues: {table: {disable: true}},

@@ -4,7 +4,8 @@ import {Header} from './Header'
 
 export default {
   component: Header,
-  title: 'common/Header',
+  title: 'common/components/Header',
+  parameters: {controls: {hideNoControlsWarning: true}},
 } as Meta
 
 export const Usual: Story = () => <Header />

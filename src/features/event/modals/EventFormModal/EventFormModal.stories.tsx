@@ -1,33 +1,30 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {MockedProvider} from '@apollo/client/testing'
+import {ApolloProvider} from '@apollo/client'
+import {createMockClient} from 'mock-apollo-client'
+import delay from 'delay'
+import {CREATE_EVENT} from '@eh/react/features/event/graphql'
 import {EventFormModal, EventFormModalProps} from './EventFormModal'
 
 export default {
   component: EventFormModal,
-  title: 'event/EventFormModal',
+  title: 'event/modals/EventFormModal',
   decorators: [
     Story => (
-      <MockedProvider mocks={[]}>
+      <ApolloProvider client={client}>
         <Story />
-      </MockedProvider>
+      </ApolloProvider>
     ),
   ],
   argTypes: {
-    onHide: {
-      table: {
-        disable: true,
-      },
-    },
-    boardId: {
-      table: {
-        disable: true,
-      },
-    },
+    onHide: {table: {disable: true}},
+    boardId: {table: {disable: true}},
   },
-  args: {
-    show: true,
-  },
+  args: {show: true},
 } as Meta
+
+const client = createMockClient()
+
+client.setRequestHandler(CREATE_EVENT, () => delay(1000).then(() => ({data: {}})))
 
 export const Usual: Story<EventFormModalProps> = props => <EventFormModal {...props} />

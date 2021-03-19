@@ -1,5 +1,4 @@
 import React from 'react'
-import {Loader} from 'rsuite'
 import {useModal} from '@eh/react/features/shared/contexts/ModalContext'
 import {PageTemplate} from '@eh/react/features/shared/templates'
 import {useDashboard, useFilter, useSort} from '../../hooks'
@@ -14,11 +13,7 @@ export const Horizon: React.FC = () => {
   const {filtersState, setFiltersState} = useFilter(filterConfig)
   const {sortsState, setSortsState} = useSort(sortConfig)
 
-  const {dashboard, loading} = useDashboard({filters: filtersState, sorts: sortsState})
-
-  if (!dashboard || loading) {
-    return <Loader center backdrop size="lg" />
-  }
+  const {dashboard, loading} = useDashboard({filter: filtersState, sort: sortsState})
 
   return (
     <PageTemplate>
@@ -29,6 +24,7 @@ export const Horizon: React.FC = () => {
         onFiltersChange={setFiltersState}
         onSortsChange={setSortsState}
         onCreateBoardClick={open}
+        loading={loading}
       />
     </PageTemplate>
   )

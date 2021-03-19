@@ -1,41 +1,28 @@
 import React, {ReactNode, useState} from 'react'
-import useDidUpdate from '@rooks/use-did-update'
 import {ButtonGroup} from 'rsuite'
-import {SortButton} from '../SortButton'
+import {SortButton, SortState} from '../SortButton'
+import {mapSortsConfigToObj} from './helpers'
 
 export type SortsProps = {
-  onChange?: (sort: any) => unknown
+  onChange?: (sort: Record<string, SortState>) => unknown
   sorts: {name: string; icon: ReactNode}[]
 }
 
-export type SortState = 'none' | 'desc' | 'asc'
-
-const stateMap: Record<number, SortState> = {0: 'none', 1: 'desc', 2: 'asc'}
-
 export const Sorts: React.FC<SortsProps> = ({onChange, sorts}) => {
-  const [sort, setSort] = useState<Record<string, SortState>>(() =>
-    sorts.reduce(
-      (acc, e) => ({
-        ...acc,
-        [e.name]: 'none',
-      }),
-      {},
-    ),
-  )
+  const [sort, setSort] = useState(() => mapSortsConfigToObj(sorts))
 
-  useDidUpdate(() => {
-    onChange?.(sort)
-  }, [sort, onChange])
-
-  const onSortChange = (name: string) => (state: number) =>
-    setSort(prev => ({...prev, [name]: stateMap[state]}))
+  const onSortChange = (name: string) => (state: SortState) => {
+    const newSort = {[name]: state}
+    setSort(newSort)
+    onChange?.(newSort)
+  }
 
   return (
     <ButtonGroup vertical>
       {sorts.map((e, i) => (
         <SortButton
           key={i}
-          defaultValue={sort[e.name]}
+          state={sort[e.name]}
           onChange={onSortChange(e.name)}
           data-testid="sort-button"
         >

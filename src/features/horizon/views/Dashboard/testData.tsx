@@ -1,6 +1,7 @@
 import React from 'react'
 import {EventType} from '@eh/react/.types/globalTypes'
 import {ActionIcon} from '@eh/react/ui'
+import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
 
 export const filters = [
   {
@@ -57,7 +58,7 @@ export const board = {
       header: 'Pinned',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-12-11T21:57:03.365Z',
+      deadline: new Date(),
     },
     {
       type: EventType.TEXT,
@@ -65,7 +66,7 @@ export const board = {
       header: 'Lorem ipsum',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-12-11T21:57:03.365Z',
+      deadline: new Date(),
     },
     {
       type: EventType.TEXT,
@@ -73,7 +74,7 @@ export const board = {
       header: 'Lorem ipsum',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-12-11T21:57:03.365Z',
+      deadline: new Date(),
     },
     {
       type: EventType.TEXT,
@@ -81,7 +82,7 @@ export const board = {
       header: 'Lorem ipsum',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-12-11T21:57:03.365Z',
+      deadline: new Date(),
     },
     {
       type: EventType.TEXT,
@@ -89,7 +90,7 @@ export const board = {
       header: 'Lorem ipsum',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-12-11T21:57:03.365Z',
+      deadline: new Date(),
     },
     {
       type: EventType.TEXT,
@@ -97,7 +98,7 @@ export const board = {
       header: 'Lorem ipsum',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-12-11T21:57:03.365Z',
+      deadline: new Date(),
     },
     {
       type: EventType.TEXT,
@@ -105,7 +106,7 @@ export const board = {
       header: 'Lorem ipsum',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-12-11T21:57:03.365Z',
+      deadline: new Date(),
     },
     {
       type: EventType.TEXT,
@@ -113,12 +114,27 @@ export const board = {
       header: 'Lorem ipsum',
       text:
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: '2020-11-15T21:57:03.365Z',
+      deadline: new Date(),
     },
   ],
 }
-export const boards = Array(10)
+export const boards = Array(35)
   .fill(board)
   .map((e, i) => (i % 3 ? e : {...e, events: e.events.slice(1)}))
-  .map((e, i) => ({...e, id: 'id' + i}))
-  .map(e => ({node: e, cursor: e.id}))
+  .map((board, i) => ({
+    ...board,
+    id: 'id' + i,
+    pinned: i === 1,
+    favorite: [2, 3].includes(i),
+    name: i === 1 ? 'Pinned' : [2, 3].includes(i) ? 'FAVORITE' : board.name,
+    __typename: 'Board',
+    events: board.events
+      .map((e: EventFragment, i: number) => ({
+        ...e,
+        deadline: new Date(Number(e.deadline) + Math.round(Math.random() * 500093480)),
+        id: `${board.id}-event${i}`,
+        __typename: 'TextEvent',
+      }))
+      .sort((a: EventFragment, b: EventFragment) => Number(a.deadline) - Number(b.deadline)),
+  }))
+  .map(e => ({node: e, cursor: e.id, __typename: 'BoardEdge'}))

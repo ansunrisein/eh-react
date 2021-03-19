@@ -1,11 +1,16 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Icon} from 'rsuite'
-import {Sorts} from './Sorts'
+import {Sorts, SortsProps} from './Sorts'
 
 export default {
   component: Sorts,
-  title: 'horizon/Sorts',
+  title: 'horizon/components/Sorts',
+  parameters: {layout: 'centered'},
+  argTypes: {
+    sorts: {table: {disable: true}},
+    onChange: {table: {disable: true}},
+  },
 } as Meta
 
 const sorts = [
@@ -27,4 +32,4 @@ const sorts = [
   },
 ]
 
-export const Usual: Story = () => <Sorts sorts={sorts} />
+export const Usual: Story<SortsProps> = props => <Sorts {...props} sorts={sorts} />

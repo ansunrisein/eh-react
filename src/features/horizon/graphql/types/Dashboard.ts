@@ -17,6 +17,7 @@ export interface Dashboard_dashboard_pageInfo {
 }
 
 export interface Dashboard_dashboard_edges_node_events_TextEvent {
+  id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -25,6 +26,7 @@ export interface Dashboard_dashboard_edges_node_events_TextEvent {
 }
 
 export interface Dashboard_dashboard_edges_node_events_ListEvent {
+  id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -40,6 +42,8 @@ export interface Dashboard_dashboard_edges_node {
   id: string
   name: string
   description: string | null
+  pinned: boolean
+  favorite: boolean
   events: Dashboard_dashboard_edges_node_events[]
 }
 

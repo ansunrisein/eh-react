@@ -4,9 +4,10 @@ import {Login, LoginProps} from './Login'
 
 export default {
   component: Login,
-  title: 'id/Login',
-  parameters: {
-    layout: 'fullscreen',
+  title: 'id/views/Login',
+  parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
+  argTypes: {
+    onGoogleLogin: {table: {disable: true}},
   },
 } as Meta
 

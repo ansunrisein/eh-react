@@ -1,14 +1,15 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {FilterButton} from './FilterButton'
+import {FilterButton, FilterButtonProps} from './FilterButton'
 
 export default {
   component: FilterButton,
-  title: 'horizon/FilterButton',
+  title: 'horizon/components/FilterButton',
+  parameters: {layout: 'centered', controls: {hideNoControlsWarning: true}},
 } as Meta
 
-export const Usual: Story = () => (
-  <FilterButton>
+export const Usual: Story<FilterButtonProps> = props => (
+  <FilterButton {...props}>
     <div>a</div>
     <div>b</div>
     <div>c</div>

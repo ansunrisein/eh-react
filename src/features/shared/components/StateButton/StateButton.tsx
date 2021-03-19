@@ -1,12 +1,11 @@
 import React, {EventHandler, ReactNode, SyntheticEvent, useCallback, useMemo, useState} from 'react'
 import {Button, IconButtonProps} from 'rsuite'
 import c from 'classnames'
-import {useLatest} from 'react-use'
-import useDidUpdate from '@rooks/use-did-update'
 import s from './StateButton.module.css'
 
 export type StateButtonProps = {
   defaultState?: number
+  state?: number
   states: ReactNode[]
   onChange?: (state: number) => unknown
   neutralState?: boolean
@@ -14,6 +13,7 @@ export type StateButtonProps = {
 
 export const StateButton: React.FC<StateButtonProps> = ({
   defaultState = 0,
+  state,
   states,
   onChange,
   neutralState = true,
@@ -22,23 +22,20 @@ export const StateButton: React.FC<StateButtonProps> = ({
   className,
   ...props
 }) => {
-  const [state, setState] = useState(defaultState)
-  const onChangeRef = useLatest(onChange)
+  const [ownState, setOwnState] = useState(defaultState)
+  const realState = state ?? ownState
 
-  const realStates = useMemo(() => (neutralState && children ? ['', ...states] : states), [
+  const realStates = useMemo(() => (neutralState && children ? [null, ...states] : states), [
     neutralState,
     states,
     children,
   ])
 
-  useDidUpdate(() => {
-    onChangeRef.current?.(state)
-  }, [state, onChangeRef])
-
-  const rotateState = useCallback(() => setState(prev => (prev + 1) % realStates.length), [
-    realStates.length,
-    setState,
-  ])
+  const rotateState = useCallback(() => {
+    const state = (realState + 1) % realStates.length
+    onChange?.(state)
+    setOwnState(state)
+  }, [onChange, realState, realStates.length])
 
   const handleClick = useCallback<EventHandler<SyntheticEvent>>(
     event => {
@@ -56,7 +53,7 @@ export const StateButton: React.FC<StateButtonProps> = ({
       {...props}
     >
       <div className={children ? c(s.absolute, s.right, s.top) : s.padding}>
-        {realStates[state]}
+        {realStates[realState]}
       </div>
       {children && <div className={s.padding}>{children}</div>}
     </Button>

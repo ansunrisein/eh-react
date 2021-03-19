@@ -2,6 +2,7 @@ import {EventType} from '@eh/react/.types/globalTypes'
 
 const events = [
   {
+    id: 'event0',
     type: EventType.TEXT,
     pinned: true,
     header: 'Pinned',
@@ -10,4 +11,11 @@ const events = [
     deadline: new Date(Number(new Date()) + 1003933224).toISOString(),
   },
 ]
-export const board = {id: '123', name: 'Name', description: 'dsdsf', events}
+export const board = {
+  id: '123',
+  name: 'Name',
+  pinned: false,
+  favorite: false,
+  description: 'dsdsf',
+  events,
+}

@@ -1,9 +1,8 @@
 import {useAsyncFn} from 'react-use'
-import {useAuth} from 'reactfire'
-import {auth as Auth} from 'firebase'
+import {useAuth} from '@eh/react/features/shared/contexts/AuthContext'
 
 export type UseLoginResult = {
-  login: () => Promise<Auth.UserCredential>
+  login: () => Promise<void>
   loading: boolean
   error?: Error
 }
@@ -11,10 +10,7 @@ export type UseLoginResult = {
 export const useLogin = (): UseLoginResult => {
   const auth = useAuth()
 
-  const [{loading, error}, login] = useAsyncFn(
-    () => auth.signInWithPopup(new Auth.GoogleAuthProvider()),
-    [auth],
-  )
+  const [{loading, error}, login] = useAsyncFn(auth.login, [auth.login])
 
   return {
     login,

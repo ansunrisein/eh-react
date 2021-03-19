@@ -1,13 +1,11 @@
 import {ApolloError, ApolloQueryResult, useQuery} from '@apollo/client'
 import {useCallback} from 'react'
-import {DashboardFilter, DashboardSort} from '@eh/react/.types/globalTypes'
 import {DASHBOARD} from '../../graphql/queries'
-import {Dashboard, Dashboard_dashboard_edges} from '../../graphql/types/Dashboard'
-
-export type UseDashboardProps = {
-  filters: DashboardFilter
-  sorts: DashboardSort
-}
+import {
+  Dashboard,
+  Dashboard_dashboard_edges,
+  DashboardVariables,
+} from '../../graphql/types/Dashboard'
 
 export type UseDashboardResult = {
   dashboard?: Dashboard_dashboard_edges[]
@@ -16,8 +14,8 @@ export type UseDashboardResult = {
   more: () => Promise<ApolloQueryResult<Dashboard>>
 }
 
-export const useDashboard = (variables: UseDashboardProps): UseDashboardResult => {
-  const {data, loading, error, fetchMore} = useQuery<Dashboard>(DASHBOARD, {
+export const useDashboard = (variables: DashboardVariables): UseDashboardResult => {
+  const {data, loading, error, fetchMore} = useQuery<Dashboard, DashboardVariables>(DASHBOARD, {
     variables: {
       ...variables,
       page: {

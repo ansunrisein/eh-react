@@ -5,7 +5,7 @@ import {ProfileForm, ProfileFormProps} from './ProfileForm'
 
 export default {
   component: ProfileForm,
-  title: 'user/ProfileForm',
+  title: 'user/components/ProfileForm',
   parameters: {layout: 'centered'},
   argTypes: {
     onSubmit: {table: {disable: true}},
