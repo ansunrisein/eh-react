@@ -127,12 +127,14 @@ export const boards = Array(10)
     pinned: i === 1,
     favorite: [2, 3].includes(i),
     name: i === 1 ? 'Pinned' : [2, 3].includes(i) ? 'FAVORITE' : board.name,
+    __typename: 'Board',
     events: board.events
       .map((e: EventFragment, i: number) => ({
         ...e,
         deadline: new Date(Number(e.deadline) + Math.round(Math.random() * 500093480)),
         id: `${board.id}-event${i}`,
+        __typename: 'TextEvent',
       }))
       .sort((a: EventFragment, b: EventFragment) => Number(a.deadline) - Number(b.deadline)),
   }))
-  .map(e => ({node: e, cursor: e.id}))
+  .map(e => ({node: e, cursor: e.id, __typename: 'BoardEdge'}))
