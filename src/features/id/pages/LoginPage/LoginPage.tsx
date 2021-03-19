@@ -4,11 +4,11 @@ import {useLogin} from '@eh/react/features/shared/hooks'
 import {Login} from '../../views'
 
 export const LoginPage: React.FC = () => {
-  const {login} = useLogin()
+  const {login, loading} = useLogin()
 
   return (
     <PageTemplate>
-      <Login onGoogleLogin={login} />
+      <Login onGoogleLogin={login} loading={loading} />
     </PageTemplate>
   )
 }

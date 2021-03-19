@@ -6,14 +6,20 @@ import s from './Login.module.css'
 
 export type LoginProps = {
   onGoogleLogin?: () => unknown
+  loading?: boolean
 }
 
-export const Login: React.FC<LoginProps> = ({onGoogleLogin}) => (
+export const Login: React.FC<LoginProps> = ({onGoogleLogin, loading}) => (
   <div className={s.background}>
     <div className={s.button}>
       <Whisper placement="auto" trigger="hover" speaker={<Tooltip>Login with Google</Tooltip>}>
         <Flex>
-          <Button aria-label="login with google" appearance="subtle" onClick={onGoogleLogin}>
+          <Button
+            loading={loading}
+            aria-label="login with google"
+            appearance="subtle"
+            onClick={onGoogleLogin}
+          >
             <Icon icon="sign-in" size="2x" />
           </Button>
         </Flex>
