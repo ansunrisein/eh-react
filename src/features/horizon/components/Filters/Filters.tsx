@@ -1,7 +1,7 @@
 import React, {ReactNode, useState} from 'react'
-import useDidUpdate from '@rooks/use-did-update'
 import {ButtonGroup} from 'rsuite'
 import {FilterButton} from '../FilterButton'
+import {mapFiltersConfigToObj} from './helpers'
 
 export type FiltersProps = {
   onChange?: (filters: Record<string, number>) => void
@@ -9,22 +9,13 @@ export type FiltersProps = {
 }
 
 export const Filters: React.FC<FiltersProps> = ({onChange, filters}) => {
-  const [filter, setFilter] = useState<Record<string, number>>(() =>
-    filters.reduce(
-      (acc, e) => ({
-        ...acc,
-        [e.name]: 0,
-      }),
-      {},
-    ),
-  )
+  const [filter, setFilter] = useState(() => mapFiltersConfigToObj(filters))
 
-  const onStateChange = (name: string) => (state: number) =>
-    setFilter(prev => ({...prev, [name]: state}))
-
-  useDidUpdate(() => {
-    onChange?.(filter)
-  }, [onChange, filter])
+  const onStateChange = (name: string) => (state: number) => {
+    const newFilter = {...filter, [name]: state}
+    setFilter(newFilter)
+    onChange?.(newFilter)
+  }
 
   return (
     <ButtonGroup vertical>
