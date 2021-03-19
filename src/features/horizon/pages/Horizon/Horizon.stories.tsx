@@ -4,16 +4,13 @@ import {ApolloProvider, InMemoryCache} from '@apollo/client'
 import {createMockClient} from 'mock-apollo-client'
 import delay from 'delay'
 import * as R from 'ramda'
-import {
-  Dashboard_dashboard_edges,
-  DashboardVariables,
-} from '@eh/react/features/horizon/graphql/types/Dashboard'
+import {Dashboard_dashboard_edges, DashboardVariables} from '../../graphql/types/Dashboard'
 import {DASHBOARD} from '../../graphql'
 import {boards} from '../../views/Dashboard/testData'
 import {Horizon} from './Horizon'
 
 export default {
-  title: 'horizon/Horizon',
+  title: 'horizon/pages/Horizon',
   component: Horizon,
   parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
   decorators: [

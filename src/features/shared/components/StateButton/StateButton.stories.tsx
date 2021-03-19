@@ -6,7 +6,7 @@ import {StateButton, StateButtonProps} from './StateButton'
 
 export default {
   component: StateButton,
-  title: 'shared/StateButton',
+  title: 'shared/components/StateButton',
   argTypes: {
     defaultState: {table: {disable: true}},
     state: {table: {disable: true}},

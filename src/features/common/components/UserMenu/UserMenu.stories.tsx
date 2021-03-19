@@ -4,7 +4,7 @@ import {UserMenu, UserMenuProps} from './UserMenu'
 
 export default {
   component: UserMenu,
-  title: 'common/UserMenu',
+  title: 'common/components/UserMenu',
   parameters: {layout: 'centered'},
   argTypes: {
     onProfileClick: {table: {disable: true}},

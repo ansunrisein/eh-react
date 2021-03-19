@@ -7,7 +7,7 @@ import {EventCard} from './EventCard'
 
 export default {
   component: EventCard,
-  title: 'horizon/EventCard',
+  title: 'horizon/components/EventCard',
   parameters: {layout: 'centered'},
   argTypes: {
     deadline: {control: {type: 'date'}, defaultValue: new Date()},

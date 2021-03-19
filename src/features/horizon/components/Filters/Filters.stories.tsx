@@ -5,7 +5,7 @@ import {Filters, FiltersProps} from './Filters'
 
 export default {
   component: Filters,
-  title: 'horizon/Filters',
+  title: 'horizon/components/Filters',
   parameters: {layout: 'centered'},
   argTypes: {
     onChange: {table: {disable: true}},

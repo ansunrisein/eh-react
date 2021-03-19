@@ -5,7 +5,7 @@ import {EventGrid, EventGridProps} from './EventGrid'
 
 export default {
   component: EventGrid,
-  title: 'horizon/EventGrid',
+  title: 'horizon/components/EventGrid',
   argTypes: {
     events: {table: {disable: true}},
   },

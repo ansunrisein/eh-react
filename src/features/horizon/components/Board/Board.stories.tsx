@@ -4,7 +4,7 @@ import {EventType} from '@eh/react/.types/globalTypes'
 import {Board, BoardProps} from './Board'
 
 export default {
-  title: 'horizon/Board',
+  title: 'horizon/components/Board',
   component: Board,
   parameters: {
     controls: {hideNoControlsWarning: true},

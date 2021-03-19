@@ -5,7 +5,7 @@ import {AvatarForm, AvatarFormProps} from './AvatarForm'
 
 export default {
   component: AvatarForm,
-  title: 'user/AvatarForm',
+  title: 'user/components/AvatarForm',
   argTypes: {
     avatar: {
       control: {type: 'text'},

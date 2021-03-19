@@ -5,7 +5,7 @@ import {EventType} from '@eh/react/.types/globalTypes'
 import {EventLine, EventLineProps} from './EventLine'
 
 export default {
-  title: 'horizon/EventLine',
+  title: 'horizon/components/EventLine',
   component: EventLine,
   argTypes: {
     events: {table: {disable: true}},

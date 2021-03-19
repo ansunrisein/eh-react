@@ -4,7 +4,7 @@ import {BoardControl, BoardControlProps} from './BoardControl'
 
 export default {
   component: BoardControl,
-  title: 'horizon/BoardControl',
+  title: 'horizon/components/BoardControl',
   parameters: {layout: 'centered'},
   argTypes: {
     onFavClick: {table: {disable: true}},

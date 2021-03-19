@@ -5,7 +5,7 @@ import {boards} from './testData'
 
 export default {
   component: BoardGrid,
-  title: 'horizon/BoardGrid',
+  title: 'horizon/components/BoardGrid',
   argTypes: {
     boards: {table: {disable: true}},
     onBoardFavClick: {table: {disable: true}},

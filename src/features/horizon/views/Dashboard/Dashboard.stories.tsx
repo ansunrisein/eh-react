@@ -6,7 +6,7 @@ import {boards, filters, sorts} from './testData'
 
 export default {
   component: Dashboard,
-  title: 'horizon/Dashboard',
+  title: 'horizon/views/Dashboard',
   argTypes: {
     boards: {table: {disable: true}},
     filters: {table: {disable: true}},

@@ -7,7 +7,7 @@ import {SettingsPage} from './SettingsPage'
 
 export default {
   component: SettingsPage,
-  title: 'user/SettingsPage',
+  title: 'user/pages/SettingsPage',
   parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
 } as Meta
 

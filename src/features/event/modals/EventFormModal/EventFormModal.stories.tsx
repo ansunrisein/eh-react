@@ -8,7 +8,7 @@ import {EventFormModal, EventFormModalProps} from './EventFormModal'
 
 export default {
   component: EventFormModal,
-  title: 'event/EventFormModal',
+  title: 'event/modals/EventFormModal',
   decorators: [
     Story => (
       <ApolloProvider client={client}>

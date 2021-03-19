@@ -5,7 +5,7 @@ import {board} from './testData'
 
 export default {
   component: Board,
-  title: 'horizon/BoardView',
+  title: 'horizon/views/BoardView',
   argTypes: {
     board: {table: {disable: true}},
     onCreateEventClick: {table: {disable: true}},

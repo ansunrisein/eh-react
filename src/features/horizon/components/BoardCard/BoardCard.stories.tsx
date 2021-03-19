@@ -6,7 +6,7 @@ import {board} from './testData'
 
 export default {
   component: BoardCard,
-  title: 'horizon/BoardCard',
+  title: 'horizon/components/BoardCard',
   parameters: {layout: 'centered'},
   argTypes: {
     board: {table: {disable: true}},

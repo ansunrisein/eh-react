@@ -4,7 +4,7 @@ import {FilterButton, FilterButtonProps} from './FilterButton'
 
 export default {
   component: FilterButton,
-  title: 'horizon/FilterButton',
+  title: 'horizon/components/FilterButton',
   parameters: {layout: 'centered', controls: {hideNoControlsWarning: true}},
 } as Meta
 

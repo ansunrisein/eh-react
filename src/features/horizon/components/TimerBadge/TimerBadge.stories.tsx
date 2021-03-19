@@ -4,7 +4,7 @@ import {Box, Flex} from 'reflexbox'
 import {TimerBadge, TimerBadgeProps} from './TimerBadge'
 
 export default {
-  title: 'horizon/TimerBadge',
+  title: 'horizon/components/TimerBadge',
   component: TimerBadge,
   parameters: {layout: 'centered', controls: {hideNoControlsWarning: true}},
   argTypes: {

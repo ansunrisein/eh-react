@@ -5,7 +5,7 @@ import {Sorts, SortsProps} from './Sorts'
 
 export default {
   component: Sorts,
-  title: 'horizon/Sorts',
+  title: 'horizon/components/Sorts',
   parameters: {layout: 'centered'},
   argTypes: {
     sorts: {table: {disable: true}},

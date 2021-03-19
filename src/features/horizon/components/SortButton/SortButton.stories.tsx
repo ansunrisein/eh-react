@@ -5,7 +5,7 @@ import {SortButton, SortButtonProps} from './SortButton'
 
 export default {
   component: SortButton,
-  title: 'horizon/SortButton',
+  title: 'horizon/components/SortButton',
   parameters: {layout: 'centered'},
   argTypes: {
     onClick: {table: {disable: true}},

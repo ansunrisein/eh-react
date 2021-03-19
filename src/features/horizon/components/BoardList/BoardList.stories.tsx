@@ -5,7 +5,7 @@ import {boards} from './testData'
 
 export default {
   component: BoardList,
-  title: 'horizon/BoardList',
+  title: 'horizon/components/BoardList',
   argTypes: {
     boards: {table: {disable: true}},
   },

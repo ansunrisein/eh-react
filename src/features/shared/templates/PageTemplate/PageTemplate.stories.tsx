@@ -4,7 +4,7 @@ import {PageTemplate} from './PageTemplate'
 
 export default {
   component: PageTemplate,
-  title: 'shared/PageTemplate',
+  title: 'shared/templates/PageTemplate',
   parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
 } as Meta
 
