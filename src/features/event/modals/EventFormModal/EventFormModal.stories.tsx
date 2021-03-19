@@ -1,6 +1,9 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
-import {MockedProvider} from '@apollo/client/testing'
+import {ApolloProvider} from '@apollo/client'
+import {createMockClient} from 'mock-apollo-client'
+import delay from 'delay'
+import {CREATE_EVENT} from '@eh/react/features/event/graphql'
 import {EventFormModal, EventFormModalProps} from './EventFormModal'
 
 export default {
@@ -8,9 +11,9 @@ export default {
   title: 'event/EventFormModal',
   decorators: [
     Story => (
-      <MockedProvider mocks={[]}>
+      <ApolloProvider client={client}>
         <Story />
-      </MockedProvider>
+      </ApolloProvider>
     ),
   ],
   argTypes: {
@@ -29,5 +32,9 @@ export default {
     show: true,
   },
 } as Meta
+
+const client = createMockClient()
+
+client.setRequestHandler(CREATE_EVENT, () => delay(1000).then(() => ({data: {}})))
 
 export const Usual: Story<EventFormModalProps> = props => <EventFormModal {...props} />
