@@ -10,10 +10,10 @@ export const sortConfig = [
     name: 'favorite',
     icon: <ActionIcon icon="fav" />,
   },
-  {
-    name: 'subsCount',
-    icon: <ActionIcon icon="team" />,
-  },
+  // {
+  //   name: 'subsCount',
+  //   icon: <ActionIcon icon="team" />,
+  // },
   {
     name: 'pin',
     icon: <ActionIcon icon="pin" />,

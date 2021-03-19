@@ -2,14 +2,14 @@ import React from 'react'
 import {ActionIcon} from '@eh/react/ui'
 
 export const filterConfig = [
-  {
-    name: 'ownership',
-    icons: [
-      <ActionIcon key={0} icon="user" disabled />,
-      <ActionIcon key={1} icon="user" />,
-      <ActionIcon key={2} icon="team" />,
-    ],
-  },
+  // {
+  //   name: 'ownership',
+  //   icons: [
+  //     <ActionIcon key={0} icon="user" disabled />,
+  //     <ActionIcon key={1} icon="user" />,
+  //     <ActionIcon key={2} icon="team" />,
+  //   ],
+  // },
   {
     name: 'favorite',
     icons: [
