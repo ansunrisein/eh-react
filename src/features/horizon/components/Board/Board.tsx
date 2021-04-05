@@ -36,7 +36,7 @@ export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onColl
           <Divider vertical style={{height: 'auto', alignSelf: 'stretch'}} />
           <span>{board.description}</span>
         </Flex>
-        <BoardControl />
+        <BoardControl isFav={board.favorite} isPinned={board.pinned} />
       </Flex>
       {expanded ? <EventGrid events={board.events} /> : <EventLine events={board.events} />}
       {expandable && (
