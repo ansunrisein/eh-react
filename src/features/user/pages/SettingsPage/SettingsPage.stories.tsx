@@ -3,6 +3,7 @@ import {Meta, Story} from '@storybook/react'
 import {createMockClient} from 'mock-apollo-client'
 import {ApolloProvider} from '@apollo/client'
 import {ME, UPDATE_AVATAR, UPDATE_PROFILE} from '@eh/react/features/user/graphql'
+import {ClientUploadProvider} from '@eh/react/features/shared/contexts/FileUploadContext'
 import {SettingsPage} from './SettingsPage'
 
 export default {
@@ -44,6 +45,8 @@ client.setRequestHandler(UPDATE_AVATAR, variables => {
 
 export const Usual: Story = props => (
   <ApolloProvider client={client}>
-    <SettingsPage {...props} />
+    <ClientUploadProvider>
+      <SettingsPage {...props} />
+    </ClientUploadProvider>
   </ApolloProvider>
 )
