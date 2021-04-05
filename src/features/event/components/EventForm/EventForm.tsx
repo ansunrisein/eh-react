@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, DatePicker, Input, List, Radio, RadioGroup, Steps} from 'rsuite'
+import {Button, DatePicker, Icon, IconButton, Input, List, Radio, RadioGroup, Steps} from 'rsuite'
 import {Box, Flex} from 'reflexbox'
 import {Controller} from 'react-hook-form'
 import noop from 'noop6'
@@ -10,55 +10,79 @@ import {CreateEventVariables} from '../../graphql/types/CreateEvent'
 import {hasContent} from './helpers'
 
 export type EventFormProps = {
+  defaultValues?: Omit<CreateEventVariables, 'boardId'>
   onSubmit?: (data: Omit<CreateEventVariables, 'boardId'>) => unknown
 }
 
-export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop}) => {
-  const {register, control, setValue, event, fields, append, remove, handleSubmit} = useEventForm()
+export const EventForm: React.FC<EventFormProps> = ({defaultValues, onSubmit = noop}) => {
+  const {
+    register,
+    control,
+    event,
+    listFields,
+    addListItem,
+    removeListItem,
+    handleSubmit,
+  } = useEventForm(defaultValues)
 
   return (
     <Flex as="form" flexDirection="column" onSubmit={handleSubmit(onSubmit)}>
       <Steps vertical>
         <StepItem status={event.header ? 'finish' : 'wait'} icon="pencil" title="Header">
-          <Input name="header" inputRef={register} />
+          <Input aria-label="header" name="header" inputRef={register} />
         </StepItem>
         <StepItem status={hasContent(event) ? 'finish' : 'wait'} icon="pencil" title="Content">
-          <RadioGroup
-            inline
-            appearance="picker"
-            onChange={value => setValue('type', value)}
-            value={event.type}
-          >
-            <Radio value={EventType.TEXT}>Text</Radio>
-            <Radio value={EventType.LIST}>List</Radio>
-            <Radio value={EventType.PICTURE}>Picture</Radio>
-          </RadioGroup>
+          <Controller
+            name="type"
+            control={control}
+            render={({value, onChange, name}) => (
+              <RadioGroup inline appearance="picker" name={name} onChange={onChange} value={value}>
+                <Radio value={EventType.TEXT}>Text</Radio>
+                <Radio value={EventType.LIST}>List</Radio>
+                <Radio value={EventType.PICTURE}>Picture</Radio>
+              </RadioGroup>
+            )}
+          />
           <Spacing space="1rem" vertical />
           {event.type === EventType.TEXT ? (
-            <Input inputRef={register} name="text" componentClass="textarea" />
+            <div aria-label="text content">
+              <Input inputRef={register} aria-label="text" name="text" componentClass="textarea" />
+            </div>
           ) : event.type === EventType.LIST ? (
-            <>
+            <section aria-label="list content">
               <List bordered>
-                {fields.map((e, i) => (
+                {listFields.map((e, i) => (
                   <List.Item key={e.id}>
                     <Flex>
-                      <Input name={`list[${i}].value`} inputRef={register()} />
+                      <Input
+                        aria-label="item"
+                        name={`list[${i}].value`}
+                        inputRef={register()}
+                        defaultValue={e.value}
+                      />
                       <Spacing space="1rem" />
-                      <Button onClick={() => remove(i)}>Delete</Button>
+                      <IconButton
+                        aria-label={`remove item ${i + 1}`}
+                        onClick={() => removeListItem(i)}
+                        icon={<Icon icon="trash" />}
+                      />
                     </Flex>
                   </List.Item>
                 ))}
               </List>
               <Spacing space="0.8rem" vertical />
-              <Button
-                style={{paddingRight: '4rem', paddingLeft: '4rem', float: 'right'}}
-                onClick={() => append({value: ''})}
+              <IconButton
+                style={{float: 'right'}}
+                onClick={addListItem}
+                icon={<Icon icon="plus" />}
               >
-                Add
-              </Button>
-            </>
+                <Box as="span" padding="0 1rem">
+                  Add
+                </Box>
+              </IconButton>
+            </section>
           ) : event.type === EventType.PICTURE ? (
-            <div>Picture</div>
+            <div aria-label="picture content">Picture</div>
           ) : (
             <></>
           )}

@@ -1,7 +1,8 @@
-import {useEffect, useMemo} from 'react'
+import {useCallback, useEffect, useMemo} from 'react'
 import {useFieldArray, UseFieldArrayMethods, useForm, UseFormMethods} from 'react-hook-form'
 import {EventType} from '@eh/react/.types/globalTypes'
 import {CreateEventVariables} from '../../graphql/types/CreateEvent'
+import {listToFields} from './helpers'
 
 export type EventFormFields = Omit<CreateEventVariables, 'boardId'>
 
@@ -11,30 +12,43 @@ export type EventFormFieldsWithList = Omit<EventFormFields, 'list'> & {
 
 export type UseEventFormResult = Pick<
   UseFormMethods<EventFormFieldsWithList>,
-  'register' | 'control' | 'setValue' | 'handleSubmit'
-> &
-  Pick<UseFieldArrayMethods<{value: string}>, 'fields' | 'append' | 'remove'> & {
-    event: EventFormFields
-  }
+  'register' | 'control' | 'handleSubmit'
+> & {
+  event: EventFormFields
+  listFields: UseFieldArrayMethods<{value: string}>['fields']
+  addListItem: () => void
+  removeListItem: (i: number) => void
+}
 
-export const useEventForm = (): UseEventFormResult => {
-  const {register, watch, setValue, control, handleSubmit} = useForm<EventFormFieldsWithList>({
+export const useEventForm = (defaultValues?: EventFormFields): UseEventFormResult => {
+  const {register, watch, control, handleSubmit} = useForm<EventFormFieldsWithList>({
     defaultValues: {
       header: null,
       text: '',
-      list: [],
       type: EventType.TEXT,
       deadline: null,
+      ...defaultValues,
+      list: listToFields(defaultValues?.list || []),
     },
     mode: 'onChange',
   })
 
   const {fields, append, remove} = useFieldArray<{value: string}>({control, name: 'list'})
 
+  const addListItem = useCallback(() => {
+    const list = watch('list')
+    if (!list.length || list[list.length - 1].value) {
+      append({value: ''})
+    }
+  }, [append, watch])
+
   useEffect(() => {
     register('type')
-    append({value: ''})
-  }, [register, append])
+    if (!fields.length) {
+      append({value: ''})
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const formData = watch()
   const list = watch('list', fields)
@@ -52,11 +66,10 @@ export const useEventForm = (): UseEventFormResult => {
   return {
     register,
     control,
-    setValue,
     event,
-    fields,
-    append,
-    remove,
+    listFields: fields,
+    addListItem,
+    removeListItem: remove,
     handleSubmit,
   }
 }
