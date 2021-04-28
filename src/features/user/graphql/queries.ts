@@ -3,7 +3,7 @@ import {gql} from '@apollo/client'
 export const ME = gql`
   query Me {
     me {
-      id
+      _id
       nickname
       name
       avatar

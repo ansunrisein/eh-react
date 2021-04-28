@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface UpdateAvatar_updateAvatar {
-  id: string
+  _id: string
   avatar: string | null
 }
 

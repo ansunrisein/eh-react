@@ -1,6 +1,7 @@
 import React from 'react'
 import {act, render, screen} from '@testing-library/react'
 import {EventType} from '@eh/react/.types/globalTypes'
+import {BoardFragment} from '@eh/react/features/horizon/graphql/types/BoardFragment'
 import {Board} from './Board'
 
 const events = [
@@ -416,8 +417,22 @@ const events = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
     deadline: '2020-11-15T21:57:03.365Z',
   },
-]
-const board = {id: '123', name: 'Name', description: '', events}
+].map((e, i) => ({...e, _id: String(i)}))
+
+const board: BoardFragment = {
+  _id: '123',
+  title: 'Name',
+  description: '',
+  pinned: true,
+  favorite: false,
+  events: {
+    edges: events.map(e => ({cursor: e._id, node: e})),
+    pageInfo: {
+      hasNextPage: false,
+      endCursor: events[events.length - 1]._id,
+    },
+  },
+}
 
 describe('Board', () => {
   it('should not render expand button when not expandable', () => {

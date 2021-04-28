@@ -27,7 +27,7 @@ export const BoardGrid: React.FC<BoardGridProps> = ({boards, onBoardFavClick, on
                 board={e.node}
                 onFavClick={createOnFavClick(e)}
                 onPinClick={createOnPinClick(e)}
-                data-testid={e.node.id}
+                data-testid={e.node._id}
               />
             </Box>
           </Col>

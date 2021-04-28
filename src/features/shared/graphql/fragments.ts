@@ -2,7 +2,7 @@ import {gql} from '@apollo/client'
 
 export const EVENT_FRAGMENT = gql`
   fragment EventFragment on Event {
-    id
+    _id
     type
     header
     deadline

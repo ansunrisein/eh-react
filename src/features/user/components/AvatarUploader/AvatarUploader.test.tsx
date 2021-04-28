@@ -13,13 +13,13 @@ describe('AvatarUploader', () => {
   })
 
   it('should render icon if avatar is not defined', () => {
-    const container = render(<AvatarUploader avatar={undefined} />)
+    const container = render(<AvatarUploader avatar={null} />)
     const image = container.getByRole('img', {name: 'avatar'})
     expect(image).toBeInTheDocument()
   })
 
   it('should have accept attribute', () => {
-    const container = render(<AvatarUploader avatar={undefined} />)
+    const container = render(<AvatarUploader avatar={null} />)
 
     const input = container.container.querySelector('input[type=file]')
 
@@ -30,7 +30,7 @@ describe('AvatarUploader', () => {
     const onFileSelected = jest.fn()
     const file = new File([], '', {type: 'image/png'})
 
-    const container = render(<AvatarUploader avatar={undefined} onFileSelected={onFileSelected} />)
+    const container = render(<AvatarUploader avatar={null} onFileSelected={onFileSelected} />)
     const input = container.container.querySelector('input[type=file]')
 
     if (input) {
@@ -44,7 +44,7 @@ describe('AvatarUploader', () => {
     const onFileSelected = jest.fn()
     const files = [new File([], '', {type: 'image/png'}), new File([], '', {type: 'image/jpg'})]
 
-    const container = render(<AvatarUploader avatar={undefined} onFileSelected={onFileSelected} />)
+    const container = render(<AvatarUploader avatar={null} onFileSelected={onFileSelected} />)
     const input = container.container.querySelector('input[type=file]')
 
     if (input) {
@@ -55,7 +55,7 @@ describe('AvatarUploader', () => {
   })
 
   it('should render loader if loading is true', () => {
-    const container = render(<AvatarUploader avatar={undefined} loading />)
+    const container = render(<AvatarUploader avatar={null} loading />)
     const loader = container.getByRole('alert')
 
     expect(loader).toBeDefined()
@@ -68,8 +68,8 @@ describe('AvatarUploader', () => {
     expect(remove).toBeInTheDocument()
   })
 
-  it('should not render remove button if avatar is undefined', () => {
-    const container = render(<AvatarUploader avatar={undefined} />)
+  it('should not render remove button if avatar is null', () => {
+    const container = render(<AvatarUploader avatar={null} />)
 
     return expect(container.findByRole('button', {name: 'remove avatar'})).rejects.toBeDefined()
   })

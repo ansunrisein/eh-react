@@ -36,7 +36,7 @@ const sortBoards = (sort: DashboardVariables['sort'], boards: Dashboard_dashboar
   }
 
   const nearestEvent = (b: Dashboard_dashboard_edges) =>
-    Math.min(...b.node.events.map(e => Number(e.deadline) || Infinity))
+    Math.min(...b.node.events.edges.map(e => Number(e.node.deadline) || Infinity))
 
   const sortByNearest =
     sort.nearestEvent === 'desc'

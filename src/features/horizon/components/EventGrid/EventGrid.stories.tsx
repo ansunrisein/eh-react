@@ -424,6 +424,8 @@ const events = [
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
     deadline: '2020-11-15T21:57:03.365Z',
   },
-].map((e, i) => ({...e, id: `event-${i}`}))
+].map((e, i) => ({...e, _id: `event-${i}`}))
 
-export const Usual: Story<EventGridProps> = props => <EventGrid {...props} events={events} />
+export const Usual: Story<EventGridProps> = props => (
+  <EventGrid {...props} events={events.map(e => ({cursor: e._id, node: e}))} />
+)

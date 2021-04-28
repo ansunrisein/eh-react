@@ -1,8 +1,9 @@
 import {EventType} from '@eh/react/.types/globalTypes'
+import {Board_board} from '@eh/react/features/horizon/graphql/types/Board'
 
 const events = [
   {
-    id: 'event0',
+    _id: 'event0',
     type: EventType.TEXT,
     pinned: true,
     header: 'Pinned',
@@ -11,11 +12,18 @@ const events = [
     deadline: new Date(Number(new Date()) + 1003933224).toISOString(),
   },
 ]
+
 export const board = {
-  id: '123',
-  name: 'Name',
+  _id: '123',
+  title: 'Name',
   pinned: false,
   favorite: false,
   description: 'dsdsf',
-  events,
-}
+  events: {
+    edges: events.map(e => ({cursor: e._id, node: e})),
+    pageInfo: {
+      hasNextPage: false,
+      endCursor: events[events.length - 1]._id,
+    },
+  },
+} as Board_board

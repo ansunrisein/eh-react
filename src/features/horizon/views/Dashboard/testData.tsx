@@ -1,7 +1,7 @@
 import React from 'react'
 import {EventType} from '@eh/react/.types/globalTypes'
 import {ActionIcon} from '@eh/react/ui'
-import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
+import {Board_board} from '@eh/react/features/horizon/graphql/types/Board'
 
 export const filters = [
   {
@@ -48,93 +48,105 @@ export const sorts = [
   },
 ]
 
+const events = [
+  {
+    type: EventType.TEXT,
+    pinned: true,
+    header: 'Pinned',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-12-11T21:57:03.365Z',
+  },
+  {
+    type: EventType.TEXT,
+    pinned: false,
+    header: 'Lorem ipsum',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-12-11T21:57:03.365Z',
+  },
+  {
+    type: EventType.TEXT,
+    pinned: false,
+    header: 'Lorem ipsum',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-12-11T21:57:03.365Z',
+  },
+  {
+    type: EventType.TEXT,
+    pinned: false,
+    header: 'Lorem ipsum',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-12-11T21:57:03.365Z',
+  },
+  {
+    type: EventType.TEXT,
+    pinned: false,
+    header: 'Lorem ipsum',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-12-11T21:57:03.365Z',
+  },
+  {
+    type: EventType.TEXT,
+    pinned: false,
+    header: 'Lorem ipsum',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-12-11T21:57:03.365Z',
+  },
+  {
+    type: EventType.TEXT,
+    pinned: false,
+    header: 'Lorem ipsum',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-12-11T21:57:03.365Z',
+  },
+  {
+    type: EventType.TEXT,
+    pinned: false,
+    header: 'Lorem ipsum',
+    text:
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
+    deadline: '2020-11-15T21:57:03.365Z',
+  },
+].map((e, i) => ({...e, _id: String(i)}))
+
 export const board = {
-  name: 'My board',
+  _id: '123',
+  title: 'My board',
   description: 'Best board',
-  events: [
-    {
-      type: EventType.TEXT,
-      pinned: true,
-      header: 'Pinned',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
+  pinned: true,
+  favorite: true,
+  events: {
+    edges: events.map(e => ({cursor: e._id, node: e})),
+    pageInfo: {
+      hasNextPage: false,
+      endCursor: events[events.length - 1]._id,
     },
-    {
-      type: EventType.TEXT,
-      pinned: false,
-      header: 'Lorem ipsum',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
-    },
-    {
-      type: EventType.TEXT,
-      pinned: false,
-      header: 'Lorem ipsum',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
-    },
-    {
-      type: EventType.TEXT,
-      pinned: false,
-      header: 'Lorem ipsum',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
-    },
-    {
-      type: EventType.TEXT,
-      pinned: false,
-      header: 'Lorem ipsum',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
-    },
-    {
-      type: EventType.TEXT,
-      pinned: false,
-      header: 'Lorem ipsum',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
-    },
-    {
-      type: EventType.TEXT,
-      pinned: false,
-      header: 'Lorem ipsum',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
-    },
-    {
-      type: EventType.TEXT,
-      pinned: false,
-      header: 'Lorem ipsum',
-      text:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam',
-      deadline: new Date(),
-    },
-  ],
-}
+  },
+} as Board_board
+
 export const boards = Array(35)
   .fill(board)
-  .map((e, i) => (i % 3 ? e : {...e, events: e.events.slice(1)}))
+  .map((e: Board_board, i) => (i % 3 ? e : {...e, events: e.events.edges.slice(1)}))
   .map((board, i) => ({
     ...board,
-    id: 'id' + i,
+    _id: 'id' + i,
     pinned: i === 1,
     favorite: [2, 3].includes(i),
-    name: i === 1 ? 'Pinned' : [2, 3].includes(i) ? 'FAVORITE' : board.name,
+    title: i === 1 ? 'Pinned' : [2, 3].includes(i) ? 'FAVORITE' : board.title,
     __typename: 'Board',
-    events: board.events
-      .map((e: EventFragment, i: number) => ({
+    events: (board as Board_board).events.edges
+      .map((e, i: number) => ({
         ...e,
-        deadline: new Date(Number(e.deadline) + Math.round(Math.random() * 500093480)),
-        id: `${board.id}-event${i}`,
+        deadline: new Date(Number(e.node.deadline) + Math.round(Math.random() * 500093480)),
+        _id: `${board._id}-event${i}`,
         __typename: 'TextEvent',
       }))
-      .sort((a: EventFragment, b: EventFragment) => Number(a.deadline) - Number(b.deadline)),
+      .sort((a, b) => Number(a.node.deadline) - Number(b.node.deadline)),
   }))
-  .map(e => ({node: e, cursor: e.id, __typename: 'BoardEdge'}))
+  .map(e => ({node: e, cursor: e._id, __typename: 'BoardEdge'})) as any

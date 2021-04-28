@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {DashboardFilter, DashboardSort, Page, EventType} from './../../../../.types/globalTypes'
+import {BoardsFilter, BoardsSort, Page, EventType} from './../../../../.types/globalTypes'
 
 // ====================================================
 // GraphQL query operation: Dashboard
@@ -16,8 +16,8 @@ export interface Dashboard_dashboard_pageInfo {
   hasPreviousPage: boolean
 }
 
-export interface Dashboard_dashboard_edges_node_events_TextEvent {
-  id: string
+export interface Dashboard_dashboard_edges_node_events_edges_node_TextEvent {
+  _id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -25,8 +25,8 @@ export interface Dashboard_dashboard_edges_node_events_TextEvent {
   pinned: boolean
 }
 
-export interface Dashboard_dashboard_edges_node_events_ListEvent {
-  id: string
+export interface Dashboard_dashboard_edges_node_events_edges_node_ListEvent {
+  _id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -34,17 +34,32 @@ export interface Dashboard_dashboard_edges_node_events_ListEvent {
   pinned: boolean
 }
 
-export type Dashboard_dashboard_edges_node_events =
-  | Dashboard_dashboard_edges_node_events_TextEvent
-  | Dashboard_dashboard_edges_node_events_ListEvent
+export type Dashboard_dashboard_edges_node_events_edges_node =
+  | Dashboard_dashboard_edges_node_events_edges_node_TextEvent
+  | Dashboard_dashboard_edges_node_events_edges_node_ListEvent
+
+export interface Dashboard_dashboard_edges_node_events_edges {
+  cursor: string
+  node: Dashboard_dashboard_edges_node_events_edges_node
+}
+
+export interface Dashboard_dashboard_edges_node_events_pageInfo {
+  endCursor: string | null
+  hasNextPage: boolean
+}
+
+export interface Dashboard_dashboard_edges_node_events {
+  edges: Dashboard_dashboard_edges_node_events_edges[]
+  pageInfo: Dashboard_dashboard_edges_node_events_pageInfo
+}
 
 export interface Dashboard_dashboard_edges_node {
-  id: string
-  name: string
+  _id: string
+  title: string
   description: string | null
   pinned: boolean
   favorite: boolean
-  events: Dashboard_dashboard_edges_node_events[]
+  events: Dashboard_dashboard_edges_node_events
 }
 
 export interface Dashboard_dashboard_edges {
@@ -62,7 +77,8 @@ export interface Dashboard {
 }
 
 export interface DashboardVariables {
-  filter?: DashboardFilter | null
-  sort?: DashboardSort | null
-  page?: Page | null
+  filter: BoardsFilter
+  sort: BoardsSort
+  boardPage: Page
+  eventPage: Page
 }

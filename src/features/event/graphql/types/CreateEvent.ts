@@ -10,7 +10,7 @@ import {EventType} from './../../../../.types/globalTypes'
 // ====================================================
 
 export interface CreateEvent_createEvent_TextEvent {
-  id: string
+  _id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -18,7 +18,7 @@ export interface CreateEvent_createEvent_TextEvent {
 }
 
 export interface CreateEvent_createEvent_ListEvent {
-  id: string
+  _id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -30,7 +30,7 @@ export type CreateEvent_createEvent =
   | CreateEvent_createEvent_ListEvent
 
 export interface CreateEvent {
-  createEvent: CreateEvent_createEvent
+  createEvent: CreateEvent_createEvent | null
 }
 
 export interface CreateEventVariables {
