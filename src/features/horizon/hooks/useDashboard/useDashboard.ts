@@ -11,15 +11,21 @@ export type UseDashboardResult = {
   dashboard?: Dashboard_dashboard_edges[]
   loading: boolean
   error?: ApolloError
-  more: () => Promise<ApolloQueryResult<Dashboard>>
+  fetchMoreBoards: () => Promise<ApolloQueryResult<Dashboard>>
+  fetchMoreEvents: (boardId: string) => Promise<ApolloQueryResult<Dashboard>>
 }
 
-export const useDashboard = (variables: DashboardVariables): UseDashboardResult => {
+export const useDashboard = (
+  variables: Omit<DashboardVariables, 'boardPage' | 'eventPage'>,
+): UseDashboardResult => {
   const {data, loading, error, fetchMore} = useQuery<Dashboard, DashboardVariables>(DASHBOARD, {
     variables: {
       ...variables,
-      page: {
+      eventPage: {
         first: 10,
+      },
+      boardPage: {
+        first: 25,
       },
     },
   })
@@ -27,11 +33,11 @@ export const useDashboard = (variables: DashboardVariables): UseDashboardResult 
   const edges = data?.dashboard?.edges
   const pageInfo = data?.dashboard.pageInfo
 
-  const more = useCallback(
+  const fetchMoreBoards = useCallback(
     () =>
       fetchMore({
         variables: {
-          page: {
+          boardPage: {
             first: 10,
             after: pageInfo?.endCursor,
           },
@@ -40,10 +46,24 @@ export const useDashboard = (variables: DashboardVariables): UseDashboardResult 
     [fetchMore, pageInfo],
   )
 
+  const fetchMoreEvents = useCallback(
+    boardId =>
+      fetchMore({
+        variables: {
+          eventPage: {
+            first: 10,
+            after: edges?.find(e => e.node._id === boardId)?.node.events.pageInfo.endCursor,
+          },
+        },
+      }),
+    [edges, fetchMore],
+  )
+
   return {
     dashboard: edges,
     loading,
     error,
-    more,
+    fetchMoreBoards,
+    fetchMoreEvents,
   }
 }

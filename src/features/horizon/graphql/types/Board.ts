@@ -3,14 +3,14 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {EventType} from './../../../../.types/globalTypes'
+import {Page, EventType} from './../../../../.types/globalTypes'
 
 // ====================================================
 // GraphQL query operation: Board
 // ====================================================
 
-export interface Board_board_events_TextEvent {
-  id: string
+export interface Board_board_events_edges_node_TextEvent {
+  _id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -18,8 +18,8 @@ export interface Board_board_events_TextEvent {
   pinned: boolean
 }
 
-export interface Board_board_events_ListEvent {
-  id: string
+export interface Board_board_events_edges_node_ListEvent {
+  _id: string
   type: EventType
   header: string | null
   deadline: any | null
@@ -27,15 +27,32 @@ export interface Board_board_events_ListEvent {
   pinned: boolean
 }
 
-export type Board_board_events = Board_board_events_TextEvent | Board_board_events_ListEvent
+export type Board_board_events_edges_node =
+  | Board_board_events_edges_node_TextEvent
+  | Board_board_events_edges_node_ListEvent
+
+export interface Board_board_events_edges {
+  cursor: string
+  node: Board_board_events_edges_node
+}
+
+export interface Board_board_events_pageInfo {
+  endCursor: string | null
+  hasNextPage: boolean
+}
+
+export interface Board_board_events {
+  edges: Board_board_events_edges[]
+  pageInfo: Board_board_events_pageInfo
+}
 
 export interface Board_board {
-  id: string
-  name: string
+  _id: string
+  title: string
   description: string | null
   pinned: boolean
   favorite: boolean
-  events: Board_board_events[]
+  events: Board_board_events
 }
 
 export interface Board {
@@ -43,5 +60,6 @@ export interface Board {
 }
 
 export interface BoardVariables {
-  id: string
+  _id: string
+  page: Page
 }

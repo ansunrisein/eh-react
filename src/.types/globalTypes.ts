@@ -13,24 +13,22 @@ export enum EventType {
   TEXT = 'TEXT',
 }
 
-export interface DashboardFilter {
-  ownership?: number | null
+export interface BoardsFilter {
   favorite?: number | null
+  ownership?: number | null
   pin?: number | null
 }
 
-export interface DashboardSort {
-  nearestEvent?: string | null
+export interface BoardsSort {
   favorite?: string | null
-  subsCount?: string | null
+  nearestEvent?: string | null
   pin?: string | null
+  subsCount?: string | null
 }
 
 export interface Page {
-  before?: string | null
   after?: string | null
   first?: number | null
-  last?: number | null
 }
 
 //==============================================================

@@ -13,7 +13,7 @@ export type BoardListProps = {
 export const BoardList: React.FC<BoardListProps> = ({boards}) => {
   const {register, scroll} = useScrollToId()
 
-  const scrollToBoard = useCallback((board: BoardFragment) => scroll(board.id), [scroll])
+  const scrollToBoard = useCallback((board: BoardFragment) => scroll(board._id), [scroll])
 
   return (
     <SimpleBar style={{width: '100%'}} color="blue">
@@ -24,8 +24,8 @@ export const BoardList: React.FC<BoardListProps> = ({boards}) => {
             key={cursor}
             marginTop={i ? '1rem' : '0'}
             ref={register}
-            id={node.id}
-            data-testid={'board-' + node.id}
+            id={node._id}
+            data-testid={'board-' + node._id}
           >
             <Board board={node} expandable onExpand={scrollToBoard} />
           </Box>

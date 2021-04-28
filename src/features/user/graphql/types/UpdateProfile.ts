@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface UpdateProfile_updateProfile {
-  id: string
+  _id: string
   nickname: string
   name: string | null
 }

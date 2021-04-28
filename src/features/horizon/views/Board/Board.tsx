@@ -2,15 +2,15 @@ import React, {useCallback} from 'react'
 import {Box, Flex} from 'reflexbox'
 import {Button, Icon, IconButton, Tag} from 'rsuite'
 import {Spacing} from '@eh/react/ui'
-import {BoardFragment} from '../../graphql/types/BoardFragment'
 import {BoardControl, EventGrid} from '../../components'
+import {Board_board} from '../../graphql/types/Board'
 
 export type BoardProps = {
-  board: BoardFragment
-  onCreateEventClick?: (board: BoardFragment) => unknown
-  onBoardFavClick?: (board: BoardFragment) => unknown
-  onBoardPinClick?: (board: BoardFragment) => unknown
-  onNavIconClick?: (board: BoardFragment) => unknown
+  board: Board_board
+  onCreateEventClick?: (board: Board_board) => unknown
+  onBoardFavClick?: (board: Board_board) => unknown
+  onBoardPinClick?: (board: Board_board) => unknown
+  onNavIconClick?: (board: Board_board) => unknown
 }
 
 export const Board: React.FC<BoardProps> = ({
@@ -30,7 +30,7 @@ export const Board: React.FC<BoardProps> = ({
       <Flex padding="0.5rem" justifyContent="space-between">
         <Flex>
           <Tag color="blue" title={board.description || undefined}>
-            <strong>{board.name}</strong>
+            <strong>{board.title}</strong>
           </Tag>
           <Spacing space="1rem" />
           <BoardControl size="xs" onFavClick={onFavClick} onPinClick={onPinClick} />
@@ -44,7 +44,7 @@ export const Board: React.FC<BoardProps> = ({
         </Flex>
       </Flex>
       <Spacing space="0.5rem" vertical />
-      <EventGrid events={board.events} />
+      <EventGrid events={board.events.edges} />
     </Box>
   )
 }

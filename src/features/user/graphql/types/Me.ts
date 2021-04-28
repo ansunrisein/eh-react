@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface Me_me {
-  id: string
+  _id: string
   nickname: string
   name: string | null
   avatar: string | null

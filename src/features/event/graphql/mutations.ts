@@ -6,7 +6,7 @@ export const CREATE_EVENT = gql`
     $boardId: ID!
     $type: EventType!
     $header: String
-    $deadline: Date
+    $deadline: DateTime
     $pinned: Boolean!
     $text: String
     $list: [String!]

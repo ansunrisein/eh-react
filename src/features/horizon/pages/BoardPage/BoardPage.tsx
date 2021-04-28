@@ -11,7 +11,7 @@ export const BoardPage: React.FC = () => {
   const {id} = useParams<{id: string}>()
 
   const {open} = useModal(EventFormModal)
-  const {board, loading} = useBoard({id})
+  const {board, loading} = useBoard({_id: id})
 
   if (!board || loading) {
     return <Loader center size="lg" />
