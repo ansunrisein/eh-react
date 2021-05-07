@@ -10,7 +10,9 @@ export default {
   parameters: {layout: 'fullscreen', controls: {hideNoControlsWarning: true}},
   decorators: [
     Story => (
-      <AuthContext.Provider value={{login: () => delay(1000).then(() => alert('Auth successful'))}}>
+      <AuthContext.Provider
+        value={{login: () => delay(1000).then(() => alert('Auth successful')), loading: false}}
+      >
         <Story />
       </AuthContext.Provider>
     ),
