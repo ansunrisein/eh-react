@@ -1,4 +1,5 @@
 import {gql} from '@apollo/client'
+import {EVENT_FRAGMENT} from '@eh/react/features/shared/graphql'
 import {BOARD_FRAGMENT} from './fragments'
 
 export const DASHBOARD = gql`
@@ -37,6 +38,7 @@ export const DASHBOARD = gql`
     }
   }
   ${BOARD_FRAGMENT}
+  ${EVENT_FRAGMENT}
 `
 
 export const BOARD = gql`
@@ -59,4 +61,5 @@ export const BOARD = gql`
     }
   }
   ${BOARD_FRAGMENT}
+  ${EVENT_FRAGMENT}
 `
