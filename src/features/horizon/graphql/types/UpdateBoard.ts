@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: CreateBoard
+// GraphQL mutation operation: UpdateBoard
 // ====================================================
 
-export interface CreateBoard_createBoard {
+export interface UpdateBoard_updateBoard {
   _id: string
   title: string
   description: string | null
@@ -16,12 +16,15 @@ export interface CreateBoard_createBoard {
   private: boolean
 }
 
-export interface CreateBoard {
-  createBoard: CreateBoard_createBoard
+export interface UpdateBoard {
+  updateBoard: UpdateBoard_updateBoard
 }
 
-export interface CreateBoardVariables {
+export interface UpdateBoardVariables {
+  _id: string
   title: string
   description?: string | null
   private: boolean
+  favorite: boolean
+  pinned: boolean
 }
