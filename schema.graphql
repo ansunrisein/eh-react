@@ -10,7 +10,9 @@ interface Event {
     board: Board!
     deadline: DateTime
     header: String
+    list: [String!]
     pinned: Boolean!
+    text: String
     type: EventType!
 }
 
@@ -20,6 +22,7 @@ type Board {
     events(page: Page!): EventConnection!
     favorite: Boolean!
     pinned: Boolean!
+    private: Boolean!
     title: String!
     user: User!
 }
@@ -51,16 +54,17 @@ type ListEvent implements Event {
     header: String
     list: [String!]!
     pinned: Boolean!
+    text: String
     type: EventType!
 }
 
 type Mutation {
-    createBoard(description: String, title: String!): Board!
+    createBoard(description: String, private: Boolean!, title: String!): Board!
     createEvent(boardId: ID!, deadline: DateTime, header: String, list: [String!], pinned: Boolean!, text: String, type: EventType!): Event
     removeBoard(_id: ID!): Board!
     removeEvent(_id: ID!): Event
     updateAvatar(avatar: String): User!
-    updateBoard(_id: ID!, description: String, title: String!): Board!
+    updateBoard(_id: ID!, description: String, favorite: Boolean!, pinned: Boolean!, private: Boolean!, title: String!): Board!
     updateEvent(_id: ID!, deadline: DateTime, header: String, list: [String!], pinned: Boolean!, text: String, type: EventType!): Event
     updateProfile(name: String, nickname: String!): User!
 }
@@ -74,7 +78,7 @@ type PageInfo {
 
 type Query {
     board(_id: ID!): Board!
-    dashboard(filter: BoardsFilter!, page: Page!, sort: BoardsSort!): BoardConnection!
+    dashboard(filter: BoardsFilter, page: Page!, sort: BoardsSort): BoardConnection!
     event(_id: ID!): Event
     events(boardId: ID!, page: Page!): EventConnection!
     me: User
@@ -85,6 +89,7 @@ type TextEvent implements Event {
     board: Board!
     deadline: DateTime
     header: String
+    list: [String!]
     pinned: Boolean!
     text: String!
     type: EventType!
