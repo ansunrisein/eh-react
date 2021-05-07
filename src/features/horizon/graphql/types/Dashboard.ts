@@ -59,6 +59,7 @@ export interface Dashboard_dashboard_edges_node {
   description: string | null
   pinned: boolean
   favorite: boolean
+  private: boolean
   events: Dashboard_dashboard_edges_node_events
 }
 

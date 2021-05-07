@@ -13,4 +13,5 @@ export interface BoardFragment {
   description: string | null
   pinned: boolean
   favorite: boolean
+  private: boolean
 }
