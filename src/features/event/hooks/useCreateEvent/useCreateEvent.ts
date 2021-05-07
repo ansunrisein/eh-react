@@ -16,7 +16,10 @@ export const useCreateEvent = (
 ): UseCreateEventResult => {
   const [mutate, {loading, error}] = useMutation(CREATE_EVENT, options)
 
-  const create = useCallback<Create>(variables => mutate({variables}), [mutate])
+  const create = useCallback<Create>(
+    variables => mutate({variables: {...variables, pinned: false}}),
+    [mutate],
+  )
 
   return {
     create,
