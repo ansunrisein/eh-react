@@ -1,8 +1,8 @@
 import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Box, Flex} from 'reflexbox'
-import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
 import {EventType} from '@eh/react/.types/globalTypes'
+import {Board_board_events_edges_node} from '../../graphql/types/Board'
 import {EventCard} from './EventCard'
 
 export default {
@@ -16,7 +16,7 @@ export default {
   },
 } as Meta
 
-const Card: Story<EventFragment> = event => (
+const Card: Story<Board_board_events_edges_node> = event => (
   <Flex>
     <Box width="20vw">
       <EventCard event={event} />
