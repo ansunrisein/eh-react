@@ -1,12 +1,12 @@
 import React from 'react'
 import {List, Panel} from 'rsuite'
 import {Flex} from 'reflexbox'
-import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
+import {Board_board_events_edges_node} from '../../graphql/types/Board'
 import {TimerBadge} from '../TimerBadge'
 import {isTextEvent} from './helpers'
 
 export type EventCardProps = {
-  event: EventFragment
+  event: Board_board_events_edges_node
 }
 
 export const EventCard: React.FC<EventCardProps> = ({event}) => (
