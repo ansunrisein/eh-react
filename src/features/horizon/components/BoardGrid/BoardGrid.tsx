@@ -18,7 +18,7 @@ export const BoardGrid: React.FC<BoardGridProps> = ({boards, onBoardFavClick, on
     onBoardPinClick ? () => onBoardPinClick(board) : undefined
 
   return (
-    <Grid fluid style={{marginBottom: '-0.8rem'}} data-testid="board-grid">
+    <Grid fluid style={{marginBottom: '-0.8rem', width: 'auto'}} data-testid="board-grid">
       <Row gutter={10}>
         {boards.map(e => (
           <Col key={e.cursor} lg={4} md={6} sm={12} xs={24}>
