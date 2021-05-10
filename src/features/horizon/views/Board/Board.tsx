@@ -33,7 +33,13 @@ export const Board: React.FC<BoardProps> = ({
             <strong>{board.title}</strong>
           </Tag>
           <Spacing space="1rem" />
-          <BoardControl size="xs" onFavClick={onFavClick} onPinClick={onPinClick} />
+          <BoardControl
+            size="xs"
+            isFav={board.favorite}
+            isPinned={board.pinned}
+            onFavClick={onFavClick}
+            onPinClick={onPinClick}
+          />
         </Flex>
         <Flex>
           <Button size="xs" color="blue" onClick={onCreateClick}>
