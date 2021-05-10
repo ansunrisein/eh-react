@@ -1,5 +1,6 @@
 export * from './useBoard'
 export * from './useBoardForm'
+export * from './useBoardSettingsForm'
 export * from './useCreateBoard'
 export * from './useDashboard'
 export * from './useFilter'
