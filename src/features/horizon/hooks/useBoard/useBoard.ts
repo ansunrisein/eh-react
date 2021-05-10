@@ -10,12 +10,16 @@ export type UseBoardResult = {
   more: () => Promise<ApolloQueryResult<Board>>
 }
 
-export const useBoard = (variables: Omit<BoardVariables, 'page'>): UseBoardResult => {
+export const useBoard = (
+  variables: Omit<BoardVariables, 'page'>,
+  skip?: boolean,
+): UseBoardResult => {
   const {data, loading, error, fetchMore} = useQuery<Board, BoardVariables>(BOARD, {
     variables: {
       ...variables,
       page: {first: 25},
     },
+    skip,
   })
 
   const board = data?.board
