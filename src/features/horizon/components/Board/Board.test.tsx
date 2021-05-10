@@ -1,7 +1,7 @@
 import React from 'react'
 import {act, render, screen} from '@testing-library/react'
 import {EventType} from '@eh/react/.types/globalTypes'
-import {BoardFragment} from '@eh/react/features/horizon/graphql/types/BoardFragment'
+import {Board_board} from '@eh/react/features/horizon/graphql/types/Board'
 import {Board} from './Board'
 
 const events = [
@@ -419,12 +419,13 @@ const events = [
   },
 ].map((e, i) => ({...e, _id: String(i)}))
 
-const board: BoardFragment = {
+const board: Board_board = {
   _id: '123',
   title: 'Name',
   description: '',
   pinned: true,
   favorite: false,
+  private: false,
   events: {
     edges: events.map(e => ({cursor: e._id, node: e})),
     pageInfo: {

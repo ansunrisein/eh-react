@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import {EventType, Page} from './../../../../.types/globalTypes'
+import {Page, EventType} from './../../../../.types/globalTypes'
 
 // ====================================================
 // GraphQL query operation: Board

@@ -17,21 +17,21 @@ export interface Dashboard_dashboard_pageInfo {
 }
 
 export interface Dashboard_dashboard_edges_node_events_edges_node_TextEvent {
+  pinned: boolean
   _id: string
   type: EventType
   header: string | null
   deadline: any | null
   text: string
-  pinned: boolean
 }
 
 export interface Dashboard_dashboard_edges_node_events_edges_node_ListEvent {
+  pinned: boolean
   _id: string
   type: EventType
   header: string | null
   deadline: any | null
   list: string[]
-  pinned: boolean
 }
 
 export type Dashboard_dashboard_edges_node_events_edges_node =

@@ -89,6 +89,7 @@ const board = {
   description: 'Best board',
   pinned: true,
   favorite: true,
+  private: false,
   events: {
     edges: events.map(e => ({cursor: e._id, node: e})),
     pageInfo: {
