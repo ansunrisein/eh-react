@@ -2,6 +2,7 @@ import React from 'react'
 import {Box, Flex} from 'reflexbox'
 import {Button, Input, Steps, Toggle, Tooltip, Whisper} from 'rsuite'
 import noop from 'noop6'
+import {Controller} from 'react-hook-form'
 import {StepItem} from '@eh/react/ui'
 import {useBoardForm} from '../../hooks'
 import {CreateBoardVariables} from '../../graphql/types/CreateBoard'
@@ -11,7 +12,7 @@ export type BoardFormProps = {
 }
 
 export const BoardForm: React.FC<BoardFormProps> = ({onSubmit = noop}) => {
-  const {register, handleSubmit, board} = useBoardForm()
+  const {register, handleSubmit, board, control} = useBoardForm()
 
   return (
     <Flex as="form" flexDirection="column" onSubmit={handleSubmit(onSubmit)}>
@@ -25,7 +26,14 @@ export const BoardForm: React.FC<BoardFormProps> = ({onSubmit = noop}) => {
           <Input name="description" inputRef={register()} componentClass="textarea" />
         </StepItem>
         <StepItem status="wait" icon="lock" title="Private">
-          <Toggle />
+          <Controller
+            name="private"
+            control={control}
+            defaultValue={false}
+            render={({value, onChange}) => (
+              <Toggle checked={value} defaultChecked={false} onChange={onChange} />
+            )}
+          />
         </StepItem>
       </Steps>
       <Box alignSelf="flex-end" marginTop="1rem">
