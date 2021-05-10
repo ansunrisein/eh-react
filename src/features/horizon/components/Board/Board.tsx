@@ -1,4 +1,5 @@
 import React, {useCallback, useState} from 'react'
+import {Link, useRouteMatch} from 'react-router-dom'
 import {Button, Divider, Icon, Panel} from 'rsuite'
 import {Box, Flex} from 'reflexbox'
 import {Board_board} from '../../graphql/types/Board'
@@ -15,6 +16,8 @@ export type BoardProps = {
 }
 
 export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onCollapse}) => {
+  const {path} = useRouteMatch()
+
   const [expanded, setExpanded] = useState(false)
 
   const expand = useCallback(() => {
@@ -33,7 +36,9 @@ export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onColl
     <Panel bordered shaded style={{position: 'relative'}}>
       <Flex marginBottom="1rem" justifyContent="space-between" alignItems="center">
         <Flex alignItems="flex-end">
-          <h5>{board.title}</h5>
+          <Link to={`${path}board/${board._id}`}>
+            <h5>{board.title}</h5>
+          </Link>
           <Divider vertical style={{height: 'auto', alignSelf: 'stretch'}} />
           <span>{board.description}</span>
         </Flex>
