@@ -16,6 +16,13 @@ ul {
   padding: 0;
 }
 
+a,
+a:hover,
+a:focus-within {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 .simplebar-scrollbar::before {
   background-color: #fff !important;
 }
