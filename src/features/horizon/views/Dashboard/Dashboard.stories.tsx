@@ -2,7 +2,7 @@ import React from 'react'
 import {Meta, Story} from '@storybook/react'
 import {Box} from 'reflexbox'
 import {Dashboard, DashboardProps} from './Dashboard'
-import {boards, filters, sorts} from './testData'
+import {createBoards, filters, sorts} from './testData'
 
 export default {
   component: Dashboard,
@@ -20,6 +20,6 @@ export default {
 
 export const Usual: Story<DashboardProps> = props => (
   <Box height="calc(100vh - 2rem)">
-    <Dashboard {...props} filters={filters} sorts={sorts} boards={boards} />
+    <Dashboard {...props} filters={filters} sorts={sorts} boards={createBoards()} />
   </Box>
 )

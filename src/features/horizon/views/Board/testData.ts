@@ -1,5 +1,4 @@
 import {EventType} from '@eh/react/.types/globalTypes'
-import {Board_board} from '@eh/react/features/horizon/graphql/types/Board'
 
 const events = [
   {
@@ -69,11 +68,13 @@ const events = [
 ].map((e, i) => ({...e, _id: String(i)}))
 
 export const board = {
+  __typename: 'Board',
   _id: '123',
   title: 'My board',
   description: 'Best board',
   pinned: true,
   favorite: true,
+  private: false,
   events: {
     edges: events.map(e => ({cursor: e._id, node: e})),
     pageInfo: {
@@ -81,4 +82,4 @@ export const board = {
       endCursor: events[events.length - 1]._id,
     },
   },
-} as Board_board
+}
