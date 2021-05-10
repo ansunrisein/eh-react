@@ -10,9 +10,7 @@ interface Event {
     board: Board!
     deadline: DateTime
     header: String
-    list: [String!]
     pinned: Boolean!
-    text: String
     type: EventType!
 }
 
@@ -54,7 +52,6 @@ type ListEvent implements Event {
     header: String
     list: [String!]!
     pinned: Boolean!
-    text: String
     type: EventType!
 }
 
@@ -89,7 +86,6 @@ type TextEvent implements Event {
     board: Board!
     deadline: DateTime
     header: String
-    list: [String!]
     pinned: Boolean!
     text: String!
     type: EventType!

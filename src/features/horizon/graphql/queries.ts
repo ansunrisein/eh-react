@@ -23,8 +23,8 @@ export const DASHBOARD = gql`
             edges {
               cursor
               node {
-                ...EventFragment
                 pinned
+                ...EventFragment
               }
             }
             pageInfo {
@@ -37,8 +37,8 @@ export const DASHBOARD = gql`
       }
     }
   }
-  ${BOARD_FRAGMENT}
   ${EVENT_FRAGMENT}
+  ${BOARD_FRAGMENT}
 `
 
 export const BOARD = gql`

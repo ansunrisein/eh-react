@@ -21,7 +21,13 @@ export const createApolloClient = (
 
   return new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({
+      possibleTypes: {
+        // TODO: this is horrible
+        // consider to remove
+        Event: ['TextEvent', 'ListEvent'],
+      },
+    }),
     defaultOptions: {
       mutate: {
         errorPolicy: 'all',
