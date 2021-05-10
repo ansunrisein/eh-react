@@ -10,7 +10,7 @@ export type BoardProps = {
   onCreateEventClick?: (board: Board_board) => unknown
   onBoardFavClick?: (board: Board_board) => unknown
   onBoardPinClick?: (board: Board_board) => unknown
-  onNavIconClick?: (board: Board_board) => unknown
+  onNavIconClick?: () => unknown
 }
 
 export const Board: React.FC<BoardProps> = ({
@@ -23,7 +23,6 @@ export const Board: React.FC<BoardProps> = ({
   const onCreateClick = useCallback(() => onCreateEventClick?.(board), [onCreateEventClick, board])
   const onFavClick = useCallback(() => onBoardFavClick?.(board), [onBoardFavClick, board])
   const onPinClick = useCallback(() => onBoardPinClick?.(board), [onBoardPinClick, board])
-  const onNavClick = useCallback(() => onNavIconClick?.(board), [onNavIconClick, board])
 
   return (
     <Box>
@@ -46,7 +45,7 @@ export const Board: React.FC<BoardProps> = ({
             Create event
           </Button>
           <Spacing space="1rem" />
-          <IconButton onClick={onNavClick} icon={<Icon icon="ellipsis-h" />} size="xs" />
+          <IconButton onClick={onNavIconClick} icon={<Icon icon="ellipsis-h" />} size="xs" />
         </Flex>
       </Flex>
       <Spacing space="0.5rem" vertical />
