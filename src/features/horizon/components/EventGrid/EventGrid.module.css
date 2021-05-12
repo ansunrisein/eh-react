@@ -10,9 +10,3 @@
     grid-column-gap: 0.5rem;
   }
 }
-
-@media (min-width: 678px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
