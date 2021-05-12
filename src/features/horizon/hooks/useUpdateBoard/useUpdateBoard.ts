@@ -3,15 +3,15 @@ import {ApolloError, FetchResult, MutationHookOptions, useMutation} from '@apoll
 import {UpdateBoard, UpdateBoardVariables} from '../../graphql/types/UpdateBoard'
 import {UPDATE_BOARD} from '../../graphql'
 
-export type UseBoardSettingsResult = {
+export type useUpdateBoardResult = {
   update: (data: UpdateBoardVariables) => Promise<FetchResult<UpdateBoard>>
   loading: boolean
   error?: ApolloError
 }
 
-export const useBoardSettings = (
+export const useUpdateBoard = (
   options?: MutationHookOptions<UpdateBoard, UpdateBoardVariables>,
-): UseBoardSettingsResult => {
+): useUpdateBoardResult => {
   const [mutate, {loading, error}] = useMutation<UpdateBoard, UpdateBoardVariables>(
     UPDATE_BOARD,
     options,
