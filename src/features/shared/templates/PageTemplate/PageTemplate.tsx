@@ -1,14 +1,20 @@
 import React from 'react'
 import {Box, Flex} from 'reflexbox'
+import {useHistory} from 'react-router-dom'
 import {Header} from '@eh/react/features/common/components'
 import {useAuth} from '@eh/react/features/shared/contexts/AuthContext'
 
 export const PageTemplate: React.FC = ({children}) => {
   const {user} = useAuth()
+  const history = useHistory()
 
   return (
     <Flex minHeight="100vh" flexDirection="column" padding="0 0.5rem 0.5rem">
-      <Header isAuthenticated={!!user} />
+      <Header
+        isAuthenticated={!!user}
+        onDashboardClick={() => history.push('/horizon')}
+        onProfileClick={() => history.push('/user/settings')}
+      />
       <Flex flexGrow={1}>
         <Box as="main" width="100%">
           {children}
