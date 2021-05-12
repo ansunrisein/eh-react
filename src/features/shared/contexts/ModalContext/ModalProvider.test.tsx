@@ -1,11 +1,12 @@
 import React, {useContext} from 'react'
 import {act, renderHook} from '@testing-library/react-hooks'
+import {BaseModalProps} from './types'
 import {ModalProvider} from './ModalProvider'
 import {ModalContext} from './ModalContext'
 
 describe('ModalContext', () => {
   const wrapper: React.FC = props => <ModalProvider {...props} />
-  const ModalComponent: React.FC<{test: any}> = () => <></>
+  const ModalComponent: React.FC<BaseModalProps> = () => <></>
 
   it('should provide default modals as empty array', () => {
     const {result} = renderHook(() => useContext(ModalContext), {wrapper})

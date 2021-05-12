@@ -3,10 +3,11 @@ import {act, renderHook} from '@testing-library/react-hooks'
 import {ModalProvider} from './ModalProvider'
 import {ModalContext} from './ModalContext'
 import {useModal} from './useModal'
+import {BaseModalProps} from './types'
 
 describe('useModal', () => {
   const wrapper: React.FC = props => <ModalProvider {...props} />
-  const ModalComponent: React.FC<{test: any}> = () => <></>
+  const ModalComponent: React.FC<BaseModalProps> = () => <></>
 
   it('should add modal by open function', () => {
     const {result} = renderHook(
