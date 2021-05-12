@@ -16,7 +16,7 @@ export const EventCard: React.FC<EventCardProps> = ({event}) => (
     header={
       (event.header || event.deadline) && (
         <Flex justifyContent="space-between">
-          <span>{event.header}</span>
+          <span style={{wordBreak: 'break-word'}}>{event.header}</span>
           {!!event.deadline && <TimerBadge expiryTimestamp={new Date(event.deadline).getTime()} />}
         </Flex>
       )
