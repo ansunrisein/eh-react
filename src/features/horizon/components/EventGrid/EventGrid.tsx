@@ -1,24 +1,20 @@
 import React from 'react'
-import {Col, Grid, Row} from 'rsuite'
 import {Box} from 'reflexbox'
-import {EventCard} from '../EventCard'
 import {Board_board_events_edges} from '../../graphql/types/Board'
+import {EventCard} from '../EventCard'
+import s from './EventGrid.module.css'
 
 export type EventGridProps = {
   events?: Board_board_events_edges[]
 }
 
 export const EventGrid: React.FC<EventGridProps> = ({events}) => (
-  <Grid fluid style={{marginBottom: '-0.8rem'}}>
-    <Row gutter={10}>
-      {events &&
-        events.map((e, i) => (
-          <Col key={i} lg={4} md={6} sm={12} xs={24}>
-            <Box marginBottom="0.8rem" height="30vh">
-              <EventCard event={e.node} />
-            </Box>
-          </Col>
-        ))}
-    </Row>
-  </Grid>
+  <div className={s.grid}>
+    {events &&
+      events.map(e => (
+        <Box key={e.cursor} marginBottom="0.8rem" maxHeight="30vh" minHeight="15vh">
+          <EventCard event={e.node} />
+        </Box>
+      ))}
+  </div>
 )
