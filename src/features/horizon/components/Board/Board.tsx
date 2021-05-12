@@ -42,7 +42,7 @@ export const Board: React.FC<BoardProps> = ({
   const toggle = useCallback(() => (expanded ? collapse() : expand()), [expanded, collapse, expand])
 
   return (
-    <Panel bordered shaded style={{position: 'relative'}}>
+    <Panel bordered shaded style={{position: 'relative', paddingBottom: '1.5rem'}}>
       <Flex marginBottom="1rem" justifyContent="space-between" alignItems="center">
         <Flex alignItems="flex-end">
           <Link to={`${path}board/${board._id}`}>
@@ -68,7 +68,7 @@ export const Board: React.FC<BoardProps> = ({
           style={{
             position: 'absolute',
             right: '1.5rem',
-            bottom: '1.5rem',
+            bottom: '1rem',
             zIndex: 9999,
           }}
         >
