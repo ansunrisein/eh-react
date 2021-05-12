@@ -14,3 +14,9 @@
 .prev {
   left: 0;
 }
+
+.fix {
+  width: 100% !important;
+  margin-left: initial !important;
+  margin-right: initial !important;
+}

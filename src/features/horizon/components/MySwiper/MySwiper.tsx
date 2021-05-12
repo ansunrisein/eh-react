@@ -28,6 +28,7 @@ export const MySwiper: React.FC = ({children}) => {
 
   return (
     <Swiper
+      className={s.fix}
       slidesPerView="auto"
       spaceBetween={10}
       navigation={{nextEl: next.current || '', prevEl: prev.current || ''}}
