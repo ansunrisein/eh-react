@@ -35,7 +35,13 @@ export const BoardCard: React.FC<BoardCardProps> = ({
             {board.description}
           </Box>
         </Box>
-        <BoardControl vertical onFavClick={onFavClick} onPinClick={onPinClick} />
+        <BoardControl
+          vertical
+          isFav={board.favorite}
+          isPinned={board.pinned}
+          onFavClick={onFavClick}
+          onPinClick={onPinClick}
+        />
       </Flex>
     </Panel>
   )

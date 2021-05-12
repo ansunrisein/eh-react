@@ -1,6 +1,7 @@
 import React, {useCallback} from 'react'
 import {Box, Flex} from 'reflexbox'
 import SimpleBar from 'simplebar-react'
+import {Board_board} from '../../graphql/types/Board'
 import {Dashboard_dashboard_edges} from '../../graphql/types/Dashboard'
 import {BoardFragment} from '../../graphql/types/BoardFragment'
 import {useScrollToId} from '../../hooks'
@@ -8,9 +9,11 @@ import {Board} from '../Board'
 
 export type BoardListProps = {
   boards: Dashboard_dashboard_edges[]
+  onBoardFavClick?: (board: Board_board) => unknown
+  onBoardPinClick?: (board: Board_board) => unknown
 }
 
-export const BoardList: React.FC<BoardListProps> = ({boards}) => {
+export const BoardList: React.FC<BoardListProps> = ({boards, onBoardFavClick, onBoardPinClick}) => {
   const {register, scroll} = useScrollToId()
 
   const scrollToBoard = useCallback((board: BoardFragment) => scroll(board._id), [scroll])
@@ -27,7 +30,13 @@ export const BoardList: React.FC<BoardListProps> = ({boards}) => {
             id={node._id}
             data-testid={'board-' + node._id}
           >
-            <Board board={node} expandable onExpand={scrollToBoard} />
+            <Board
+              board={node}
+              expandable
+              onExpand={scrollToBoard}
+              onBoardFavClick={onBoardFavClick}
+              onBoardPinClick={onBoardPinClick}
+            />
           </Box>
         ))}
       </Flex>

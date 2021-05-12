@@ -2,6 +2,7 @@ import React, {useCallback, useState} from 'react'
 import {Box, Flex} from 'reflexbox'
 import {Icon, IconButton, Loader} from 'rsuite'
 import {Spacing} from '@eh/react/ui'
+import {Board_board} from '../../graphql/types/Board'
 import {Dashboard_dashboard_edges} from '../../graphql/types/Dashboard'
 import {BoardGrid, BoardList, Filters, FiltersProps, Sorts, SortsProps} from '../../components'
 
@@ -13,6 +14,8 @@ export type DashboardProps = {
   onFiltersChange?: FiltersProps['onChange']
   onSortsChange?: SortsProps['onChange']
   onCreateBoardClick?: () => unknown
+  onBoardFavClick?: (board: Board_board) => unknown
+  onBoardPinClick?: (board: Board_board) => unknown
   defaultDisplay?: 'list' | 'grid'
 }
 
@@ -24,6 +27,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
   onFiltersChange,
   onSortsChange,
   onCreateBoardClick,
+  onBoardFavClick,
+  onBoardPinClick,
   defaultDisplay = 'list',
 }) => {
   const [display, setDisplay] = useState(defaultDisplay)
@@ -58,9 +63,17 @@ export const Dashboard: React.FC<DashboardProps> = ({
           {!boards ? (
             <Loader backdrop size="lg" />
           ) : display === 'list' ? (
-            <BoardList boards={boards} />
+            <BoardList
+              boards={boards}
+              onBoardFavClick={onBoardFavClick}
+              onBoardPinClick={onBoardPinClick}
+            />
           ) : display === 'grid' ? (
-            <BoardGrid boards={boards} />
+            <BoardGrid
+              boards={boards}
+              onBoardFavClick={onBoardFavClick}
+              onBoardPinClick={onBoardPinClick}
+            />
           ) : null}
           {loading && <Loader center backdrop size="lg" />}
         </Flex>

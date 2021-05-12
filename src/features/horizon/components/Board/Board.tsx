@@ -13,9 +13,18 @@ export type BoardProps = {
   expandable?: boolean
   onExpand?: (board: BoardFragment) => unknown
   onCollapse?: (board: BoardFragment) => unknown
+  onBoardFavClick?: (board: Board_board) => unknown
+  onBoardPinClick?: (board: Board_board) => unknown
 }
 
-export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onCollapse}) => {
+export const Board: React.FC<BoardProps> = ({
+  board,
+  expandable,
+  onExpand,
+  onCollapse,
+  onBoardFavClick,
+  onBoardPinClick,
+}) => {
   const {path} = useRouteMatch()
 
   const [expanded, setExpanded] = useState(false)
@@ -42,7 +51,12 @@ export const Board: React.FC<BoardProps> = ({board, expandable, onExpand, onColl
           <Divider vertical style={{height: 'auto', alignSelf: 'stretch'}} />
           <span>{board.description}</span>
         </Flex>
-        <BoardControl isFav={board.favorite} isPinned={board.pinned} />
+        <BoardControl
+          isFav={board.favorite}
+          isPinned={board.pinned}
+          onFavClick={() => onBoardFavClick?.(board)}
+          onPinClick={() => onBoardPinClick?.(board)}
+        />
       </Flex>
       {expanded ? (
         <EventGrid events={board.events?.edges} />
