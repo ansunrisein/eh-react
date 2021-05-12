@@ -1,6 +1,7 @@
 import React from 'react'
 import {Col, Grid, Row} from 'rsuite'
 import {Box} from 'reflexbox'
+import SimpleBar from 'simplebar-react'
 import {Board_board} from '../../graphql/types/Board'
 import {Dashboard_dashboard_edges} from '../../graphql/types/Dashboard'
 import {BoardCard} from '../BoardCard'
@@ -11,13 +12,13 @@ export type BoardGridProps = {
   onBoardPinClick?: (board: Board_board) => unknown
 }
 
-export const BoardGrid: React.FC<BoardGridProps> = ({boards, onBoardFavClick, onBoardPinClick}) => {
-  return (
-    <Grid fluid style={{marginBottom: '-0.8rem', width: 'auto'}} data-testid="board-grid">
-      <Row gutter={10}>
+export const BoardGrid: React.FC<BoardGridProps> = ({boards, onBoardFavClick, onBoardPinClick}) => (
+  <SimpleBar style={{width: '100%'}} color="blue">
+    <Grid style={{marginBottom: '-0.8rem', width: 'auto'}} data-testid="board-grid">
+      <Row gutter={20}>
         {boards.map(e => (
           <Col key={e.cursor} lg={4} md={6} sm={12} xs={24}>
-            <Box marginBottom="0.8rem">
+            <Box marginBottom="0.8rem" minHeight="100px" minWidth="15vw">
               <BoardCard
                 board={e.node}
                 onFavClick={() => onBoardFavClick?.(e.node)}
@@ -29,5 +30,5 @@ export const BoardGrid: React.FC<BoardGridProps> = ({boards, onBoardFavClick, on
         ))}
       </Row>
     </Grid>
-  )
-}
+  </SimpleBar>
+)
