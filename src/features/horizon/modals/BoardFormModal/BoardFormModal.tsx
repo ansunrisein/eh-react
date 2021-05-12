@@ -1,13 +1,10 @@
 import React from 'react'
 import {Loader, Modal} from 'rsuite'
-import {useModal} from '@eh/react/features/shared/contexts/ModalContext'
+import {BaseModalProps, useModal} from '@eh/react/features/shared/contexts/ModalContext'
 import {useCreateBoard} from '../../hooks'
 import {BoardForm} from '../../components'
 
-export type BoardFormModalProps = {
-  show?: boolean
-  onHide?: () => void
-}
+export type BoardFormModalProps = BaseModalProps
 
 export const BoardFormModal: React.FC<BoardFormModalProps> = ({show, onHide}) => {
   const {isOpened, close} = useModal(BoardFormModal)

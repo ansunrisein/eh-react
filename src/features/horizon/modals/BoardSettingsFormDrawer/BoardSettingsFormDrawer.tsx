@@ -11,8 +11,8 @@ export type BoardSettingsFormDrawerProps = {
 
 export const BoardSettingsFormDrawer: React.FC<BoardSettingsFormDrawerProps> = ({show, onHide}) => {
   const {isOpened, close, props} = useModal(BoardSettingsFormDrawer)
-  const {board} = useBoard({_id: props?.id as string})
 
+  const {board} = useBoard({_id: props?.id as string})
   const {update, loading} = useUpdateBoard({onCompleted: onHide || close})
 
   const updateBoard = useCallback(
