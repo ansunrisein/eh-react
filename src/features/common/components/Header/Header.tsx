@@ -3,6 +3,7 @@ import {Flex} from 'reflexbox'
 import {Button, Icon, Popover, Whisper} from 'rsuite'
 import {Logo} from '@eh/react/ui'
 import {UserMenu, UserMenuProps} from '../UserMenu'
+import s from './Header.module.css'
 
 export type HeaderProps = {
   isAuthenticated?: boolean
@@ -22,7 +23,7 @@ export const Header: React.FC<HeaderProps> = ({
   onLogOutClick,
   onProfileClick,
 }) => (
-  <Flex as="header" justifyContent="space-between" alignItems="center" padding="0.5rem">
+  <Flex className={s.header} as="header" justifyContent="space-between" alignItems="center">
     <Button
       onClick={onDashboardClick}
       appearance="link"
