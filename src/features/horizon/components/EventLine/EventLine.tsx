@@ -17,7 +17,7 @@ export const EventLine: React.FC<EventLineProps> = ({events}) => (
     {events && (
       <Flex>
         {events[0]?.node.pinned && (
-          <Box width="18vw" flexShrink={0} paddingRight="1rem">
+          <Box width="15vw" flexShrink={0} paddingRight="1rem">
             <EventCard event={events[0].node} />
           </Box>
         )}
@@ -25,7 +25,7 @@ export const EventLine: React.FC<EventLineProps> = ({events}) => (
           {events
             .filter(e => !e.node?.pinned)
             .map(e => (
-              <SwiperSlide key={e.cursor} style={{width: '18vw'}}>
+              <SwiperSlide key={e.cursor} style={{width: '15vw'}}>
                 <EventCard event={e.node} />
               </SwiperSlide>
             ))}

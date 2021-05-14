@@ -1,5 +1,5 @@
 import React from 'react'
-import {Panel, PanelProps} from 'rsuite'
+import {Panel, PanelProps, Tag} from 'rsuite'
 import {Box, Flex} from 'reflexbox'
 import c from 'classnames'
 import {Link, useRouteMatch} from 'react-router-dom'
@@ -23,6 +23,8 @@ export const BoardCard: React.FC<BoardCardProps> = ({
 }) => {
   const {path} = useRouteMatch()
 
+  const eventsCount = board.events.edges.length
+
   return (
     <Panel className={c(s.panel, className)} shaded bordered bodyFill {...props}>
       <Flex overflow="hidden" justifyContent="space-between">
@@ -43,6 +45,7 @@ export const BoardCard: React.FC<BoardCardProps> = ({
           onPinClick={onPinClick}
         />
       </Flex>
+      <Tag color={eventsCount ? 'violet' : 'default'}>{eventsCount}</Tag>
     </Panel>
   )
 }

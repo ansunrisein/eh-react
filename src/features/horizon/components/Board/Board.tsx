@@ -63,7 +63,7 @@ export const Board: React.FC<BoardProps> = ({
       ) : (
         <EventLine events={board.events?.edges} />
       )}
-      {expandable && (
+      {expandable && !!board.events.edges.length && (
         <Box
           style={{
             position: 'absolute',
