@@ -1,9 +1,9 @@
 import React from 'react'
 import {List, Panel} from 'rsuite'
 import {Flex} from 'reflexbox'
+import {isTextEvent} from '@eh/react/features/shared/utils/event'
 import {Board_board_events_edges_node} from '../../graphql/types/Board'
 import {TimerBadge} from '../TimerBadge'
-import {isTextEvent} from './helpers'
 
 export type EventCardProps = {
   event: Board_board_events_edges_node
