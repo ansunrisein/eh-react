@@ -1,6 +1,6 @@
 import React, {useCallback, useMemo, useState} from 'react'
 import Firebase from 'firebase/app'
-import {useAsync} from 'react-use'
+import {useAsync, useAsyncFn} from 'react-use'
 import {firebase} from '@eh/react/configs/firebase'
 import {AuthContext} from '../../AuthContext'
 
@@ -27,7 +27,7 @@ export const FirebaseAuthProvider: React.FC<FirebaseAuthProviderProps> = ({child
 
   const [user, setUser] = useState<{token: string} | undefined>()
 
-  const {loading} = useAsync(async () => {
+  const {loading: loginLoading} = useAsync(async () => {
     await new Promise(resolve => firebase.auth().onAuthStateChanged(resolve))
 
     const user = app.auth().currentUser
@@ -45,5 +45,14 @@ export const FirebaseAuthProvider: React.FC<FirebaseAuthProviderProps> = ({child
       .then(token => token && setUser({token}))
   }, [app])
 
-  return <AuthContext.Provider value={{login, user, loading}}>{children}</AuthContext.Provider>
+  const [state, logout] = useAsyncFn(async () => {
+    await app.auth().signOut()
+    setUser(undefined)
+  }, [app])
+
+  return (
+    <AuthContext.Provider value={{login, logout, user, loading: loginLoading || state.loading}}>
+      {children}
+    </AuthContext.Provider>
+  )
 }

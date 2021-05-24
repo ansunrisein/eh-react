@@ -2,10 +2,12 @@ import React from 'react'
 import {Box, Flex} from 'reflexbox'
 import {useHistory} from 'react-router-dom'
 import {Header} from '@eh/react/features/common/components'
-import {useAuth} from '@eh/react/features/shared/contexts/AuthContext'
+import {useAuth} from '../../contexts/AuthContext'
+import {useLogout} from '../../hooks'
 
 export const PageTemplate: React.FC = ({children}) => {
   const {user} = useAuth()
+  const logout = useLogout()
   const history = useHistory()
 
   return (
@@ -14,6 +16,7 @@ export const PageTemplate: React.FC = ({children}) => {
         isAuthenticated={!!user}
         onDashboardClick={() => history.push('/horizon')}
         onProfileClick={() => history.push('/user/settings')}
+        onLogOutClick={logout}
       />
       <Flex flexGrow={1}>
         <Box as="main" width="100%">

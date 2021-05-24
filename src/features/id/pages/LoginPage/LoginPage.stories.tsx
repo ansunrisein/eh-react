@@ -11,7 +11,11 @@ export default {
   decorators: [
     Story => (
       <AuthContext.Provider
-        value={{login: () => delay(1000).then(() => alert('Auth successful')), loading: false}}
+        value={{
+          login: () => delay(1000).then(() => alert('Auth successful')),
+          loading: false,
+          logout: Promise.resolve,
+        }}
       >
         <Story />
       </AuthContext.Provider>
