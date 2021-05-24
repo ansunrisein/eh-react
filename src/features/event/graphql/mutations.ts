@@ -25,3 +25,26 @@ export const CREATE_EVENT = gql`
   }
   ${EVENT_FRAGMENT}
 `
+
+export const UPDATE_EVENT = gql`
+  mutation UpdateEvent(
+    $id: ID!
+    $type: EventType!
+    $list: [String!]
+    $text: String
+    $deadline: DateTime
+    $header: String
+  ) {
+    updateEvent(
+      _id: $id
+      type: $type
+      list: $list
+      text: $text
+      deadline: $deadline
+      header: $header
+    ) {
+      ...EventFragment
+    }
+  }
+  ${EVENT_FRAGMENT}
+`

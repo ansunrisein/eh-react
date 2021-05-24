@@ -62,7 +62,7 @@ type Mutation {
     removeEvent(_id: ID!): Event
     updateAvatar(avatar: String): User!
     updateBoard(_id: ID!, description: String, favorite: Boolean!, pinned: Boolean!, private: Boolean!, title: String!): Board!
-    updateEvent(_id: ID!, deadline: DateTime, header: String, list: [String!], pinned: Boolean!, text: String, type: EventType!): Event
+    updateEvent(_id: ID!, deadline: DateTime, header: String, list: [String!], text: String, type: EventType!): Event
     updateProfile(name: String, nickname: String!): User!
 }
 
