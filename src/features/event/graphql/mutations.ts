@@ -48,3 +48,11 @@ export const UPDATE_EVENT = gql`
   }
   ${EVENT_FRAGMENT}
 `
+
+export const REMOVE_EVENT = gql`
+  mutation RemoveEvent($id: ID!) {
+    removeEvent(_id: $id) {
+      _id
+    }
+  }
+`
