@@ -6,6 +6,7 @@ export const EVENT_FRAGMENT = gql`
     type
     header
     deadline
+    pinned
     ... on TextEvent {
       text
     }

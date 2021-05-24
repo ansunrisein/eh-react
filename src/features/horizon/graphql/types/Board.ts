@@ -14,8 +14,8 @@ export interface Board_board_events_edges_node_TextEvent {
   type: EventType
   header: string | null
   deadline: any | null
-  text: string
   pinned: boolean
+  text: string
 }
 
 export interface Board_board_events_edges_node_ListEvent {
@@ -23,8 +23,8 @@ export interface Board_board_events_edges_node_ListEvent {
   type: EventType
   header: string | null
   deadline: any | null
-  list: string[]
   pinned: boolean
+  list: string[]
 }
 
 export type Board_board_events_edges_node =

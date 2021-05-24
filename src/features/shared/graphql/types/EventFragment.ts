@@ -14,6 +14,7 @@ export interface EventFragment_TextEvent {
   type: EventType
   header: string | null
   deadline: any | null
+  pinned: boolean
   text: string
 }
 
@@ -22,6 +23,7 @@ export interface EventFragment_ListEvent {
   type: EventType
   header: string | null
   deadline: any | null
+  pinned: boolean
   list: string[]
 }
 
