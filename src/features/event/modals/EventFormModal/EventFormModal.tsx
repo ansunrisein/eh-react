@@ -12,15 +12,16 @@ export type EventFormModalProps = {
 
 export const EventFormModal: React.FC<EventFormModalProps> = ({boardId, show, onHide}) => {
   const {isOpened, close, props} = useModal(EventFormModal)
+
   const id = boardId ?? props?.boardId
 
   const {create, loading} = useCreateEvent({onCompleted: onHide || close})
 
-  const onEventFormSubmit = useCallback(data => create({...data, boardId: id}), [create, id])
+  const handleSubmit = useCallback(data => create({...data, boardId: id}), [create, id])
 
   return (
-    <Modal show={show ?? isOpened} onHide={onHide || close}>
-      <EventForm onSubmit={onEventFormSubmit} />
+    <Modal show={show ?? isOpened} onHide={onHide || close} backdrop>
+      <EventForm onSubmit={handleSubmit} />
       {loading && <Loader center backdrop size="md" />}
     </Modal>
   )

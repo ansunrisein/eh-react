@@ -72,6 +72,7 @@ export const EventForm: React.FC<EventFormProps> = ({defaultValues, onSubmit = n
               </List>
               <Spacing space="0.8rem" vertical />
               <IconButton
+                appearance="primary"
                 style={{float: 'right'}}
                 onClick={addListItem}
                 icon={<Icon icon="plus" />}
