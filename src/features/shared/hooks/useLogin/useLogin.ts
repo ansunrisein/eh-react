@@ -1,5 +1,6 @@
 import {useAsyncFn} from 'react-use'
-import {useAuth} from '@eh/react/features/shared/contexts/AuthContext'
+import {useMe} from '@eh/react/features/user/hooks'
+import {useAuth} from '../../contexts/AuthContext'
 
 export type UseLoginResult = {
   login: () => Promise<void>
@@ -8,9 +9,13 @@ export type UseLoginResult = {
 }
 
 export const useLogin = (): UseLoginResult => {
+  const {refetch} = useMe()
   const auth = useAuth()
 
-  const [{loading, error}, login] = useAsyncFn(auth.login, [auth.login])
+  const [{loading, error}, login] = useAsyncFn(async () => {
+    await auth.login()
+    await refetch()
+  }, [auth.login])
 
   return {
     login,
