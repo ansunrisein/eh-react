@@ -2,7 +2,7 @@ import React, {useCallback} from 'react'
 import {Loader} from 'rsuite'
 import {useParams} from 'react-router-dom'
 import {useModal} from '@eh/react/features/shared/contexts/ModalContext'
-import {EventFormModal} from '@eh/react/features/event/modals'
+import {EventFormModal, FullEventModal} from '@eh/react/features/event/modals'
 import {PageTemplate} from '@eh/react/features/shared/templates'
 import {UpdateBoardVariables} from '../../graphql/types/UpdateBoard'
 import {BoardSettingsFormDrawer} from '../../modals'
@@ -17,6 +17,7 @@ export const BoardPage: React.FC = () => {
   const {update} = useUpdateBoard()
 
   const {open: openEventForm} = useModal(EventFormModal)
+  const {open: openFullEvent} = useModal(FullEventModal)
   const {open: openBoardSettings} = useModal(BoardSettingsFormDrawer)
 
   const onFavClick = useCallback(
@@ -29,6 +30,8 @@ export const BoardPage: React.FC = () => {
     [board, update],
   )
 
+  const onEventClick = useCallback((id: string) => openFullEvent({id}), [openFullEvent])
+
   if (!board || loading) {
     return <Loader center size="lg" />
   }
@@ -38,6 +41,7 @@ export const BoardPage: React.FC = () => {
       <Board
         board={board}
         onCreateEventClick={() => openEventForm({boardId: id})}
+        onEventClick={onEventClick}
         onNavIconClick={() => openBoardSettings({id})}
         onBoardFavClick={onFavClick}
         onBoardPinClick={onPinClick}

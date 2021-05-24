@@ -8,6 +8,7 @@ import {Board_board} from '../../graphql/types/Board'
 export type BoardProps = {
   board: Board_board
   onCreateEventClick?: (board: Board_board) => unknown
+  onEventClick?: (id: string) => unknown
   onBoardFavClick?: (board: Board_board) => unknown
   onBoardPinClick?: (board: Board_board) => unknown
   onNavIconClick?: () => unknown
@@ -16,6 +17,7 @@ export type BoardProps = {
 export const Board: React.FC<BoardProps> = ({
   board,
   onCreateEventClick,
+  onEventClick,
   onBoardFavClick,
   onBoardPinClick,
   onNavIconClick,
@@ -49,7 +51,7 @@ export const Board: React.FC<BoardProps> = ({
         </Flex>
       </Flex>
       <Spacing space="0.5rem" vertical />
-      <EventGrid events={board.events.edges} />
+      <EventGrid onEventClick={onEventClick} events={board.events.edges} />
     </Box>
   )
 }
