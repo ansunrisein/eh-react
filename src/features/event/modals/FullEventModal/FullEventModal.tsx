@@ -2,7 +2,7 @@ import React from 'react'
 import {Loader, Modal} from 'rsuite'
 import {useQuery} from '@apollo/client'
 import {useModal} from '@eh/react/features/shared/contexts/ModalContext'
-import {UpdateEventFormModal} from '@eh/react/features/event/modals'
+import {RemoveEventModal, UpdateEventFormModal} from '@eh/react/features/event/modals'
 import {Event, EventVariables} from '../../graphql/types/Event'
 import {EVENT} from '../../graphql'
 import {FullEventCard} from '../../components'
@@ -17,6 +17,7 @@ export const FullEventModal: React.FC<FullEventModalProps> = ({id, show, onHide}
   const {isOpened, close, props} = useModal(FullEventModal)
 
   const {open: openUpdateEventForm} = useModal(UpdateEventFormModal)
+  const {open: openRemoveEvent} = useModal(RemoveEventModal)
 
   const eventId = id ?? props?.id
 
@@ -31,6 +32,12 @@ export const FullEventModal: React.FC<FullEventModalProps> = ({id, show, onHide}
         <FullEventCard
           event={data.event}
           onUpdateEvent={() => openUpdateEventForm({id: eventId})}
+          onRemoveEvent={() =>
+            openRemoveEvent({
+              id: eventId,
+              onRemoveEvent: onHide || close,
+            })
+          }
         />
       )}
       {loading && <Loader center backdrop size="md" />}
