@@ -9,6 +9,10 @@ import {EventType} from './../../../../.types/globalTypes'
 // GraphQL mutation operation: CreateEvent
 // ====================================================
 
+export interface CreateEvent_createEvent_TextEvent_board {
+  _id: string
+}
+
 export interface CreateEvent_createEvent_TextEvent {
   _id: string
   type: EventType
@@ -16,6 +20,11 @@ export interface CreateEvent_createEvent_TextEvent {
   deadline: any | null
   pinned: boolean
   text: string
+  board: CreateEvent_createEvent_TextEvent_board
+}
+
+export interface CreateEvent_createEvent_ListEvent_board {
+  _id: string
 }
 
 export interface CreateEvent_createEvent_ListEvent {
@@ -25,6 +34,7 @@ export interface CreateEvent_createEvent_ListEvent {
   deadline: any | null
   pinned: boolean
   list: string[]
+  board: CreateEvent_createEvent_ListEvent_board
 }
 
 export type CreateEvent_createEvent =

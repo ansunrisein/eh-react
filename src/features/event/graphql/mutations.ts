@@ -21,6 +21,9 @@ export const CREATE_EVENT = gql`
       list: $list
     ) {
       ...EventFragment
+      board {
+        _id
+      }
     }
   }
   ${EVENT_FRAGMENT}
