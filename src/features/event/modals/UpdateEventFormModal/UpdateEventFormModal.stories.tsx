@@ -4,7 +4,7 @@ import {UpdateEventFormModal, UpdateEventFormModalProps} from './UpdateEventForm
 
 export default {
   component: UpdateEventFormModal,
-  title: 'UpdateEventFormModal',
+  title: 'event/modals/UpdateEventFormModal',
 } as Meta
 
 export const Usual: Story<UpdateEventFormModalProps> = props => <UpdateEventFormModal {...props} />

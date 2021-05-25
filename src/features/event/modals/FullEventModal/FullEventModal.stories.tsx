@@ -4,7 +4,7 @@ import {FullEventModal, FullEventModalProps} from './FullEventModal'
 
 export default {
   component: FullEventModal,
-  title: 'FullEventModal',
+  title: 'event/modals/FullEventModal',
 } as Meta
 
 export const Usual: Story<FullEventModalProps> = props => <FullEventModal {...props} />

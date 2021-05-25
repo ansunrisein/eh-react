@@ -7,7 +7,7 @@ import {FullEventCard, FullEventCardProps} from './FullEventCard'
 
 export default {
   component: FullEventCard,
-  title: 'FullEventCard',
+  title: 'event/components/FullEventCard',
   parameters: {layout: 'centered'},
   argTypes: {
     event: {
