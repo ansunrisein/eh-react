@@ -7,8 +7,13 @@
 // GraphQL mutation operation: RemoveEvent
 // ====================================================
 
+export interface RemoveEvent_removeEvent_board {
+  _id: string
+}
+
 export interface RemoveEvent_removeEvent {
   _id: string
+  board: RemoveEvent_removeEvent_board
 }
 
 export interface RemoveEvent {

@@ -56,6 +56,9 @@ export const REMOVE_EVENT = gql`
   mutation RemoveEvent($id: ID!) {
     removeEvent(_id: $id) {
       _id
+      board {
+        _id
+      }
     }
   }
 `
