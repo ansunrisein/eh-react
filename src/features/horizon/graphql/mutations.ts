@@ -32,3 +32,11 @@ export const UPDATE_BOARD = gql`
   }
   ${BOARD_FRAGMENT}
 `
+
+export const REMOVE_BOARD = gql`
+  mutation RemoveBoard($_id: ID!) {
+    removeBoard(_id: $_id) {
+      _id
+    }
+  }
+`
