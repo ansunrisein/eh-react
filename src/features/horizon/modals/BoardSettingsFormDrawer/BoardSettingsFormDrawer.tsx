@@ -7,12 +7,20 @@ import {BoardSettingsForm} from '../../components'
 
 export type BoardSettingsFormDrawerProps = {
   id?: string
+  onBoardRemove?: (id: string) => Promise<unknown>
 } & BaseModalProps
 
-export const BoardSettingsFormDrawer: React.FC<BoardSettingsFormDrawerProps> = ({show, onHide}) => {
+export const BoardSettingsFormDrawer: React.FC<BoardSettingsFormDrawerProps> = ({
+  id,
+  onBoardRemove,
+  show,
+  onHide,
+}) => {
   const {isOpened, close, props} = useModal(BoardSettingsFormDrawer)
 
-  const {board} = useBoard({_id: props?.id as string})
+  const boardId = id ?? props?.id
+
+  const {board} = useBoard({_id: boardId as string})
   const {update, loading} = useUpdateBoard({onCompleted: onHide || close})
 
   const updateBoard = useCallback(
@@ -29,7 +37,11 @@ export const BoardSettingsFormDrawer: React.FC<BoardSettingsFormDrawerProps> = (
         {loading || !board ? (
           <Loader center backdrop size="md" />
         ) : (
-          <BoardSettingsForm onBoardUpdate={updateBoard} board={board} />
+          <BoardSettingsForm
+            onBoardUpdate={updateBoard}
+            onBoardRemove={onBoardRemove ?? props?.onBoardRemove}
+            board={board}
+          />
         )}
       </Drawer.Body>
     </Drawer>

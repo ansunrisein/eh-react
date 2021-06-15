@@ -10,7 +10,7 @@ import {useBoardSettingsForm} from '../../hooks'
 export type BoardSettingsFormProps = {
   board: Board_board
   onBoardUpdate?: (board: UpdateBoardVariables) => void
-  onBoardRemove?: (board: Board_board) => void
+  onBoardRemove?: (id: string) => void
 }
 
 export const BoardSettingsForm: React.FC<BoardSettingsFormProps> = ({
@@ -55,7 +55,7 @@ export const BoardSettingsForm: React.FC<BoardSettingsFormProps> = ({
 
       <Divider />
 
-      <Button onClick={() => onBoardRemove?.(board)} appearance="primary" color="red">
+      <Button onClick={() => onBoardRemove?.(board._id)} appearance="primary" color="red">
         Remove board
       </Button>
     </>
