@@ -1,5 +1,5 @@
 import React from 'react'
-import {Badge, ButtonGroup, ButtonGroupProps, Icon, IconButton} from 'rsuite'
+import {Alert, Badge, ButtonGroup, ButtonGroupProps, Icon, IconButton} from 'rsuite'
 
 export type UserMenuProps = {
   onProfileClick?: () => unknown
@@ -21,7 +21,14 @@ export const UserMenu: React.FC<UserMenuProps> = ({
     <IconButton onClick={onProfileClick} appearance="subtle" icon={<Icon icon="user-circle" />}>
       Profile
     </IconButton>
-    <IconButton onClick={onNotificationsClick} appearance="subtle" icon={<Icon icon="bell" />}>
+    <IconButton
+      onClick={() => {
+        onNotificationsClick?.()
+        Alert.info('This is feature not implement', 3000)
+      }}
+      appearance="subtle"
+      icon={<Icon icon="bell" />}
+    >
       <Badge style={{width: '100%'}} content={notificationsCount} maxCount={9}>
         Notifications
       </Badge>
