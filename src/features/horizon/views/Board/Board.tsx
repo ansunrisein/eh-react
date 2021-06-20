@@ -51,7 +51,15 @@ export const Board: React.FC<BoardProps> = ({
         </Flex>
       </Flex>
       <Spacing space="0.5rem" vertical />
-      <EventGrid onEventClick={onEventClick} events={board.events.edges} />
+      {!board.events.edges.length ? (
+        <Flex height="70vh" alignItems="center" justifyContent="center">
+          <Box fontSize="2rem" fontWeight="300">
+            You have no events :( Create now!
+          </Box>
+        </Flex>
+      ) : (
+        <EventGrid onEventClick={onEventClick} events={board.events.edges} />
+      )}
     </Box>
   )
 }
