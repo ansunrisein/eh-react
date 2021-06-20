@@ -60,8 +60,16 @@ export const Dashboard: React.FC<DashboardProps> = ({
       <Spacing space="0.5rem" />
       <Flex flexGrow={1} flexDirection="column">
         <Flex flexBasis={0} flexGrow={1} overflowY="hidden" style={{position: 'relative'}}>
-          {!boards ? (
-            <Loader backdrop size="lg" />
+          {!boards?.length ? (
+            loading ? (
+              <Loader center backdrop size="lg" />
+            ) : (
+              <Flex height="100%" width="100%" alignItems="center" justifyContent="center">
+                <Box fontSize="2rem" fontWeight="300">
+                  You have no boards :( Create now!
+                </Box>
+              </Flex>
+            )
           ) : display === 'list' ? (
             <BoardList
               boards={boards}
@@ -75,7 +83,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
               onBoardPinClick={onBoardPinClick}
             />
           ) : null}
-          {loading && <Loader center backdrop size="lg" />}
         </Flex>
       </Flex>
     </Flex>
