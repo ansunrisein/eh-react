@@ -39,7 +39,7 @@ export const EventForm: React.FC<EventFormProps> = ({defaultValues, onSubmit = n
               <RadioGroup inline appearance="picker" name={name} onChange={onChange} value={value}>
                 <Radio value={EventType.TEXT}>Text</Radio>
                 <Radio value={EventType.LIST}>List</Radio>
-                <Radio value={EventType.PICTURE}>Picture</Radio>
+                {/*<Radio value={EventType.PICTURE}>Picture</Radio>*/}
               </RadioGroup>
             )}
           />
