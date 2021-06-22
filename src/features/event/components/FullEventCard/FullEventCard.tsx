@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, Flex} from 'reflexbox'
-import {ButtonGroup, Icon, IconButton, Panel} from 'rsuite'
+import {ButtonGroup, Icon, IconButton, List, Panel} from 'rsuite'
 import {EventFragment} from '@eh/react/features/shared/graphql/types/EventFragment'
 import {TimerBadge} from '@eh/react/features/horizon/components'
 import {isTextEvent} from '@eh/react/features/shared/utils/event'
@@ -32,7 +32,15 @@ export const FullEventCard: React.FC<FullEventCardProps> = ({
         )}
       </Flex>
       <Spacing space="1rem" vertical />
-      {isTextEvent(event) && <Box>{event.text}</Box>}
+      {isTextEvent(event) ? (
+        <Box>{event.text}</Box>
+      ) : (
+        <List bordered>
+          {event.list.map((e, i) => (
+            <List.Item key={i}>{e}</List.Item>
+          ))}
+        </List>
+      )}
     </Panel>
     <Spacing space="1px" />
     <ButtonGroup vertical>
