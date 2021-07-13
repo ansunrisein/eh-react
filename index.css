@@ -11,6 +11,38 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+
+button:focus {
+  outline: none;
+}
+
+input,
+textarea {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
 * {
   box-sizing: border-box;
 }
