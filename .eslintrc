@@ -18,5 +18,8 @@
         ]
       }
     ]
+  },
+  "settings": {
+    "import/internal-regex": "^@eh"
   }
 }
