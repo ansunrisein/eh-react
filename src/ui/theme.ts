@@ -28,3 +28,5 @@ export type Color =
 export type Theme = {
   colors: Record<Color, string>
 }
+
+export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
