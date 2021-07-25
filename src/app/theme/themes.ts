@@ -28,4 +28,11 @@ export const light: Theme = {
     gradientSecondary: '#624af2 #50ddc3',
     gradientAccent: '#eb0055 #fffa80',
   },
+  font: {
+    lineHeight: {
+      sm: 1,
+      md: 1.25,
+      lg: 1.5,
+    },
+  },
 }
