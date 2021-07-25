@@ -1,4 +1,5 @@
 import 'normalize.css'
+import 'reset-css'
 import {AppThemeProvider} from '@eh/app/theme'
 import '../index.css'
 

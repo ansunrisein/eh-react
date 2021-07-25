@@ -1,6 +1,7 @@
 import type {AppProps} from 'next/app'
-import '../../index.css'
+import 'reset-css'
 import 'normalize.css'
+import '../../index.css'
 
 const MyApp = ({Component, pageProps}: AppProps) => {
   return <Component {...pageProps} />
