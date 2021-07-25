@@ -27,6 +27,9 @@ export type Color =
 
 export type Theme = {
   colors: Record<Color, string>
+  font: {
+    lineHeight: Record<'sm' | 'md' | 'lg', number>
+  }
 }
 
 export type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
