@@ -1,4 +1,4 @@
-import {Theme} from '@eh/ui'
+import {Theme} from '@eh/shared/ui'
 
 export const light: Theme = {
   colors: {
