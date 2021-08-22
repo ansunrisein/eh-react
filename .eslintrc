@@ -21,7 +21,12 @@
       "prefer-double"
     ],
     "import/no-internal-modules": [
-      "error"
+      "error",
+      {
+        "allow": [
+          "rsuite/dist/rsuite.min.css"
+        ]
+      }
     ],
     "import/no-useless-path-segments": "error",
     "import/no-commonjs": "error",
