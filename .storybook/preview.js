@@ -1,6 +1,6 @@
 import 'normalize.css'
 import 'reset-css'
-import {AppThemeProvider} from '@eh/app/theme'
+import {withTheme} from '@eh/app/theme'
 import '../index.css'
 
 export const parameters = {
@@ -13,10 +13,4 @@ export const parameters = {
   },
 }
 
-export const decorators = [
-  Story => (
-    <AppThemeProvider>
-      <Story />
-    </AppThemeProvider>
-  ),
-]
+export const decorators = [Story => withTheme()(Story)()]

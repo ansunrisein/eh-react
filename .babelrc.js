@@ -1,11 +1,23 @@
 module.exports = {
-  plugins: ['@emotion/babel-plugin'],
   presets: [
     [
-      '@babel/preset-react',
+      'next/babel',
       {
-        runtime: 'automatic',
-        importSource: '@emotion/react',
+        'preset-react': {
+          runtime: 'automatic',
+          importSource: '@emotion/react',
+        },
+      },
+    ],
+  ],
+  plugins: [
+    '@emotion/babel-plugin',
+    [
+      'effector/babel-plugin',
+      {
+        addLoc: true,
+        reactSsr: true,
+        importName: ['effector-next'],
       },
     ],
   ],

@@ -24,9 +24,9 @@ export const light: Theme = {
     warning0: '#946200',
     warning1: '#f4b740',
     warning2: '#ffd789',
-    gradientPrimary: '#7433ff #ffa3fd',
-    gradientSecondary: '#624af2 #50ddc3',
-    gradientAccent: '#eb0055 #fffa80',
+    gradientPrimary: 'linear-gradient(114deg, #7433ff 0%, #ffa3fd 100%)',
+    gradientSecondary: 'linear-gradient(114deg, #624af2 0%, #50ddc3 100%)',
+    gradientAccent: 'linear-gradient(114deg, #eb0055 0%, #fffa80 100%)',
   },
   font: {
     lineHeight: {

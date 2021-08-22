@@ -1,1 +1,1 @@
-export {AppThemeProvider} from './AppThemeProvider'
+export * from './withTheme'
