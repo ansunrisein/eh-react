@@ -1576,6 +1576,11 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@stdlib/utils-noop@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@stdlib/utils-noop/-/utils-noop-0.0.7.tgz#41de6379dc953040cc1f0631ce88e17a14390ff9"
+  integrity sha512-HIYfFCuvhgqTNS2vd6OVxzqItALBQ4ZlLQTux9YuVCn/nCuQfKqBL4Lc1SBN2lLSv4q1N3Ohy7Q01rXvb0tF3A==
+
 "@surma/rollup-plugin-off-main-thread@^1.1.1":
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/@surma/rollup-plugin-off-main-thread/-/rollup-plugin-off-main-thread-1.4.2.tgz#e6786b6af5799f82f7ab3a82e53f6182d2b91a58"
