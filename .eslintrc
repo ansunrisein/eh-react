@@ -24,7 +24,8 @@
       "error",
       {
         "allow": [
-          "rsuite/dist/rsuite.min.css"
+          "rsuite/dist/rsuite.min.css",
+          "effector-storage/*"
         ]
       }
     ],
