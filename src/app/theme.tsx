@@ -3,7 +3,7 @@ import {ThemeContext, ThemeProvider} from '../shared/lib/theme'
 import {BodyClassName} from '../shared/lib/body-class-name'
 
 export const AppThemeProvider: React.FC = ({children}) => (
-  <ThemeProvider defaultTheme="light">
+  <ThemeProvider defaultTheme="dark">
     <ThemeContext.Consumer>
       {({theme}) => <BodyClassName className={`rs-theme-${theme}`} />}
     </ThemeContext.Consumer>
