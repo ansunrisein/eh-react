@@ -30,7 +30,7 @@ export const createEventEntity = (
     .reset(resetEvents)
 
   hydrate(domain, {
-    values: [$events, events],
+    values: [[$events, events]],
   })
 
   if (persistEvents) {
