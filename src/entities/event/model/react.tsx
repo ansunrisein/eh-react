@@ -1,4 +1,6 @@
 import React, {createContext, useContext} from 'react'
+import {useStore} from 'effector-react'
+import {Event} from '../types'
 import {EventEntity} from './event'
 
 export const EventEntityContext = createContext<EventEntity>(
@@ -18,3 +20,8 @@ export const EventEntityProvider: React.FC<EventEntityProviderProps> = ({childre
 )
 
 export const useEventEntity = (): EventEntity => useContext(EventEntityContext)
+
+export const useEvents = (): Event[] => {
+  const {$events} = useEventEntity()
+  return useStore($events)
+}
