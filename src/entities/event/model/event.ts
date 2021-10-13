@@ -17,7 +17,11 @@ export type EventEntityDeps = {
 
 export const createEventEntity = (
   {domain}: EventEntityDeps,
-  {defaultEvents = [], events, persistEvents = true}: EventEntityConfig = {},
+  {
+    defaultEvents = [],
+    events,
+    persistEvents = process.env.STORYBOOK !== 'true',
+  }: EventEntityConfig = {},
 ) => {
   const createEvent = domain.event<Omit<Event, 'id'>>()
   const removeEvent = domain.event<Event['id']>()
