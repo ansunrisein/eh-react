@@ -3,10 +3,12 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1rem;
-}
 
-@media (max-width: 678px) {
-  .header {
+  @media (max-width: 678px) {
     padding: 0.2rem 0;
   }
+}
+
+.link {
+  color: inherit;
 }
