@@ -25,3 +25,8 @@ export const useEvents = (): Event[] => {
   const {$events} = useEventEntity()
   return useStore($events)
 }
+
+export const useEvent = (id: string): Event | undefined => {
+  const events = useEvents()
+  return events.find(e => e.id === id)
+}
