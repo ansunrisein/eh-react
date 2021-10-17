@@ -29,10 +29,10 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
     "lint": "eslint src/",
     "pretty-quick": "pretty-quick --pattern \"**/*.*(js|jsx|ts|tsx)",
     "storybook": "start-storybook -p 6006 -s public",
