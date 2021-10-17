@@ -24,6 +24,7 @@ export const createEventEntity = (
   }: EventEntityConfig = {},
 ) => {
   const createEvent = domain.event<Omit<Event, 'id'>>()
+  const editEvent = domain.event<Event>()
   const removeEvent = domain.event<Event['id']>()
   const resetEvents = domain.event()
 
@@ -31,6 +32,7 @@ export const createEventEntity = (
     .store(defaultEvents)
     .on(createEvent, (events, event) => [...events, {id: v4(), ...event}])
     .on(removeEvent, (events, id) => events.filter(e => e.id !== id))
+    .on(editEvent, (events, event) => events.map(e => (e.id === event.id ? event : e)))
     .reset(resetEvents)
 
   hydrate(domain, {
@@ -43,6 +45,7 @@ export const createEventEntity = (
 
   return {
     createEvent,
+    editEvent,
     removeEvent,
     resetEvents,
     $events,
