@@ -9,3 +9,20 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a:hover,
+a:focus-within {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.simplebar-scrollbar::before {
+  background-color: #fff !important;
+}
