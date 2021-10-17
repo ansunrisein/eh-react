@@ -9,6 +9,6 @@ export type LayoutProps = {
 export const Layout: React.FC<LayoutProps> = ({header, children}) => (
   <div className={S.wrapper}>
     {header && <Header />}
-    <div>{children}</div>
+    <div className={S.children}>{children}</div>
   </div>
 )
