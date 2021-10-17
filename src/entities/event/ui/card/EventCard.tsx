@@ -1,6 +1,6 @@
 import React from 'react'
 import {Panel, PanelProps} from 'rsuite'
-import {Event} from '@eh/entities/event/types'
+import {Event} from '../../types'
 
 export type EventCardProps = {
   event: Event
