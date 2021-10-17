@@ -1,30 +1,25 @@
-import React, {useMemo} from 'react'
+import React from 'react'
 import {Button, Input, Steps} from 'rsuite'
 import {Controller, useForm} from 'react-hook-form'
-import {Event, useEventEntity} from '@eh/entities/event'
-import S from './CreateEventForm.module.scss'
+import noop from '@stdlib/utils-noop'
+import {Event} from '@eh/entities/event'
+import S from './EventForm.module.scss'
 
-export type CreateEventFormProps = {
-  onCreate?: () => void
+export type EventFormProps = {
+  onSubmit?: (data: EventFormFields) => void
+  defaultValues?: EventFormFields
 }
 
-export type CreateEventFormFields = Pick<Event, 'title' | 'content'>
+export type EventFormFields = Pick<Event, 'title' | 'content'>
 
-export const CreateEventForm: React.FC<CreateEventFormProps> = ({onCreate}) => {
-  const {createEvent} = useEventEntity()
-  const {handleSubmit, control, formState} = useForm<CreateEventFormFields>({mode: 'onChange'})
-
-  const submit = useMemo(
-    () =>
-      handleSubmit(data => {
-        createEvent(data)
-        onCreate?.()
-      }),
-    [createEvent, handleSubmit, onCreate],
-  )
+export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop, defaultValues}) => {
+  const {handleSubmit, control, formState} = useForm({
+    mode: 'onChange',
+    defaultValues,
+  })
 
   return (
-    <form onSubmit={submit} className={S.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={S.form}>
       <Steps vertical>
         <Steps.Item
           status="wait"
