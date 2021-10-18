@@ -7,6 +7,7 @@ export enum ThemeEnum {
   DARK = 'dark',
   LIGHT = 'light',
 }
+
 export type Theme = Lowercase<keyof typeof ThemeEnum>
 
 export type ThemeContextType = {
