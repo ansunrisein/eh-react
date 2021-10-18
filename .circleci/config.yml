@@ -11,6 +11,7 @@ jobs:
           steps:
             - run: yarn install
             - run: yarn lint
+            - run: yarn build
 workflows:
     build-and-lint:
       jobs:
