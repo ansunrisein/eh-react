@@ -25,7 +25,8 @@
       {
         "allow": [
           "rsuite/dist/rsuite.min.css",
-          "effector-storage/*"
+          "effector-storage/*",
+          "react-icons/ri"
         ]
       }
     ],
