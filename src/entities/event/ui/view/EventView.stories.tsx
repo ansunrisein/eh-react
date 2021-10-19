@@ -6,7 +6,10 @@ export default {
   title: 'entities/event/EventView',
   component: EventView,
   args: {
-    id: '1',
+    event: {
+      title: 'Title',
+      content: 'Content',
+    },
   },
 } as Meta<EventViewProps>
 
