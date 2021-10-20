@@ -27,7 +27,9 @@
         "allow": [
           "rsuite/dist/rsuite.min.css",
           "effector-storage/*",
-          "react-icons/ri"
+          "react-icons/ri",
+          "swiper/react",
+          "swiper/swiper-bundle.min.css"
         ]
       }
     ],

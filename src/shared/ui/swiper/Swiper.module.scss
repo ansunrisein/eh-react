@@ -1,0 +1,22 @@
+.control {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.next {
+  right: 10px;
+}
+
+.prev {
+  left: 5px;
+}
+
+.fix {
+  width: 100% !important;
+  margin-left: initial !important;
+  margin-right: initial !important;
+}

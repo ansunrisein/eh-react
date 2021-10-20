@@ -1,5 +1,6 @@
 import '../src/index.css'
 import 'rsuite/dist/rsuite.min.css'
+import 'swiper/swiper-bundle.min.css'
 import {AppThemeProvider} from '../src/app/theme'
 
 export const parameters = {
