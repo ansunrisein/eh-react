@@ -4,7 +4,7 @@ import {Logo, LogoProps} from './Logo'
 
 export default {
   component: Logo,
-  title: 'shared/ui/logo',
+  title: 'shared/logo',
   argTypes: {
     size: {control: {type: 'inline-radio'}},
   },
