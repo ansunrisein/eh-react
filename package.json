@@ -24,6 +24,7 @@
     "react-use": "^17.2.4",
     "rsuite": "^5.0.0-beta.5",
     "sb": "^6.3.7",
+    "swiper": "6.8.4",
     "typescript": "^4.2.4",
     "use-boolean-state": "^1.0.2",
     "uuid": "^8.3.2",
