@@ -27,6 +27,7 @@ export type FlexType = {
     | 'space-around'
     | 'stretch'
     | DefaultType
+  gap?: number | string | DefaultType
 }
 
 export type CommonType = {
@@ -47,6 +48,7 @@ export const Flex: React.FC<FlexType & CommonType & React.HTMLAttributes<HTMLDiv
   alignItems,
   alignSelf,
   alignContent,
+  gap,
   style = {},
   ...props
 }) => (
@@ -64,6 +66,7 @@ export const Flex: React.FC<FlexType & CommonType & React.HTMLAttributes<HTMLDiv
       alignItems,
       alignSelf,
       alignContent,
+      gap,
       ...style,
     }}
     {...props}
