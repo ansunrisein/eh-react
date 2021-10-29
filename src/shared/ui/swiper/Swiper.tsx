@@ -1,30 +1,49 @@
-import React, {useLayoutEffect, useRef, useState} from 'react'
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react'
 import {Swiper as RSwiper} from 'swiper/react'
-import SwiperCore, {Navigation} from 'swiper'
+import SwiperCore, {Navigation, SwiperOptions} from 'swiper'
 import c from 'classnames'
 import {IconButton} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {RiArrowLeftSLine, RiArrowRightSLine} from 'react-icons/ri'
+import {findAdaptiveSlidePerView} from './helpers'
 import S from './Swiper.module.scss'
 
 SwiperCore.use([Navigation])
 
 export type SwiperProps = {
   withNavigation?: boolean
-} & React.ComponentProps<typeof RSwiper>
+  breakpoints?: Record<number, Omit<SwiperOptions, 'breakpoints'>>
+} & Omit<React.ComponentProps<typeof RSwiper>, 'breakpoints'>
 
 export const Swiper: React.FC<SwiperProps> = ({
   withNavigation = false,
   onInit,
   className,
   children,
+  slidesPerView,
+  breakpoints,
   ...props
 }) => {
   const next = useRef<HTMLDivElement>(null)
   const prev = useRef<HTMLDivElement>(null)
-
   const [prevDisabled, setPrevDisabled] = useState(true)
   const [nextDisabled, setNextDisabled] = useState(false)
+
+  const [currentSlidesPerView, setCurrentSlidesPerView] = useState(() =>
+    findAdaptiveSlidePerView(breakpoints, slidesPerView),
+  )
+
+  const isNav = !withNavigation
+    ? false
+    : typeof currentSlidesPerView !== 'number'
+    ? true
+    : React.Children.count(children) <= currentSlidesPerView
+
+  useEffect(() => {
+    const fn = () => setCurrentSlidesPerView(findAdaptiveSlidePerView(breakpoints, slidesPerView))
+    window.addEventListener('resize', fn)
+    return () => window.removeEventListener('resize', fn)
+  }, [breakpoints, slidesPerView])
 
   useLayoutEffect(() => {
     if (next.current && prev.current) {
@@ -46,12 +65,12 @@ export const Swiper: React.FC<SwiperProps> = ({
   return (
     <RSwiper
       className={c(S.fix, className)}
-      slidesPerView="auto"
-      spaceBetween={10}
-      navigation={withNavigation && {nextEl: next.current || '', prevEl: prev.current || ''}}
+      navigation={!isNav && {nextEl: next.current || '', prevEl: prev.current || ''}}
       slidesPerGroup={2}
       speed={1000}
       autoHeight
+      slidesPerView={slidesPerView}
+      breakpoints={breakpoints}
       onInit={swiper => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
@@ -65,7 +84,7 @@ export const Swiper: React.FC<SwiperProps> = ({
       {...props}
     >
       {children}
-      {withNavigation && (
+      {!isNav && (
         <>
           <div className={c(S.control, S.prev)} ref={prev}>
             <IconButton
