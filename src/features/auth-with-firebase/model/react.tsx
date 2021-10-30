@@ -1,5 +1,6 @@
 import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react'
 import {Auth} from 'firebase/auth'
+import {useAsyncFn} from 'react-use'
 import {AuthWithFirebaseFeature} from './auth-with-firebase'
 
 export const AuthWithFirebaseFeatureContext = createContext<AuthWithFirebaseFeature>(
@@ -25,6 +26,19 @@ export const AuthWithFirebaseFeatureProvider: React.FC<AuthWithFirebaseFeaturePr
 
 export const useAuthWithFirebaseFeature = (): AuthWithFirebaseFeature =>
   useContext(AuthWithFirebaseFeatureContext)
+
+export const useLogin = () => {
+  const feature = useAuthWithFirebaseFeature()
+
+  const [{loading, value, error}, login] = useAsyncFn(feature.login, [feature.login])
+
+  return {
+    login,
+    loading,
+    value,
+    error,
+  }
+}
 
 export type FirebaseAuthSuspenseProps = {
   auth: Auth
