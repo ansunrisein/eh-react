@@ -29,7 +29,8 @@
           "effector-storage/*",
           "react-icons/ri",
           "swiper/react",
-          "swiper/swiper-bundle.min.css"
+          "swiper/swiper-bundle.min.css",
+          "firebase/*"
         ]
       }
     ],
