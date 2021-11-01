@@ -1,5 +1,6 @@
 import React, {createContext, useContext} from 'react'
 import {useStore} from 'effector-react'
+import {Hoc} from '@eh/shared/types'
 import {Event} from '../types'
 import {EventEntity} from './event'
 
@@ -18,6 +19,16 @@ export type EventEntityProviderProps = {
 export const EventEntityProvider: React.FC<EventEntityProviderProps> = ({children, event}) => (
   <EventEntityContext.Provider value={event}>{children}</EventEntityContext.Provider>
 )
+
+export const withEventEntity =
+  (providerProps: EventEntityProviderProps): Hoc =>
+  Component =>
+  props =>
+    (
+      <EventEntityProvider {...providerProps}>
+        <Component {...props} />
+      </EventEntityProvider>
+    )
 
 export const useEventEntity = (): EventEntity => useContext(EventEntityContext)
 

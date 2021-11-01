@@ -1,6 +1,7 @@
 import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react'
 import {Auth} from 'firebase/auth'
 import {useAsyncFn} from 'react-use'
+import {Hoc} from '@eh/shared/types'
 import {AuthWithFirebaseFeature} from './auth-with-firebase'
 
 export const AuthWithFirebaseFeatureContext = createContext<AuthWithFirebaseFeature>(
@@ -39,6 +40,16 @@ export const useLogin = () => {
     error,
   }
 }
+
+export const withAuthWithFirebaseFeature =
+  (providerProps: AuthWithFirebaseFeatureProviderProps): Hoc =>
+  Component =>
+  props =>
+    (
+      <AuthWithFirebaseFeatureProvider {...providerProps}>
+        <Component {...props} />
+      </AuthWithFirebaseFeatureProvider>
+    )
 
 export type FirebaseAuthSuspenseProps = {
   auth: Auth

@@ -1,5 +1,6 @@
 import React, {createContext, useContext} from 'react'
 import {useStoreMap} from 'effector-react'
+import {Hoc} from '@eh/shared/types'
 import {SessionEntity} from './session'
 
 export const SessionEntityContext = createContext<SessionEntity>(
@@ -18,6 +19,16 @@ export const SessionEntityProvider: React.FC<SessionEntityProviderProps> = ({
   children,
   session,
 }) => <SessionEntityContext.Provider value={session}>{children}</SessionEntityContext.Provider>
+
+export const withSessionEntity =
+  (providerProps: SessionEntityProviderProps): Hoc =>
+  Component =>
+  props =>
+    (
+      <SessionEntityProvider {...providerProps}>
+        <Component {...props} />
+      </SessionEntityProvider>
+    )
 
 export const useSessionEntity = (): SessionEntity => useContext(SessionEntityContext)
 
