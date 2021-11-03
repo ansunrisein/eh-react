@@ -1,0 +1,22 @@
+.height {
+  height: fit-content;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  padding: 0.8rem;
+}
+
+.title {
+  margin-bottom: 0.8rem;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tag {
+  align-self: flex-end;
+}
