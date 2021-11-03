@@ -41,3 +41,5 @@ export const useEvent = (id: string): Event | undefined => {
   const events = useEvents()
   return events.find(e => e.id === id)
 }
+
+export const useEditEvent = () => useEventEntity().editEvent

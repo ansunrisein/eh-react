@@ -1,5 +1,5 @@
 import React, {useCallback} from 'react'
-import {Event, useEventEntity} from '@eh/entities/event'
+import {Event, useEditEvent} from '@eh/entities/event'
 import {EventForm, EventFormFields, EventFormProps} from '../form'
 
 export type EditEventFormProps = {
@@ -8,7 +8,7 @@ export type EditEventFormProps = {
 } & Omit<EventFormProps, 'onSubmit' | 'defaultValues'>
 
 export const EditEventForm: React.FC<EditEventFormProps> = ({event, onEdit, ...props}) => {
-  const {editEvent} = useEventEntity()
+  const editEvent = useEditEvent()
 
   const handleSubmit = useCallback(
     (data: EventFormFields) => {
