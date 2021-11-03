@@ -41,3 +41,5 @@ export const useBoard = (id: string): Board | undefined => {
   const events = useBoards()
   return events.find(e => e.id === id)
 }
+
+export const useCreateBoard = () => useBoardEntity().createBoard
