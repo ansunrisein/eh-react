@@ -9,11 +9,26 @@ import {
   createAuthWithFirebaseFeature,
   withAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
-import {Board} from './Board'
+import {createBoardEntity, withBoardEntity} from '@eh/entities/board'
+import {createUpdateEventFeature, withUpdateEventFeature} from '@eh/features/update-event/model'
+import {Board, BoardProps} from './Board'
 
 const domain = createDomain()
 const sessionEntity = createSessionEntity({domain})
-const eventEntity = createEventEntity({domain})
+const eventEntity = createEventEntity(
+  {domain},
+  {
+    events: [
+      {id: '1', title: 'Title2', content: '123'},
+      {id: '2', title: 'Title1', content: '123'},
+    ],
+  },
+)
+const boardEntity = createBoardEntity(
+  {domain},
+  {boards: [{id: '1', title: 'Board', events: ['1', '2']}]},
+)
+const updateEventFeature = createUpdateEventFeature({domain, eventEntity, boardEntity})
 const authWithFirebaseFeature = createAuthWithFirebaseFeature({
   auth: authMock,
   session: sessionEntity,
@@ -26,8 +41,13 @@ export default {
   decorators: hocsToDecorators([
     withSessionEntity({session: sessionEntity}),
     withEventEntity({event: eventEntity}),
+    withBoardEntity({board: boardEntity}),
+    withUpdateEventFeature({updateEvent: updateEventFeature}),
     withAuthWithFirebaseFeature({authWithFirebase: authWithFirebaseFeature}),
   ]),
-} as Meta
+  args: {
+    id: '1',
+  },
+} as Meta<BoardProps>
 
-export const Default: Story = props => <Board {...props} />
+export const Default: Story<BoardProps> = props => <Board {...props} />

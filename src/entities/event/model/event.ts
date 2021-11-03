@@ -23,14 +23,15 @@ export const createEventEntity = (
     persistEvents = process.env.STORYBOOK !== 'true',
   }: EventEntityConfig = {},
 ) => {
-  const createEvent = domain.event<Omit<Event, 'id'>>()
+  const createEventFx = domain.effect((event: Omit<Event, 'id'>): Event => ({id: v4(), ...event}))
+
   const editEvent = domain.event<Event>()
   const removeEvent = domain.event<Event['id']>()
   const resetEvents = domain.event()
 
   const $events = domain
     .store(defaultEvents)
-    .on(createEvent, (events, event) => [...events, {id: v4(), ...event}])
+    .on(createEventFx.doneData, (events, event) => events.concat(event))
     .on(removeEvent, (events, id) => events.filter(e => e.id !== id))
     .on(editEvent, (events, event) => events.map(e => (e.id === event.id ? event : e)))
     .reset(resetEvents)
@@ -44,7 +45,7 @@ export const createEventEntity = (
   }
 
   return {
-    createEvent,
+    createEventFx,
     editEvent,
     removeEvent,
     resetEvents,

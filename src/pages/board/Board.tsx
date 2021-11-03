@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useMemo, useState} from 'react'
 import {Button} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -7,13 +7,24 @@ import {EventCard, useEvents} from '@eh/entities/event'
 import {CreateEventForm} from '@eh/features/update-event'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
+import {useBoard} from '@eh/entities/board'
 import S from './Board.module.scss'
 
-export const Board: React.FC = () => {
+export type BoardProps = {
+  id: string
+}
+
+export const Board: React.FC<BoardProps> = ({id}) => {
   const [openedEventId, setOpenedEventId] = useState<string | null>(null)
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
 
-  const events = useEvents()
+  const board = useBoard(id)
+  const allEvents = useEvents()
+
+  const events = useMemo(
+    () => allEvents.filter(event => board?.events.includes(event.id)),
+    [allEvents, board],
+  )
 
   return (
     <Layout header>
@@ -22,7 +33,7 @@ export const Board: React.FC = () => {
           Create event
         </Button>
         <Modal open={isCreateEventOpened} onClose={closeCreateEvent} backdrop>
-          <CreateEventForm onCreate={closeCreateEvent} />
+          <CreateEventForm boardId={id} onCreate={closeCreateEvent} />
         </Modal>
       </Flex>
 

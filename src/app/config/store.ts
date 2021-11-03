@@ -7,6 +7,7 @@ import {
   createAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
 import {BoardEntityProvider, createBoardEntity} from '@eh/entities/board'
+import {createUpdateEventFeature, UpdateEventFeatureProvider} from '@eh/features/update-event/model'
 import {auth} from './firebase'
 
 const domain = createDomain()
@@ -16,10 +17,12 @@ const boardEntity = createBoardEntity({domain})
 const sessionEntity = createSessionEntity({domain})
 
 const authWithFirebaseFeature = createAuthWithFirebaseFeature({auth, session: sessionEntity})
+const updateEventFeature = createUpdateEventFeature({eventEntity, boardEntity, domain})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(EventEntityProvider, {event: eventEntity})
   .add(BoardEntityProvider, {board: boardEntity})
   .add(SessionEntityProvider, {session: sessionEntity})
   .add(AuthWithFirebaseFeatureProvider, {authWithFirebase: authWithFirebaseFeature})
+  .add(UpdateEventFeatureProvider, {updateEvent: updateEventFeature})
   .return()

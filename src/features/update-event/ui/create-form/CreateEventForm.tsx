@@ -1,20 +1,21 @@
 import React, {useCallback} from 'react'
-import {useEventEntity} from '@eh/entities/event'
-import {EventForm, EventFormFields} from '../form'
+import {useCreateEventInBoard} from '../../model'
+import {EventForm, EventFormFields, EventFormProps} from '../form'
 
 export type CreateEventFormProps = {
+  boardId: string
   onCreate?: () => void
 } & Omit<EventFormProps, 'onSubmit'>
 
-export const CreateEventForm: React.FC<CreateEventFormProps> = ({onCreate, ...props}) => {
-  const {createEvent} = useEventEntity()
+export const CreateEventForm: React.FC<CreateEventFormProps> = ({boardId, onCreate, ...props}) => {
+  const createEvent = useCreateEventInBoard()
 
   const handleSubmit = useCallback(
-    (data: EventFormFields) => {
-      createEvent(data)
+    (event: EventFormFields) => {
+      createEvent({boardId, event})
       onCreate?.()
     },
-    [createEvent, onCreate],
+    [boardId, createEvent, onCreate],
   )
 
   return <EventForm onSubmit={handleSubmit} {...props} />
