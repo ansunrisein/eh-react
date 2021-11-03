@@ -4,9 +4,9 @@ import {EventForm, EventFormFields} from '../form'
 
 export type CreateEventFormProps = {
   onCreate?: () => void
-}
+} & Omit<EventFormProps, 'onSubmit'>
 
-export const CreateEventForm: React.FC<CreateEventFormProps> = ({onCreate}) => {
+export const CreateEventForm: React.FC<CreateEventFormProps> = ({onCreate, ...props}) => {
   const {createEvent} = useEventEntity()
 
   const handleSubmit = useCallback(
@@ -17,5 +17,5 @@ export const CreateEventForm: React.FC<CreateEventFormProps> = ({onCreate}) => {
     [createEvent, onCreate],
   )
 
-  return <EventForm onSubmit={handleSubmit} />
+  return <EventForm onSubmit={handleSubmit} {...props} />
 }
