@@ -33,6 +33,7 @@ export type FlexType = {
 export type CommonType = {
   width?: string | number
   height?: string | number
+  overflow?: 'visible' | 'hidden' | 'scroll' | 'auto' | DefaultType
 }
 
 export const Flex: React.FC<FlexType & CommonType & React.HTMLAttributes<HTMLDivElement>> = ({
@@ -49,6 +50,9 @@ export const Flex: React.FC<FlexType & CommonType & React.HTMLAttributes<HTMLDiv
   alignSelf,
   alignContent,
   gap,
+  height,
+  width,
+  overflow,
   style = {},
   ...props
 }) => (
@@ -67,6 +71,9 @@ export const Flex: React.FC<FlexType & CommonType & React.HTMLAttributes<HTMLDiv
       alignSelf,
       alignContent,
       gap,
+      height,
+      width,
+      overflow,
       ...style,
     }}
     {...props}
