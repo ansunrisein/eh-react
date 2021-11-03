@@ -1,0 +1,30 @@
+.boards {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 20px;
+
+  height: 100%;
+  overflow-y: auto;
+
+  padding-right: 10px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+
+  flex: 1;
+  justify-content: space-between;
+
+  padding-right: 10px;
+}
+
+.add {
+  margin: 1rem 0;
+}
+
+.shrink {
+  flex-shrink: 0;
+}
