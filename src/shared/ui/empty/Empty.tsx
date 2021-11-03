@@ -9,6 +9,7 @@ export const Empty: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   ...props
 }) => (
   <Flex
+    flexDirection="column"
     alignItems="center"
     justifyContent="center"
     flexGrow={1}
