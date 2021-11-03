@@ -1,7 +1,7 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react'
 import {Swiper as RSwiper} from 'swiper/react'
 import SwiperCore, {Navigation, SwiperOptions} from 'swiper'
-import c from 'classnames'
+import cx from 'classnames'
 import {IconButton} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {RiArrowLeftSLine, RiArrowRightSLine} from 'react-icons/ri'
@@ -64,7 +64,7 @@ export const Swiper: React.FC<SwiperProps> = ({
 
   return (
     <RSwiper
-      className={c(S.fix, className)}
+      className={cx(S.fix, className)}
       navigation={!isNav && {nextEl: next.current || '', prevEl: prev.current || ''}}
       slidesPerGroup={2}
       speed={1000}
@@ -86,7 +86,7 @@ export const Swiper: React.FC<SwiperProps> = ({
       {children}
       {!isNav && (
         <>
-          <div className={c(S.control, S.prev)} ref={prev}>
+          <div className={cx(S.control, S.prev)} ref={prev}>
             <IconButton
               size="sm"
               circle
@@ -94,7 +94,7 @@ export const Swiper: React.FC<SwiperProps> = ({
               icon={<Icon as={RiArrowLeftSLine} />}
             />
           </div>
-          <div className={c(S.control, S.next)} ref={next}>
+          <div className={cx(S.control, S.next)} ref={next}>
             <IconButton
               size="sm"
               circle

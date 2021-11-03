@@ -1,5 +1,5 @@
 import React from 'react'
-import c from 'classnames'
+import cx from 'classnames'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import S from './Empty.module.scss'
 
@@ -12,7 +12,7 @@ export const Empty: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
     alignItems="center"
     justifyContent="center"
     flexGrow={1}
-    className={c(S.empty, className)}
+    className={cx(S.empty, className)}
     {...props}
   >
     {children}

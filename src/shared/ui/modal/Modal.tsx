@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
 import {useMedia} from 'react-use'
 import {Drawer, Modal as RSModal, ModalProps as RSModalProps} from 'rsuite'
-import c from 'classnames'
+import cx from 'classnames'
 import S from './Modal.module.scss'
 
 export type ModalProps = RSModalProps
@@ -50,7 +50,7 @@ export const Modal: React.FC<ModalProps> = ({
       open={open}
       onClose={handleClose}
       onExited={handleExited}
-      className={c(!isTablet && S.drawer, className)}
+      className={cx(!isTablet && S.drawer, className)}
       {...props}
     >
       {childrenState}

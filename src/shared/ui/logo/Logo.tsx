@@ -1,5 +1,5 @@
 import React from 'react'
-import c from 'classnames'
+import cx from 'classnames'
 import S from './Logo.module.scss'
 
 export type LogoProps = {
@@ -7,5 +7,5 @@ export type LogoProps = {
 }
 
 export const Logo: React.FC<LogoProps> = ({size = 'md'}) => (
-  <h4 className={c(S.logo, S[`size-${size}`])}>Event Horizon</h4>
+  <h4 className={cx(S.logo, S[`size-${size}`])}>Event Horizon</h4>
 )
