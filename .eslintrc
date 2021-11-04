@@ -52,6 +52,16 @@
           "object"
         ]
       }
+    ],
+    "import/no-restricted-paths": [
+      "error", {
+        "zones": [
+          {
+            "target": "src",
+            "from": "./node_modules/react-router-dom"
+          }
+        ]
+      }
     ]
   },
   "settings": {
@@ -61,5 +71,11 @@
     "import",
     "prettier",
     "react"
-  ]
+  ],
+  "overrides": [{
+    "files": ["src/shared/lib/router/*"],
+    "rules": {
+      "import/no-restricted-paths": ["off"]
+    }
+  }]
 }
