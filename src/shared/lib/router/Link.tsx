@@ -1,9 +1,13 @@
 import React from 'react'
 import {Link as RouterLink, LinkProps as RouterLinkProps} from 'react-router-dom'
+import cx from 'classnames'
 import {Paths} from './types'
+import S from './Link.module.scss'
 
 export type LinkProps = {
   to: Paths
 } & Omit<RouterLinkProps, 'to'>
 
-export const Link: React.FC<LinkProps> = props => <RouterLink {...props} />
+export const Link: React.FC<LinkProps> = ({className, ...props}) => (
+  <RouterLink className={cx(S.link, className)} {...props} />
+)
