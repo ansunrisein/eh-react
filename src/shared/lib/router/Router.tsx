@@ -1,6 +1,6 @@
 import React from 'react'
-import {Router as RouterRouter, RouterProps as RouterRouterProps} from 'react-router-dom'
 import {History} from 'history'
+import {Router as RouterRouter, RouterProps as RouterRouterProps} from 'react-router-dom'
 
 export type RouterProps = {
   history: History

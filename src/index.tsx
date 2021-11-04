@@ -1,8 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
 import './index.css'
 import 'rsuite/dist/rsuite.min.css'
 import 'swiper/swiper-bundle.min.css'
+import React from 'react'
+import ReactDOM from 'react-dom'
 import {App} from './app'
 import {reportWebVitals} from './reportWebVitals'
 

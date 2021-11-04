@@ -1,10 +1,10 @@
 import React from 'react'
-import {Button, Input, Steps} from 'rsuite'
 import {Controller, useForm} from 'react-hook-form'
+import {Button, Input, Steps} from 'rsuite'
+import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
-import useBooleanState from 'use-boolean-state'
-import {Event} from '@eh/entities/event'
 import {useFormInputEnter} from '@eh/shared/lib/use-form-input-enter'
+import {Event} from '@eh/entities/event'
 import S from './EventForm.module.scss'
 
 export type EventFormProps = {

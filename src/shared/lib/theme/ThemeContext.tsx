@@ -1,6 +1,6 @@
 import React, {createContext, useCallback, useContext} from 'react'
-import noop from '@stdlib/utils-noop'
 import {useMedia} from 'react-use'
+import noop from '@stdlib/utils-noop'
 import {usePersistedState} from '@eh/shared/lib/use-persisted-state'
 
 export enum ThemeEnum {

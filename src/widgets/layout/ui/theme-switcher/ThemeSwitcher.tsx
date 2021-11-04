@@ -1,7 +1,7 @@
 import React from 'react'
+import {RiMoonClearFill, RiSunFill} from 'react-icons/ri'
 import {IconButton, IconButtonProps} from 'rsuite'
 import {Icon} from '@rsuite/icons'
-import {RiMoonClearFill, RiSunFill} from 'react-icons/ri'
 import {useTheme} from '@eh/shared/lib/theme'
 
 export type ThemeSwitcherProps = Omit<IconButtonProps, 'icon' | 'onClick'>

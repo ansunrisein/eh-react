@@ -1,6 +1,6 @@
 import React from 'react'
-import {ThemeContext, ThemeProvider} from '../shared/lib/theme'
-import {BodyClassName} from '../shared/lib/body-class-name'
+import {BodyClassName} from '@eh/shared/lib/body-class-name'
+import {ThemeContext, ThemeProvider} from '@eh/shared/lib/theme'
 
 export const AppThemeProvider: React.FC = ({children}) => (
   <ThemeProvider defaultTheme="dark">

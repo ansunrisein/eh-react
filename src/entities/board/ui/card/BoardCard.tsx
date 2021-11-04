@@ -1,6 +1,6 @@
 import React from 'react'
-import {Panel, PanelProps, Tag} from 'rsuite'
 import cx from 'classnames'
+import {Panel, PanelProps, Tag} from 'rsuite'
 import {Link} from '@eh/shared/lib/router'
 import {Board} from '../../types'
 import S from './BoardCard.module.scss'

@@ -1,15 +1,15 @@
 import React from 'react'
-import {Meta, Story} from '@storybook/react'
 import {createDomain} from 'effector'
+import {Meta, Story} from '@storybook/react'
 import {hocsToDecorators} from '@eh/shared/lib/hocs-to-decorators'
 import {authMock} from '@eh/shared/mocks/firebase'
-import {createSessionEntity, withSessionEntity} from '@eh/entities/session'
+import {createBoardEntity, withBoardEntity} from '@eh/entities/board'
 import {createEventEntity, withEventEntity} from '@eh/entities/event'
+import {createSessionEntity, withSessionEntity} from '@eh/entities/session'
 import {
   createAuthWithFirebaseFeature,
   withAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
-import {createBoardEntity, withBoardEntity} from '@eh/entities/board'
 import {createUpdateEventFeature, withUpdateEventFeature} from '@eh/features/update-event/model'
 import {Board} from './Board'
 

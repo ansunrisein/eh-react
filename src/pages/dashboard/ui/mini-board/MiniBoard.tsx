@@ -1,6 +1,6 @@
 import React from 'react'
-import {Panel, PanelProps} from 'rsuite'
 import {useMedia} from 'react-use'
+import {Panel, PanelProps} from 'rsuite'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {EventCard} from '@eh/entities/event'

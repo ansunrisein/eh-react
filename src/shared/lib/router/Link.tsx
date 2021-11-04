@@ -1,6 +1,6 @@
 import React from 'react'
-import {Link as RouterLink, LinkProps as RouterLinkProps} from 'react-router-dom'
 import cx from 'classnames'
+import {Link as RouterLink, LinkProps as RouterLinkProps} from 'react-router-dom'
 import {Paths} from './types'
 import S from './Link.module.scss'
 

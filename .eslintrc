@@ -35,31 +35,57 @@
         ]
       }
     ],
+    "simple-import-sort/imports": [
+      "error",
+      {
+        "groups": [
+          [
+            "^\\u0000",
+            "^react$",
+            "^\\w",
+            "^@(?!eh\\/)",
+            "^@eh/shared/",
+            "^@eh/entities/",
+            "^@eh/features/",
+            "^@eh/widgets/",
+            "^@eh/pages/",
+            "^@eh/processes/",
+            "^@eh/app/",
+            "^",
+            "^\\.\\.",
+            "^\\..*?(?!\\.scss)",
+            "^\\..+\\.scss$"
+          ]
+        ]
+      }
+    ],
     "import/no-useless-path-segments": "error",
     "import/no-commonjs": "error",
     "import/no-duplicates": "error",
     "import/newline-after-import": "error",
-    "import/order": [
+    "import/order": 0,
+    "import/no-restricted-paths": [
       "error",
       {
-        "groups": [
-          "builtin",
-          "external",
-          "internal",
-          "parent",
-          "sibling",
-          "index",
-          "object"
-        ]
-      }
-    ],
-    "import/no-restricted-paths": [
-      "error", {
         "zones": [
           {
             "target": "src",
             "from": "./node_modules/react-router-dom"
           }
+        ]
+      }
+    ],
+    "no-restricted-imports": [
+      "error",
+      {
+        "patterns": [
+          "../**/shared/**",
+          "../**/entities/**",
+          "../**/features/**",
+          "../**/widgets/**",
+          "../**/pages/**",
+          "../**/processes/**",
+          "../**/app/**"
         ]
       }
     ]
@@ -70,12 +96,19 @@
   "plugins": [
     "import",
     "prettier",
-    "react"
+    "react",
+    "simple-import-sort"
   ],
-  "overrides": [{
-    "files": ["src/shared/lib/router/*"],
-    "rules": {
-      "import/no-restricted-paths": ["off"]
+  "overrides": [
+    {
+      "files": [
+        "src/shared/lib/router/*"
+      ],
+      "rules": {
+        "import/no-restricted-paths": [
+          "off"
+        ]
+      }
     }
-  }]
+  ]
 }

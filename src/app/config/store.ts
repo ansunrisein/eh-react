@@ -1,12 +1,12 @@
 import {createDomain} from 'effector'
 import {createProviderBuilder} from '@eh/shared/lib/provider-builder'
+import {BoardEntityProvider, createBoardEntity} from '@eh/entities/board'
 import {createEventEntity, EventEntityProvider} from '@eh/entities/event'
 import {createSessionEntity, SessionEntityProvider} from '@eh/entities/session'
 import {
   AuthWithFirebaseFeatureProvider,
   createAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
-import {BoardEntityProvider, createBoardEntity} from '@eh/entities/board'
 import {createUpdateEventFeature, UpdateEventFeatureProvider} from '@eh/features/update-event/model'
 import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard/model'
 import {auth} from './firebase'

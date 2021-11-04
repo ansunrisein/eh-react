@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react'
+import cx from 'classnames'
 import {useMedia} from 'react-use'
 import {Drawer, Modal as RSModal, ModalProps as RSModalProps} from 'rsuite'
-import cx from 'classnames'
 import S from './Modal.module.scss'
 
 export type ModalProps = RSModalProps

@@ -1,6 +1,6 @@
 import {Domain} from 'effector'
-import {Event, EventEntity} from '@eh/entities/event'
 import {BoardEntity} from '@eh/entities/board'
+import {Event, EventEntity} from '@eh/entities/event'
 
 export type UpdateEventFeature = ReturnType<typeof createUpdateEventFeature>
 
