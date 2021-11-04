@@ -11,7 +11,7 @@ import {
 } from '@eh/features/auth-with-firebase'
 import {createBoardEntity, withBoardEntity} from '@eh/entities/board'
 import {createUpdateEventFeature, withUpdateEventFeature} from '@eh/features/update-event/model'
-import {Board, BoardProps} from './Board'
+import {Board} from './Board'
 
 const domain = createDomain()
 const sessionEntity = createSessionEntity({domain})
@@ -45,9 +45,6 @@ export default {
     withUpdateEventFeature({updateEvent: updateEventFeature}),
     withAuthWithFirebaseFeature({authWithFirebase: authWithFirebaseFeature}),
   ]),
-  args: {
-    id: '1',
-  },
-} as Meta<BoardProps>
+} as Meta
 
-export const Default: Story<BoardProps> = props => <Board {...props} />
+export const Default: Story = props => <Board {...props} />

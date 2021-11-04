@@ -39,7 +39,9 @@ export const Dashboard: React.FC = () => {
         {!boards.length ? (
           <Empty>
             <p>You have no boards :(</p>
-            <Button appearance="link">Create now!</Button>
+            <Button onClick={openCreateBoard} appearance="link">
+              Create now!
+            </Button>
           </Empty>
         ) : display === 'grid' ? (
           <div className={S.boards}>

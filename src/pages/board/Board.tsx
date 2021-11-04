@@ -8,15 +8,14 @@ import {CreateEventForm} from '@eh/features/update-event'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
 import {useBoard} from '@eh/entities/board'
+import {useParams} from '@eh/shared/lib/router'
 import S from './Board.module.scss'
 
-export type BoardProps = {
-  id: string
-}
-
-export const Board: React.FC<BoardProps> = ({id}) => {
+export const Board: React.FC = () => {
   const [openedEventId, setOpenedEventId] = useState<string | null>(null)
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
+
+  const {id = ''} = useParams<'id'>()
 
   const board = useBoard(id)
   const allEvents = useEvents()

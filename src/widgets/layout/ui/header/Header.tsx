@@ -2,6 +2,7 @@ import React from 'react'
 import {IconButton} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {RiBarChartBoxFill, RiLoginBoxLine, RiLogoutBoxLine} from 'react-icons/ri'
+import {Link} from '@eh/shared/lib/router'
 import {Logo} from '@eh/shared/ui'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useIsAuthenticated, useLogout} from '@eh/entities/session'
@@ -16,13 +17,17 @@ export const Header: React.FC = () => {
 
   return (
     <header className={S.header}>
-      <IconButton
-        icon={<Icon as={RiBarChartBoxFill} />}
-        size="md"
-        appearance="link"
-        className={S.link}
-      />
+      <Link to="/">
+        <IconButton
+          icon={<Icon as={RiBarChartBoxFill} />}
+          size="md"
+          appearance="link"
+          className={S.link}
+        />
+      </Link>
+
       <Logo />
+
       <Flex gap={10}>
         <ThemeSwitcher size="md" appearance="link" className={S.link} />
 
