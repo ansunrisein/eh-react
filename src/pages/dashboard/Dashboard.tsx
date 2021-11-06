@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import {RiAddFill, RiDashboardLine} from 'react-icons/ri'
-import {Button, IconButton} from 'rsuite'
+import {Button, IconButton, Loader} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -16,7 +16,7 @@ export const Dashboard: React.FC = () => {
   const [display, setDisplay] = useState('grid')
   const [isCreateBoardOpened, openCreateBoard, closeCreateBoard] = useBooleanState(false)
 
-  const boards = useBoards()
+  const {boards, loading} = useBoards()
 
   const switchDisplay = useCallback(
     () => setDisplay(display => (display === 'list' ? 'grid' : 'list')),
@@ -24,7 +24,7 @@ export const Dashboard: React.FC = () => {
   )
 
   return (
-    <Layout header>
+    <Layout header loading={loading}>
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
         <Flex height="100%" flexDirection="column" justifyContent="flex-end">
           <IconButton onClick={switchDisplay} icon={<Icon as={RiDashboardLine} />} size="lg" />
@@ -36,7 +36,7 @@ export const Dashboard: React.FC = () => {
             size="lg"
           />
         </Flex>
-        {!boards.length ? (
+        {!boards?.length ? (
           <Empty>
             <p>You have no boards :(</p>
             <Button onClick={openCreateBoard} appearance="link">
@@ -46,13 +46,13 @@ export const Dashboard: React.FC = () => {
         ) : display === 'grid' ? (
           <div className={S.boards}>
             {boards.map(board => (
-              <MiniBoard key={board.id} board={board} className={S.shrink} />
+              <MiniBoard key={board._id} board={board} className={S.shrink} />
             ))}
           </div>
         ) : (
           <div className={S.grid}>
             {boards.map(board => (
-              <BoardCard key={board.id} board={board} />
+              <BoardCard key={board._id} board={board} />
             ))}
           </div>
         )}

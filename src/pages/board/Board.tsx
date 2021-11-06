@@ -1,32 +1,26 @@
-import React, {useMemo, useState} from 'react'
+import React, {useState} from 'react'
 import {Button} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {useBoard} from '@eh/entities/board'
-import {EventCard, useEvents} from '@eh/entities/event'
+import {EventCard} from '@eh/entities/event'
 import {CreateEventForm} from '@eh/features/update-event'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
 import S from './Board.module.scss'
 
 export const Board: React.FC = () => {
+  const {id = ''} = useParams<'id'>()
+
   const [openedEventId, setOpenedEventId] = useState<string | null>(null)
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
 
-  const {id = ''} = useParams<'id'>()
-
-  const board = useBoard(id)
-  const allEvents = useEvents()
-
-  const events = useMemo(
-    () => allEvents.filter(event => board?.events.includes(event.id)),
-    [allEvents, board],
-  )
+  const {board, loading} = useBoard(id)
 
   return (
-    <Layout header>
+    <Layout header loading={loading}>
       <Flex justifyContent="flex-end" className={S.panel}>
         <Button size="xs" color="blue" onClick={openCreateEvent}>
           Create event
@@ -36,10 +30,10 @@ export const Board: React.FC = () => {
         </Modal>
       </Flex>
 
-      {events.length ? (
+      {board?.events.length ? (
         <ul className={S.grid}>
-          {events.map(e => (
-            <li key={e.id} onClick={() => setOpenedEventId(e.id)}>
+          {board.events.map(e => (
+            <li key={e._id} onClick={() => setOpenedEventId(e._id)}>
               <EventCard event={e} className={S.event} />
             </li>
           ))}

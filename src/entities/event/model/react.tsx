@@ -1,8 +1,8 @@
 import React, {createContext, useContext} from 'react'
-import {useStore} from 'effector-react'
-import {Hoc} from '@eh/shared/types'
-import {Event} from '../types'
+import {useAsyncFn} from 'react-use'
+import {Hoc, RemoveEffector} from '@eh/shared/types'
 import {EventEntity} from './event'
+import {useEventQuery} from './operations'
 
 export const EventEntityContext = createContext<EventEntity>(
   new Proxy({} as EventEntity, {
@@ -32,14 +32,29 @@ export const withEventEntity =
 
 export const useEventEntity = (): EventEntity => useContext(EventEntityContext)
 
-export const useEvents = (): Event[] => {
-  const {$events} = useEventEntity()
-  return useStore($events)
+export const useEvent = (id: string) => {
+  const {data, loading} = useEventQuery({variables: {id}})
+
+  return {
+    event: data?.event,
+    loading,
+  }
 }
 
-export const useEvent = (id: string): Event | undefined => {
-  const events = useEvents()
-  return events.find(e => e.id === id)
+export const useCreateEvent = () => {
+  const {createEventFx} = useEventEntity()
+
+  return useAsyncFn<RemoveEffector<typeof createEventFx>>(createEventFx, [createEventFx])
 }
 
-export const useEditEvent = () => useEventEntity().editEvent
+export const useEditEvent = () => {
+  const {editEventFx} = useEventEntity()
+
+  return useAsyncFn<RemoveEffector<typeof editEventFx>>(editEventFx, [editEventFx])
+}
+
+export const useRemoveEvent = () => {
+  const {removeEventFx} = useEventEntity()
+
+  return useAsyncFn<RemoveEffector<typeof removeEventFx>>(removeEventFx, [removeEventFx])
+}

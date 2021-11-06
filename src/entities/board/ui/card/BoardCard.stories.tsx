@@ -8,9 +8,12 @@ export default {
   parameters: {layout: 'centered'},
   args: {
     board: {
-      id: '1',
+      _id: '1',
       title: 'Board',
-      events: ['1', '2'],
+      events: [
+        {_id: '1', title: '1', content: '123'},
+        {_id: '2', title: '1', content: '123'},
+      ],
     },
   },
 } as Meta<BoardCardProps>

@@ -1,14 +1,14 @@
 import React from 'react'
 import {useMedia} from 'react-use'
 import {Panel, PanelProps} from 'rsuite'
+import {BoardFragment} from '@eh/shared/api'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {EventCard} from '@eh/entities/event'
-import {BoardWithEvents} from '../../types'
 import S from './MiniBoard.module.scss'
 
 export type MiniBoardProps = {
-  board: BoardWithEvents
+  board: BoardFragment
 } & PanelProps
 
 export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
@@ -16,14 +16,14 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
 
   return (
     <Panel bordered shaded {...props}>
-      <Link to={`/board/${board.id}`}>
+      <Link to={`/board/${board._id}`}>
         <h4 className={S.title}>{board.title}</h4>
       </Link>
 
       <Swiper withNavigation={isTablet} breakpoints={swiperBreakpoints}>
         {board.events ? (
           board.events.map(e => (
-            <Swiper.Slide key={e.id}>
+            <Swiper.Slide key={e._id}>
               <EventCard event={e} />
             </Swiper.Slide>
           ))

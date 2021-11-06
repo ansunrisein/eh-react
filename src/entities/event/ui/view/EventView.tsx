@@ -2,12 +2,12 @@ import React from 'react'
 import {RiDeleteBin7Fill, RiEdit2Fill} from 'react-icons/ri'
 import {ButtonGroup, IconButton, Panel} from 'rsuite'
 import {Icon} from '@rsuite/icons'
+import {EventFragment} from '@eh/shared/api'
 import {Flex} from '@eh/shared/lib/reflexbox'
-import {Event} from '../../types'
 import S from './EventView.module.scss'
 
 export type EventViewProps = {
-  event: Event
+  event: EventFragment
   onEdit?: () => void
   onRemove?: () => void
 }

@@ -1,8 +1,8 @@
 import React, {createContext, useContext} from 'react'
-import {useStore} from 'effector-react'
-import {Hoc} from '@eh/shared/types'
-import {Board} from '../types'
+import {useAsyncFn} from 'react-use'
+import {Hoc, RemoveEffector} from '@eh/shared/types'
 import {BoardEntity} from './board'
+import {useBoardQuery} from './operations'
 
 export const BoardEntityContext = createContext<BoardEntity>(
   new Proxy({} as BoardEntity, {
@@ -32,14 +32,17 @@ export const withBoardEntity =
 
 export const useBoardEntity = (): BoardEntity => useContext(BoardEntityContext)
 
-export const useBoards = (): Board[] => {
-  const {$boards} = useBoardEntity()
-  return useStore($boards)
+export const useBoard = (id: string) => {
+  const {data, loading} = useBoardQuery({variables: {id}})
+
+  return {
+    board: data?.board,
+    loading,
+  }
 }
 
-export const useBoard = (id: string): Board | undefined => {
-  const events = useBoards()
-  return events.find(e => e.id === id)
-}
+export const useCreateBoard = () => {
+  const {createBoardFx} = useBoardEntity()
 
-export const useCreateBoard = () => useBoardEntity().createBoard
+  return useAsyncFn<RemoveEffector<typeof createBoardFx>>(createBoardFx, [createBoardFx])
+}

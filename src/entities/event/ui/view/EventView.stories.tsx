@@ -7,6 +7,7 @@ export default {
   component: EventView,
   args: {
     event: {
+      _id: '12',
       title: 'Title',
       content: 'Content',
     },

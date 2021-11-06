@@ -1,20 +1,21 @@
 import React from 'react'
 import {Controller, useForm} from 'react-hook-form'
-import {Button, Input, Steps} from 'rsuite'
+import {Button, Input, Loader, Steps} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
 import {useFormInputEnter} from '@eh/shared/lib/use-form-input-enter'
-import {Board} from '@eh/entities/board'
+import {CreateBoardMutationVariables} from '@eh/entities/board'
 import S from './BoardForm.module.scss'
 
 export type BoardFormProps = {
-  onSubmit?: (data: BoardFormFields) => void
   defaultValues?: BoardFormFields
+  loading?: boolean
+  onSubmit?: (data: BoardFormFields) => void
 }
 
-export type BoardFormFields = Pick<Board, 'title'>
+export type BoardFormFields = CreateBoardMutationVariables
 
-export const BoardForm: React.FC<BoardFormProps> = ({onSubmit = noop, defaultValues}) => {
+export const BoardForm: React.FC<BoardFormProps> = ({defaultValues, loading, onSubmit = noop}) => {
   const [isTitleProcess, startIsTitleProcess, stopIsTitleProcess] = useBooleanState(false)
 
   const {handleSubmit, control, formState, watch} = useForm({
@@ -48,9 +49,15 @@ export const BoardForm: React.FC<BoardFormProps> = ({onSubmit = noop, defaultVal
           }
         />
       </Steps>
-      <Button type="submit" disabled={!formState.isValid} appearance="primary" className={S.submit}>
+      <Button
+        type="submit"
+        disabled={!formState.isValid || loading}
+        appearance="primary"
+        className={S.submit}
+      >
         Save
       </Button>
+      {loading && <Loader backdrop center size="md" />}
     </form>
   )
 }

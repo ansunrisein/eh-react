@@ -7,14 +7,14 @@ export type CreateBoardFormProps = {
 } & Omit<BoardFormProps, 'onSubmit'>
 
 export const CreateBoardForm: React.FC<CreateBoardFormProps> = ({onCreate, ...props}) => {
-  const createBoard = useCreateBoard()
+  const [{loading}, createBoard] = useCreateBoard()
 
   const handleSubmit = useCallback(
-    (data: BoardFormFields) => {
-      createBoard(data)
+    async (data: BoardFormFields) => {
+      await createBoard(data)
       onCreate?.()
     },
     [createBoard, onCreate],
   )
-  return <BoardForm onSubmit={handleSubmit} {...props} />
+  return <BoardForm onSubmit={handleSubmit} loading={loading} {...props} />
 }

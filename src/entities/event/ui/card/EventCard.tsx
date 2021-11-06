@@ -1,9 +1,9 @@
 import React from 'react'
 import {Panel, PanelProps} from 'rsuite'
-import {Event} from '../../types'
+import {EventFragment} from '@eh/shared/api'
 
 export type EventCardProps = {
-  event: Event
+  event: EventFragment
 } & PanelProps
 
 export const EventCard: React.FC<EventCardProps> = ({event, ...props}) => (

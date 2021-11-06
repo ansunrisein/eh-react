@@ -1,20 +1,31 @@
 import React from 'react'
+import cx from 'classnames'
 import {Controller, useForm} from 'react-hook-form'
-import {Button, Input, Steps} from 'rsuite'
+import {Button, Input, Loader, Steps} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
 import {useFormInputEnter} from '@eh/shared/lib/use-form-input-enter'
-import {Event} from '@eh/entities/event'
+import {CreateEventMutationVariables, EditEventMutationVariables} from '@eh/entities/event'
 import S from './EventForm.module.scss'
 
 export type EventFormProps = {
-  onSubmit?: (data: EventFormFields) => void
   defaultValues?: EventFormFields
-}
+  loading?: boolean
+  onSubmit?: (data: EventFormFields) => void
+} & Omit<React.FormHTMLAttributes<HTMLFormElement>, 'onSubmit'>
 
-export type EventFormFields = Pick<Event, 'title' | 'content'>
+export type EventFormFields = Pick<
+  CreateEventMutationVariables | EditEventMutationVariables,
+  'title' | 'content'
+>
 
-export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop, defaultValues}) => {
+export const EventForm: React.FC<EventFormProps> = ({
+  defaultValues,
+  loading,
+  onSubmit = noop,
+  className,
+  ...props
+}) => {
   const [isTitleProcess, startIsTitleProcess, stopIsTitleProcess] = useBooleanState(false)
   const [isContentProcess, startIsContentProcess, stopIsContentProcess] = useBooleanState(false)
 
@@ -27,7 +38,7 @@ export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop, defaultVal
   const handleEnter = useFormInputEnter()
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={S.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={cx(S.form, className)} {...props}>
       <Steps vertical>
         <Steps.Item
           status={!title ? 'wait' : isTitleProcess ? 'process' : 'finish'}
@@ -40,6 +51,7 @@ export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop, defaultVal
                 <Input
                   aria-label="title"
                   {...field}
+                  value={field.value || ''}
                   onFocus={startIsTitleProcess}
                   onBlur={stopIsTitleProcess}
                   onKeyDown={handleEnter}
@@ -63,10 +75,6 @@ export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop, defaultVal
                   {...field}
                   onFocus={startIsContentProcess}
                   onBlur={stopIsContentProcess}
-                  onChange={e => {
-                    field.onChange(e)
-                    console.log(e)
-                  }}
                 />
               )}
             />
@@ -76,6 +84,7 @@ export const EventForm: React.FC<EventFormProps> = ({onSubmit = noop, defaultVal
       <Button type="submit" disabled={!formState.isValid} appearance="primary" className={S.submit}>
         Save
       </Button>
+      {loading && <Loader backdrop center size="md" />}
     </form>
   )
 }

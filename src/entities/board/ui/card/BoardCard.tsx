@@ -1,12 +1,12 @@
 import React from 'react'
 import cx from 'classnames'
 import {Panel, PanelProps, Tag} from 'rsuite'
+import {BoardFragment} from '@eh/shared/api'
 import {Link} from '@eh/shared/lib/router'
-import {Board} from '../../types'
 import S from './BoardCard.module.scss'
 
 export type BoardCardProps = {
-  board: Omit<Board, 'events'> & {events: unknown[]}
+  board: BoardFragment
 } & PanelProps
 
 export const BoardCard: React.FC<BoardCardProps> = ({board, className, ...props}) => {
@@ -15,7 +15,7 @@ export const BoardCard: React.FC<BoardCardProps> = ({board, className, ...props}
   return (
     <Panel className={cx(S.height, className)} bordered shaded bodyFill {...props}>
       <div className={S.panel}>
-        <Link to={`/board/${board.id}`}>
+        <Link to={`/board/${board._id}`}>
           <h4 className={S.title}>{board.title}</h4>
 
           <Tag className={S.tag} color={eventsCount ? 'violet' : 'orange'}>

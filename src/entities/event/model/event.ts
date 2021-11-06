@@ -1,54 +1,55 @@
-import {Domain, hydrate} from 'effector'
-import {persist} from 'effector-storage/local'
-import {v4} from 'uuid'
-import {Event} from '../types'
+import {Domain} from 'effector'
+import {ApolloClient} from '@apollo/client'
+import {
+  CreateEventDocument,
+  CreateEventMutation,
+  CreateEventMutationVariables,
+  EditEventDocument,
+  EditEventMutation,
+  EditEventMutationVariables,
+  RemoveEventDocument,
+  RemoveEventMutation,
+  RemoveEventMutationVariables,
+} from './operations'
 
 export type EventEntity = ReturnType<typeof createEventEntity>
 
-export type EventEntityConfig = {
-  defaultEvents?: Event[]
-  events?: Event[]
-  persistEvents?: boolean
-}
-
 export type EventEntityDeps = {
   domain: Domain
+  apollo: ApolloClient<unknown>
 }
 
-export const createEventEntity = (
-  {domain}: EventEntityDeps,
-  {
-    defaultEvents = [],
-    events,
-    persistEvents = process.env.STORYBOOK !== 'true',
-  }: EventEntityConfig = {},
-) => {
-  const createEventFx = domain.effect((event: Omit<Event, 'id'>): Event => ({id: v4(), ...event}))
+export const createEventEntity = ({domain, apollo}: EventEntityDeps) => {
+  const createEventFx = domain.effect((variables: CreateEventMutationVariables) =>
+    apollo
+      .mutate<CreateEventMutation, CreateEventMutationVariables>({
+        mutation: CreateEventDocument,
+        variables,
+      })
+      .then(result => result?.data?.createEvent),
+  )
 
-  const editEvent = domain.event<Event>()
-  const removeEvent = domain.event<Event['id']>()
-  const resetEvents = domain.event()
+  const editEventFx = domain.effect((variables: EditEventMutationVariables) =>
+    apollo
+      .mutate<EditEventMutation, EditEventMutationVariables>({
+        mutation: EditEventDocument,
+        variables,
+      })
+      .then(result => result?.data?.updateEvent),
+  )
 
-  const $events = domain
-    .store(defaultEvents)
-    .on(createEventFx.doneData, (events, event) => events.concat(event))
-    .on(removeEvent, (events, id) => events.filter(e => e.id !== id))
-    .on(editEvent, (events, event) => events.map(e => (e.id === event.id ? event : e)))
-    .reset(resetEvents)
-
-  hydrate(domain, {
-    values: [[$events, events]],
-  })
-
-  if (persistEvents) {
-    persist({key: 'events', store: $events})
-  }
+  const removeEventFx = domain.effect((variables: RemoveEventMutationVariables) =>
+    apollo
+      .mutate<RemoveEventMutation, RemoveEventMutationVariables>({
+        mutation: RemoveEventDocument,
+        variables,
+      })
+      .then(result => result?.data?.removeEvent),
+  )
 
   return {
     createEventFx,
-    editEvent,
-    removeEvent,
-    resetEvents,
-    $events,
+    editEventFx,
+    removeEventFx,
   }
 }

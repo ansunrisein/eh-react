@@ -7,7 +7,7 @@ export default {
   component: EventCard,
   args: {
     event: {
-      id: '1',
+      _id: '1',
       title: 'Title',
       content: 'Hello my friend!',
     },

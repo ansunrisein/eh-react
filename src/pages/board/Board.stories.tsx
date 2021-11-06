@@ -1,5 +1,6 @@
 import React from 'react'
 import {createDomain} from 'effector'
+import {ApolloClient, InMemoryCache} from '@apollo/client'
 import {Meta, Story} from '@storybook/react'
 import {hocsToDecorators} from '@eh/shared/lib/hocs-to-decorators'
 import {authMock} from '@eh/shared/mocks/firebase'
@@ -10,25 +11,14 @@ import {
   createAuthWithFirebaseFeature,
   withAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
-import {createUpdateEventFeature, withUpdateEventFeature} from '@eh/features/update-event/model'
 import {Board} from './Board'
 
 const domain = createDomain()
+// TODO: mock
+const apollo = new ApolloClient({cache: new InMemoryCache()})
 const sessionEntity = createSessionEntity({domain})
-const eventEntity = createEventEntity(
-  {domain},
-  {
-    events: [
-      {id: '1', title: 'Title2', content: '123'},
-      {id: '2', title: 'Title1', content: '123'},
-    ],
-  },
-)
-const boardEntity = createBoardEntity(
-  {domain},
-  {boards: [{id: '1', title: 'Board', events: ['1', '2']}]},
-)
-const updateEventFeature = createUpdateEventFeature({domain, eventEntity, boardEntity})
+const eventEntity = createEventEntity({domain, apollo})
+const boardEntity = createBoardEntity({domain, apollo})
 const authWithFirebaseFeature = createAuthWithFirebaseFeature({
   auth: authMock,
   session: sessionEntity,
@@ -42,7 +32,6 @@ export default {
     withSessionEntity({session: sessionEntity}),
     withEventEntity({event: eventEntity}),
     withBoardEntity({board: boardEntity}),
-    withUpdateEventFeature({updateEvent: updateEventFeature}),
     withAuthWithFirebaseFeature({authWithFirebase: authWithFirebaseFeature}),
   ]),
 } as Meta

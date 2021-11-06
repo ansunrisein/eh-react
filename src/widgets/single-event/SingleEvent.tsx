@@ -1,24 +1,31 @@
 import React, {useCallback} from 'react'
+import {Loader} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
+import {EventFragment} from '@eh/shared/api'
 import {Empty, Modal} from '@eh/shared/ui'
-import {Event, EventView, useEvent, useEventEntity} from '@eh/entities/event'
+import {EventView, useEvent, useRemoveEvent} from '@eh/entities/event'
 import {EditEventForm} from '@eh/features/update-event'
 
 export type SingleEventProps = {
-  id: Event['id']
+  id: EventFragment['_id']
   onRemove?: () => void
 }
 
 export const SingleEvent: React.FC<SingleEventProps> = ({id, onRemove}) => {
   const [isEditOpened, openEdit, closeEdit] = useBooleanState(false)
 
-  const event = useEvent(id)
-  const {removeEvent} = useEventEntity()
+  const {event, loading} = useEvent(id)
 
-  const remove = useCallback(() => {
-    removeEvent(id)
+  const [removingState, removeEvent] = useRemoveEvent()
+
+  const remove = useCallback(async () => {
+    await removeEvent({id})
     onRemove?.()
   }, [id, onRemove, removeEvent])
+
+  if (loading) {
+    return <Loader backdrop center size="lg" />
+  }
 
   if (!event) {
     return <Empty>Not found</Empty>
@@ -29,7 +36,7 @@ export const SingleEvent: React.FC<SingleEventProps> = ({id, onRemove}) => {
       <EventView event={event} onRemove={remove} onEdit={openEdit} />
 
       <Modal open={isEditOpened} onClose={closeEdit}>
-        <EditEventForm event={event} onEdit={closeEdit} />
+        <EditEventForm event={event} onEdit={closeEdit} loading={removingState.loading} />
       </Modal>
     </>
   )

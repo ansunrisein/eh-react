@@ -1,57 +1,55 @@
-import {Domain, hydrate} from 'effector'
-import {persist} from 'effector-storage/local'
-import {v4} from 'uuid'
-import {Board} from '../types'
+import {Domain} from 'effector'
+import {ApolloClient} from '@apollo/client'
+import {
+  CreateBoardDocument,
+  CreateBoardMutation,
+  CreateBoardMutationVariables,
+  EditBoardDocument,
+  EditBoardMutation,
+  EditBoardMutationVariables,
+  RemoveBoardDocument,
+  RemoveBoardMutation,
+  RemoveBoardMutationVariables,
+} from './operations'
 
 export type BoardEntity = ReturnType<typeof createBoardEntity>
 
-export type BoardEntityConfig = {
-  defaultBoards?: Board[]
-  boards?: Board[]
-  persistBoards?: boolean
-}
-
 export type BoardEntityDeps = {
   domain: Domain
+  apollo: ApolloClient<unknown>
 }
 
-export const createBoardEntity = (
-  {domain}: BoardEntityDeps,
-  {
-    defaultBoards = [],
-    boards,
-    persistBoards = process.env.STORYBOOK !== 'true',
-  }: BoardEntityConfig = {},
-) => {
-  const createBoard = domain.event<Omit<Board, 'id' | 'events'>>()
-  const removeBoard = domain.event<Board['id']>()
-  const addEvent = domain.event<{boardId: string; eventId: string}>()
-  const resetBoards = domain.event()
+export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
+  const createBoardFx = domain.effect((variables: CreateBoardMutationVariables) =>
+    apollo
+      .mutate<CreateBoardMutation, CreateBoardMutationVariables>({
+        mutation: CreateBoardDocument,
+        variables,
+      })
+      .then(result => result?.data?.createBoard),
+  )
 
-  const $boards = domain
-    .store(defaultBoards)
-    .on(createBoard, (boards, board) => [...boards, {id: v4(), events: [], ...board}])
-    .on(removeBoard, (boards, id) => boards.filter(e => e.id !== id))
-    .on(addEvent, (boards, {boardId, eventId}) =>
-      boards.map(board =>
-        board.id === boardId ? {...board, events: board.events.concat(eventId)} : board,
-      ),
-    )
-    .reset(resetBoards)
+  const editBoardFx = domain.effect((variables: EditBoardMutationVariables) =>
+    apollo
+      .mutate<EditBoardMutation, EditBoardMutationVariables>({
+        mutation: EditBoardDocument,
+        variables,
+      })
+      .then(result => result?.data?.updateBoard),
+  )
 
-  hydrate(domain, {
-    values: [[$boards, boards]],
-  })
-
-  if (persistBoards) {
-    persist({key: 'boards', store: $boards})
-  }
+  const removeBoardFx = domain.effect((variables: RemoveBoardMutationVariables) =>
+    apollo
+      .mutate<RemoveBoardMutation, RemoveBoardMutationVariables>({
+        mutation: RemoveBoardDocument,
+        variables,
+      })
+      .then(result => result?.data?.removeBoard),
+  )
 
   return {
-    createBoard,
-    removeBoard,
-    addEvent,
-    resetBoards,
-    $boards,
+    createBoardFx,
+    editBoardFx,
+    removeBoardFx,
   }
 }

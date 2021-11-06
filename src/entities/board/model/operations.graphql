@@ -1,0 +1,24 @@
+query Board($id: ID!) {
+    board(_id: $id) {
+        ...Board
+    }
+}
+
+mutation CreateBoard($title: String!) {
+    createBoard(title: $title) {
+        ...Board
+    }
+}
+
+mutation EditBoard($id: ID!, $title: String!) {
+    updateBoard(_id: $id, title: $title) {
+        ...Board
+    }
+}
+
+mutation RemoveBoard($id: ID!) {
+    removeBoard(_id: $id) {
+        ...Board
+    }
+}
+
