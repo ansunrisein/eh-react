@@ -1,0 +1,60 @@
+{
+  "name": "Default Schema",
+  "schema": "${REACT_APP_API_URL}/graphql",
+  "documents": [
+    "**/*.graphql"
+  ],
+  "extensions": {
+    "codegen": {
+      "overwrite": true,
+      "hooks": {
+        "afterOneFileWrite": [
+          "prettier --write"
+        ]
+      },
+      "generates": {
+        "schema.graphql": {
+          "plugins": [
+            "schema-ast"
+          ]
+        },
+        "src/shared/api/introspection.ts": {
+          "plugins": [
+            "fragment-matcher"
+          ]
+        },
+        "src/shared/api/types.ts": {
+          "plugins": [
+            "typescript",
+            "typescript-apollo-client-helpers"
+          ],
+          "config": {
+            "maybeValue": "T | null",
+            "namingConvention": {
+              "enumValues": "keep"
+            }
+          }
+        },
+        "src/": {
+          "preset": "near-operation-file",
+          "presetConfig": {
+            "baseTypesPath": "shared/api/types.ts",
+            "extension": ".ts"
+          },
+          "plugins": [
+            {
+              "add": {
+                "content": "/* eslint-disable */"
+              }
+            },
+            "typescript-operations",
+            "typescript-react-apollo"
+          ]
+        }
+      }
+    },
+    "languageService": {
+      "useSchemaFileDefinitions": true
+    }
+  }
+}
