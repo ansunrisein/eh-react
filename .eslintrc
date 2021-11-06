@@ -31,7 +31,8 @@
           "react-icons/ri",
           "swiper/react",
           "swiper/swiper-bundle.min.css",
-          "firebase/*"
+          "firebase/*",
+          "@apollo/**"
         ]
       }
     ],
