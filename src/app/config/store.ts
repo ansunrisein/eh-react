@@ -11,16 +11,16 @@ import {createUpdateEventFeature, UpdateEventFeatureProvider} from '@eh/features
 import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard/model'
 import {auth} from './firebase'
 
-const domain = createDomain()
+export const domain = createDomain()
 
-const eventEntity = createEventEntity({domain})
-const boardEntity = createBoardEntity({domain})
-const sessionEntity = createSessionEntity({domain})
+export const eventEntity = createEventEntity({domain})
+export const boardEntity = createBoardEntity({domain})
+export const sessionEntity = createSessionEntity({domain})
 
-const authWithFirebaseFeature = createAuthWithFirebaseFeature({auth, session: sessionEntity})
-const updateEventFeature = createUpdateEventFeature({eventEntity, boardEntity, domain})
+export const authWithFirebaseFeature = createAuthWithFirebaseFeature({auth, session: sessionEntity})
+export const updateEventFeature = createUpdateEventFeature({eventEntity, boardEntity, domain})
 
-const dashboardPage = createDashboardPage({boardEntity, eventEntity})
+export const dashboardPage = createDashboardPage({boardEntity, eventEntity})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(EventEntityProvider, {event: eventEntity})
