@@ -15,7 +15,13 @@ export type BoardFormProps = {
 
 export type BoardFormFields = CreateBoardMutationVariables
 
-export const BoardForm: React.FC<BoardFormProps> = ({defaultValues, loading, onSubmit = noop}) => {
+export const BoardForm: React.FC<BoardFormProps> = ({
+  defaultValues = {
+    title: '',
+  },
+  loading,
+  onSubmit = noop,
+}) => {
   const [isTitleProcess, startIsTitleProcess, stopIsTitleProcess] = useBooleanState(false)
 
   const {handleSubmit, control, formState, watch} = useForm({
