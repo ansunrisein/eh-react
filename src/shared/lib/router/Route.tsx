@@ -6,4 +6,4 @@ export type RouteProps = {
   path: Paths
 } & Omit<RouterRouteProps, 'path'>
 
-export const Route: React.FC<RouteProps> = props => <RouterRoute {...props} />
+export const Route: React.FC<RouteProps> = RouterRoute
