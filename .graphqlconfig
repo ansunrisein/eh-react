@@ -25,6 +25,11 @@
         },
         "src/shared/api/types.ts": {
           "plugins": [
+            {
+              "add": {
+                "content": "/* eslint-disable */"
+              }
+            },
             "typescript",
             "typescript-apollo-client-helpers"
           ],
