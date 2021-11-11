@@ -1,5 +1,6 @@
 import {Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
+import {BoardFragment, EventFragmentDoc} from '@eh/shared/api'
 import {
   CreateEventDocument,
   CreateEventMutation,
@@ -25,6 +26,26 @@ export const createEventEntity = ({domain, apollo}: EventEntityDeps) => {
       .mutate<CreateEventMutation, CreateEventMutationVariables>({
         mutation: CreateEventDocument,
         variables,
+        update: (cache, {data}) => {
+          cache.modify({
+            id: cache.identify({__typename: 'Board', _id: variables.boardId} as Pick<
+              BoardFragment,
+              '__typename' | '_id'
+            >),
+            fields: {
+              events: (events: unknown[] = []): unknown[] =>
+                data?.createEvent
+                  ? events.concat(
+                      cache.writeFragment({
+                        id: data.createEvent?._id,
+                        data: data.createEvent,
+                        fragment: EventFragmentDoc,
+                      }),
+                    )
+                  : events,
+            },
+          })
+        },
       })
       .then(result => result?.data?.createEvent),
   )
@@ -43,6 +64,9 @@ export const createEventEntity = ({domain, apollo}: EventEntityDeps) => {
       .mutate<RemoveEventMutation, RemoveEventMutationVariables>({
         mutation: RemoveEventDocument,
         variables,
+        update: (cache, {data}) => {
+          cache.evict({id: `Event:${data?.removeEvent?._id}`})
+        },
       })
       .then(result => result?.data?.removeEvent),
   )
