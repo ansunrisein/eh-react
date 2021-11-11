@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {Button} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
-import {useParams} from '@eh/shared/lib/router'
+import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
-import {useBoard} from '@eh/entities/board'
+import {useBoard, useRemoveBoard} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
 import {CreateEventForm} from '@eh/features/update-event'
 import {Layout} from '@eh/widgets/layout'
@@ -13,17 +13,28 @@ import S from './Board.module.scss'
 
 export const Board: React.FC = () => {
   const {id = ''} = useParams<'id'>()
+  const navigate = useNavigate()
 
   const [openedEventId, setOpenedEventId] = useState<string | null>(null)
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
 
   const {board, loading} = useBoard(id)
 
+  const [removingState, removeBoard] = useRemoveBoard()
+
+  const remove = useCallback(async () => {
+    await removeBoard({id})
+    navigate('/')
+  }, [id, navigate, removeBoard])
+
   return (
-    <Layout header loading={loading}>
+    <Layout header loading={loading || removingState.loading}>
       <Flex justifyContent="flex-end" className={S.panel}>
-        <Button size="xs" color="blue" onClick={openCreateEvent}>
+        <Button size="xs" color="blue" appearance="primary" onClick={openCreateEvent}>
           Create event
+        </Button>
+        <Button size="xs" color="red" onClick={remove}>
+          Remove board
         </Button>
         <Modal open={isCreateEventOpened} onClose={closeCreateEvent} backdrop>
           <CreateEventForm boardId={id} onCreate={closeCreateEvent} />
