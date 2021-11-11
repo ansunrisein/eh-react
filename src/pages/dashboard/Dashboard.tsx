@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import {RiAddFill, RiDashboardLine} from 'react-icons/ri'
-import {Button, IconButton, Loader} from 'rsuite'
+import {Button, IconButton} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
