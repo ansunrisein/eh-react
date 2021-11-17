@@ -13,5 +13,10 @@
   &.size-lg {
     font-size: xx-large;
     letter-spacing: 25px;
+
+    @media (max-width: 678px) {
+      font-size: x-large;
+      letter-spacing: 20px;
+    }
   }
 }
