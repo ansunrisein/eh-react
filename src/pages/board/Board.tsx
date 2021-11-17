@@ -51,7 +51,10 @@ export const Board: React.FC = () => {
         </ul>
       ) : (
         <Empty>
-          <h1>Empty</h1>
+          <p>There is no events in this board :(</p>
+          <Button onClick={openCreateEvent} appearance="link">
+            Create now!
+          </Button>
         </Empty>
       )}
 
