@@ -1,0 +1,40 @@
+:global(.rs-theme-light) .light {
+  @media (max-width: 768px) {
+    background-image: linear-gradient(270deg, var(--rs-gray-900) 50%, transparent);
+  }
+}
+
+.dark {
+  background-image: linear-gradient(100deg, black 10%, transparent);
+}
+
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  flex-grow: 1;
+
+  padding-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    padding-bottom: 20vh;
+  }
+
+  @media (min-width: 1024px) {
+    padding-bottom: 40vh;
+  }
+}
+
+.logo {
+  @media (max-width: 768px) {
+    writing-mode: vertical-lr;
+    align-self: flex-start;
+    transform: rotate(180deg);
+  }
+}
+
+.switcher {
+  align-self: flex-end;
+}
