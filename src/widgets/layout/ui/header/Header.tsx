@@ -26,7 +26,9 @@ export const Header: React.FC = () => {
         />
       </Link>
 
-      <Logo />
+      <Link to="/">
+        <Logo />
+      </Link>
 
       <Flex gap={10}>
         <ThemeSwitcher size="md" appearance="link" className={S.link} />
