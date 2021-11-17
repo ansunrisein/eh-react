@@ -4,10 +4,10 @@ import {IconButton} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
+import {ThemeSwitcher} from '@eh/shared/lib/theme'
 import {Logo} from '@eh/shared/ui'
 import {useIsAuthenticated, useLogout} from '@eh/entities/session'
 import {useLogin} from '@eh/features/auth-with-firebase'
-import {ThemeSwitcher} from '../theme-switcher'
 import S from './Header.module.scss'
 
 export const Header: React.FC = () => {
