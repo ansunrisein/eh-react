@@ -12,13 +12,25 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
 
   flex: 1;
   justify-content: space-between;
 
   padding-right: 10px;
+
+  @media (min-width: 678px)  {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1000px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1340px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 .add {
