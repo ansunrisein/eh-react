@@ -4,14 +4,14 @@ query Board($id: ID!) {
     }
 }
 
-mutation CreateBoard($title: String!) {
-    createBoard(title: $title) {
+mutation CreateBoard($title: String!, $isPrivate: Boolean!) {
+    createBoard(title: $title, isPrivate: $isPrivate) {
         ...Board
     }
 }
 
-mutation EditBoard($id: ID!, $title: String!) {
-    updateBoard(_id: $id, title: $title) {
+mutation EditBoard($id: ID!, $title: String!, $isPrivate: Boolean!) {
+    updateBoard(_id: $id, title: $title, isPrivate: $isPrivate) {
         ...Board
     }
 }

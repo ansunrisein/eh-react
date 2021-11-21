@@ -26,6 +26,7 @@ export type BoardQuery = {
 
 export type CreateBoardMutationVariables = Types.Exact<{
   title: Types.Scalars['String']
+  isPrivate: Types.Scalars['Boolean']
 }>
 
 export type CreateBoardMutation = {
@@ -46,6 +47,7 @@ export type CreateBoardMutation = {
 export type EditBoardMutationVariables = Types.Exact<{
   id: Types.Scalars['ID']
   title: Types.Scalars['String']
+  isPrivate: Types.Scalars['Boolean']
 }>
 
 export type EditBoardMutation = {
@@ -123,8 +125,8 @@ export type BoardQueryHookResult = ReturnType<typeof useBoardQuery>
 export type BoardLazyQueryHookResult = ReturnType<typeof useBoardLazyQuery>
 export type BoardQueryResult = Apollo.QueryResult<BoardQuery, BoardQueryVariables>
 export const CreateBoardDocument = gql`
-  mutation CreateBoard($title: String!) {
-    createBoard(title: $title) {
+  mutation CreateBoard($title: String!, $isPrivate: Boolean!) {
+    createBoard(title: $title, isPrivate: $isPrivate) {
       ...Board
     }
   }
@@ -149,6 +151,7 @@ export type CreateBoardMutationFn = Apollo.MutationFunction<
  * const [createBoardMutation, { data, loading, error }] = useCreateBoardMutation({
  *   variables: {
  *      title: // value for 'title'
+ *      isPrivate: // value for 'isPrivate'
  *   },
  * });
  */
@@ -168,8 +171,8 @@ export type CreateBoardMutationOptions = Apollo.BaseMutationOptions<
   CreateBoardMutationVariables
 >
 export const EditBoardDocument = gql`
-  mutation EditBoard($id: ID!, $title: String!) {
-    updateBoard(_id: $id, title: $title) {
+  mutation EditBoard($id: ID!, $title: String!, $isPrivate: Boolean!) {
+    updateBoard(_id: $id, title: $title, isPrivate: $isPrivate) {
       ...Board
     }
   }
@@ -195,6 +198,7 @@ export type EditBoardMutationFn = Apollo.MutationFunction<
  *   variables: {
  *      id: // value for 'id'
  *      title: // value for 'title'
+ *      isPrivate: // value for 'isPrivate'
  *   },
  * });
  */

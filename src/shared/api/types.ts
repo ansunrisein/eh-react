@@ -17,6 +17,7 @@ export type Board = {
   __typename?: 'Board'
   _id: Scalars['ID']
   events: Array<Event>
+  isPrivate: Scalars['Boolean']
   title: Scalars['String']
   user: User
 }
@@ -39,6 +40,7 @@ export type Mutation = {
 }
 
 export type MutationCreateBoardArgs = {
+  isPrivate: Scalars['Boolean']
   title: Scalars['String']
 }
 
@@ -58,6 +60,7 @@ export type MutationRemoveEventArgs = {
 
 export type MutationUpdateBoardArgs = {
   _id: Scalars['ID']
+  isPrivate: Scalars['Boolean']
   title: Scalars['String']
 }
 
@@ -91,10 +94,18 @@ export type User = {
   nickname: Scalars['String']
 }
 
-export type BoardKeySpecifier = ('_id' | 'events' | 'title' | 'user' | BoardKeySpecifier)[]
+export type BoardKeySpecifier = (
+  | '_id'
+  | 'events'
+  | 'isPrivate'
+  | 'title'
+  | 'user'
+  | BoardKeySpecifier
+)[]
 export type BoardFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
   events?: FieldPolicy<any> | FieldReadFunction<any>
+  isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
   title?: FieldPolicy<any> | FieldReadFunction<any>
   user?: FieldPolicy<any> | FieldReadFunction<any>
 }
