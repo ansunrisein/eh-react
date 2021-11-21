@@ -20,4 +20,15 @@ const httpLink = new HttpLink({
 export const apollo = new ApolloClient({
   link: concat(authLink, httpLink),
   cache: new InMemoryCache(),
+  defaultOptions: {
+    query: {
+      errorPolicy: 'all',
+    },
+    mutate: {
+      errorPolicy: 'all',
+    },
+    watchQuery: {
+      errorPolicy: 'all',
+    },
+  },
 })
