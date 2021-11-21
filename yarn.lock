@@ -2567,6 +2567,11 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
+"@juggle/resize-observer@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@juggle/resize-observer/-/resize-observer-3.3.1.tgz#b50a781709c81e10701004214340f25475a171a0"
+  integrity sha512-zMM9Ds+SawiUkakS7y94Ymqx+S0ORzpG3frZirN3l+UlXUmSUR7hF4wxCVqW+ei94JzV5kt0uXBcoOEAuiydrw==
+
 "@mdx-js/loader@^1.6.22":
   version "1.6.22"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-1.6.22.tgz#d9e8fe7f8185ff13c9c8639c048b123e30d322c4"
@@ -7490,11 +7495,6 @@ element-resize-detector@^1.2.2:
   integrity sha512-+dhNzUgLpq9ol5tyhoG7YLoXL3ssjfFW+0gpszXPwRU6NjGr1fVHMEAF8fVzIiRJq57Nre0RFeIjJwI8Nh2NmQ==
   dependencies:
     batch-processor "1.0.0"
-
-element-resize-event@^3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/element-resize-event/-/element-resize-event-3.0.6.tgz#3a18efd4879ad615e979fd8bbf173b014987eb9a"
-  integrity sha512-sSeXY9rNDp86bJODW68pxLcy3A5FrPZfIgOrJHzqgYzX513Zq6/ytdBigp7KeJEpZZopBBSiO1cVuiRkZpNxLw==
 
 elliptic@^6.5.3:
   version "6.5.4"
@@ -15062,24 +15062,25 @@ rollup@^1.31.1:
     "@types/node" "*"
     acorn "^7.1.0"
 
-rsuite-table@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-5.0.3.tgz#9bcd4a6cb18f2157b905f7b30ecce17a09e024df"
-  integrity sha512-91bufUgj8nZeJ6idaxPv1qM9oWr/2zWzoH2WBiOeAPJvvOur38be59WKqz25jG9DG+iJ1tnDqDDPm2KWLXj0sA==
+rsuite-table@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-5.2.0.tgz#0453336b1c60f9760f0988798ab940e93ccbc160"
+  integrity sha512-MiJtfZYSMXqaUdEFQ0Q5A5mNjiB0upZumoqMyd0WGsJDC6Ff8tbnMEDBbcMcQ6GcL2MSJoxi1vz3kIo/mZ1Wew==
   dependencies:
     "@babel/runtime" "^7.12.5"
+    "@juggle/resize-observer" "^3.3.1"
     "@rsuite/icons" "^1.0.0"
     classnames "^2.2.5"
     dom-lib "^3.0.0"
-    element-resize-event "^3.0.6"
     lodash "^4.17.21"
 
-rsuite@^5.0.0-beta.5:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-5.2.0.tgz#ba23c9ebc94cf20f222af77f82d58d030b5a3544"
-  integrity sha512-0WUMjEsx3i5y4wCwNtcNDxlsfB3hYR5ZLyPoBijk40L1tB60uUMCO+HOjSlayDU0Cp51NUN1p3YkkLORAuhmoQ==
+rsuite@^5.2.2:
+  version "5.2.2"
+  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-5.2.2.tgz#86360aa381be165c12cf10e33aa8c6f024df177d"
+  integrity sha512-o+aEB5HBNjUq/Fd5gadjz/mq9V2uzLYFG85D7izKKbPG4L0rEMMHkgRfBAbyFTJGRoBuX4qNCWBDpF+/wgPAnQ==
   dependencies:
     "@babel/runtime" "^7.8.4"
+    "@juggle/resize-observer" "^3.3.1"
     "@rsuite/icons" "^1.0.2"
     "@types/chai" "^4.2.18"
     "@types/lodash" "^4.14.134"
@@ -15088,11 +15089,10 @@ rsuite@^5.0.0-beta.5:
     classnames "^2.3.1"
     date-fns "^2.13.0"
     dom-lib "^3.0.0"
-    element-resize-event "^3.0.6"
     lodash "^4.17.11"
     prop-types "^15.7.2"
     react-virtualized "^9.22.3"
-    rsuite-table "^5.0.3"
+    rsuite-table "^5.2.0"
     schema-typed "^2.0.2"
 
 rsvp@^4.8.4:
