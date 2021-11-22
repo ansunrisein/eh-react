@@ -57,6 +57,11 @@ export const MeSuspense: React.FC<MeSuspenseProps> = ({fallback, children}) => {
 
 export const useSessionEntity = (): SessionEntity => useContext(SessionEntityContext)
 
+export const useMe = () => {
+  const {$me} = useSessionEntity()
+  return useStore($me)
+}
+
 export const useIsAuthenticated = () => {
   const {$isAuthenticated} = useSessionEntity()
   return useStore($isAuthenticated)
