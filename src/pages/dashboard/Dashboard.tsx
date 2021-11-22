@@ -1,11 +1,14 @@
 import React, {useCallback, useState} from 'react'
+import cx from 'classnames'
 import {RiAddFill, RiDashboardLine} from 'react-icons/ri'
-import {Button, IconButton} from 'rsuite'
+import {Button, IconButton, Popover, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
+import {Link} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {BoardCard} from '@eh/entities/board/ui'
+import {useIsAuthenticated} from '@eh/entities/session'
 import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
 import {useBoards} from './model'
@@ -15,6 +18,8 @@ import S from './Dashboard.module.scss'
 export const Dashboard: React.FC = () => {
   const [display, setDisplay] = useState('grid')
   const [isCreateBoardOpened, openCreateBoard, closeCreateBoard] = useBooleanState(false)
+
+  const isAuthenticated = useIsAuthenticated()
 
   const {boards, loading} = useBoards()
 
@@ -28,20 +33,49 @@ export const Dashboard: React.FC = () => {
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
         <Flex height="100%" flexDirection="column" justifyContent="flex-end">
           <IconButton onClick={switchDisplay} icon={<Icon as={RiDashboardLine} />} size="lg" />
-          <IconButton
-            onClick={openCreateBoard}
-            className={S.add}
-            icon={<Icon as={RiAddFill} />}
-            appearance="primary"
-            size="lg"
-          />
+
+          <Whisper
+            trigger={isAuthenticated ? 'none' : 'hover'}
+            placement="auto"
+            speaker={
+              <Popover>
+                <p>You should be logged in to create a board</p>
+              </Popover>
+            }
+          >
+            <div className={S.add}>
+              <IconButton
+                onClick={openCreateBoard}
+                className={cx(!isAuthenticated && S.disabled)}
+                disabled={!isAuthenticated}
+                icon={<Icon as={RiAddFill} />}
+                appearance="primary"
+                size="lg"
+              />
+            </div>
+          </Whisper>
         </Flex>
+
         {!boards?.length ? (
           <Empty>
-            <p>You have no boards :(</p>
-            <Button onClick={openCreateBoard} appearance="link">
-              Create now!
-            </Button>
+            {isAuthenticated ? (
+              <>
+                <p>You have no boards :(</p>
+                <Button onClick={openCreateBoard} appearance="link">
+                  Create now!
+                </Button>
+              </>
+            ) : (
+              <>
+                <p>There is no public boards :( </p>
+                <p>
+                  <Link to="/id" className={S.link}>
+                    Sign in
+                  </Link>{' '}
+                  and create first public board
+                </p>
+              </>
+            )}
           </Empty>
         ) : display === 'grid' ? (
           <div className={S.boards}>

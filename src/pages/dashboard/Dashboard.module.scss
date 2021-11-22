@@ -20,7 +20,7 @@
 
   padding-right: 10px;
 
-  @media (min-width: 678px)  {
+  @media (min-width: 678px) {
     grid-template-columns: repeat(3, 1fr);
   }
 
@@ -37,6 +37,16 @@
   margin: 1rem 0;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 .shrink {
   flex-shrink: 0;
+}
+
+.link,
+.link:hover,
+.link:focus-within {
+  color: var(--rs-text-link);
 }
