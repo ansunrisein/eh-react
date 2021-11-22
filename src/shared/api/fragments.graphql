@@ -10,4 +10,11 @@ fragment Board on Board {
     events {
         ...Event
     }
+    user {
+        _id
+    }
+}
+
+fragment Me on User {
+    _id
 }

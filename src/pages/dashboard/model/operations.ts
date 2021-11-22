@@ -19,6 +19,7 @@ export type DashboardQuery = {
       title?: string | null | undefined
       content: string
     }>
+    user: {__typename?: 'User'; _id: string}
   }>
 }
 

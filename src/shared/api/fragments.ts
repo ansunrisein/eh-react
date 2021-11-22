@@ -19,7 +19,10 @@ export type BoardFragment = {
     title?: string | null | undefined
     content: string
   }>
+  user: {__typename?: 'User'; _id: string}
 }
+
+export type MeFragment = {__typename?: 'User'; _id: string}
 
 export const EventFragmentDoc = gql`
   fragment Event on Event {
@@ -35,6 +38,14 @@ export const BoardFragmentDoc = gql`
     events {
       ...Event
     }
+    user {
+      _id
+    }
   }
   ${EventFragmentDoc}
+`
+export const MeFragmentDoc = gql`
+  fragment Me on User {
+    _id
+  }
 `
