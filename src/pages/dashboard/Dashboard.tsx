@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react'
 import cx from 'classnames'
 import {RiAddFill, RiDashboardLine} from 'react-icons/ri'
+import {useTitle} from 'react-use'
 import {Button, IconButton, Popover, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
@@ -22,6 +23,8 @@ export const Dashboard: React.FC = () => {
   const isAuthenticated = useIsAuthenticated()
 
   const {boards, loading} = useBoards()
+
+  useTitle('Dashboard')
 
   const switchDisplay = useCallback(
     () => setDisplay(display => (display === 'list' ? 'grid' : 'list')),

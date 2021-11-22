@@ -1,5 +1,5 @@
 import React from 'react'
-import {useMedia} from 'react-use'
+import {useMedia, useTitle} from 'react-use'
 import {ThemeSwitcher, useTheme} from '@eh/shared/lib/theme'
 import {Logo} from '@eh/shared/ui'
 import {LoginButton} from '@eh/features/auth-with-firebase'
@@ -7,6 +7,8 @@ import {Layout} from '@eh/widgets/layout'
 import S from './Landing.module.scss'
 
 export const Landing: React.FC = () => {
+  useTitle('Event Horizon')
+
   const {theme} = useTheme()
   const isPhone = useMedia('(max-width: 768px)')
 

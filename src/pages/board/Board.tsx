@@ -1,4 +1,5 @@
 import React, {useCallback, useState} from 'react'
+import {useTitle} from 'react-use'
 import {Button} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -21,6 +22,8 @@ export const Board: React.FC = () => {
 
   const me = useMe()
   const {board, loading} = useBoard(id)
+
+  useTitle(`Board | ${board?.title || ''}`)
 
   const [removingState, removeBoard] = useRemoveBoard()
 
