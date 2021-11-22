@@ -14,7 +14,7 @@ export const domain = createDomain()
 
 export const eventEntity = createEventEntity({domain, apollo})
 export const boardEntity = createBoardEntity({domain, apollo})
-export const sessionEntity = createSessionEntity({domain})
+export const sessionEntity = createSessionEntity({domain, apollo})
 
 export const authWithFirebaseFeature = createAuthWithFirebaseFeature({auth, session: sessionEntity})
 

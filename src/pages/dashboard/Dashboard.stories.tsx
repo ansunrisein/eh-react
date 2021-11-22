@@ -15,7 +15,7 @@ import {Dashboard} from './Dashboard'
 const domain = createDomain()
 // TODO: mock
 const apollo = new ApolloClient({cache: new InMemoryCache()})
-const sessionEntity = createSessionEntity({domain})
+const sessionEntity = createSessionEntity({domain, apollo})
 const authWithFirebaseFeature = createAuthWithFirebaseFeature({
   auth: authMock,
   session: sessionEntity,

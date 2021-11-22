@@ -16,7 +16,7 @@ import {Board} from './Board'
 const domain = createDomain()
 // TODO: mock
 const apollo = new ApolloClient({cache: new InMemoryCache()})
-const sessionEntity = createSessionEntity({domain})
+const sessionEntity = createSessionEntity({domain, apollo})
 const eventEntity = createEventEntity({domain, apollo})
 const boardEntity = createBoardEntity({domain, apollo})
 const authWithFirebaseFeature = createAuthWithFirebaseFeature({

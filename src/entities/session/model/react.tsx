@@ -1,5 +1,5 @@
-import React, {createContext, useContext} from 'react'
-import {useStoreMap} from 'effector-react'
+import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react'
+import {useStore} from 'effector-react'
 import {Hoc} from '@eh/shared/types'
 import {SessionEntity} from './session'
 
@@ -30,11 +30,36 @@ export const withSessionEntity =
       </SessionEntityProvider>
     )
 
+export type MeSuspenseProps = {
+  fallback: ReactNode
+}
+
+export const MeSuspense: React.FC<MeSuspenseProps> = ({fallback, children}) => {
+  const {fetchMeFx} = useSessionEntity()
+
+  const [isInitialized, setIsInitialized] = useState(false)
+
+  useEffect(() => {
+    fetchMeFx()
+
+    const unsubscribe = fetchMeFx.pending.watch(pending => {
+      if (!pending) {
+        setIsInitialized(true)
+        unsubscribe()
+      }
+    })
+
+    return unsubscribe
+  }, [setIsInitialized, fetchMeFx])
+
+  return <>{isInitialized ? children : fallback}</>
+}
+
 export const useSessionEntity = (): SessionEntity => useContext(SessionEntityContext)
 
 export const useIsAuthenticated = () => {
-  const {$token} = useSessionEntity()
-  return useStoreMap($token, Boolean)
+  const {$isAuthenticated} = useSessionEntity()
+  return useStore($isAuthenticated)
 }
 
 export const useLogout = () => {
