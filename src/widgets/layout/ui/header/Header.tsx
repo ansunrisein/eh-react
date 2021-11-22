@@ -1,5 +1,5 @@
 import React from 'react'
-import {RiBarChartBoxFill, RiLoginBoxLine, RiLogoutBoxLine} from 'react-icons/ri'
+import {RiBarChartBoxFill, RiLogoutBoxLine} from 'react-icons/ri'
 import {IconButton} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -7,11 +7,10 @@ import {Link} from '@eh/shared/lib/router'
 import {ThemeSwitcher} from '@eh/shared/lib/theme'
 import {Logo} from '@eh/shared/ui'
 import {useIsAuthenticated, useLogout} from '@eh/entities/session'
-import {useLogin} from '@eh/features/auth-with-firebase'
+import {LoginButton} from '@eh/features/auth-with-firebase'
 import S from './Header.module.scss'
 
 export const Header: React.FC = () => {
-  const {login, loading} = useLogin()
   const logout = useLogout()
   const isAuthenticated = useIsAuthenticated()
 
@@ -33,14 +32,17 @@ export const Header: React.FC = () => {
       <Flex gap={10}>
         <ThemeSwitcher size="md" appearance="link" className={S.link} />
 
-        <IconButton
-          icon={<Icon as={isAuthenticated ? RiLogoutBoxLine : RiLoginBoxLine} />}
-          size="md"
-          appearance="link"
-          className={S.link}
-          loading={loading}
-          onClick={isAuthenticated ? logout : login}
-        />
+        {isAuthenticated ? (
+          <IconButton
+            icon={<Icon as={RiLogoutBoxLine} />}
+            size="md"
+            appearance="link"
+            className={S.link}
+            onClick={logout}
+          />
+        ) : (
+          <LoginButton size="xs" appearance="primary" />
+        )}
       </Flex>
     </header>
   )
