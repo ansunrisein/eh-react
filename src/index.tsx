@@ -1,4 +1,5 @@
 import './index.css'
+import '@eh/shared/styles/index.scss'
 import 'rsuite/dist/rsuite.min.css'
 import 'swiper/swiper-bundle.min.css'
 import React from 'react'
