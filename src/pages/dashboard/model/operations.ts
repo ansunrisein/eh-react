@@ -13,6 +13,7 @@ export type DashboardQuery = {
     __typename?: 'Board'
     _id: string
     title: string
+    isPrivate: boolean
     events: Array<{
       __typename?: 'Event'
       _id: string

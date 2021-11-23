@@ -7,6 +7,7 @@ fragment Event on Event {
 fragment Board on Board {
     _id
     title
+    isPrivate
     events {
         ...Event
     }

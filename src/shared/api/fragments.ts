@@ -13,6 +13,7 @@ export type BoardFragment = {
   __typename?: 'Board'
   _id: string
   title: string
+  isPrivate: boolean
   events: Array<{
     __typename?: 'Event'
     _id: string
@@ -35,6 +36,7 @@ export const BoardFragmentDoc = gql`
   fragment Board on Board {
     _id
     title
+    isPrivate
     events {
       ...Event
     }

@@ -15,6 +15,7 @@ export type BoardQuery = {
     __typename?: 'Board'
     _id: string
     title: string
+    isPrivate: boolean
     events: Array<{
       __typename?: 'Event'
       _id: string
@@ -36,6 +37,7 @@ export type CreateBoardMutation = {
     __typename?: 'Board'
     _id: string
     title: string
+    isPrivate: boolean
     events: Array<{
       __typename?: 'Event'
       _id: string
@@ -58,6 +60,7 @@ export type EditBoardMutation = {
     __typename?: 'Board'
     _id: string
     title: string
+    isPrivate: boolean
     events: Array<{
       __typename?: 'Event'
       _id: string
@@ -78,6 +81,7 @@ export type RemoveBoardMutation = {
     __typename?: 'Board'
     _id: string
     title: string
+    isPrivate: boolean
     events: Array<{
       __typename?: 'Event'
       _id: string
