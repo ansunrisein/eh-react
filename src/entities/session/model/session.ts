@@ -40,6 +40,11 @@ export const createSessionEntity = (
     .reset(resetToken)
 
   forward({
+    from: [setToken, resetToken],
+    to: domain.effect(() => apollo.cache.reset()),
+  })
+
+  forward({
     from: setToken,
     to: fetchMeFx,
   })
