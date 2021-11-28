@@ -21,14 +21,20 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
       </Link>
 
       <Swiper withNavigation={isTablet} breakpoints={swiperBreakpoints}>
-        {board.events ? (
+        {board.events.length ? (
           board.events.map(e => (
             <Swiper.Slide key={e._id}>
               <EventCard event={e} />
             </Swiper.Slide>
           ))
         ) : (
-          <h2>Empty</h2>
+          <Panel>
+            There is no events :({' '}
+            <Link to={`/board/${board._id}`} className={S.link}>
+              Go to the board
+            </Link>{' '}
+            to create event{' '}
+          </Panel>
         )}
       </Swiper>
     </Panel>

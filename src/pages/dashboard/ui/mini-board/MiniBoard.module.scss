@@ -1,3 +1,9 @@
 .title {
   margin-bottom: 1rem;
 }
+
+.link,
+.link:hover,
+.link:focus-within {
+  color: var(--rs-text-link);
+}
