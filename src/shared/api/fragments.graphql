@@ -1,21 +1,21 @@
 fragment Event on Event {
-    _id
-    title
-    content
+  _id
+  title
+  content
 }
 
 fragment Board on Board {
+  _id
+  title
+  isPrivate
+  events {
+    ...Event
+  }
+  user {
     _id
-    title
-    isPrivate
-    events {
-        ...Event
-    }
-    user {
-        _id
-    }
+  }
 }
 
 fragment Me on User {
-    _id
+  _id
 }

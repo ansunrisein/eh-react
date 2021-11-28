@@ -10,18 +10,12 @@
   ],
   "rules": {
     "react/prop-types": 0,
-    "linebreak-style": [
-      "error",
-      "unix"
-    ],
+    "linebreak-style": ["error", "unix"],
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "react/display-name": 0,
     "eol-last": "error",
-    "jsx-quotes": [
-      1,
-      "prefer-double"
-    ],
+    "jsx-quotes": [1, "prefer-double"],
     "import/no-internal-modules": [
       "error",
       {
@@ -94,21 +88,12 @@
   "settings": {
     "import/internal-regex": "^@eh"
   },
-  "plugins": [
-    "import",
-    "prettier",
-    "react",
-    "simple-import-sort"
-  ],
+  "plugins": ["import", "prettier", "react", "simple-import-sort"],
   "overrides": [
     {
-      "files": [
-        "src/shared/lib/router/*"
-      ],
+      "files": ["src/shared/lib/router/*"],
       "rules": {
-        "import/no-restricted-paths": [
-          "off"
-        ]
+        "import/no-restricted-paths": ["off"]
       }
     }
   ]

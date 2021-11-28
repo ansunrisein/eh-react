@@ -1,5 +1,5 @@
 query Dashboard {
-    dashboard {
-        ...Board
-    }
+  dashboard {
+    ...Board
+  }
 }
