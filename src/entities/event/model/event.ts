@@ -37,7 +37,7 @@ export const createEventEntity = ({domain, apollo}: EventEntityDeps) => {
                 data?.createEvent
                   ? events.concat(
                       cache.writeFragment({
-                        id: data.createEvent?._id,
+                        id: `${data.createEvent.__typename}:${data.createEvent._id}`,
                         data: data.createEvent,
                         fragment: EventFragmentDoc,
                       }),
@@ -66,6 +66,7 @@ export const createEventEntity = ({domain, apollo}: EventEntityDeps) => {
         variables,
         update: (cache, {data}) => {
           cache.evict({id: `Event:${data?.removeEvent?._id}`})
+          cache.gc()
         },
       })
       .then(result => result?.data?.removeEvent),

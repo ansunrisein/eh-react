@@ -33,7 +33,7 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
                 data?.createBoard
                   ? boards.concat(
                       cache.writeFragment({
-                        id: data.createBoard?._id,
+                        id: `${data.createBoard.__typename}:${data.createBoard._id}`,
                         data: data.createBoard,
                         fragment: BoardFragmentDoc,
                         fragmentName: 'Board',
