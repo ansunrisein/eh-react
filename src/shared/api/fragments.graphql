@@ -19,3 +19,9 @@ fragment Board on Board {
 fragment Me on User {
   _id
 }
+
+fragment BoardLink on BoardLink {
+  _id
+  link
+  permissions
+}

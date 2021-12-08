@@ -25,6 +25,13 @@ export type BoardFragment = {
 
 export type MeFragment = {__typename?: 'User'; _id: string}
 
+export type BoardLinkFragment = {
+  __typename?: 'BoardLink'
+  _id: string
+  link: string
+  permissions: Array<Types.Permission>
+}
+
 export const EventFragmentDoc = gql`
   fragment Event on Event {
     _id
@@ -49,5 +56,12 @@ export const BoardFragmentDoc = gql`
 export const MeFragmentDoc = gql`
   fragment Me on User {
     _id
+  }
+`
+export const BoardLinkFragmentDoc = gql`
+  fragment BoardLink on BoardLink {
+    _id
+    link
+    permissions
   }
 `
