@@ -32,8 +32,8 @@ export const withBoardEntity =
 
 export const useBoardEntity = (): BoardEntity => useContext(BoardEntityContext)
 
-export const useBoard = (id: string) => {
-  const {data, loading} = useBoardQuery({variables: {id}})
+export const useBoard = (id: string, linkToken?: string | null) => {
+  const {data, loading} = useBoardQuery({variables: {id, linkToken}})
 
   return {
     board: data?.board,

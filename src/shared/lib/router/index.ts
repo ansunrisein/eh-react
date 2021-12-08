@@ -1,6 +1,6 @@
-import {Routes, RoutesProps, useParams} from 'react-router-dom'
+import {Routes, RoutesProps, useParams, useSearchParams} from 'react-router-dom'
 
-export {Routes, useParams}
+export {Routes, useParams, useSearchParams}
 export type {RoutesProps}
 
 export * from './Link'

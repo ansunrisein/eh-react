@@ -3,7 +3,7 @@ import {useTitle} from 'react-use'
 import {Button, Drawer} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
-import {useNavigate, useParams} from '@eh/shared/lib/router'
+import {useNavigate, useParams, useSearchParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {isBoardOwner, useBoard} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
@@ -20,10 +20,11 @@ export const Board: React.FC = () => {
   const [isBoardSettingsOpened, openBoardSettings, closeBoardSettings] = useBooleanState(false)
 
   const {id = ''} = useParams<'id'>()
+  const [params] = useSearchParams()
   const navigate = useNavigate()
 
   const me = useMe()
-  const {board, loading} = useBoard(id)
+  const {board, loading} = useBoard(id, params.get('link'))
 
   useTitle(`Board | ${board?.title || ''}`)
 
