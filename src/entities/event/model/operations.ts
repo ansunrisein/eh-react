@@ -59,7 +59,7 @@ export type RemoveEventMutation = {
 
 export const EventDocument = gql`
   query Event($id: ID!) {
-    event(_id: $id) {
+    event(eventId: $id) {
       ...Event
     }
   }
@@ -99,7 +99,7 @@ export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>
 export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>
 export const CreateEventDocument = gql`
   mutation CreateEvent($title: String, $content: String!, $boardId: ID!) {
-    createEvent(title: $title, content: $content, boardId: $boardId) {
+    createEvent(event: {title: $title, content: $content, boardId: $boardId}) {
       ...Event
     }
   }
@@ -146,7 +146,7 @@ export type CreateEventMutationOptions = Apollo.BaseMutationOptions<
 >
 export const EditEventDocument = gql`
   mutation EditEvent($id: ID!, $title: String, $content: String!) {
-    updateEvent(_id: $id, title: $title, content: $content) {
+    updateEvent(event: {_id: $id, title: $title, content: $content}) {
       ...Event
     }
   }
@@ -193,7 +193,7 @@ export type EditEventMutationOptions = Apollo.BaseMutationOptions<
 >
 export const RemoveEventDocument = gql`
   mutation RemoveEvent($id: ID!) {
-    removeEvent(_id: $id) {
+    removeEvent(eventId: $id) {
       ...Event
     }
   }

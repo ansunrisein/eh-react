@@ -1,23 +1,23 @@
-query Board($id: ID!) {
-  board(_id: $id) {
+query Board($id: ID!, $linkToken: String) {
+  board(boardId: $id, linkToken: $linkToken) {
     ...Board
   }
 }
 
 mutation CreateBoard($title: String!, $isPrivate: Boolean!) {
-  createBoard(title: $title, isPrivate: $isPrivate) {
+  createBoard(board: {title: $title, isPrivate: $isPrivate}) {
     ...Board
   }
 }
 
 mutation EditBoard($id: ID!, $title: String!, $isPrivate: Boolean!) {
-  updateBoard(_id: $id, title: $title, isPrivate: $isPrivate) {
+  updateBoard(board: {_id: $id, title: $title, isPrivate: $isPrivate}) {
     ...Board
   }
 }
 
 mutation RemoveBoard($id: ID!) {
-  removeBoard(_id: $id) {
+  removeBoard(boardId: $id) {
     ...Board
   }
 }

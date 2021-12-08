@@ -7,6 +7,7 @@ import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type BoardQueryVariables = Types.Exact<{
   id: Types.Scalars['ID']
+  linkToken?: Types.Maybe<Types.Scalars['String']>
 }>
 
 export type BoardQuery = {
@@ -93,8 +94,8 @@ export type RemoveBoardMutation = {
 }
 
 export const BoardDocument = gql`
-  query Board($id: ID!) {
-    board(_id: $id) {
+  query Board($id: ID!, $linkToken: String) {
+    board(boardId: $id, linkToken: $linkToken) {
       ...Board
     }
   }
@@ -114,6 +115,7 @@ export const BoardDocument = gql`
  * const { data, loading, error } = useBoardQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      linkToken: // value for 'linkToken'
  *   },
  * });
  */
@@ -134,7 +136,7 @@ export type BoardLazyQueryHookResult = ReturnType<typeof useBoardLazyQuery>
 export type BoardQueryResult = Apollo.QueryResult<BoardQuery, BoardQueryVariables>
 export const CreateBoardDocument = gql`
   mutation CreateBoard($title: String!, $isPrivate: Boolean!) {
-    createBoard(title: $title, isPrivate: $isPrivate) {
+    createBoard(board: {title: $title, isPrivate: $isPrivate}) {
       ...Board
     }
   }
@@ -180,7 +182,7 @@ export type CreateBoardMutationOptions = Apollo.BaseMutationOptions<
 >
 export const EditBoardDocument = gql`
   mutation EditBoard($id: ID!, $title: String!, $isPrivate: Boolean!) {
-    updateBoard(_id: $id, title: $title, isPrivate: $isPrivate) {
+    updateBoard(board: {_id: $id, title: $title, isPrivate: $isPrivate}) {
       ...Board
     }
   }
@@ -227,7 +229,7 @@ export type EditBoardMutationOptions = Apollo.BaseMutationOptions<
 >
 export const RemoveBoardDocument = gql`
   mutation RemoveBoard($id: ID!) {
-    removeBoard(_id: $id) {
+    removeBoard(boardId: $id) {
       ...Board
     }
   }
