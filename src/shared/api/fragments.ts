@@ -29,6 +29,7 @@ export type BoardLinkFragment = {
   __typename?: 'BoardLink'
   _id: string
   link: string
+  name: string
   permissions: Array<Types.Permission>
 }
 
@@ -62,6 +63,7 @@ export const BoardLinkFragmentDoc = gql`
   fragment BoardLink on BoardLink {
     _id
     link
+    name
     permissions
   }
 `

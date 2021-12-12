@@ -23,5 +23,6 @@ fragment Me on User {
 fragment BoardLink on BoardLink {
   _id
   link
+  name
   permissions
 }

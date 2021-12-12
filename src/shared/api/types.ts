@@ -28,6 +28,7 @@ export type BoardLink = {
   _id: Scalars['ID']
   board: Board
   link: Scalars['String']
+  name: Scalars['String']
   permissions: Array<Permission>
 }
 
@@ -38,6 +39,7 @@ export type CreateBoard = {
 
 export type CreateBoardLink = {
   boardId: Scalars['ID']
+  name: Scalars['String']
   permissions: Array<Permission>
 }
 
@@ -179,6 +181,7 @@ export type UpdateBoard = {
 
 export type UpdateBoardLink = {
   _id: Scalars['ID']
+  name: Scalars['String']
   permissions: Array<Permission>
 }
 
@@ -217,6 +220,7 @@ export type BoardLinkKeySpecifier = (
   | '_id'
   | 'board'
   | 'link'
+  | 'name'
   | 'permissions'
   | BoardLinkKeySpecifier
 )[]
@@ -224,6 +228,7 @@ export type BoardLinkFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
   board?: FieldPolicy<any> | FieldReadFunction<any>
   link?: FieldPolicy<any> | FieldReadFunction<any>
+  name?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type EntityPermissionsKeySpecifier = (

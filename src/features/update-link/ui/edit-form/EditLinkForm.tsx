@@ -1,9 +1,13 @@
-import React, {useLayoutEffect} from 'react'
+import React, {useLayoutEffect, useState} from 'react'
 import {Controller, useForm} from 'react-hook-form'
-import {Button, Loader} from 'rsuite'
+import {RiEditFill} from 'react-icons/ri'
+import {Button, Divider, Input, Loader} from 'rsuite'
+import {Icon} from '@rsuite/icons'
 import {Permission} from '@eh/shared/api'
+import {Flex} from '@eh/shared/lib/reflexbox'
 import {useBoardLink, useEditBoardLink} from '@eh/entities/board-link'
 import {PermissionsInput} from '../permissions-input'
+import S from './EditLinkForm.module.scss'
 
 export type EditLinkFormProps = {
   linkId: string
@@ -11,17 +15,21 @@ export type EditLinkFormProps = {
 }
 
 export type EditLinkFormFields = {
+  name: string
   permissions: Permission[]
 }
 
 export const EditLinkForm: React.FC<EditLinkFormProps> = ({linkId, onEdit}) => {
-  const {control, handleSubmit, reset, formState} = useForm({mode: 'onChange'})
+  const {control, handleSubmit, reset, formState, watch} = useForm({mode: 'onChange'})
+
+  const [isNameEditingActive, setIsNameEditingActive] = useState(false)
 
   const {boardLink, loading} = useBoardLink(linkId)
   const [editBoardLinkState, editBoardLink] = useEditBoardLink()
 
   const edit = async (link: EditLinkFormFields) => {
     await editBoardLink({_id: linkId, ...link})
+    setIsNameEditingActive(false)
     onEdit?.()
   }
 
@@ -31,8 +39,32 @@ export const EditLinkForm: React.FC<EditLinkFormProps> = ({linkId, onEdit}) => {
     }
   }, [boardLink, reset])
 
+  const {name} = watch()
+
   return (
     <form onSubmit={handleSubmit(edit)}>
+      <Flex alignItems="center" gap="10px" className={isNameEditingActive ? S.title : S.name}>
+        {isNameEditingActive ? <h5>Name</h5> : <h4>{name}</h4>}
+        {!isNameEditingActive && (
+          <Icon as={RiEditFill} onClick={() => setIsNameEditingActive(true)} />
+        )}
+      </Flex>
+
+      {isNameEditingActive && (
+        <>
+          <Controller
+            control={control}
+            name="name"
+            defaultValue=""
+            render={({field}) => <Input {...field} />}
+          />
+          <Button onClick={() => setIsNameEditingActive(false)}>\/</Button>
+        </>
+      )}
+
+      {isNameEditingActive && <Divider />}
+
+      <h5 className={S.title}>Permission</h5>
       <Controller
         control={control}
         name="permissions"

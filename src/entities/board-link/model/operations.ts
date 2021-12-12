@@ -23,7 +23,13 @@ export type BoardLinkQueryVariables = Types.Exact<{
 export type BoardLinkQuery = {
   __typename?: 'Query'
   boardLink?:
-    | {__typename?: 'BoardLink'; _id: string; link: string; permissions: Array<Types.Permission>}
+    | {
+        __typename?: 'BoardLink'
+        _id: string
+        link: string
+        name: string
+        permissions: Array<Types.Permission>
+      }
     | null
     | undefined
 }
@@ -41,6 +47,7 @@ export type BoardLinksQuery = {
       __typename?: 'BoardLink'
       _id: string
       link: string
+      name: string
       permissions: Array<Types.Permission>
     }>
   }
@@ -48,6 +55,7 @@ export type BoardLinksQuery = {
 
 export type CreateBoardLinkMutationVariables = Types.Exact<{
   boardId: Types.Scalars['ID']
+  name: Types.Scalars['String']
   permissions: Array<Types.Permission> | Types.Permission
 }>
 
@@ -57,12 +65,14 @@ export type CreateBoardLinkMutation = {
     __typename?: 'BoardLink'
     _id: string
     link: string
+    name: string
     permissions: Array<Types.Permission>
   }
 }
 
 export type EditBoardLinkMutationVariables = Types.Exact<{
   _id: Types.Scalars['ID']
+  name: Types.Scalars['String']
   permissions: Array<Types.Permission> | Types.Permission
 }>
 
@@ -72,6 +82,7 @@ export type EditBoardLinkMutation = {
     __typename?: 'BoardLink'
     _id: string
     link: string
+    name: string
     permissions: Array<Types.Permission>
   }
 }
@@ -86,6 +97,7 @@ export type RemoveBoardLinkMutation = {
     __typename?: 'BoardLink'
     _id: string
     link: string
+    name: string
     permissions: Array<Types.Permission>
   }
 }
@@ -219,8 +231,8 @@ export type BoardLinksQueryHookResult = ReturnType<typeof useBoardLinksQuery>
 export type BoardLinksLazyQueryHookResult = ReturnType<typeof useBoardLinksLazyQuery>
 export type BoardLinksQueryResult = Apollo.QueryResult<BoardLinksQuery, BoardLinksQueryVariables>
 export const CreateBoardLinkDocument = gql`
-  mutation CreateBoardLink($boardId: ID!, $permissions: [Permission!]!) {
-    createBoardLink(boardLink: {boardId: $boardId, permissions: $permissions}) {
+  mutation CreateBoardLink($boardId: ID!, $name: String!, $permissions: [Permission!]!) {
+    createBoardLink(boardLink: {boardId: $boardId, name: $name, permissions: $permissions}) {
       ...BoardLink
     }
   }
@@ -245,6 +257,7 @@ export type CreateBoardLinkMutationFn = Apollo.MutationFunction<
  * const [createBoardLinkMutation, { data, loading, error }] = useCreateBoardLinkMutation({
  *   variables: {
  *      boardId: // value for 'boardId'
+ *      name: // value for 'name'
  *      permissions: // value for 'permissions'
  *   },
  * });
@@ -268,8 +281,8 @@ export type CreateBoardLinkMutationOptions = Apollo.BaseMutationOptions<
   CreateBoardLinkMutationVariables
 >
 export const EditBoardLinkDocument = gql`
-  mutation EditBoardLink($_id: ID!, $permissions: [Permission!]!) {
-    updateBoardLink(boardLink: {_id: $_id, permissions: $permissions}) {
+  mutation EditBoardLink($_id: ID!, $name: String!, $permissions: [Permission!]!) {
+    updateBoardLink(boardLink: {_id: $_id, name: $name, permissions: $permissions}) {
       ...BoardLink
     }
   }
@@ -294,6 +307,7 @@ export type EditBoardLinkMutationFn = Apollo.MutationFunction<
  * const [editBoardLinkMutation, { data, loading, error }] = useEditBoardLinkMutation({
  *   variables: {
  *      _id: // value for '_id'
+ *      name: // value for 'name'
  *      permissions: // value for 'permissions'
  *   },
  * });

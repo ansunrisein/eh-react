@@ -57,7 +57,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({boardId}) => {
                 alignItems="center"
                 style={{padding: 5}}
               >
-                <span>{link.link}</span>
+                <span>{link.name}</span>
 
                 <ButtonGroup>
                   <IconButton

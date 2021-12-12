@@ -23,14 +23,14 @@ query BoardLinks($boardId: ID!) {
   }
 }
 
-mutation CreateBoardLink($boardId: ID!, $permissions: [Permission!]!) {
-  createBoardLink(boardLink: {boardId: $boardId, permissions: $permissions}) {
+mutation CreateBoardLink($boardId: ID!, $name: String!, $permissions: [Permission!]!) {
+  createBoardLink(boardLink: {boardId: $boardId, name: $name, permissions: $permissions}) {
     ...BoardLink
   }
 }
 
-mutation EditBoardLink($_id: ID!, $permissions: [Permission!]!) {
-  updateBoardLink(boardLink: {_id: $_id, permissions: $permissions}) {
+mutation EditBoardLink($_id: ID!, $name: String!, $permissions: [Permission!]!) {
+  updateBoardLink(boardLink: {_id: $_id, name: $name, permissions: $permissions}) {
     ...BoardLink
   }
 }
