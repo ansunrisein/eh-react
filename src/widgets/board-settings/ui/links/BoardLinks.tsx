@@ -1,7 +1,17 @@
 import React, {useState} from 'react'
-import {RiFileCopy2Fill, RiSettings2Fill} from 'react-icons/ri'
+import {RiFileCopy2Fill, RiInformationLine, RiSettings2Fill} from 'react-icons/ri'
 import {useCopyToClipboard} from 'react-use'
-import {Button, ButtonGroup, Divider, IconButton, Loader, Message, toaster} from 'rsuite'
+import {
+  Button,
+  ButtonGroup,
+  Divider,
+  IconButton,
+  Loader,
+  Message,
+  toaster,
+  Tooltip,
+  Whisper,
+} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -38,7 +48,21 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({boardId}) => {
   return (
     <div>
       <Flex alignItems="center" justifyContent="space-between">
-        <h5>Links</h5>
+        <Flex alignItems="center" gap="10px">
+          <h5>Links</h5>
+          {!!boardLinks?.length && (
+            <Whisper
+              trigger="hover"
+              speaker={
+                <Tooltip>Links provide you the way to share your board with other people!</Tooltip>
+              }
+            >
+              <div>
+                <Icon as={RiInformationLine} />
+              </div>
+            </Whisper>
+          )}
+        </Flex>
 
         <Button onClick={openCreate} loading={loading} appearance="primary">
           Create
