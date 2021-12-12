@@ -19,8 +19,14 @@ export type Board = {
   boardLinks: Array<BoardLink>
   events: Array<Event>
   isPrivate: Scalars['Boolean']
+  permissions: Array<Permission>
+  sub?: Maybe<Sub>
   title: Scalars['String']
   user: User
+}
+
+export type BoardPermissionsArgs = {
+  linkToken?: Maybe<Scalars['String']>
 }
 
 export type BoardLink = {
@@ -49,6 +55,10 @@ export type CreateEvent = {
   title?: Maybe<Scalars['String']>
 }
 
+export type CreateSub = {
+  boardId: Scalars['ID']
+}
+
 export type EntityPermissions = {
   __typename?: 'EntityPermissions'
   name: Scalars['String']
@@ -67,9 +77,11 @@ export type Mutation = {
   createBoard: Board
   createBoardLink: BoardLink
   createEvent?: Maybe<Event>
+  createSub: Sub
   removeBoard: Board
   removeBoardLink: BoardLink
   removeEvent?: Maybe<Event>
+  removeSub: Sub
   updateBoard: Board
   updateBoardLink: BoardLink
   updateEvent?: Maybe<Event>
@@ -77,7 +89,6 @@ export type Mutation = {
 
 export type MutationCreateBoardArgs = {
   board: CreateBoard
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationCreateBoardLinkArgs = {
@@ -88,6 +99,11 @@ export type MutationCreateBoardLinkArgs = {
 export type MutationCreateEventArgs = {
   event: CreateEvent
   linkToken?: Maybe<Scalars['String']>
+}
+
+export type MutationCreateSubArgs = {
+  linkToken?: Maybe<Scalars['String']>
+  sub: CreateSub
 }
 
 export type MutationRemoveBoardArgs = {
@@ -103,6 +119,10 @@ export type MutationRemoveBoardLinkArgs = {
 export type MutationRemoveEventArgs = {
   eventId: Scalars['ID']
   linkToken?: Maybe<Scalars['String']>
+}
+
+export type MutationRemoveSubArgs = {
+  sub: RemoveSub
 }
 
 export type MutationUpdateBoardArgs = {
@@ -121,7 +141,6 @@ export type MutationUpdateEventArgs = {
 }
 
 export enum Permission {
-  CREATE_BOARD = 'CREATE_BOARD',
   CREATE_BOARD_LINK = 'CREATE_BOARD_LINK',
   CREATE_EVENT = 'CREATE_EVENT',
   REMOVE_BOARD = 'REMOVE_BOARD',
@@ -173,6 +192,15 @@ export type QueryEventArgs = {
   linkToken?: Maybe<Scalars['String']>
 }
 
+export type RemoveSub = {
+  _id: Scalars['ID']
+}
+
+export type Sub = {
+  __typename?: 'Sub'
+  _id: Scalars['ID']
+}
+
 export type UpdateBoard = {
   _id: Scalars['ID']
   isPrivate: Scalars['Boolean']
@@ -204,6 +232,8 @@ export type BoardKeySpecifier = (
   | 'boardLinks'
   | 'events'
   | 'isPrivate'
+  | 'permissions'
+  | 'sub'
   | 'title'
   | 'user'
   | BoardKeySpecifier
@@ -213,6 +243,8 @@ export type BoardFieldPolicy = {
   boardLinks?: FieldPolicy<any> | FieldReadFunction<any>
   events?: FieldPolicy<any> | FieldReadFunction<any>
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
+  permissions?: FieldPolicy<any> | FieldReadFunction<any>
+  sub?: FieldPolicy<any> | FieldReadFunction<any>
   title?: FieldPolicy<any> | FieldReadFunction<any>
   user?: FieldPolicy<any> | FieldReadFunction<any>
 }
@@ -250,9 +282,11 @@ export type MutationKeySpecifier = (
   | 'createBoard'
   | 'createBoardLink'
   | 'createEvent'
+  | 'createSub'
   | 'removeBoard'
   | 'removeBoardLink'
   | 'removeEvent'
+  | 'removeSub'
   | 'updateBoard'
   | 'updateBoardLink'
   | 'updateEvent'
@@ -262,9 +296,11 @@ export type MutationFieldPolicy = {
   createBoard?: FieldPolicy<any> | FieldReadFunction<any>
   createBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   createEvent?: FieldPolicy<any> | FieldReadFunction<any>
+  createSub?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoard?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
+  removeSub?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoard?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   updateEvent?: FieldPolicy<any> | FieldReadFunction<any>
@@ -296,6 +332,10 @@ export type QueryFieldPolicy = {
   event?: FieldPolicy<any> | FieldReadFunction<any>
   me?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type SubKeySpecifier = ('_id' | SubKeySpecifier)[]
+export type SubFieldPolicy = {
+  _id?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type UserKeySpecifier = ('_id' | 'avatar' | 'name' | 'nickname' | UserKeySpecifier)[]
 export type UserFieldPolicy = {
@@ -338,6 +378,10 @@ export type StrictTypedTypePolicies = {
   Query?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier)
     fields?: QueryFieldPolicy
+  }
+  Sub?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?: false | SubKeySpecifier | (() => undefined | SubKeySpecifier)
+    fields?: SubFieldPolicy
   }
   User?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | UserKeySpecifier | (() => undefined | UserKeySpecifier)

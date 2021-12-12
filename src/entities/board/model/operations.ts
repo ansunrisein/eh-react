@@ -24,6 +24,7 @@ export type BoardQuery = {
       content: string
     }>
     user: {__typename?: 'User'; _id: string}
+    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
 }
 
@@ -46,6 +47,7 @@ export type CreateBoardMutation = {
       content: string
     }>
     user: {__typename?: 'User'; _id: string}
+    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
 }
 
@@ -69,6 +71,7 @@ export type EditBoardMutation = {
       content: string
     }>
     user: {__typename?: 'User'; _id: string}
+    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
 }
 
@@ -90,6 +93,7 @@ export type RemoveBoardMutation = {
       content: string
     }>
     user: {__typename?: 'User'; _id: string}
+    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
 }
 

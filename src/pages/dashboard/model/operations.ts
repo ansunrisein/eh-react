@@ -21,6 +21,7 @@ export type DashboardQuery = {
       content: string
     }>
     user: {__typename?: 'User'; _id: string}
+    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }>
 }
 

@@ -14,6 +14,9 @@ fragment Board on Board {
   user {
     _id
   }
+  sub {
+    _id
+  }
 }
 
 fragment Me on User {

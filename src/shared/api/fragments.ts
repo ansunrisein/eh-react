@@ -21,6 +21,7 @@ export type BoardFragment = {
     content: string
   }>
   user: {__typename?: 'User'; _id: string}
+  sub?: {__typename?: 'Sub'; _id: string} | null | undefined
 }
 
 export type MeFragment = {__typename?: 'User'; _id: string}
@@ -49,6 +50,9 @@ export const BoardFragmentDoc = gql`
       ...Event
     }
     user {
+      _id
+    }
+    sub {
       _id
     }
   }
