@@ -17,6 +17,7 @@ fragment Board on Board {
   sub {
     _id
   }
+  permissions
 }
 
 fragment Me on User {

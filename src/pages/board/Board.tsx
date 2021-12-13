@@ -5,9 +5,8 @@ import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
-import {isBoardOwner, useBoard} from '@eh/entities/board'
+import {useBoard, usePermissions} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
-import {useMe} from '@eh/entities/session'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
@@ -20,9 +19,10 @@ export const Board: React.FC = () => {
   const [isBoardSettingsOpened, openBoardSettings, closeBoardSettings] = useBooleanState(false)
 
   const {id = ''} = useParams<'id'>()
-
   const navigate = useNavigate()
+
   const {board, loading} = useBoard(id)
+  const {canCreateEvent, canViewSettings} = usePermissions(board)
 
   useTitle(`Board | ${board?.title || ''}`)
 
@@ -31,18 +31,20 @@ export const Board: React.FC = () => {
     navigate('/')
   }, [closeBoardSettings, navigate])
 
-  const isMyBoard = isBoardOwner(me?._id, board)
-
   return (
     <Layout header loading={loading}>
-      {isMyBoard && (
+      {(canCreateEvent || canViewSettings) && (
         <Flex justifyContent="flex-end" className={S.panel}>
-          <Button size="xs" color="blue" appearance="primary" onClick={openCreateEvent}>
-            Create event
-          </Button>
-          <Button size="xs" color="red" onClick={openBoardSettings}>
-            Settings
-          </Button>
+          {canCreateEvent && (
+            <Button size="xs" color="blue" appearance="primary" onClick={openCreateEvent}>
+              Create event
+            </Button>
+          )}
+          {canViewSettings && (
+            <Button size="xs" color="red" onClick={openBoardSettings}>
+              Settings
+            </Button>
+          )}
           <Modal open={isCreateEventOpened} onClose={closeCreateEvent} backdrop>
             <CreateEventForm boardId={id} onCreate={closeCreateEvent} />
           </Modal>
@@ -60,7 +62,7 @@ export const Board: React.FC = () => {
       ) : (
         <Empty>
           <p>There is no events in this board :(</p>
-          {isMyBoard && (
+          {canCreateEvent && (
             <Button onClick={openCreateEvent} appearance="link">
               Create now!
             </Button>

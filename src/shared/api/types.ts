@@ -25,10 +25,6 @@ export type Board = {
   user: User
 }
 
-export type BoardPermissionsArgs = {
-  linkToken?: Maybe<Scalars['String']>
-}
-
 export type BoardLink = {
   __typename?: 'BoardLink'
   _id: Scalars['ID']
@@ -93,32 +89,26 @@ export type MutationCreateBoardArgs = {
 
 export type MutationCreateBoardLinkArgs = {
   boardLink: CreateBoardLink
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationCreateEventArgs = {
   event: CreateEvent
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationCreateSubArgs = {
-  linkToken?: Maybe<Scalars['String']>
   sub: CreateSub
 }
 
 export type MutationRemoveBoardArgs = {
   boardId: Scalars['ID']
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationRemoveBoardLinkArgs = {
   boardLinkId: Scalars['ID']
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationRemoveEventArgs = {
   eventId: Scalars['ID']
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationRemoveSubArgs = {
@@ -127,17 +117,14 @@ export type MutationRemoveSubArgs = {
 
 export type MutationUpdateBoardArgs = {
   board: UpdateBoard
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateBoardLinkArgs = {
   boardLink: UpdateBoardLink
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type MutationUpdateEventArgs = {
   event: UpdateEvent
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export enum Permission {
@@ -174,22 +161,18 @@ export type Query = {
 
 export type QueryBoardArgs = {
   boardId: Scalars['ID']
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type QueryBoardLinkArgs = {
   boardLinkId: Scalars['ID']
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type QueryBoardLinksArgs = {
   boardId: Scalars['ID']
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type QueryEventArgs = {
   eventId: Scalars['ID']
-  linkToken?: Maybe<Scalars['String']>
 }
 
 export type RemoveSub = {

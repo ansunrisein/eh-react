@@ -3,7 +3,7 @@ import cx from 'classnames'
 import {Controller, useForm} from 'react-hook-form'
 import {Button, Input, Toggle} from 'rsuite'
 import {BoardFragment} from '@eh/shared/api'
-import {useEditBoard} from '@eh/entities/board'
+import {useEditBoard, usePermissions} from '@eh/entities/board'
 import S from './EditBoardForm.module.scss'
 
 export type EditBoardFormProps = {
@@ -13,6 +13,8 @@ export type EditBoardFormProps = {
 
 export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => {
   const {control, handleSubmit, formState, reset} = useForm({defaultValues: board})
+
+  const {canUpdateDescription, canUpdateVisibility} = usePermissions(board)
 
   const [{loading}, editBoard] = useEditBoard()
 
@@ -29,7 +31,9 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
         <Controller
           control={control}
           name="title"
-          render={({field}) => <Input className={S.field} {...field} />}
+          render={({field}) => (
+            <Input className={S.field} disabled={!canUpdateDescription} {...field} />
+          )}
         />
       </section>
 
@@ -39,7 +43,12 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
           name="isPrivate"
           control={control}
           render={({field: {value, ...field}}) => (
-            <Toggle checked={value} className={cx(S.field, 'block')} {...field} />
+            <Toggle
+              checked={value}
+              className={cx(S.field, 'block')}
+              disabled={!canUpdateVisibility}
+              {...field}
+            />
           )}
         />
       </section>

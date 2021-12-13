@@ -14,6 +14,7 @@ export type BoardFragment = {
   _id: string
   title: string
   isPrivate: boolean
+  permissions: Array<Types.Permission>
   events: Array<{
     __typename?: 'Event'
     _id: string
@@ -55,6 +56,7 @@ export const BoardFragmentDoc = gql`
     sub {
       _id
     }
+    permissions
   }
   ${EventFragmentDoc}
 `

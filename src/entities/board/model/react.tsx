@@ -1,5 +1,6 @@
-import React, {createContext, useContext} from 'react'
+import React, {createContext, useContext, useMemo} from 'react'
 import {useAsyncFn} from 'react-use'
+import {BoardFragment, Permission} from '@eh/shared/api'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
 import {BoardEntity} from './board'
 import {useBoardQuery} from './operations'
@@ -40,6 +41,34 @@ export const useBoard = (id: string) => {
     loading,
   }
 }
+
+export const usePermissions = ({
+  permissions = [],
+}: Partial<Pick<BoardFragment, 'permissions'>> = {}) =>
+  useMemo(
+    () => ({
+      canCreateEvent: permissions.includes(Permission.CREATE_EVENT),
+      canUpdateBoard:
+        permissions.includes(Permission.UPDATE_BOARD_DESCRIPTION) &&
+        permissions.includes(Permission.UPDATE_BOARD_VISIBILITY),
+      canViewSettings: [
+        Permission.UPDATE_BOARD_DESCRIPTION,
+        Permission.UPDATE_BOARD_VISIBILITY,
+        Permission.REMOVE_BOARD,
+        Permission.VIEW_BOARD_LINK,
+        Permission.UPDATE_BOARD_LINK,
+        Permission.REMOVE_BOARD_LINK,
+      ].some(perm => permissions.includes(perm)),
+      canUpdateDescription: permissions.includes(Permission.UPDATE_BOARD_DESCRIPTION),
+      canUpdateVisibility: permissions.includes(Permission.UPDATE_BOARD_VISIBILITY),
+      canRemove: permissions.includes(Permission.UPDATE_BOARD_VISIBILITY),
+      canViewLinks: permissions.includes(Permission.VIEW_BOARD_LINK),
+      canCreateLink: permissions.includes(Permission.CREATE_BOARD_LINK),
+      canUpdateLink: permissions.includes(Permission.UPDATE_BOARD_LINK),
+      canRemoveLink: permissions.includes(Permission.REMOVE_BOARD_LINK),
+    }),
+    [permissions],
+  )
 
 export const useCreateBoard = () => {
   const {createBoardFx} = useBoardEntity()

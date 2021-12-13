@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, Divider, Loader} from 'rsuite'
 import {BoardFragment} from '@eh/shared/api'
-import {useBoard, useRemoveBoard} from '@eh/entities/board'
+import {useBoard, usePermissions, useRemoveBoard} from '@eh/entities/board'
 import {EditBoardForm} from '@eh/features/update-board'
 import {BoardLinks} from './ui'
 import S from './BoardSettings.module.scss'
@@ -13,6 +13,7 @@ export type BoardSettingsProps = {
 
 export const BoardSettings: React.FC<BoardSettingsProps> = ({id, onRemove}) => {
   const {board, loading} = useBoard(id)
+  const {canRemove} = usePermissions(board)
 
   const [removingState, remove] = useRemoveBoard()
 
@@ -31,11 +32,11 @@ export const BoardSettings: React.FC<BoardSettingsProps> = ({id, onRemove}) => {
 
           <Divider />
 
-          <BoardLinks boardId={id} />
+          <BoardLinks board={board} />
 
           <Divider />
 
-          <Button onClick={handleRemove} appearance="primary" color="red">
+          <Button onClick={handleRemove} disabled={!canRemove} appearance="primary" color="red">
             Remove board
           </Button>
         </div>

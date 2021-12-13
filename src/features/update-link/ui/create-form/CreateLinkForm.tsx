@@ -44,7 +44,7 @@ export const CreateLinkForm: React.FC<CreateLinkFormProps> = ({boardId, onCreate
         rules={{required: true}}
         render={({field}) => (
           <InputGroup inside>
-            <Input {...field} />
+            <Input placeholder="Name" {...field} />
             <InputGroup.Addon>
               <Icon
                 aria-label="Idea"
