@@ -1,5 +1,5 @@
-query Board($id: ID!, $linkToken: String) {
-  board(boardId: $id, linkToken: $linkToken) {
+query Board($id: ID!) {
+  board(boardId: $id) {
     ...Board
   }
 }

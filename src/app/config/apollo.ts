@@ -1,5 +1,7 @@
+import {parse} from 'query-string'
 import {ApolloClient, concat, HttpLink, InMemoryCache} from '@apollo/client'
 import {setContext} from '@apollo/client/link/context'
+import {history} from './history'
 import {sessionEntity} from './store'
 
 const authLink = setContext((_, {headers}) => {
@@ -9,6 +11,7 @@ const authLink = setContext((_, {headers}) => {
     headers: {
       ...headers,
       Authorization: token ? `Bearer ${token}` : undefined,
+      LinkToken: parse(history.location.search).linkToken,
     },
   }
 })

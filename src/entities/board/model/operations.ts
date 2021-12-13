@@ -7,7 +7,6 @@ import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type BoardQueryVariables = Types.Exact<{
   id: Types.Scalars['ID']
-  linkToken?: Types.Maybe<Types.Scalars['String']>
 }>
 
 export type BoardQuery = {
@@ -98,8 +97,8 @@ export type RemoveBoardMutation = {
 }
 
 export const BoardDocument = gql`
-  query Board($id: ID!, $linkToken: String) {
-    board(boardId: $id, linkToken: $linkToken) {
+  query Board($id: ID!) {
+    board(boardId: $id) {
       ...Board
     }
   }
@@ -119,7 +118,6 @@ export const BoardDocument = gql`
  * const { data, loading, error } = useBoardQuery({
  *   variables: {
  *      id: // value for 'id'
- *      linkToken: // value for 'linkToken'
  *   },
  * });
  */
