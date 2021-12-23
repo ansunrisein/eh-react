@@ -19,6 +19,7 @@ import {Empty, Modal} from '@eh/shared/ui'
 import {BoardFragment, usePermissions} from '@eh/entities/board'
 import {useBoardLinks} from '@eh/entities/board-link'
 import {CreateLinkForm, EditLinkForm} from '@eh/features/update-link'
+import {LinkView} from '@eh/widgets/board-settings/ui'
 import {RemoveLinkButton} from '../remove-link-button'
 import S from './BoardLinks.module.scss'
 
@@ -30,6 +31,7 @@ export type BoardLinksProps = {
 
 export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
   const [isCreateOpen, openCreate, closeCreate] = useBooleanState(false)
+  const [viewedLinkId, setViewedLinkId] = useState<string | null>(null)
   const [editedLinkId, setEditedLinkId] = useState<string | null>(null)
 
   const [, copy] = useCopyToClipboard()
@@ -90,7 +92,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
                   alignItems="center"
                   style={{padding: 5}}
                 >
-                  <span>{e.node.name}</span>
+                  <span onClick={() => setViewedLinkId(e.node._id)}>{e.node.name}</span>
 
                   <ButtonGroup>
                     <IconButton
@@ -134,6 +136,10 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
             <RemoveLinkButton linkId={editedLinkId} onRemove={() => setEditedLinkId(null)} />
           </div>
         )}
+      </Modal>
+
+      <Modal open={!!viewedLinkId} onClose={() => setViewedLinkId(null)}>
+        {viewedLinkId && <LinkView linkId={viewedLinkId} />}
       </Modal>
     </div>
   )
