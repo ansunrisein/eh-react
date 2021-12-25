@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@apollo/client": "^3.4.16",
+    "@apollo/client": "3.4.16",
     "@rsuite/icons": "^1.0.2",
     "@stdlib/utils-noop": "^0.0.7",
     "@testing-library/jest-dom": "^5.14.1",
@@ -46,7 +46,8 @@
     "lint": "eslint src/",
     "pretty-quick": "pretty-quick --pattern \"**/*.*(js|jsx|ts|tsx)",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "postinstall": "patch-package"
   },
   "browserslist": {
     "production": [
@@ -86,6 +87,8 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "husky": "^7.0.1",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.3.2",
     "pretty-quick": "^3.1.1",
     "react-app-rewire-aliases": "^0.2.0",

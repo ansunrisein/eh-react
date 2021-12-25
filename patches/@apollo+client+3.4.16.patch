@@ -1,0 +1,25 @@
+diff --git a/node_modules/@apollo/client/utilities/policies/pagination.js b/node_modules/@apollo/client/utilities/policies/pagination.js
+index bcb0d9f..b13f1ec 100644
+--- a/node_modules/@apollo/client/utilities/policies/pagination.js
++++ b/node_modules/@apollo/client/utilities/policies/pagination.js
+@@ -97,14 +97,16 @@ export function relayStylePagination(keyArgs) {
+             }
+             var prefix = existing.edges;
+             var suffix = [];
+-            if (args && args.after) {
+-                var index = prefix.findIndex(function (edge) { return edge.cursor === args.after; });
++            if ((args && args.after) || (args && args.page && args.page.after)) {
++                var after = (args && args.after) ? args.after : args.page.after;
++                var index = prefix.findIndex(function (edge) { return edge.cursor === after; });
+                 if (index >= 0) {
+                     prefix = prefix.slice(0, index + 1);
+                 }
+             }
+-            else if (args && args.before) {
+-                var index = prefix.findIndex(function (edge) { return edge.cursor === args.before; });
++            else if ((args && args.before) || (args && args.page && args.page.before)) {
++                var before = (args && args.before) ? args.before : args.page.before;
++                var index = prefix.findIndex(function (edge) { return edge.cursor === before; });
+                 suffix = index < 0 ? prefix : prefix.slice(index);
+                 prefix = [];
+             }
