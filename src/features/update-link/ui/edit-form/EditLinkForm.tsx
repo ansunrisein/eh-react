@@ -1,7 +1,8 @@
-import React, {useLayoutEffect, useState} from 'react'
+import React, {useLayoutEffect} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {RiEditFill} from 'react-icons/ri'
 import {Button, Divider, Input, Loader} from 'rsuite'
+import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Permission} from '@eh/shared/api'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -20,16 +21,18 @@ export type EditLinkFormFields = {
 }
 
 export const EditLinkForm: React.FC<EditLinkFormProps> = ({linkId, onEdit}) => {
-  const {control, handleSubmit, reset, formState, watch} = useForm({mode: 'onChange'})
+  const {control, handleSubmit, reset, formState, watch} = useForm<EditLinkFormFields>({
+    mode: 'onChange',
+  })
 
-  const [isNameEditingActive, setIsNameEditingActive] = useState(false)
+  const [isNameEditingActive, openNameEditing, closeNameEditing] = useBooleanState(false)
 
   const {boardLink, loading} = useBoardLink(linkId)
   const [editBoardLinkState, editBoardLink] = useEditBoardLink()
 
   const edit = async (link: EditLinkFormFields) => {
     await editBoardLink({_id: linkId, ...link})
-    setIsNameEditingActive(false)
+    closeNameEditing()
     onEdit?.()
   }
 
@@ -45,21 +48,16 @@ export const EditLinkForm: React.FC<EditLinkFormProps> = ({linkId, onEdit}) => {
     <form onSubmit={handleSubmit(edit)}>
       <Flex alignItems="center" gap="10px" className={isNameEditingActive ? S.title : S.name}>
         {isNameEditingActive ? <h5>Name</h5> : <h4>{name}</h4>}
-        {!isNameEditingActive && (
-          <Icon as={RiEditFill} onClick={() => setIsNameEditingActive(true)} />
-        )}
+        {!isNameEditingActive && <Icon as={RiEditFill} onClick={openNameEditing} />}
       </Flex>
 
       {isNameEditingActive && (
-        <>
-          <Controller
-            control={control}
-            name="name"
-            defaultValue=""
-            render={({field}) => <Input {...field} />}
-          />
-          <Button onClick={() => setIsNameEditingActive(false)}>\/</Button>
-        </>
+        <Controller
+          control={control}
+          name="name"
+          defaultValue=""
+          render={({field}) => <Input {...field} />}
+        />
       )}
 
       {isNameEditingActive && <Divider />}
