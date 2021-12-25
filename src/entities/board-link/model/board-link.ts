@@ -11,7 +11,7 @@ import {
   RemoveBoardLinkDocument,
   RemoveBoardLinkMutation,
   RemoveBoardLinkMutationVariables,
-} from './operations'
+} from '../api'
 
 export type BoardLinkEntity = ReturnType<typeof createBoardLinkEntity>
 

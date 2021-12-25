@@ -1,4 +1,4 @@
-import {useDashboardQuery} from './operations'
+import {useDashboardQuery} from '../api'
 
 export const useBoards = () => {
   const {data, loading} = useDashboardQuery()

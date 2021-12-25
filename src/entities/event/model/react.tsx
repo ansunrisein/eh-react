@@ -1,8 +1,8 @@
 import React, {createContext, useContext} from 'react'
 import {useAsyncFn} from 'react-use'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
+import {useEventQuery} from '../api'
 import {EventEntity} from './event'
-import {useEventQuery} from './operations'
 
 export const EventEntityContext = createContext<EventEntity>(
   new Proxy({} as EventEntity, {

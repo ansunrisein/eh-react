@@ -1,5 +1,0 @@
-query Dashboard {
-  dashboard {
-    ...Board
-  }
-}

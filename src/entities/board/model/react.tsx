@@ -2,8 +2,8 @@ import React, {createContext, useContext, useMemo} from 'react'
 import {useAsyncFn} from 'react-use'
 import {BoardFragment, Permission} from '@eh/shared/api'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
+import {useBoardQuery} from '../api'
 import {BoardEntity} from './board'
-import {useBoardQuery} from './operations'
 
 export const BoardEntityContext = createContext<BoardEntity>(
   new Proxy({} as BoardEntity, {

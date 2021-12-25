@@ -11,7 +11,7 @@ import {
   RemoveBoardDocument,
   RemoveBoardMutation,
   RemoveBoardMutationVariables,
-} from './operations'
+} from '../api'
 
 export type BoardEntity = ReturnType<typeof createBoardEntity>
 

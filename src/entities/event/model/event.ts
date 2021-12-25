@@ -11,7 +11,7 @@ import {
   RemoveEventDocument,
   RemoveEventMutation,
   RemoveEventMutationVariables,
-} from './operations'
+} from '../api'
 
 export type EventEntity = ReturnType<typeof createEventEntity>
 

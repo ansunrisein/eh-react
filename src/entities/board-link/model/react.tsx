@@ -1,8 +1,8 @@
 import React, {createContext, useContext} from 'react'
 import {useAsyncFn} from 'react-use'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
+import {useBoardLinkQuery, useBoardLinksQuery, usePermissionsQuery} from '../api'
 import {BoardLinkEntity} from './board-link'
-import {useBoardLinkQuery, useBoardLinksQuery, usePermissionsQuery} from './operations'
 
 export const BoardLinkEntityContext = createContext<BoardLinkEntity>(
   new Proxy({} as BoardLinkEntity, {

@@ -1,0 +1,23 @@
+query Board($id: ID!) {
+    board(boardId: $id) {
+        ...Board
+    }
+}
+
+mutation CreateBoard($title: String!, $isPrivate: Boolean!) {
+    createBoard(board: {title: $title, isPrivate: $isPrivate}) {
+        ...Board
+    }
+}
+
+mutation EditBoard($id: ID!, $title: String!, $isPrivate: Boolean!) {
+    updateBoard(board: {_id: $id, title: $title, isPrivate: $isPrivate}) {
+        ...Board
+    }
+}
+
+mutation RemoveBoard($id: ID!) {
+    removeBoard(boardId: $id) {
+        ...Board
+    }
+}
