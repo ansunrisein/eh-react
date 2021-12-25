@@ -1,5 +1,5 @@
 /* eslint-disable */
-import * as Types from '../../../shared/api/types'
+import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
 import {BoardFragmentDoc} from '../../../shared/api/fragments'

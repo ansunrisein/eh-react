@@ -43,7 +43,7 @@
         "src/": {
           "preset": "near-operation-file",
           "presetConfig": {
-            "baseTypesPath": "shared/api/types.ts",
+            "baseTypesPath": "~@eh/shared/api",
             "extension": ".ts"
           },
           "plugins": [

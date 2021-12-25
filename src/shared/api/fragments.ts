@@ -1,5 +1,5 @@
 /* eslint-disable */
-import * as Types from './types'
+import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
 export type EventFragment = {
