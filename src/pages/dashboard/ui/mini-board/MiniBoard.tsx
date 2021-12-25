@@ -1,14 +1,14 @@
 import React from 'react'
 import {useMedia} from 'react-use'
 import {Panel, PanelProps} from 'rsuite'
-import {BoardFragment} from '@eh/shared/api'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {EventCard} from '@eh/entities/event'
+import {BoardWithEventsFragment} from '../../api'
 import S from './MiniBoard.module.scss'
 
 export type MiniBoardProps = {
-  board: BoardFragment
+  board: BoardWithEventsFragment
 } & PanelProps
 
 export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {

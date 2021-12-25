@@ -127,6 +127,14 @@ export type MutationUpdateEventArgs = {
   event: UpdateEvent
 }
 
+export type PageInfo = {
+  __typename?: 'PageInfo'
+  endCursor?: Maybe<Scalars['ID']>
+  hasNextPage: Scalars['Boolean']
+  hasPreviousPage: Scalars['Boolean']
+  startCursor?: Maybe<Scalars['ID']>
+}
+
 export enum Permission {
   CREATE_BOARD_LINK = 'CREATE_BOARD_LINK',
   CREATE_EVENT = 'CREATE_EVENT',
@@ -288,6 +296,19 @@ export type MutationFieldPolicy = {
   updateBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   updateEvent?: FieldPolicy<any> | FieldReadFunction<any>
 }
+export type PageInfoKeySpecifier = (
+  | 'endCursor'
+  | 'hasNextPage'
+  | 'hasPreviousPage'
+  | 'startCursor'
+  | PageInfoKeySpecifier
+)[]
+export type PageInfoFieldPolicy = {
+  endCursor?: FieldPolicy<any> | FieldReadFunction<any>
+  hasNextPage?: FieldPolicy<any> | FieldReadFunction<any>
+  hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>
+  startCursor?: FieldPolicy<any> | FieldReadFunction<any>
+}
 export type PermissionDescriptorKeySpecifier = (
   | 'name'
   | 'value'
@@ -350,6 +371,10 @@ export type StrictTypedTypePolicies = {
   Mutation?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier)
     fields?: MutationFieldPolicy
+  }
+  PageInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier)
+    fields?: PageInfoFieldPolicy
   }
   PermissionDescriptor?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:

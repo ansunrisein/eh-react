@@ -1,3 +1,7 @@
+fragment Me on User {
+    _id
+}
+
 query Me {
     me {
         ...Me

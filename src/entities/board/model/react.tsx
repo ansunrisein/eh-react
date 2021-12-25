@@ -1,6 +1,6 @@
 import React, {createContext, useContext, useMemo} from 'react'
 import {useAsyncFn} from 'react-use'
-import {BoardFragment, Permission} from '@eh/shared/api'
+import {Board, Permission} from '@eh/shared/api'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
 import {useBoardQuery} from '../api'
 import {BoardEntity} from './board'
@@ -42,9 +42,7 @@ export const useBoard = (id: string) => {
   }
 }
 
-export const usePermissions = ({
-  permissions = [],
-}: Partial<Pick<BoardFragment, 'permissions'>> = {}) =>
+export const usePermissions = ({permissions = []}: Partial<Pick<Board, 'permissions'>> = {}) =>
   useMemo(
     () => ({
       canCreateEvent: permissions.includes(Permission.CREATE_EVENT),

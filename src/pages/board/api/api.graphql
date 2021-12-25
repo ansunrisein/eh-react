@@ -5,8 +5,8 @@ fragment BoardWithEvents on Board {
     }
 }
 
-query Dashboard {
-    dashboard {
+query FullBoard($id: ID!) {
+    board(boardId: $id) {
         ...BoardWithEvents
     }
 }

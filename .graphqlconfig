@@ -54,7 +54,13 @@
             },
             "typescript-operations",
             "typescript-react-apollo"
-          ]
+          ],
+          "config": {
+            "maybeValue": "T | null",
+            "namingConvention": {
+              "enumValues": "keep"
+            }
+          }
         }
       }
     },

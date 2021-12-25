@@ -2,9 +2,18 @@
 import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
-import {BoardFragmentDoc} from '../../../shared/api/fragments'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
+export type BoardFragment = {
+  __typename?: 'Board'
+  _id: string
+  title: string
+  isPrivate: boolean
+  permissions: Array<Types.Permission>
+  user: {__typename?: 'User'; _id: string}
+  sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+}
+
 export type BoardQueryVariables = Types.Exact<{
   id: Types.Scalars['ID']
 }>
@@ -17,12 +26,6 @@ export type BoardQuery = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
-    events: Array<{
-      __typename?: 'Event'
-      _id: string
-      title?: string | null | undefined
-      content: string
-    }>
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -41,12 +44,6 @@ export type CreateBoardMutation = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
-    events: Array<{
-      __typename?: 'Event'
-      _id: string
-      title?: string | null | undefined
-      content: string
-    }>
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -66,12 +63,6 @@ export type EditBoardMutation = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
-    events: Array<{
-      __typename?: 'Event'
-      _id: string
-      title?: string | null | undefined
-      content: string
-    }>
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -89,17 +80,25 @@ export type RemoveBoardMutation = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
-    events: Array<{
-      __typename?: 'Event'
-      _id: string
-      title?: string | null | undefined
-      content: string
-    }>
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
 }
 
+export const BoardFragmentDoc = gql`
+  fragment Board on Board {
+    _id
+    title
+    isPrivate
+    user {
+      _id
+    }
+    sub {
+      _id
+    }
+    permissions
+  }
+`
 export const BoardDocument = gql`
   query Board($id: ID!) {
     board(boardId: $id) {

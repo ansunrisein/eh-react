@@ -1,7 +1,7 @@
 import {Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
-import {BoardFragmentDoc} from '@eh/shared/api'
 import {
+  BoardFragmentDoc,
   CreateBoardDocument,
   CreateBoardMutation,
   CreateBoardMutationVariables,

@@ -2,9 +2,15 @@
 import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
-import {EventFragmentDoc} from '../../../shared/api/fragments'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
+export type EventFragment = {
+  __typename?: 'Event'
+  _id: string
+  title?: string | null | undefined
+  content: string
+}
+
 export type EventQueryVariables = Types.Exact<{
   id: Types.Scalars['ID']
 }>
@@ -57,6 +63,13 @@ export type RemoveEventMutation = {
     | undefined
 }
 
+export const EventFragmentDoc = gql`
+  fragment Event on Event {
+    _id
+    title
+    content
+  }
+`
 export const EventDocument = gql`
   query Event($id: ID!) {
     event(eventId: $id) {

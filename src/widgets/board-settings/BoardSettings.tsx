@@ -1,7 +1,6 @@
 import React from 'react'
 import {Button, Divider, Loader} from 'rsuite'
-import {BoardFragment} from '@eh/shared/api'
-import {useBoard, usePermissions, useRemoveBoard} from '@eh/entities/board'
+import {BoardFragment, useBoard, usePermissions, useRemoveBoard} from '@eh/entities/board'
 import {EditBoardForm} from '@eh/features/update-board'
 import {BoardLinks} from './ui'
 import S from './BoardSettings.module.scss'

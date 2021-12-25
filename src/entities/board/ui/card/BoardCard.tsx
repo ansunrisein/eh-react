@@ -1,8 +1,8 @@
 import React from 'react'
 import cx from 'classnames'
 import {Panel, PanelProps, Tag} from 'rsuite'
-import {BoardFragment} from '@eh/shared/api'
 import {Link} from '@eh/shared/lib/router'
+import {BoardFragment} from '../../api'
 import S from './BoardCard.module.scss'
 
 export type BoardCardProps = {
@@ -10,7 +10,8 @@ export type BoardCardProps = {
 } & PanelProps
 
 export const BoardCard: React.FC<BoardCardProps> = ({board, className, ...props}) => {
-  const eventsCount = board.events.length
+  // TODO: add `totalEvents` field to board entity
+  const eventsCount = 15
 
   return (
     <Panel className={cx(S.height, className)} bordered shaded bodyFill {...props}>

@@ -1,4 +1,4 @@
-import {BoardFragment} from '@eh/shared/api'
+import {BoardFragment} from '../api'
 
 export const isBoardOwner = (
   ownerId: string | null | undefined,

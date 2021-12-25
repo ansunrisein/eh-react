@@ -1,6 +1,6 @@
 import {Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
-import {BoardFragment, EventFragmentDoc} from '@eh/shared/api'
+import {Board} from '@eh/shared/api'
 import {
   CreateEventDocument,
   CreateEventMutation,
@@ -8,6 +8,7 @@ import {
   EditEventDocument,
   EditEventMutation,
   EditEventMutationVariables,
+  EventFragmentDoc,
   RemoveEventDocument,
   RemoveEventMutation,
   RemoveEventMutationVariables,
@@ -29,7 +30,7 @@ export const createEventEntity = ({domain, apollo}: EventEntityDeps) => {
         update: (cache, {data}) => {
           cache.modify({
             id: cache.identify({__typename: 'Board', _id: variables.boardId} as Pick<
-              BoardFragment,
+              Board,
               '__typename' | '_id'
             >),
             fields: {

@@ -2,9 +2,10 @@
 import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
-import {MeFragmentDoc} from '../../../shared/api/fragments'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
+export type MeFragment = {__typename?: 'User'; _id: string}
+
 export type MeQueryVariables = Types.Exact<{[key: string]: never}>
 
 export type MeQuery = {
@@ -12,6 +13,11 @@ export type MeQuery = {
   me?: {__typename?: 'User'; _id: string} | null | undefined
 }
 
+export const MeFragmentDoc = gql`
+  fragment Me on User {
+    _id
+  }
+`
 export const MeDocument = gql`
   query Me {
     me {

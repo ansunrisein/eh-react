@@ -1,3 +1,16 @@
+fragment Board on Board {
+    _id
+    title
+    isPrivate
+    user {
+        _id
+    }
+    sub {
+        _id
+    }
+    permissions
+}
+
 query Board($id: ID!) {
     board(boardId: $id) {
         ...Board

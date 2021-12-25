@@ -1,3 +1,10 @@
+fragment BoardLink on BoardLink {
+    _id
+    link
+    name
+    permissions
+}
+
 query Permissions {
     permissions {
         name

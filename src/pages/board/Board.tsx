@@ -5,12 +5,13 @@ import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
-import {useBoard, usePermissions} from '@eh/entities/board'
+import {usePermissions} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
+import {useFullBoard} from './model'
 import S from './Board.module.scss'
 
 export const Board: React.FC = () => {
@@ -21,7 +22,7 @@ export const Board: React.FC = () => {
   const {id = ''} = useParams<'id'>()
   const navigate = useNavigate()
 
-  const {board, loading} = useBoard(id)
+  const {board, loading} = useFullBoard(id)
   const {canCreateEvent, canViewSettings} = usePermissions(board)
 
   useTitle(`Board | ${board?.title || ''}`)

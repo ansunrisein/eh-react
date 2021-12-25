@@ -1,3 +1,9 @@
+fragment Event on Event {
+    _id
+    title
+    content
+}
+
 query Event($id: ID!) {
     event(eventId: $id) {
         ...Event

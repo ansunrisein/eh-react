@@ -2,9 +2,16 @@
 import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
-import {BoardLinkFragmentDoc} from '../../../shared/api/fragments'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
+export type BoardLinkFragment = {
+  __typename?: 'BoardLink'
+  _id: string
+  link: string
+  name: string
+  permissions: Array<Types.Permission>
+}
+
 export type PermissionsQueryVariables = Types.Exact<{[key: string]: never}>
 
 export type PermissionsQuery = {
@@ -102,6 +109,14 @@ export type RemoveBoardLinkMutation = {
   }
 }
 
+export const BoardLinkFragmentDoc = gql`
+  fragment BoardLink on BoardLink {
+    _id
+    link
+    name
+    permissions
+  }
+`
 export const PermissionsDocument = gql`
   query Permissions {
     permissions {

@@ -1,6 +1,5 @@
 import React, {useCallback} from 'react'
-import {EventFragment} from '@eh/shared/api'
-import {useEditEvent} from '@eh/entities/event'
+import {EventFragment, useEditEvent} from '@eh/entities/event'
 import {EventForm, EventFormFields, EventFormProps} from '../form'
 
 export type EditEventFormProps = {

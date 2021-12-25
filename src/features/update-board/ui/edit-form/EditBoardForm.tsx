@@ -2,8 +2,7 @@ import React from 'react'
 import cx from 'classnames'
 import {Controller, useForm} from 'react-hook-form'
 import {Button, Input, Toggle} from 'rsuite'
-import {BoardFragment} from '@eh/shared/api'
-import {useEditBoard, usePermissions} from '@eh/entities/board'
+import {BoardFragment, useEditBoard, usePermissions} from '@eh/entities/board'
 import S from './EditBoardForm.module.scss'
 
 export type EditBoardFormProps = {

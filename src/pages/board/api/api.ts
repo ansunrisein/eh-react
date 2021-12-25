@@ -22,11 +22,13 @@ export type BoardWithEventsFragment = {
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
 }
 
-export type DashboardQueryVariables = Types.Exact<{[key: string]: never}>
+export type FullBoardQueryVariables = Types.Exact<{
+  id: Types.Scalars['ID']
+}>
 
-export type DashboardQuery = {
+export type FullBoardQuery = {
   __typename?: 'Query'
-  dashboard: Array<{
+  board: {
     __typename?: 'Board'
     _id: string
     title: string
@@ -40,7 +42,7 @@ export type DashboardQuery = {
     }>
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
-  }>
+  }
 }
 
 export const BoardWithEventsFragmentDoc = gql`
@@ -53,9 +55,9 @@ export const BoardWithEventsFragmentDoc = gql`
   ${BoardFragmentDoc}
   ${EventFragmentDoc}
 `
-export const DashboardDocument = gql`
-  query Dashboard {
-    dashboard {
+export const FullBoardDocument = gql`
+  query FullBoard($id: ID!) {
+    board(boardId: $id) {
       ...BoardWithEvents
     }
   }
@@ -63,32 +65,33 @@ export const DashboardDocument = gql`
 `
 
 /**
- * __useDashboardQuery__
+ * __useFullBoardQuery__
  *
- * To run a query within a React component, call `useDashboardQuery` and pass it any options that fit your needs.
- * When your component renders, `useDashboardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useFullBoardQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFullBoardQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useDashboardQuery({
+ * const { data, loading, error } = useFullBoardQuery({
  *   variables: {
+ *      id: // value for 'id'
  *   },
  * });
  */
-export function useDashboardQuery(
-  baseOptions?: Apollo.QueryHookOptions<DashboardQuery, DashboardQueryVariables>,
+export function useFullBoardQuery(
+  baseOptions: Apollo.QueryHookOptions<FullBoardQuery, FullBoardQueryVariables>,
 ) {
   const options = {...defaultOptions, ...baseOptions}
-  return Apollo.useQuery<DashboardQuery, DashboardQueryVariables>(DashboardDocument, options)
+  return Apollo.useQuery<FullBoardQuery, FullBoardQueryVariables>(FullBoardDocument, options)
 }
-export function useDashboardLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<DashboardQuery, DashboardQueryVariables>,
+export function useFullBoardLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<FullBoardQuery, FullBoardQueryVariables>,
 ) {
   const options = {...defaultOptions, ...baseOptions}
-  return Apollo.useLazyQuery<DashboardQuery, DashboardQueryVariables>(DashboardDocument, options)
+  return Apollo.useLazyQuery<FullBoardQuery, FullBoardQueryVariables>(FullBoardDocument, options)
 }
-export type DashboardQueryHookResult = ReturnType<typeof useDashboardQuery>
-export type DashboardLazyQueryHookResult = ReturnType<typeof useDashboardLazyQuery>
-export type DashboardQueryResult = Apollo.QueryResult<DashboardQuery, DashboardQueryVariables>
+export type FullBoardQueryHookResult = ReturnType<typeof useFullBoardQuery>
+export type FullBoardLazyQueryHookResult = ReturnType<typeof useFullBoardLazyQuery>
+export type FullBoardQueryResult = Apollo.QueryResult<FullBoardQuery, FullBoardQueryVariables>

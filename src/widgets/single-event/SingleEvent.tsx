@@ -1,9 +1,8 @@
 import React, {useCallback} from 'react'
 import {Loader} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
-import {EventFragment} from '@eh/shared/api'
 import {Empty, Modal} from '@eh/shared/ui'
-import {EventView, useEvent, useRemoveEvent} from '@eh/entities/event'
+import {EventFragment, EventView, useEvent, useRemoveEvent} from '@eh/entities/event'
 import {EditEventForm} from '@eh/features/update-event'
 
 export type SingleEventProps = {

@@ -1,7 +1,6 @@
 import {Domain, forward, hydrate} from 'effector'
 import {ApolloClient} from '@apollo/client'
-import {MeFragment} from '@eh/shared/api'
-import {MeDocument, MeQuery} from '../api'
+import {MeDocument, MeFragment, MeQuery} from '../api'
 
 export type SessionEntity = ReturnType<typeof createSessionEntity>
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import {Panel, PanelProps} from 'rsuite'
-import {EventFragment} from '@eh/shared/api'
+import {EventFragment} from '../../api'
 
 export type EventCardProps = {
   event: EventFragment
