@@ -9,6 +9,7 @@ fragment Board on Board {
         _id
     }
     permissions
+    eventsCount
 }
 
 query Board($id: ID!) {

@@ -15,6 +15,7 @@ export type DashboardNodeFragment = {
   title: string
   isPrivate: boolean
   permissions: Array<Types.Permission>
+  eventsCount: number
   events: {
     __typename?: 'EventConnection'
     pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
@@ -46,6 +47,7 @@ export type DashboardQuery = {
         title: string
         isPrivate: boolean
         permissions: Array<Types.Permission>
+        eventsCount: number
         events: {
           __typename?: 'EventConnection'
           pageInfo: {

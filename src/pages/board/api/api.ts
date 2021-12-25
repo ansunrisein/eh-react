@@ -15,6 +15,7 @@ export type BoardPageFragment = {
   title: string
   isPrivate: boolean
   permissions: Array<Types.Permission>
+  eventsCount: number
   events: {
     __typename?: 'EventConnection'
     pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
@@ -40,6 +41,7 @@ export type BoardPageQuery = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
+    eventsCount: number
     events: {
       __typename?: 'EventConnection'
       pageInfo: {

@@ -21,6 +21,7 @@ export type Board = {
   _id: Scalars['ID']
   boardLinks: BoardLinkConnection
   events: EventConnection
+  eventsCount: Scalars['Float']
   isPrivate: Scalars['Boolean']
   permissions: Array<Permission>
   sub?: Maybe<Sub>
@@ -279,6 +280,7 @@ export type BoardKeySpecifier = (
   | '_id'
   | 'boardLinks'
   | 'events'
+  | 'eventsCount'
   | 'isPrivate'
   | 'permissions'
   | 'sub'
@@ -290,6 +292,7 @@ export type BoardFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
   boardLinks?: FieldPolicy<any> | FieldReadFunction<any>
   events?: FieldPolicy<any> | FieldReadFunction<any>
+  eventsCount?: FieldPolicy<any> | FieldReadFunction<any>
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   sub?: FieldPolicy<any> | FieldReadFunction<any>

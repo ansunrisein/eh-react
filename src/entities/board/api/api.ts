@@ -13,6 +13,7 @@ export type BoardFragment = {
   title: string
   isPrivate: boolean
   permissions: Array<Types.Permission>
+  eventsCount: number
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
 }
@@ -29,6 +30,7 @@ export type BoardQuery = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
+    eventsCount: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -47,6 +49,7 @@ export type CreateBoardMutation = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
+    eventsCount: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -66,6 +69,7 @@ export type EditBoardMutation = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
+    eventsCount: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -83,6 +87,7 @@ export type RemoveBoardMutation = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
+    eventsCount: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -100,6 +105,7 @@ export const BoardFragmentDoc = gql`
       _id
     }
     permissions
+    eventsCount
   }
 `
 export const BoardDocument = gql`
