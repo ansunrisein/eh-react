@@ -6,27 +6,30 @@ import {BoardFragmentDoc} from '../../../entities/board/api/api'
 import {EventFragmentDoc} from '../../../entities/event/api/api'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
-export type BoardWithEventsFragment = {
+export type BoardPageFragment = {
   __typename?: 'Board'
   _id: string
   title: string
   isPrivate: boolean
   permissions: Array<Types.Permission>
-  events: Array<{
-    __typename?: 'Event'
-    _id: string
-    title?: string | null | undefined
-    content: string
-  }>
+  events: {
+    __typename?: 'EventConnection'
+    pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
+    edges: Array<{
+      __typename?: 'EventEdge'
+      node: {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+    }>
+  }
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
 }
 
-export type FullBoardQueryVariables = Types.Exact<{
+export type BoardPageQueryVariables = Types.Exact<{
   id: Types.Scalars['ID']
+  eventsPage: Types.Page
 }>
 
-export type FullBoardQuery = {
+export type BoardPageQuery = {
   __typename?: 'Query'
   board: {
     __typename?: 'Board'
@@ -34,64 +37,84 @@ export type FullBoardQuery = {
     title: string
     isPrivate: boolean
     permissions: Array<Types.Permission>
-    events: Array<{
-      __typename?: 'Event'
-      _id: string
-      title?: string | null | undefined
-      content: string
-    }>
+    events: {
+      __typename?: 'EventConnection'
+      pageInfo: {
+        __typename?: 'PageInfo'
+        hasNextPage: boolean
+        endCursor?: string | null | undefined
+      }
+      edges: Array<{
+        __typename?: 'EventEdge'
+        node: {
+          __typename?: 'Event'
+          _id: string
+          title?: string | null | undefined
+          content: string
+        }
+      }>
+    }
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
 }
 
-export const BoardWithEventsFragmentDoc = gql`
-  fragment BoardWithEvents on Board {
+export const BoardPageFragmentDoc = gql`
+  fragment BoardPage on Board {
     ...Board
-    events {
-      ...Event
+    events(page: $eventsPage) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          ...Event
+        }
+      }
     }
   }
   ${BoardFragmentDoc}
   ${EventFragmentDoc}
 `
-export const FullBoardDocument = gql`
-  query FullBoard($id: ID!) {
+export const BoardPageDocument = gql`
+  query BoardPage($id: ID!, $eventsPage: Page!) {
     board(boardId: $id) {
-      ...BoardWithEvents
+      ...BoardPage
     }
   }
-  ${BoardWithEventsFragmentDoc}
+  ${BoardPageFragmentDoc}
 `
 
 /**
- * __useFullBoardQuery__
+ * __useBoardPageQuery__
  *
- * To run a query within a React component, call `useFullBoardQuery` and pass it any options that fit your needs.
- * When your component renders, `useFullBoardQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useBoardPageQuery` and pass it any options that fit your needs.
+ * When your component renders, `useBoardPageQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useFullBoardQuery({
+ * const { data, loading, error } = useBoardPageQuery({
  *   variables: {
  *      id: // value for 'id'
+ *      eventsPage: // value for 'eventsPage'
  *   },
  * });
  */
-export function useFullBoardQuery(
-  baseOptions: Apollo.QueryHookOptions<FullBoardQuery, FullBoardQueryVariables>,
+export function useBoardPageQuery(
+  baseOptions: Apollo.QueryHookOptions<BoardPageQuery, BoardPageQueryVariables>,
 ) {
   const options = {...defaultOptions, ...baseOptions}
-  return Apollo.useQuery<FullBoardQuery, FullBoardQueryVariables>(FullBoardDocument, options)
+  return Apollo.useQuery<BoardPageQuery, BoardPageQueryVariables>(BoardPageDocument, options)
 }
-export function useFullBoardLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<FullBoardQuery, FullBoardQueryVariables>,
+export function useBoardPageLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<BoardPageQuery, BoardPageQueryVariables>,
 ) {
   const options = {...defaultOptions, ...baseOptions}
-  return Apollo.useLazyQuery<FullBoardQuery, FullBoardQueryVariables>(FullBoardDocument, options)
+  return Apollo.useLazyQuery<BoardPageQuery, BoardPageQueryVariables>(BoardPageDocument, options)
 }
-export type FullBoardQueryHookResult = ReturnType<typeof useFullBoardQuery>
-export type FullBoardLazyQueryHookResult = ReturnType<typeof useFullBoardLazyQuery>
-export type FullBoardQueryResult = Apollo.QueryResult<FullBoardQuery, FullBoardQueryVariables>
+export type BoardPageQueryHookResult = ReturnType<typeof useBoardPageQuery>
+export type BoardPageLazyQueryHookResult = ReturnType<typeof useBoardPageLazyQuery>
+export type BoardPageQueryResult = Apollo.QueryResult<BoardPageQuery, BoardPageQueryVariables>

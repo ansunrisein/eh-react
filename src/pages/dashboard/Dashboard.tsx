@@ -59,7 +59,7 @@ export const Dashboard: React.FC = () => {
           </Whisper>
         </Flex>
 
-        {!boards?.length ? (
+        {!boards?.edges.length ? (
           <Empty>
             {isAuthenticated ? (
               <>
@@ -82,14 +82,14 @@ export const Dashboard: React.FC = () => {
           </Empty>
         ) : display === 'grid' ? (
           <div className={S.boards}>
-            {boards.map(board => (
-              <MiniBoard key={board._id} board={board} className={S.shrink} />
+            {boards.edges.map(e => (
+              <MiniBoard key={e.node._id} board={e.node} className={S.shrink} />
             ))}
           </div>
         ) : (
           <div className={S.grid}>
-            {boards.map(board => (
-              <BoardCard key={board._id} board={board} />
+            {boards.edges.map(e => (
+              <BoardCard key={e.node._id} board={e.node} />
             ))}
           </div>
         )}

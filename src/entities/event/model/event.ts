@@ -1,6 +1,6 @@
 import {Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
-import {Board} from '@eh/shared/api'
+import {Board, ConnectionRef, createEmptyConnection, EventConnection} from '@eh/shared/api'
 import {
   CreateEventDocument,
   CreateEventMutation,
@@ -34,16 +34,23 @@ export const createEventEntity = ({domain, apollo}: EventEntityDeps) => {
               '__typename' | '_id'
             >),
             fields: {
-              events: (events: unknown[] = []): unknown[] =>
+              events: (
+                prevEvents: ConnectionRef<EventConnection> = createEmptyConnection('Event'),
+              ): ConnectionRef<EventConnection> =>
                 data?.createEvent
-                  ? events.concat(
-                      cache.writeFragment({
-                        id: `${data.createEvent.__typename}:${data.createEvent._id}`,
-                        data: data.createEvent,
-                        fragment: EventFragmentDoc,
+                  ? {
+                      ...prevEvents,
+                      edges: prevEvents.edges.concat({
+                        __typename: 'EventEdge',
+                        cursor: data.createEvent._id,
+                        node: cache.writeFragment({
+                          id: `${data.createEvent.__typename}:${data.createEvent._id}`,
+                          data: data.createEvent,
+                          fragment: EventFragmentDoc,
+                        }),
                       }),
-                    )
-                  : events,
+                    }
+                  : prevEvents,
             },
           })
         },

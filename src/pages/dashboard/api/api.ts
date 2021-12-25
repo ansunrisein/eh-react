@@ -6,60 +6,102 @@ import {BoardFragmentDoc} from '../../../entities/board/api/api'
 import {EventFragmentDoc} from '../../../entities/event/api/api'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
-export type BoardWithEventsFragment = {
+export type DashboardNodeFragment = {
   __typename?: 'Board'
   _id: string
   title: string
   isPrivate: boolean
   permissions: Array<Types.Permission>
-  events: Array<{
-    __typename?: 'Event'
-    _id: string
-    title?: string | null | undefined
-    content: string
-  }>
+  events: {
+    __typename?: 'EventConnection'
+    pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
+    edges: Array<{
+      __typename?: 'EventEdge'
+      cursor: string
+      node: {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+    }>
+  }
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
 }
 
-export type DashboardQueryVariables = Types.Exact<{[key: string]: never}>
+export type DashboardQueryVariables = Types.Exact<{
+  page: Types.Page
+  eventsPage: Types.Page
+}>
 
 export type DashboardQuery = {
   __typename?: 'Query'
-  dashboard: Array<{
-    __typename?: 'Board'
-    _id: string
-    title: string
-    isPrivate: boolean
-    permissions: Array<Types.Permission>
-    events: Array<{
-      __typename?: 'Event'
-      _id: string
-      title?: string | null | undefined
-      content: string
+  dashboard: {
+    __typename?: 'BoardConnection'
+    pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
+    edges: Array<{
+      __typename?: 'BoardEdge'
+      node: {
+        __typename?: 'Board'
+        _id: string
+        title: string
+        isPrivate: boolean
+        permissions: Array<Types.Permission>
+        events: {
+          __typename?: 'EventConnection'
+          pageInfo: {
+            __typename?: 'PageInfo'
+            hasNextPage: boolean
+            endCursor?: string | null | undefined
+          }
+          edges: Array<{
+            __typename?: 'EventEdge'
+            cursor: string
+            node: {
+              __typename?: 'Event'
+              _id: string
+              title?: string | null | undefined
+              content: string
+            }
+          }>
+        }
+        user: {__typename?: 'User'; _id: string}
+        sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+      }
     }>
-    user: {__typename?: 'User'; _id: string}
-    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
-  }>
+  }
 }
 
-export const BoardWithEventsFragmentDoc = gql`
-  fragment BoardWithEvents on Board {
+export const DashboardNodeFragmentDoc = gql`
+  fragment DashboardNode on Board {
     ...Board
-    events {
-      ...Event
+    events(page: $eventsPage) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        cursor
+        node {
+          ...Event
+        }
+      }
     }
   }
   ${BoardFragmentDoc}
   ${EventFragmentDoc}
 `
 export const DashboardDocument = gql`
-  query Dashboard {
-    dashboard {
-      ...BoardWithEvents
+  query Dashboard($page: Page!, $eventsPage: Page!) {
+    dashboard(page: $page) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          ...DashboardNode
+        }
+      }
     }
   }
-  ${BoardWithEventsFragmentDoc}
+  ${DashboardNodeFragmentDoc}
 `
 
 /**
@@ -74,11 +116,13 @@ export const DashboardDocument = gql`
  * @example
  * const { data, loading, error } = useDashboardQuery({
  *   variables: {
+ *      page: // value for 'page'
+ *      eventsPage: // value for 'eventsPage'
  *   },
  * });
  */
 export function useDashboardQuery(
-  baseOptions?: Apollo.QueryHookOptions<DashboardQuery, DashboardQueryVariables>,
+  baseOptions: Apollo.QueryHookOptions<DashboardQuery, DashboardQueryVariables>,
 ) {
   const options = {...defaultOptions, ...baseOptions}
   return Apollo.useQuery<DashboardQuery, DashboardQueryVariables>(DashboardDocument, options)

@@ -1,6 +1,8 @@
 import {parse} from 'query-string'
 import {ApolloClient, concat, HttpLink, InMemoryCache} from '@apollo/client'
 import {setContext} from '@apollo/client/link/context'
+import {relayStylePagination} from '@apollo/client/utilities'
+import {TypedTypePolicies} from '@eh/shared/api'
 import {history} from './history'
 import {sessionEntity} from './store'
 
@@ -22,7 +24,21 @@ const httpLink = new HttpLink({
 
 export const apollo = new ApolloClient({
   link: concat(authLink, httpLink),
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          dashboard: relayStylePagination(),
+        },
+      },
+      Board: {
+        fields: {
+          events: relayStylePagination(),
+          boardLinks: relayStylePagination(),
+        },
+      },
+    } as TypedTypePolicies,
+  }),
   defaultOptions: {
     query: {
       errorPolicy: 'all',

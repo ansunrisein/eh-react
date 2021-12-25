@@ -1,12 +1,20 @@
-fragment BoardWithEvents on Board {
+fragment BoardPage on Board {
     ...Board
-    events {
-        ...Event
+    events(page: $eventsPage) {
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+        edges {
+            node {
+                ...Event
+            }
+        }
     }
 }
 
-query FullBoard($id: ID!) {
+query BoardPage($id: ID!, $eventsPage: Page!) {
     board(boardId: $id) {
-        ...BoardWithEvents
+        ...BoardPage
     }
 }

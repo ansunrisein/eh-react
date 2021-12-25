@@ -1,5 +1,6 @@
 import {Domain} from 'effector'
-import {ApolloClient} from '@apollo/client'
+import {ApolloClient, gql} from '@apollo/client'
+import {BoardConnection, ConnectionRef, createEmptyConnection} from '@eh/shared/api'
 import {
   BoardFragmentDoc,
   CreateBoardDocument,
@@ -29,17 +30,52 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
         update: (cache, {data}) => {
           cache.modify({
             fields: {
-              dashboard: (boards: unknown[] = []): unknown[] =>
+              dashboard: (
+                prevBoards: ConnectionRef<BoardConnection> = createEmptyConnection('Board'),
+              ): ConnectionRef<BoardConnection> =>
                 data?.createBoard
-                  ? boards.concat(
-                      cache.writeFragment({
-                        id: `${data.createBoard.__typename}:${data.createBoard._id}`,
-                        data: data.createBoard,
-                        fragment: BoardFragmentDoc,
-                        fragmentName: 'Board',
+                  ? {
+                      ...prevBoards,
+                      pageInfo: {
+                        ...prevBoards.pageInfo,
+                        endCursor: data.createBoard._id,
+                      },
+                      edges: prevBoards.edges.concat({
+                        __typename: 'BoardEdge',
+                        cursor: data.createBoard._id,
+                        node: cache.writeFragment({
+                          id: `${data.createBoard.__typename}:${data.createBoard._id}`,
+                          data: {
+                            ...data.createBoard,
+                            events: createEmptyConnection('Event'),
+                          },
+                          fragment: gql`
+                            fragment BoardWithEmptyEvents on Board {
+                              ...Board
+                              events(page: {first: 0}) {
+                                pageInfo {
+                                  __typename
+                                  endCursor
+                                  hasNextPage
+                                  hasPreviousPage
+                                  startCursor
+                                }
+                                edges {
+                                  cursor
+                                  node {
+                                    __typename
+                                    _id
+                                  }
+                                }
+                              }
+                            }
+                            ${BoardFragmentDoc}
+                          `,
+                          fragmentName: 'BoardWithEvents',
+                        }),
                       }),
-                    )
-                  : boards,
+                    }
+                  : prevBoards,
             },
           })
         },

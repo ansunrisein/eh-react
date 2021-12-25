@@ -43,6 +43,7 @@ export type BoardLinkQuery = {
 
 export type BoardLinksQueryVariables = Types.Exact<{
   boardId: Types.Scalars['ID']
+  page: Types.Page
 }>
 
 export type BoardLinksQuery = {
@@ -50,13 +51,24 @@ export type BoardLinksQuery = {
   board: {
     __typename?: 'Board'
     _id: string
-    boardLinks: Array<{
-      __typename?: 'BoardLink'
-      _id: string
-      link: string
-      name: string
-      permissions: Array<Types.Permission>
-    }>
+    boardLinks: {
+      __typename?: 'BoardLinkConnection'
+      pageInfo: {
+        __typename?: 'PageInfo'
+        hasNextPage: boolean
+        endCursor?: string | null | undefined
+      }
+      edges: Array<{
+        __typename?: 'BoardLinkEdge'
+        node: {
+          __typename?: 'BoardLink'
+          _id: string
+          link: string
+          name: string
+          permissions: Array<Types.Permission>
+        }
+      }>
+    }
   }
 }
 
@@ -203,11 +215,19 @@ export type BoardLinkQueryHookResult = ReturnType<typeof useBoardLinkQuery>
 export type BoardLinkLazyQueryHookResult = ReturnType<typeof useBoardLinkLazyQuery>
 export type BoardLinkQueryResult = Apollo.QueryResult<BoardLinkQuery, BoardLinkQueryVariables>
 export const BoardLinksDocument = gql`
-  query BoardLinks($boardId: ID!) {
+  query BoardLinks($boardId: ID!, $page: Page!) {
     board(boardId: $boardId) {
       _id
-      boardLinks {
-        ...BoardLink
+      boardLinks(page: $page) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          node {
+            ...BoardLink
+          }
+        }
       }
     }
   }
@@ -227,6 +247,7 @@ export const BoardLinksDocument = gql`
  * const { data, loading, error } = useBoardLinksQuery({
  *   variables: {
  *      boardId: // value for 'boardId'
+ *      page: // value for 'page'
  *   },
  * });
  */

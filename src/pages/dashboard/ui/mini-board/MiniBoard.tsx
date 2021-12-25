@@ -4,11 +4,11 @@ import {Panel, PanelProps} from 'rsuite'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {EventCard} from '@eh/entities/event'
-import {BoardWithEventsFragment} from '../../api'
+import {DashboardNodeFragment} from '../../api'
 import S from './MiniBoard.module.scss'
 
 export type MiniBoardProps = {
-  board: BoardWithEventsFragment
+  board: DashboardNodeFragment
 } & PanelProps
 
 export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
@@ -21,10 +21,10 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
       </Link>
 
       <Swiper withNavigation={isTablet} breakpoints={swiperBreakpoints}>
-        {board.events.length ? (
-          board.events.map(e => (
-            <Swiper.Slide key={e._id}>
-              <EventCard event={e} />
+        {board.events.edges.length ? (
+          board.events.edges.map(e => (
+            <Swiper.Slide key={e.node._id}>
+              <EventCard event={e.node} />
             </Swiper.Slide>
           ))
         ) : (

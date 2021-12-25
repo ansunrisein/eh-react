@@ -16,13 +16,33 @@ export type Scalars = {
 export type Board = {
   __typename?: 'Board'
   _id: Scalars['ID']
-  boardLinks: Array<BoardLink>
-  events: Array<Event>
+  boardLinks: BoardLinkConnection
+  events: EventConnection
   isPrivate: Scalars['Boolean']
   permissions: Array<Permission>
   sub?: Maybe<Sub>
   title: Scalars['String']
   user: User
+}
+
+export type BoardBoardLinksArgs = {
+  page: Page
+}
+
+export type BoardEventsArgs = {
+  page: Page
+}
+
+export type BoardConnection = {
+  __typename?: 'BoardConnection'
+  edges: Array<BoardEdge>
+  pageInfo: PageInfo
+}
+
+export type BoardEdge = {
+  __typename?: 'BoardEdge'
+  cursor: Scalars['ID']
+  node: Board
 }
 
 export type BoardLink = {
@@ -32,6 +52,18 @@ export type BoardLink = {
   link: Scalars['String']
   name: Scalars['String']
   permissions: Array<Permission>
+}
+
+export type BoardLinkConnection = {
+  __typename?: 'BoardLinkConnection'
+  edges: Array<BoardLinkEdge>
+  pageInfo: PageInfo
+}
+
+export type BoardLinkEdge = {
+  __typename?: 'BoardLinkEdge'
+  cursor: Scalars['ID']
+  node: BoardLink
 }
 
 export type CreateBoard = {
@@ -66,6 +98,18 @@ export type Event = {
   _id: Scalars['ID']
   content: Scalars['String']
   title?: Maybe<Scalars['String']>
+}
+
+export type EventConnection = {
+  __typename?: 'EventConnection'
+  edges: Array<EventEdge>
+  pageInfo: PageInfo
+}
+
+export type EventEdge = {
+  __typename?: 'EventEdge'
+  cursor: Scalars['ID']
+  node: Event
 }
 
 export type Mutation = {
@@ -127,6 +171,11 @@ export type MutationUpdateEventArgs = {
   event: UpdateEvent
 }
 
+export type Page = {
+  after?: Maybe<Scalars['ID']>
+  first: Scalars['Int']
+}
+
 export type PageInfo = {
   __typename?: 'PageInfo'
   endCursor?: Maybe<Scalars['ID']>
@@ -160,8 +209,8 @@ export type Query = {
   __typename?: 'Query'
   board: Board
   boardLink?: Maybe<BoardLink>
-  boardLinks: Array<BoardLink>
-  dashboard: Array<Board>
+  boardLinks: BoardLinkConnection
+  dashboard: BoardConnection
   event?: Maybe<Event>
   me?: Maybe<User>
   permissions: Array<EntityPermissions>
@@ -177,6 +226,11 @@ export type QueryBoardLinkArgs = {
 
 export type QueryBoardLinksArgs = {
   boardId: Scalars['ID']
+  page: Page
+}
+
+export type QueryDashboardArgs = {
+  page: Page
 }
 
 export type QueryEventArgs = {
@@ -239,6 +293,16 @@ export type BoardFieldPolicy = {
   title?: FieldPolicy<any> | FieldReadFunction<any>
   user?: FieldPolicy<any> | FieldReadFunction<any>
 }
+export type BoardConnectionKeySpecifier = ('edges' | 'pageInfo' | BoardConnectionKeySpecifier)[]
+export type BoardConnectionFieldPolicy = {
+  edges?: FieldPolicy<any> | FieldReadFunction<any>
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type BoardEdgeKeySpecifier = ('cursor' | 'node' | BoardEdgeKeySpecifier)[]
+export type BoardEdgeFieldPolicy = {
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>
+  node?: FieldPolicy<any> | FieldReadFunction<any>
+}
 export type BoardLinkKeySpecifier = (
   | '_id'
   | 'board'
@@ -254,6 +318,20 @@ export type BoardLinkFieldPolicy = {
   name?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
 }
+export type BoardLinkConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | BoardLinkConnectionKeySpecifier
+)[]
+export type BoardLinkConnectionFieldPolicy = {
+  edges?: FieldPolicy<any> | FieldReadFunction<any>
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type BoardLinkEdgeKeySpecifier = ('cursor' | 'node' | BoardLinkEdgeKeySpecifier)[]
+export type BoardLinkEdgeFieldPolicy = {
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>
+  node?: FieldPolicy<any> | FieldReadFunction<any>
+}
 export type EntityPermissionsKeySpecifier = (
   | 'name'
   | 'permissions'
@@ -268,6 +346,16 @@ export type EventFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
   content?: FieldPolicy<any> | FieldReadFunction<any>
   title?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type EventConnectionKeySpecifier = ('edges' | 'pageInfo' | EventConnectionKeySpecifier)[]
+export type EventConnectionFieldPolicy = {
+  edges?: FieldPolicy<any> | FieldReadFunction<any>
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type EventEdgeKeySpecifier = ('cursor' | 'node' | EventEdgeKeySpecifier)[]
+export type EventEdgeFieldPolicy = {
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>
+  node?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type MutationKeySpecifier = (
   | 'createBoard'
@@ -353,9 +441,31 @@ export type StrictTypedTypePolicies = {
     keyFields?: false | BoardKeySpecifier | (() => undefined | BoardKeySpecifier)
     fields?: BoardFieldPolicy
   }
+  BoardConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | BoardConnectionKeySpecifier
+      | (() => undefined | BoardConnectionKeySpecifier)
+    fields?: BoardConnectionFieldPolicy
+  }
+  BoardEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?: false | BoardEdgeKeySpecifier | (() => undefined | BoardEdgeKeySpecifier)
+    fields?: BoardEdgeFieldPolicy
+  }
   BoardLink?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | BoardLinkKeySpecifier | (() => undefined | BoardLinkKeySpecifier)
     fields?: BoardLinkFieldPolicy
+  }
+  BoardLinkConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | BoardLinkConnectionKeySpecifier
+      | (() => undefined | BoardLinkConnectionKeySpecifier)
+    fields?: BoardLinkConnectionFieldPolicy
+  }
+  BoardLinkEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?: false | BoardLinkEdgeKeySpecifier | (() => undefined | BoardLinkEdgeKeySpecifier)
+    fields?: BoardLinkEdgeFieldPolicy
   }
   EntityPermissions?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:
@@ -367,6 +477,17 @@ export type StrictTypedTypePolicies = {
   Event?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | EventKeySpecifier | (() => undefined | EventKeySpecifier)
     fields?: EventFieldPolicy
+  }
+  EventConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | EventConnectionKeySpecifier
+      | (() => undefined | EventConnectionKeySpecifier)
+    fields?: EventConnectionFieldPolicy
+  }
+  EventEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?: false | EventEdgeKeySpecifier | (() => undefined | EventEdgeKeySpecifier)
+    fields?: EventEdgeFieldPolicy
   }
   Mutation?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | MutationKeySpecifier | (() => undefined | MutationKeySpecifier)

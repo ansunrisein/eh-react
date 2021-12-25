@@ -53,7 +53,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
       <Flex alignItems="center" justifyContent="space-between">
         <Flex alignItems="center" gap="10px">
           <h5>Links</h5>
-          {!!boardLinks?.length && (
+          {!!boardLinks?.edges.length && (
             <Whisper
               trigger="hover"
               speaker={
@@ -81,20 +81,20 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
         {canViewLinks ? (
           loading ? (
             <Loader center size="md" />
-          ) : boardLinks?.length ? (
+          ) : boardLinks?.edges.length ? (
             <div>
-              {boardLinks.map(link => (
+              {boardLinks.edges.map(e => (
                 <Flex
-                  key={link._id}
+                  key={e.node._id}
                   justifyContent="space-between"
                   alignItems="center"
                   style={{padding: 5}}
                 >
-                  <span>{link.name}</span>
+                  <span>{e.node.name}</span>
 
                   <ButtonGroup>
                     <IconButton
-                      onClick={handleCopy(link.link)}
+                      onClick={handleCopy(e.node.link)}
                       icon={<Icon as={RiFileCopy2Fill} />}
                       appearance="ghost"
                       size="sm"
@@ -102,7 +102,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
 
                     {canUpdateLink && (
                       <IconButton
-                        onClick={() => setEditedLinkId(link._id)}
+                        onClick={() => setEditedLinkId(e.node._id)}
                         icon={<Icon as={RiSettings2Fill} />}
                         appearance="ghost"
                         size="sm"

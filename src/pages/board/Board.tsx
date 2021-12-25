@@ -52,11 +52,11 @@ export const Board: React.FC = () => {
         </Flex>
       )}
 
-      {board?.events.length ? (
+      {board?.events.edges.length ? (
         <ul className={S.grid}>
-          {board.events.map(e => (
-            <li key={e._id} onClick={() => setOpenedEventId(e._id)}>
-              <EventCard event={e} className={S.event} />
+          {board.events.edges.map(e => (
+            <li key={e.node._id} onClick={() => setOpenedEventId(e.node._id)}>
+              <EventCard event={e.node} className={S.event} />
             </li>
           ))}
         </ul>

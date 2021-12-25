@@ -1,12 +1,29 @@
-fragment BoardWithEvents on Board {
+fragment DashboardNode on Board {
     ...Board
-    events {
-        ...Event
+    events(page: $eventsPage) {
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+        edges {
+            cursor
+            node {
+                ...Event
+            }
+        }
     }
 }
 
-query Dashboard {
-    dashboard {
-        ...BoardWithEvents
+query Dashboard($page: Page!, $eventsPage: Page!) {
+    dashboard(page: $page) {
+        pageInfo {
+            hasNextPage
+            endCursor
+        }
+        edges {
+            node {
+                ...DashboardNode
+            }
+        }
     }
 }

@@ -1,4 +1,4 @@
-import React, {createContext, useContext} from 'react'
+import React, {createContext, useCallback, useContext} from 'react'
 import {useAsyncFn} from 'react-use'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
 import {useBoardLinkQuery, useBoardLinksQuery, usePermissionsQuery} from '../api'
@@ -48,11 +48,30 @@ export const useBoardLink = (id: string) => {
   }
 }
 
-export const useBoardLinks = (boardId: string) => {
-  const {data, loading} = useBoardLinksQuery({variables: {boardId}})
+export const useBoardLinks = (boardId: string, linksPerPage = 25) => {
+  const {data, loading, fetchMore} = useBoardLinksQuery({
+    variables: {boardId, page: {first: linksPerPage}},
+  })
+
+  const pageInfo = data?.board.boardLinks.pageInfo
+
+  const fetchMoreLinks = useCallback(
+    () =>
+      fetchMore({
+        variables: {
+          page: {
+            first: linksPerPage,
+            after: pageInfo?.endCursor,
+          },
+        },
+      }),
+    [fetchMore, linksPerPage, pageInfo?.endCursor],
+  )
 
   return {
     boardLinks: data?.board?.boardLinks,
+    fetchMoreLinks,
+    hasMoreLinks: !!pageInfo?.hasNextPage,
     loading,
   }
 }

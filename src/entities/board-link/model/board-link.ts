@@ -1,6 +1,6 @@
 import {Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
-import {Board} from '@eh/shared/api'
+import {Board, BoardLinkConnection, ConnectionRef, createEmptyConnection} from '@eh/shared/api'
 import {
   BoardLinkFragmentDoc,
   CreateBoardLinkDocument,
@@ -34,17 +34,24 @@ export const createBoardLinkEntity = ({domain, apollo}: BoardLinkEntityDeps) => 
               '__typename' | '_id'
             >),
             fields: {
-              boardLinks: (links: unknown[]): unknown[] =>
+              boardLinks: (
+                prevLinks: ConnectionRef<BoardLinkConnection> = createEmptyConnection('BoardLink'),
+              ): ConnectionRef<BoardLinkConnection> =>
                 data?.createBoardLink
-                  ? links.concat(
-                      cache.writeFragment({
-                        id: `${data.createBoardLink.__typename}:${data.createBoardLink._id}`,
-                        data: data.createBoardLink,
-                        fragment: BoardLinkFragmentDoc,
-                        fragmentName: 'BoardLink',
+                  ? {
+                      ...prevLinks,
+                      edges: prevLinks.edges.concat({
+                        __typename: 'BoardLinkEdge',
+                        cursor: data.createBoardLink._id,
+                        node: cache.writeFragment({
+                          id: `${data.createBoardLink.__typename}:${data.createBoardLink._id}`,
+                          data: data.createBoardLink,
+                          fragment: BoardLinkFragmentDoc,
+                          fragmentName: 'BoardLink',
+                        }),
                       }),
-                    )
-                  : links,
+                    }
+                  : prevLinks,
             },
           })
         },
