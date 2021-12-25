@@ -1,4 +1,7 @@
 /* eslint-disable */
+// noinspection GraphQLSchemaValidation,ES6PreferShortImport,JSUnusedGlobalSymbols
+// noinspection JSUnusedGlobalSymbols
+
 import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'

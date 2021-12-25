@@ -27,7 +27,7 @@
           "plugins": [
             {
               "add": {
-                "content": "/* eslint-disable */"
+                "content": "/* eslint-disable */\n// noinspection GraphQLSchemaValidation,ES6PreferShortImport,JSUnusedGlobalSymbols\n// noinspection JSUnusedGlobalSymbols\n"
               }
             },
             "typescript",
@@ -49,7 +49,7 @@
           "plugins": [
             {
               "add": {
-                "content": "/* eslint-disable */"
+                "content": "/* eslint-disable */\n// noinspection GraphQLSchemaValidation,ES6PreferShortImport,JSUnusedGlobalSymbols\n// noinspection JSUnusedGlobalSymbols\n"
               }
             },
             "typescript-operations",
