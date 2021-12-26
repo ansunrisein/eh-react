@@ -7,10 +7,12 @@ import {EditEventForm} from '@eh/features/update-event'
 
 export type SingleEventProps = {
   id: EventFragment['_id']
+  withEdit?: boolean
+  withRemove?: boolean
   onRemove?: () => void
 }
 
-export const SingleEvent: React.FC<SingleEventProps> = ({id, onRemove}) => {
+export const SingleEvent: React.FC<SingleEventProps> = ({id, withEdit, withRemove, onRemove}) => {
   const [isEditOpened, openEdit, closeEdit] = useBooleanState(false)
 
   const {event, loading} = useEvent(id)
@@ -32,7 +34,13 @@ export const SingleEvent: React.FC<SingleEventProps> = ({id, onRemove}) => {
 
   return (
     <>
-      <EventView event={event} onRemove={remove} onEdit={openEdit} />
+      <EventView
+        withEdit={withEdit}
+        withRemove={withRemove}
+        event={event}
+        onRemove={remove}
+        onEdit={openEdit}
+      />
 
       <Modal open={isEditOpened} onClose={closeEdit}>
         <EditEventForm event={event} onEdit={closeEdit} loading={removingState.loading} />

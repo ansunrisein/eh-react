@@ -8,11 +8,20 @@ import S from './EventView.module.scss'
 
 export type EventViewProps = {
   event: EventFragment
+  withEdit?: boolean
+  withRemove?: boolean
   onEdit?: () => void
   onRemove?: () => void
 }
 
-export const EventView: React.FC<EventViewProps> = ({event, onEdit, onRemove, ...props}) => (
+export const EventView: React.FC<EventViewProps> = ({
+  event,
+  withEdit,
+  withRemove,
+  onEdit,
+  onRemove,
+  ...props
+}) => (
   <Panel {...props}>
     <Flex justifyContent="space-between">
       <div>
@@ -20,10 +29,14 @@ export const EventView: React.FC<EventViewProps> = ({event, onEdit, onRemove, ..
         <p className={S.content}>{event.content}</p>
       </div>
 
-      <ButtonGroup vertical>
-        <IconButton onClick={onEdit} icon={<Icon as={RiEdit2Fill} />} appearance="primary" />
-        <IconButton onClick={onRemove} icon={<Icon as={RiDeleteBin7Fill} />} />
-      </ButtonGroup>
+      {(withEdit || withRemove) && (
+        <ButtonGroup vertical>
+          {withEdit && (
+            <IconButton onClick={onEdit} icon={<Icon as={RiEdit2Fill} />} appearance="primary" />
+          )}
+          {withRemove && <IconButton onClick={onRemove} icon={<Icon as={RiDeleteBin7Fill} />} />}
+        </ButtonGroup>
+      )}
     </Flex>
   </Panel>
 )

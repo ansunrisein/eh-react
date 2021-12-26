@@ -46,6 +46,8 @@ export const usePermissions = ({permissions = []}: Partial<Pick<Board, 'permissi
   useMemo(
     () => ({
       canCreateEvent: permissions.includes(Permission.CREATE_EVENT),
+      canUpdateEvent: permissions.includes(Permission.UPDATE_EVENT),
+      canRemoveEvent: permissions.includes(Permission.REMOVE_EVENT),
       canUpdateBoard:
         permissions.includes(Permission.UPDATE_BOARD_DESCRIPTION) &&
         permissions.includes(Permission.UPDATE_BOARD_VISIBILITY),

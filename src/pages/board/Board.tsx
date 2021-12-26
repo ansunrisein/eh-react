@@ -23,7 +23,7 @@ export const Board: React.FC = () => {
   const navigate = useNavigate()
 
   const {board, loading} = useFullBoard(id)
-  const {canCreateEvent, canViewSettings} = usePermissions(board)
+  const {canCreateEvent, canUpdateEvent, canRemoveEvent, canViewSettings} = usePermissions(board)
 
   useTitle(`Board | ${board?.title || ''}`)
 
@@ -73,7 +73,12 @@ export const Board: React.FC = () => {
 
       <Modal open={openedEventId !== null} onClose={() => setOpenedEventId(null)} backdrop>
         {openedEventId && (
-          <SingleEvent id={openedEventId} onRemove={() => setOpenedEventId(null)} />
+          <SingleEvent
+            id={openedEventId}
+            withEdit={canUpdateEvent}
+            withRemove={canRemoveEvent}
+            onRemove={() => setOpenedEventId(null)}
+          />
         )}
       </Modal>
 
