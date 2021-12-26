@@ -59,7 +59,7 @@ export const usePermissions = ({permissions = []}: Partial<Pick<Board, 'permissi
       ].some(perm => permissions.includes(perm)),
       canUpdateDescription: permissions.includes(Permission.UPDATE_BOARD_DESCRIPTION),
       canUpdateVisibility: permissions.includes(Permission.UPDATE_BOARD_VISIBILITY),
-      canRemove: permissions.includes(Permission.UPDATE_BOARD_VISIBILITY),
+      canRemove: permissions.includes(Permission.REMOVE_BOARD),
       canViewLinks: permissions.includes(Permission.VIEW_BOARD_LINK),
       canCreateLink: permissions.includes(Permission.CREATE_BOARD_LINK),
       canUpdateLink: permissions.includes(Permission.UPDATE_BOARD_LINK),
