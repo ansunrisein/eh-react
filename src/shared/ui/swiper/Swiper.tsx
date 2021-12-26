@@ -33,11 +33,11 @@ export const Swiper: React.FC<SwiperProps> = ({
     findAdaptiveSlidePerView(breakpoints, slidesPerView),
   )
 
-  const isNav = !withNavigation
-    ? false
-    : typeof currentSlidesPerView !== 'number'
-    ? true
-    : React.Children.count(children) <= currentSlidesPerView
+  const isNav = withNavigation
+    ? typeof currentSlidesPerView !== 'number'
+      ? true
+      : React.Children.count(children) >= currentSlidesPerView
+    : false
 
   useEffect(() => {
     const fn = () => setCurrentSlidesPerView(findAdaptiveSlidePerView(breakpoints, slidesPerView))
@@ -65,7 +65,7 @@ export const Swiper: React.FC<SwiperProps> = ({
   return (
     <RSwiper
       className={cx(S.fix, className)}
-      navigation={!isNav && {nextEl: next.current || '', prevEl: prev.current || ''}}
+      navigation={isNav && {nextEl: next.current || '', prevEl: prev.current || ''}}
       slidesPerGroup={2}
       speed={1000}
       autoHeight
@@ -84,7 +84,7 @@ export const Swiper: React.FC<SwiperProps> = ({
       {...props}
     >
       {children}
-      {!isNav && (
+      {isNav && (
         <>
           <div className={cx(S.control, S.prev)} ref={prev}>
             <IconButton
