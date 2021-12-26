@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react'
-import {useTitle} from 'react-use'
+import {useMedia, useTitle} from 'react-use'
 import {Button, Drawer} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -31,6 +31,8 @@ export const Board: React.FC = () => {
     closeBoardSettings()
     navigate('/')
   }, [closeBoardSettings, navigate])
+
+  const isTablet = useMedia('(min-width: 768px)')
 
   return (
     <Layout header loading={loading}>
@@ -82,7 +84,13 @@ export const Board: React.FC = () => {
         )}
       </Modal>
 
-      <Drawer open={isBoardSettingsOpened} onClose={closeBoardSettings} backdrop>
+      <Drawer
+        open={isBoardSettingsOpened}
+        onClose={closeBoardSettings}
+        backdrop
+        full={!isTablet}
+        placement={isTablet ? 'right' : 'bottom'}
+      >
         <BoardSettings id={id} onRemove={remove} />
       </Drawer>
     </Layout>
