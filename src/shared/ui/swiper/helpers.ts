@@ -1,7 +1,7 @@
-import {SwiperOptions} from 'swiper'
+import {SwiperBreakpoints} from './Swiper'
 
 export const findAdaptiveSlidePerView = (
-  breakpoints?: Record<number, Omit<SwiperOptions, 'breakpoints'>>,
+  breakpoints?: SwiperBreakpoints,
   defaultPerView?: number | 'auto',
 ) => {
   const keys = breakpoints ? Object.keys(breakpoints) : []

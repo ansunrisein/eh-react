@@ -3,6 +3,7 @@ import {useMedia} from 'react-use'
 import {Panel, PanelProps} from 'rsuite'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
+import {SwiperBreakpoints} from '@eh/shared/ui/swiper/Swiper'
 import {EventCard} from '@eh/entities/event'
 import {DashboardNodeFragment} from '../../api'
 import S from './MiniBoard.module.scss'
@@ -41,8 +42,9 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
   )
 }
 
-const swiperBreakpoints = {
+const swiperBreakpoints: SwiperBreakpoints = {
+  0: {slidesPerView: 'auto', spaceBetween: 20},
   768: {slidesPerView: 1, spaceBetween: 20},
-  1024: {slidesPerView: 5, spaceBetween: 25},
+  1024: {slidesPerView: 4, spaceBetween: 25},
   2560: {slidesPerView: 8, spaceBetween: 25},
 }

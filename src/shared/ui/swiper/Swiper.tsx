@@ -10,9 +10,11 @@ import S from './Swiper.module.scss'
 
 SwiperCore.use([Navigation])
 
+export type SwiperBreakpoints = Record<number, Omit<SwiperOptions, 'breakpoints'>>
+
 export type SwiperProps = {
   withNavigation?: boolean
-  breakpoints?: Record<number, Omit<SwiperOptions, 'breakpoints'>>
+  breakpoints?: SwiperBreakpoints
 } & Omit<React.ComponentProps<typeof RSwiper>, 'breakpoints'>
 
 export const Swiper: React.FC<SwiperProps> = ({
@@ -66,10 +68,10 @@ export const Swiper: React.FC<SwiperProps> = ({
     <RSwiper
       className={cx(S.fix, className)}
       navigation={isNav && {nextEl: next.current || '', prevEl: prev.current || ''}}
-      slidesPerGroup={2}
+      slidesPerGroup={1}
       speed={1000}
       autoHeight
-      slidesPerView={slidesPerView}
+      slidesPerView={currentSlidesPerView}
       breakpoints={breakpoints}
       onInit={swiper => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
