@@ -71,7 +71,7 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
                             }
                             ${BoardFragmentDoc}
                           `,
-                          fragmentName: 'BoardWithEvents',
+                          fragmentName: 'BoardWithEmptyEvents',
                         }),
                       }),
                     }
