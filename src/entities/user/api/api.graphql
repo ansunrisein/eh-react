@@ -1,0 +1,18 @@
+fragment User on User {
+    _id
+    nickname
+    name
+    avatar
+}
+
+query User {
+    me {
+      ...User
+    }
+}
+
+mutation EditUserInfo($nickname: String!, $name: String) {
+    updateProfile(nickname: $nickname, name: $name) {
+        ...User
+    }
+}

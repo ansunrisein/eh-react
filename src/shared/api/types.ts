@@ -126,9 +126,11 @@ export type Mutation = {
   removeBoardLink: BoardLink
   removeEvent?: Maybe<Event>
   removeSub: Sub
+  updateAvatar: User
   updateBoard: Board
   updateBoardLink: BoardLink
   updateEvent?: Maybe<Event>
+  updateProfile: User
 }
 
 export type MutationCreateBoardArgs = {
@@ -163,6 +165,10 @@ export type MutationRemoveSubArgs = {
   sub: RemoveSub
 }
 
+export type MutationUpdateAvatarArgs = {
+  avatar?: Maybe<Scalars['String']>
+}
+
 export type MutationUpdateBoardArgs = {
   board: UpdateBoard
 }
@@ -173,6 +179,11 @@ export type MutationUpdateBoardLinkArgs = {
 
 export type MutationUpdateEventArgs = {
   event: UpdateEvent
+}
+
+export type MutationUpdateProfileArgs = {
+  name?: Maybe<Scalars['String']>
+  nickname: Scalars['String']
 }
 
 export type Page = {
@@ -372,9 +383,11 @@ export type MutationKeySpecifier = (
   | 'removeBoardLink'
   | 'removeEvent'
   | 'removeSub'
+  | 'updateAvatar'
   | 'updateBoard'
   | 'updateBoardLink'
   | 'updateEvent'
+  | 'updateProfile'
   | MutationKeySpecifier
 )[]
 export type MutationFieldPolicy = {
@@ -386,9 +399,11 @@ export type MutationFieldPolicy = {
   removeBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
   removeSub?: FieldPolicy<any> | FieldReadFunction<any>
+  updateAvatar?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoard?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   updateEvent?: FieldPolicy<any> | FieldReadFunction<any>
+  updateProfile?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type PageInfoKeySpecifier = (
   | 'endCursor'
