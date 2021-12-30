@@ -9,6 +9,11 @@ import {
   AuthWithFirebaseFeatureProvider,
   createAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
+import {
+  createUpdateUserAvatarFeature,
+  UpdateUserAvatarFeatureProvider,
+} from '@eh/features/update-user/avatar/model'
+import {cloudinary} from '@eh/app/config/cloudinary'
 import {apollo} from './apollo'
 import {auth} from './firebase'
 
@@ -21,6 +26,11 @@ export const userEntity = createUserEntity({domain, apollo})
 export const sessionEntity = createSessionEntity({domain, apollo})
 
 export const authWithFirebaseFeature = createAuthWithFirebaseFeature({auth, session: sessionEntity})
+export const updateUserAvatarFeature = createUpdateUserAvatarFeature({
+  domain,
+  apollo,
+  imageUploadService: cloudinary,
+})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(EventEntityProvider, {event: eventEntity})
@@ -29,4 +39,5 @@ export const AppStoreProvider = createProviderBuilder()
   .add(UserEntityProvider, {user: userEntity})
   .add(SessionEntityProvider, {session: sessionEntity})
   .add(AuthWithFirebaseFeatureProvider, {authWithFirebase: authWithFirebaseFeature})
+  .add(UpdateUserAvatarFeatureProvider, {updateUserAvatar: updateUserAvatarFeature})
   .return()

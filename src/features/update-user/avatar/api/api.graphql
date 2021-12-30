@@ -1,0 +1,16 @@
+fragment UserAvatar on User {
+    _id
+    avatar
+}
+
+query UserAvatar {
+    me {
+        ...UserAvatar
+    }
+}
+
+mutation EditUserAvatar($avatar: String) {
+    updateAvatar(avatar: $avatar) {
+        ...UserAvatar
+    }
+}
