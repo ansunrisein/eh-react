@@ -1,0 +1,24 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 1rem;
+
+  @media(min-width: 768px) {
+    width: 50vw;
+    margin: 8rem auto 0;
+    padding: 3rem;
+  }
+
+  @media(min-width: 1024px) {
+    width: 30vw;
+    margin: 8rem auto 0;
+    padding: 3rem;
+  }
+}
+
+.info {
+  width: 100%;
+  margin-top: 2rem;
+}
