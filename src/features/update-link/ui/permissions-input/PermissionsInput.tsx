@@ -3,7 +3,6 @@ import {Loader, MultiCascader, MultiCascaderProps} from 'rsuite'
 import {Permission} from '@eh/shared/api'
 import {useAvailablePermissions} from '@eh/entities/board-link'
 import {transformCascaderDataToPermissions, transformPermissionsToCascaderData} from '../../lib'
-import S from './PermissionsInput.module.scss'
 
 export type PermissionsInputProps = {
   onChange?: (permissions: Permission[]) => void
@@ -34,7 +33,7 @@ export const PermissionsInput: React.FC<PermissionsInputProps> = forwardRef<
   )
 
   return (
-    <div className={S.relative}>
+    <div className="relative">
       {permissionsCascaderData && (
         <MultiCascader
           ref={ref}
