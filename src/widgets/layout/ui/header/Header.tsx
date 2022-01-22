@@ -1,17 +1,17 @@
 import React from 'react'
-import {RiBarChartBoxFill, RiLogoutBoxLine} from 'react-icons/ri'
-import {IconButton} from 'rsuite'
+import {RiBarChartBoxFill, RiUser2Fill} from 'react-icons/ri'
+import {IconButton, Popover, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {ThemeSwitcher} from '@eh/shared/lib/theme'
 import {Logo} from '@eh/shared/ui'
-import {useIsAuthenticated, useLogout} from '@eh/entities/session'
+import {useIsAuthenticated} from '@eh/entities/session'
 import {LoginButton} from '@eh/features/auth-with-firebase'
+import {Menu} from '../menu'
 import S from './Header.module.scss'
 
 export const Header: React.FC = () => {
-  const logout = useLogout()
   const isAuthenticated = useIsAuthenticated()
 
   return (
@@ -33,13 +33,22 @@ export const Header: React.FC = () => {
         <ThemeSwitcher size="md" appearance="link" className={S.link} />
 
         {isAuthenticated ? (
-          <IconButton
-            icon={<Icon as={RiLogoutBoxLine} />}
-            size="md"
-            appearance="link"
-            className={S.link}
-            onClick={logout}
-          />
+          <Whisper
+            placement="bottomEnd"
+            trigger="click"
+            speaker={
+              <Popover full>
+                <Menu />
+              </Popover>
+            }
+          >
+            <IconButton
+              icon={<Icon as={RiUser2Fill} />}
+              size="md"
+              appearance="link"
+              className={S.link}
+            />
+          </Whisper>
         ) : (
           <LoginButton size="xs" appearance="primary" />
         )}
