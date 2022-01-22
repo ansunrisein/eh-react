@@ -6,9 +6,12 @@ import {
   CreateBoardDocument,
   CreateBoardMutation,
   CreateBoardMutationVariables,
-  EditBoardDocument,
-  EditBoardMutation,
-  EditBoardMutationVariables,
+  EditBoardDescriptionDocument,
+  EditBoardDescriptionMutation,
+  EditBoardDescriptionMutationVariables,
+  EditBoardVisibilityDocument,
+  EditBoardVisibilityMutation,
+  EditBoardVisibilityMutationVariables,
   RemoveBoardDocument,
   RemoveBoardMutation,
   RemoveBoardMutationVariables,
@@ -83,13 +86,22 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
       .then(result => result?.data?.createBoard),
   )
 
-  const editBoardFx = domain.effect((variables: EditBoardMutationVariables) =>
+  const editBoardDescriptionFx = domain.effect((variables: EditBoardDescriptionMutationVariables) =>
     apollo
-      .mutate<EditBoardMutation, EditBoardMutationVariables>({
-        mutation: EditBoardDocument,
+      .mutate<EditBoardDescriptionMutation, EditBoardDescriptionMutationVariables>({
+        mutation: EditBoardDescriptionDocument,
         variables,
       })
-      .then(result => result?.data?.updateBoard),
+      .then(result => result?.data?.updateBoardDescription),
+  )
+
+  const editBoardVisibilityFx = domain.effect((variables: EditBoardVisibilityMutationVariables) =>
+    apollo
+      .mutate<EditBoardVisibilityMutation, EditBoardVisibilityMutationVariables>({
+        mutation: EditBoardVisibilityDocument,
+        variables,
+      })
+      .then(result => result?.data?.updateBoardVisibility),
   )
 
   const removeBoardFx = domain.effect((variables: RemoveBoardMutationVariables) =>
@@ -106,7 +118,8 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
 
   return {
     createBoardFx,
-    editBoardFx,
+    editBoardDescriptionFx,
+    editBoardVisibilityFx,
     removeBoardFx,
   }
 }

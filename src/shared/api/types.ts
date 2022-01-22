@@ -127,8 +127,9 @@ export type Mutation = {
   removeEvent?: Maybe<Event>
   removeSub: Sub
   updateAvatar: User
-  updateBoard: Board
+  updateBoardDescription: Board
   updateBoardLink: BoardLink
+  updateBoardVisibility: Board
   updateEvent?: Maybe<Event>
   updateProfile: User
 }
@@ -169,12 +170,16 @@ export type MutationUpdateAvatarArgs = {
   avatar?: Maybe<Scalars['String']>
 }
 
-export type MutationUpdateBoardArgs = {
-  board: UpdateBoard
+export type MutationUpdateBoardDescriptionArgs = {
+  board: UpdateBoardDescription
 }
 
 export type MutationUpdateBoardLinkArgs = {
   boardLink: UpdateBoardLink
+}
+
+export type MutationUpdateBoardVisibilityArgs = {
+  board: UpdateBoardVisibility
 }
 
 export type MutationUpdateEventArgs = {
@@ -261,9 +266,8 @@ export type Sub = {
   _id: Scalars['ID']
 }
 
-export type UpdateBoard = {
+export type UpdateBoardDescription = {
   _id: Scalars['ID']
-  isPrivate: Scalars['Boolean']
   title: Scalars['String']
 }
 
@@ -271,6 +275,11 @@ export type UpdateBoardLink = {
   _id: Scalars['ID']
   name: Scalars['String']
   permissions: Array<Permission>
+}
+
+export type UpdateBoardVisibility = {
+  _id: Scalars['ID']
+  isPrivate: Scalars['Boolean']
 }
 
 export type UpdateEvent = {
@@ -384,8 +393,9 @@ export type MutationKeySpecifier = (
   | 'removeEvent'
   | 'removeSub'
   | 'updateAvatar'
-  | 'updateBoard'
+  | 'updateBoardDescription'
   | 'updateBoardLink'
+  | 'updateBoardVisibility'
   | 'updateEvent'
   | 'updateProfile'
   | MutationKeySpecifier
@@ -400,8 +410,9 @@ export type MutationFieldPolicy = {
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
   removeSub?: FieldPolicy<any> | FieldReadFunction<any>
   updateAvatar?: FieldPolicy<any> | FieldReadFunction<any>
-  updateBoard?: FieldPolicy<any> | FieldReadFunction<any>
+  updateBoardDescription?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
+  updateBoardVisibility?: FieldPolicy<any> | FieldReadFunction<any>
   updateEvent?: FieldPolicy<any> | FieldReadFunction<any>
   updateProfile?: FieldPolicy<any> | FieldReadFunction<any>
 }

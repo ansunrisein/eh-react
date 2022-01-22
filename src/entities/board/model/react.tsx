@@ -76,10 +76,20 @@ export const useCreateBoard = () => {
   return useAsyncFn<RemoveEffector<typeof createBoardFx>>(createBoardFx, [createBoardFx])
 }
 
-export const useEditBoard = () => {
-  const {editBoardFx} = useBoardEntity()
+export const useEditDescriptionBoard = () => {
+  const {editBoardDescriptionFx} = useBoardEntity()
 
-  return useAsyncFn<RemoveEffector<typeof editBoardFx>>(editBoardFx, [editBoardFx])
+  return useAsyncFn<RemoveEffector<typeof editBoardDescriptionFx>>(editBoardDescriptionFx, [
+    editBoardDescriptionFx,
+  ])
+}
+
+export const useEditVisibilityBoard = () => {
+  const {editBoardVisibilityFx} = useBoardEntity()
+
+  return useAsyncFn<RemoveEffector<typeof editBoardVisibilityFx>>(editBoardVisibilityFx, [
+    editBoardVisibilityFx,
+  ])
 }
 
 export const useRemoveBoard = () => {

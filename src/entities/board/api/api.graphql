@@ -24,8 +24,14 @@ mutation CreateBoard($title: String!, $isPrivate: Boolean!) {
     }
 }
 
-mutation EditBoard($id: ID!, $title: String!, $isPrivate: Boolean!) {
-    updateBoard(board: {_id: $id, title: $title, isPrivate: $isPrivate}) {
+mutation EditBoardDescription($id: ID!, $title: String!) {
+    updateBoardDescription(board: {_id: $id, title: $title}) {
+        ...Board
+    }
+}
+
+mutation EditBoardVisibility($id: ID!, $isPrivate: Boolean!) {
+    updateBoardVisibility(board: {_id: $id, isPrivate: $isPrivate}) {
         ...Board
     }
 }

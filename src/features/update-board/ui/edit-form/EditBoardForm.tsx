@@ -2,7 +2,12 @@ import React from 'react'
 import cx from 'classnames'
 import {Controller, useForm} from 'react-hook-form'
 import {Button, Input, Toggle} from 'rsuite'
-import {BoardFragment, useEditBoard, usePermissions} from '@eh/entities/board'
+import {
+  BoardFragment,
+  useEditDescriptionBoard,
+  useEditVisibilityBoard,
+  usePermissions,
+} from '@eh/entities/board'
 import S from './EditBoardForm.module.scss'
 
 export type EditBoardFormProps = {
@@ -15,17 +20,23 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
 
   const {canUpdateDescription, canUpdateVisibility} = usePermissions(board)
 
-  const [{loading}, editBoard] = useEditBoard()
+  const [editingDescription, editDescriptionBoard] = useEditDescriptionBoard()
+  const [editingVisibility, editVisibilityBoard] = useEditVisibilityBoard()
 
-  const edit = async (board: BoardFragment) => {
-    await editBoard({...board, id: board._id})
+  const editDescription = async (board: BoardFragment) => {
+    await editDescriptionBoard({...board, id: board._id})
     onEdit?.()
     reset(board)
   }
 
+  const editVisibility = async (isPrivate: boolean) => {
+    await editVisibilityBoard({id: board._id, isPrivate})
+    onEdit?.()
+  }
+
   return (
-    <form onSubmit={handleSubmit(edit)}>
-      <section className={S.section}>
+    <>
+      <form onSubmit={handleSubmit(editDescription)} className={S.section}>
         <h5>Title</h5>
         <Controller
           control={control}
@@ -34,33 +45,28 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
             <Input className={S.field} disabled={!canUpdateDescription} {...field} />
           )}
         />
-      </section>
+
+        <Button
+          loading={editingDescription.loading}
+          disabled={!formState.isDirty}
+          className={S.button}
+          appearance="primary"
+          type="submit"
+        >
+          Save
+        </Button>
+      </form>
 
       <section>
         <h5>Private</h5>
-        <Controller
-          name="isPrivate"
-          control={control}
-          render={({field: {value, ...field}}) => (
-            <Toggle
-              checked={value}
-              className={cx(S.field, 'block')}
-              disabled={!canUpdateVisibility}
-              {...field}
-            />
-          )}
+        <Toggle
+          checked={board.isPrivate}
+          className={cx(S.field, 'block')}
+          loading={editingVisibility.loading}
+          disabled={!canUpdateVisibility || editingVisibility.loading}
+          onChange={editVisibility}
         />
       </section>
-
-      <Button
-        loading={loading}
-        disabled={!formState.isDirty}
-        className={S.button}
-        appearance="primary"
-        type="submit"
-      >
-        Save
-      </Button>
-    </form>
+    </>
   )
 }

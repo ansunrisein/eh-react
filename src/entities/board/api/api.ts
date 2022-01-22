@@ -55,15 +55,33 @@ export type CreateBoardMutation = {
   }
 }
 
-export type EditBoardMutationVariables = Types.Exact<{
+export type EditBoardDescriptionMutationVariables = Types.Exact<{
   id: Types.Scalars['ID']
   title: Types.Scalars['String']
+}>
+
+export type EditBoardDescriptionMutation = {
+  __typename?: 'Mutation'
+  updateBoardDescription: {
+    __typename?: 'Board'
+    _id: string
+    title: string
+    isPrivate: boolean
+    permissions: Array<Types.Permission>
+    eventsCount: number
+    user: {__typename?: 'User'; _id: string}
+    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+  }
+}
+
+export type EditBoardVisibilityMutationVariables = Types.Exact<{
+  id: Types.Scalars['ID']
   isPrivate: Types.Scalars['Boolean']
 }>
 
-export type EditBoardMutation = {
+export type EditBoardVisibilityMutation = {
   __typename?: 'Mutation'
-  updateBoard: {
+  updateBoardVisibility: {
     __typename?: 'Board'
     _id: string
     title: string
@@ -194,52 +212,107 @@ export type CreateBoardMutationOptions = Apollo.BaseMutationOptions<
   CreateBoardMutation,
   CreateBoardMutationVariables
 >
-export const EditBoardDocument = gql`
-  mutation EditBoard($id: ID!, $title: String!, $isPrivate: Boolean!) {
-    updateBoard(board: {_id: $id, title: $title, isPrivate: $isPrivate}) {
+export const EditBoardDescriptionDocument = gql`
+  mutation EditBoardDescription($id: ID!, $title: String!) {
+    updateBoardDescription(board: {_id: $id, title: $title}) {
       ...Board
     }
   }
   ${BoardFragmentDoc}
 `
-export type EditBoardMutationFn = Apollo.MutationFunction<
-  EditBoardMutation,
-  EditBoardMutationVariables
+export type EditBoardDescriptionMutationFn = Apollo.MutationFunction<
+  EditBoardDescriptionMutation,
+  EditBoardDescriptionMutationVariables
 >
 
 /**
- * __useEditBoardMutation__
+ * __useEditBoardDescriptionMutation__
  *
- * To run a mutation, you first call `useEditBoardMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useEditBoardMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useEditBoardDescriptionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditBoardDescriptionMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [editBoardMutation, { data, loading, error }] = useEditBoardMutation({
+ * const [editBoardDescriptionMutation, { data, loading, error }] = useEditBoardDescriptionMutation({
  *   variables: {
  *      id: // value for 'id'
  *      title: // value for 'title'
+ *   },
+ * });
+ */
+export function useEditBoardDescriptionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditBoardDescriptionMutation,
+    EditBoardDescriptionMutationVariables
+  >,
+) {
+  const options = {...defaultOptions, ...baseOptions}
+  return Apollo.useMutation<EditBoardDescriptionMutation, EditBoardDescriptionMutationVariables>(
+    EditBoardDescriptionDocument,
+    options,
+  )
+}
+export type EditBoardDescriptionMutationHookResult = ReturnType<
+  typeof useEditBoardDescriptionMutation
+>
+export type EditBoardDescriptionMutationResult = Apollo.MutationResult<EditBoardDescriptionMutation>
+export type EditBoardDescriptionMutationOptions = Apollo.BaseMutationOptions<
+  EditBoardDescriptionMutation,
+  EditBoardDescriptionMutationVariables
+>
+export const EditBoardVisibilityDocument = gql`
+  mutation EditBoardVisibility($id: ID!, $isPrivate: Boolean!) {
+    updateBoardVisibility(board: {_id: $id, isPrivate: $isPrivate}) {
+      ...Board
+    }
+  }
+  ${BoardFragmentDoc}
+`
+export type EditBoardVisibilityMutationFn = Apollo.MutationFunction<
+  EditBoardVisibilityMutation,
+  EditBoardVisibilityMutationVariables
+>
+
+/**
+ * __useEditBoardVisibilityMutation__
+ *
+ * To run a mutation, you first call `useEditBoardVisibilityMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditBoardVisibilityMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editBoardVisibilityMutation, { data, loading, error }] = useEditBoardVisibilityMutation({
+ *   variables: {
+ *      id: // value for 'id'
  *      isPrivate: // value for 'isPrivate'
  *   },
  * });
  */
-export function useEditBoardMutation(
-  baseOptions?: Apollo.MutationHookOptions<EditBoardMutation, EditBoardMutationVariables>,
+export function useEditBoardVisibilityMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    EditBoardVisibilityMutation,
+    EditBoardVisibilityMutationVariables
+  >,
 ) {
   const options = {...defaultOptions, ...baseOptions}
-  return Apollo.useMutation<EditBoardMutation, EditBoardMutationVariables>(
-    EditBoardDocument,
+  return Apollo.useMutation<EditBoardVisibilityMutation, EditBoardVisibilityMutationVariables>(
+    EditBoardVisibilityDocument,
     options,
   )
 }
-export type EditBoardMutationHookResult = ReturnType<typeof useEditBoardMutation>
-export type EditBoardMutationResult = Apollo.MutationResult<EditBoardMutation>
-export type EditBoardMutationOptions = Apollo.BaseMutationOptions<
-  EditBoardMutation,
-  EditBoardMutationVariables
+export type EditBoardVisibilityMutationHookResult = ReturnType<
+  typeof useEditBoardVisibilityMutation
+>
+export type EditBoardVisibilityMutationResult = Apollo.MutationResult<EditBoardVisibilityMutation>
+export type EditBoardVisibilityMutationOptions = Apollo.BaseMutationOptions<
+  EditBoardVisibilityMutation,
+  EditBoardVisibilityMutationVariables
 >
 export const RemoveBoardDocument = gql`
   mutation RemoveBoard($id: ID!) {
