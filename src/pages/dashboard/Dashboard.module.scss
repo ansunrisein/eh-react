@@ -1,14 +1,24 @@
+.content {
+  height: 100%;
+  overflow-y: auto;
+  flex: 1;
+  padding-right: 1rem;
+  padding-bottom: 1rem;
+}
+
+.title {
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.vertical {
+  vertical-align: text-top;
+}
+
 .boards {
   display: flex;
   flex-direction: column;
-  flex: 1;
   gap: 20px;
-
-  height: 100%;
-  overflow-y: auto;
-
-  padding-right: 10px;
-  padding-bottom: 1rem;
 }
 
 .grid {
@@ -16,11 +26,7 @@
   grid-template-columns: repeat(1, 1fr);
   gap: 1rem;
 
-  flex: 1;
   justify-content: space-between;
-
-  padding-right: 10px;
-  padding-bottom: 1rem;
 
   @media (min-width: 678px) {
     grid-template-columns: repeat(3, 1fr);

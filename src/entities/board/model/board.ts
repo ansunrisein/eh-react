@@ -1,8 +1,8 @@
 import {Domain} from 'effector'
-import {ApolloClient, gql} from '@apollo/client'
-import {BoardConnection, ConnectionRef, createEmptyConnection} from '@eh/shared/api'
+import {ApolloClient} from '@apollo/client'
+import {isDefined} from '@eh/shared/lib/is-defined'
 import {
-  BoardFragmentDoc,
+  BoardFragment,
   CreateBoardDocument,
   CreateBoardMutation,
   CreateBoardMutationVariables,
@@ -30,58 +30,6 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
       .mutate<CreateBoardMutation, CreateBoardMutationVariables>({
         mutation: CreateBoardDocument,
         variables,
-        update: (cache, {data}) => {
-          cache.modify({
-            fields: {
-              dashboard: (
-                prevBoards: ConnectionRef<BoardConnection> = createEmptyConnection('Board'),
-              ): ConnectionRef<BoardConnection> =>
-                data?.createBoard
-                  ? {
-                      ...prevBoards,
-                      pageInfo: {
-                        ...prevBoards.pageInfo,
-                        endCursor: data.createBoard._id,
-                      },
-                      edges: prevBoards.edges.concat({
-                        __typename: 'BoardEdge',
-                        cursor: data.createBoard._id,
-                        node: cache.writeFragment({
-                          id: `${data.createBoard.__typename}:${data.createBoard._id}`,
-                          data: {
-                            ...data.createBoard,
-                            events: createEmptyConnection('Event'),
-                          },
-                          fragment: gql`
-                            fragment BoardWithEmptyEvents on Board {
-                              ...Board
-                              events(page: {first: 0}) {
-                                pageInfo {
-                                  __typename
-                                  endCursor
-                                  hasNextPage
-                                  hasPreviousPage
-                                  startCursor
-                                }
-                                edges {
-                                  cursor
-                                  node {
-                                    __typename
-                                    _id
-                                  }
-                                }
-                              }
-                            }
-                            ${BoardFragmentDoc}
-                          `,
-                          fragmentName: 'BoardWithEmptyEvents',
-                        }),
-                      }),
-                    }
-                  : prevBoards,
-            },
-          })
-        },
       })
       .then(result => result?.data?.createBoard),
   )
@@ -116,10 +64,22 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
       .then(result => result?.data?.removeBoard),
   )
 
+  const resetNewBoards = domain.event()
+
+  const $newBoards = domain
+    .store<BoardFragment[]>([])
+    .on(createBoardFx.doneData.filter({fn: isDefined}), (boards, newBoard) => [newBoard, ...boards])
+    .on(removeBoardFx.doneData.filter({fn: isDefined}), (boards, removedBoard) =>
+      boards.filter(board => board._id !== removedBoard._id),
+    )
+    .reset(resetNewBoards)
+
   return {
     createBoardFx,
     editBoardDescriptionFx,
     editBoardVisibilityFx,
     removeBoardFx,
+    resetNewBoards,
+    $newBoards,
   }
 }

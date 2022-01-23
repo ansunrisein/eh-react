@@ -1,13 +1,14 @@
 import React, {useCallback, useState} from 'react'
 import cx from 'classnames'
-import {RiAddFill, RiDashboardLine} from 'react-icons/ri'
+import {RiAddFill, RiDashboardLine, RiHashtag} from 'react-icons/ri'
 import {useTitle} from 'react-use'
-import {Button, IconButton, Popover, Whisper} from 'rsuite'
+import {Button, Divider, IconButton, Panel, Popover, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
+import {useNewBoards, useNewBoardsGate} from '@eh/entities/board'
 import {BoardCard} from '@eh/entities/board/ui'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {CreateBoardForm} from '@eh/features/update-board'
@@ -22,6 +23,7 @@ export const Dashboard: React.FC = () => {
 
   const isAuthenticated = useIsAuthenticated()
 
+  const newBoards = useNewBoards()
   const {boards, loading} = useBoards()
 
   useTitle('Dashboard')
@@ -30,6 +32,8 @@ export const Dashboard: React.FC = () => {
     () => setDisplay(display => (display === 'list' ? 'grid' : 'list')),
     [],
   )
+
+  useNewBoardsGate()
 
   return (
     <Layout header loading={loading}>
@@ -59,7 +63,7 @@ export const Dashboard: React.FC = () => {
           </Whisper>
         </Flex>
 
-        {!boards?.edges.length ? (
+        {!boards?.edges.length && !newBoards.length ? (
           <Empty>
             {isAuthenticated ? (
               <>
@@ -80,17 +84,38 @@ export const Dashboard: React.FC = () => {
               </>
             )}
           </Empty>
-        ) : display === 'grid' ? (
-          <div className={S.boards}>
-            {boards.edges.map(e => (
-              <MiniBoard key={e.node._id} board={e.node} className={S.shrink} />
-            ))}
-          </div>
         ) : (
-          <div className={S.grid}>
-            {boards.edges.map(e => (
-              <BoardCard key={e.node._id} board={e.node} />
-            ))}
+          <div className={S.content}>
+            {!!newBoards.length && (
+              <Panel bodyFill>
+                <h4 className={S.title}>
+                  <Icon as={RiHashtag} />
+                  <span className={S.vertical}>Latest created boards</span>
+                </h4>
+                <div className={S.grid}>
+                  {newBoards.map(e => (
+                    <BoardCard key={e._id} board={e} />
+                  ))}
+                </div>
+              </Panel>
+            )}
+
+            {!!boards?.edges.length && !!newBoards.length && <Divider />}
+
+            {!!boards?.edges.length &&
+              (display === 'grid' ? (
+                <div className={S.boards}>
+                  {boards.edges.map(e => (
+                    <MiniBoard key={e.node._id} board={e.node} className={S.shrink} />
+                  ))}
+                </div>
+              ) : (
+                <div className={S.grid}>
+                  {boards.edges.map(e => (
+                    <BoardCard key={e.node._id} board={e.node} />
+                  ))}
+                </div>
+              ))}
           </div>
         )}
       </Flex>

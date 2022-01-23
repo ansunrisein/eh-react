@@ -1,4 +1,5 @@
-import React, {createContext, useContext, useMemo} from 'react'
+import React, {createContext, useContext, useEffect, useMemo} from 'react'
+import {useEvent, useStore} from 'effector-react'
 import {useAsyncFn} from 'react-use'
 import {Board, Permission} from '@eh/shared/api'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
@@ -40,6 +41,12 @@ export const useBoard = (id: string) => {
     board: data?.board,
     loading,
   }
+}
+
+export const useNewBoards = () => {
+  const {$newBoards} = useBoardEntity()
+
+  return useStore($newBoards)
 }
 
 export const usePermissions = ({permissions = []}: Partial<Pick<Board, 'permissions'>> = {}) =>
@@ -96,4 +103,20 @@ export const useRemoveBoard = () => {
   const {removeBoardFx} = useBoardEntity()
 
   return useAsyncFn<RemoveEffector<typeof removeBoardFx>>(removeBoardFx, [removeBoardFx])
+}
+
+export const useResetNewBoards = () => {
+  const {resetNewBoards} = useBoardEntity()
+
+  return useEvent(resetNewBoards)
+}
+
+export const useNewBoardsGate = () => {
+  const {resetNewBoards} = useBoardEntity()
+
+  useEffect(() => {
+    resetNewBoards()
+
+    return resetNewBoards
+  }, [resetNewBoards])
 }
