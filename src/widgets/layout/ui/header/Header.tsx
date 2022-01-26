@@ -1,12 +1,13 @@
 import React from 'react'
-import {RiBarChartBoxFill, RiUser2Fill} from 'react-icons/ri'
-import {IconButton, Popover, Whisper} from 'rsuite'
+import {RiBarChartBoxFill} from 'react-icons/ri'
+import {Button, IconButton, Popover, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {ThemeSwitcher} from '@eh/shared/lib/theme'
 import {Logo} from '@eh/shared/ui'
 import {useIsAuthenticated} from '@eh/entities/session'
+import {Avatar} from '@eh/entities/user'
 import {LoginButton} from '@eh/features/auth-with-firebase'
 import {Menu} from '../menu'
 import S from './Header.module.scss'
@@ -42,12 +43,9 @@ export const Header: React.FC = () => {
               </Popover>
             }
           >
-            <IconButton
-              icon={<Icon as={RiUser2Fill} />}
-              size="md"
-              appearance="link"
-              className={S.link}
-            />
+            <Button size="sm" appearance="link" className={S.link}>
+              <Avatar circle size="sm" />
+            </Button>
           </Whisper>
         ) : (
           <LoginButton size="xs" appearance="primary" />
