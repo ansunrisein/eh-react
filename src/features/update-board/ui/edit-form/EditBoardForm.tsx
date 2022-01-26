@@ -42,7 +42,21 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
           control={control}
           name="title"
           render={({field}) => (
-            <Input className={S.field} disabled={!canUpdateDescription} {...field} />
+            <Input className={S.margin} disabled={!canUpdateDescription} {...field} />
+          )}
+        />
+
+        <h5 className={S.margin}>Description</h5>
+        <Controller
+          control={control}
+          name="description"
+          render={({field}) => (
+            <Input
+              className={S.margin}
+              disabled={!canUpdateDescription}
+              {...field}
+              value={field.value || ''}
+            />
           )}
         />
 
@@ -61,7 +75,7 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
         <h5>Private</h5>
         <Toggle
           checked={board.isPrivate}
-          className={cx(S.field, 'block')}
+          className={cx(S.margin, 'block')}
           loading={editingVisibility.loading}
           disabled={!canUpdateVisibility || editingVisibility.loading}
           onChange={editVisibility}

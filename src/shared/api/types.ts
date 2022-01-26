@@ -20,6 +20,7 @@ export type Board = {
   __typename?: 'Board'
   _id: Scalars['ID']
   boardLinks: BoardLinkConnection
+  description?: Maybe<Scalars['String']>
   events: EventConnection
   eventsCount: Scalars['Float']
   isPrivate: Scalars['Boolean']
@@ -71,6 +72,7 @@ export type BoardLinkEdge = {
 }
 
 export type CreateBoard = {
+  description?: Maybe<Scalars['String']>
   isPrivate: Scalars['Boolean']
   title: Scalars['String']
 }
@@ -268,6 +270,7 @@ export type Sub = {
 
 export type UpdateBoardDescription = {
   _id: Scalars['ID']
+  description?: Maybe<Scalars['String']>
   title: Scalars['String']
 }
 
@@ -299,6 +302,7 @@ export type User = {
 export type BoardKeySpecifier = (
   | '_id'
   | 'boardLinks'
+  | 'description'
   | 'events'
   | 'eventsCount'
   | 'isPrivate'
@@ -311,6 +315,7 @@ export type BoardKeySpecifier = (
 export type BoardFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
   boardLinks?: FieldPolicy<any> | FieldReadFunction<any>
+  description?: FieldPolicy<any> | FieldReadFunction<any>
   events?: FieldPolicy<any> | FieldReadFunction<any>
   eventsCount?: FieldPolicy<any> | FieldReadFunction<any>
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>

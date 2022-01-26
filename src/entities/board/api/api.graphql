@@ -1,6 +1,7 @@
 fragment Board on Board {
     _id
     title
+    description
     isPrivate
     user {
         _id
@@ -18,14 +19,14 @@ query Board($id: ID!) {
     }
 }
 
-mutation CreateBoard($title: String!, $isPrivate: Boolean!) {
-    createBoard(board: {title: $title, isPrivate: $isPrivate}) {
+mutation CreateBoard($title: String!, $description: String, $isPrivate: Boolean!) {
+    createBoard(board: {title: $title, description: $description, isPrivate: $isPrivate}) {
         ...Board
     }
 }
 
-mutation EditBoardDescription($id: ID!, $title: String!) {
-    updateBoardDescription(board: {_id: $id, title: $title}) {
+mutation EditBoardDescription($id: ID!, $title: String!, $description: String) {
+    updateBoardDescription(board: {_id: $id, title: $title, description: $description}) {
         ...Board
     }
 }

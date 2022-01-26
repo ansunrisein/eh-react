@@ -24,12 +24,14 @@ export const BoardForm: React.FC<BoardFormProps> = ({
   onSubmit = noop,
 }) => {
   const [isTitleProcess, startIsTitleProcess, stopIsTitleProcess] = useBooleanState(false)
+  const [isDescriptionProcess, startIsDescriptionProcess, stopIsDescriptionProcess] =
+    useBooleanState(false)
 
   const {handleSubmit, control, formState, watch} = useForm({
     mode: 'onChange',
     defaultValues,
   })
-  const {title} = watch()
+  const {title, description} = watch()
 
   const handleEnter = useFormInputEnter()
 
@@ -49,6 +51,26 @@ export const BoardForm: React.FC<BoardFormProps> = ({
                   {...field}
                   onFocus={startIsTitleProcess}
                   onBlur={stopIsTitleProcess}
+                  onKeyDown={handleEnter}
+                />
+              )}
+            />
+          }
+        />
+        <Steps.Item
+          status={!description ? 'wait' : isDescriptionProcess ? 'process' : 'finish'}
+          title={<h4>Description</h4>}
+          description={
+            <Controller
+              control={control}
+              name="description"
+              render={({field}) => (
+                <Input
+                  aria-label="description"
+                  {...field}
+                  value={field.value || ''}
+                  onFocus={startIsDescriptionProcess}
+                  onBlur={stopIsDescriptionProcess}
                   onKeyDown={handleEnter}
                 />
               )}

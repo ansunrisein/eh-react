@@ -13,6 +13,7 @@ export type BoardPageFragment = {
   __typename?: 'Board'
   _id: string
   title: string
+  description?: string | null | undefined
   isPrivate: boolean
   permissions: Array<Types.Permission>
   eventsCount: number
@@ -39,6 +40,7 @@ export type BoardPageQuery = {
     __typename?: 'Board'
     _id: string
     title: string
+    description?: string | null | undefined
     isPrivate: boolean
     permissions: Array<Types.Permission>
     eventsCount: number
