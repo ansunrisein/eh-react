@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react'
 import cx from 'classnames'
 import {RiAddFill, RiDashboardLine, RiHashtag} from 'react-icons/ri'
-import {useTitle} from 'react-use'
+import {useAsyncFn, useTitle} from 'react-use'
 import {Button, Divider, IconButton, Panel, Popover, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
@@ -24,7 +24,9 @@ export const Dashboard: React.FC = () => {
   const isAuthenticated = useIsAuthenticated()
 
   const newBoards = useNewBoards()
-  const {boards, loading} = useBoards()
+  const {boards, loading, fetchMoreBoards, hasMoreBoards} = useBoards()
+
+  const [fetchMoreBoardsState, fetchMore] = useAsyncFn(fetchMoreBoards, [fetchMoreBoards])
 
   useTitle('Dashboard')
 
@@ -116,6 +118,18 @@ export const Dashboard: React.FC = () => {
                   ))}
                 </div>
               ))}
+
+            {hasMoreBoards && (
+              <Button
+                className={S.more}
+                appearance="ghost"
+                block
+                onClick={fetchMore}
+                loading={fetchMoreBoardsState.loading}
+              >
+                Fetch more boards
+              </Button>
+            )}
           </div>
         )}
       </Flex>

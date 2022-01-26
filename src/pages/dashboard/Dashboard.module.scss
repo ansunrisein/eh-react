@@ -53,6 +53,11 @@
   flex-shrink: 0;
 }
 
+.more {
+  width: fit-content;
+  margin: 2rem auto auto;
+}
+
 .link,
 .link:hover,
 .link:focus-within {
