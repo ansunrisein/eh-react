@@ -12,6 +12,7 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   open = false,
   className,
+  full,
   ...props
 }) => {
   const [childrenState, setChildrenState] = useState(children)
@@ -51,6 +52,7 @@ export const Modal: React.FC<ModalProps> = ({
       onClose={handleClose}
       onExited={handleExited}
       className={cx(!isTablet && S.drawer, className)}
+      full={!isTablet && full}
       {...props}
     >
       {childrenState}
