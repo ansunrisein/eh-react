@@ -29,6 +29,7 @@
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.0.0",
     "react-scripts": "^4.0.3",
+    "react-timer-hook": "^3.0.5",
     "react-use": "^17.2.4",
     "rsuite": "^5.2.2",
     "sb": "^6.3.7",
