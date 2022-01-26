@@ -22,7 +22,13 @@ export type BoardPageFragment = {
     pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
     edges: Array<{
       __typename?: 'EventEdge'
-      node: {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+      node: {
+        __typename?: 'Event'
+        _id: string
+        title?: string | null | undefined
+        content: string
+        deadline?: any | null | undefined
+      }
     }>
   }
   user: {__typename?: 'User'; _id: string}
@@ -58,6 +64,7 @@ export type BoardPageQuery = {
           _id: string
           title?: string | null | undefined
           content: string
+          deadline?: any | null | undefined
         }
       }>
     }

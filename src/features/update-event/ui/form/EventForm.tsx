@@ -1,7 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import {Controller, useForm} from 'react-hook-form'
-import {Button, Input, Loader, Steps} from 'rsuite'
+import {Button, DatePicker, Input, Loader, Steps} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
 import {useFormInputEnter} from '@eh/shared/lib/use-form-input-enter'
@@ -16,7 +16,7 @@ export type EventFormProps = {
 
 export type EventFormFields = Pick<
   CreateEventMutationVariables | EditEventMutationVariables,
-  'title' | 'content'
+  'title' | 'content' | 'deadline'
 >
 
 export const EventForm: React.FC<EventFormProps> = ({
@@ -33,7 +33,7 @@ export const EventForm: React.FC<EventFormProps> = ({
     mode: 'onChange',
     defaultValues,
   })
-  const {title, content} = watch()
+  const {title, content, deadline} = watch()
 
   const handleEnter = useFormInputEnter()
 
@@ -75,6 +75,24 @@ export const EventForm: React.FC<EventFormProps> = ({
                   {...field}
                   onFocus={startIsContentProcess}
                   onBlur={stopIsContentProcess}
+                />
+              )}
+            />
+          }
+        />
+        <Steps.Item
+          status={deadline ? 'finish' : 'wait'}
+          title={<h4>Deadline</h4>}
+          description={
+            <Controller
+              control={control}
+              name="deadline"
+              render={({field}) => (
+                <DatePicker
+                  {...field}
+                  value={field.value ? new Date(field.value) : field.value}
+                  placement="auto"
+                  format="yyyy-MM-dd HH:mm:ss"
                 />
               )}
             />

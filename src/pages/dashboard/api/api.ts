@@ -23,7 +23,13 @@ export type DashboardNodeFragment = {
     edges: Array<{
       __typename?: 'EventEdge'
       cursor: string
-      node: {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+      node: {
+        __typename?: 'Event'
+        _id: string
+        title?: string | null | undefined
+        content: string
+        deadline?: any | null | undefined
+      }
     }>
   }
   user: {__typename?: 'User'; _id: string}
@@ -65,6 +71,7 @@ export type DashboardQuery = {
               _id: string
               title?: string | null | undefined
               content: string
+              deadline?: any | null | undefined
             }
           }>
         }

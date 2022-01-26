@@ -14,6 +14,8 @@ export type Scalars = {
   Boolean: boolean
   Int: number
   Float: number
+  /** A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format. */
+  DateTime: any
 }
 
 export type Board = {
@@ -86,6 +88,7 @@ export type CreateBoardLink = {
 export type CreateEvent = {
   boardId: Scalars['ID']
   content: Scalars['String']
+  deadline?: Maybe<Scalars['DateTime']>
   title?: Maybe<Scalars['String']>
 }
 
@@ -103,6 +106,7 @@ export type Event = {
   __typename?: 'Event'
   _id: Scalars['ID']
   content: Scalars['String']
+  deadline?: Maybe<Scalars['DateTime']>
   title?: Maybe<Scalars['String']>
 }
 
@@ -288,6 +292,7 @@ export type UpdateBoardVisibility = {
 export type UpdateEvent = {
   _id: Scalars['ID']
   content: Scalars['String']
+  deadline?: Maybe<Scalars['DateTime']>
   title?: Maybe<Scalars['String']>
 }
 
@@ -372,10 +377,11 @@ export type EntityPermissionsFieldPolicy = {
   name?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
 }
-export type EventKeySpecifier = ('_id' | 'content' | 'title' | EventKeySpecifier)[]
+export type EventKeySpecifier = ('_id' | 'content' | 'deadline' | 'title' | EventKeySpecifier)[]
 export type EventFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
   content?: FieldPolicy<any> | FieldReadFunction<any>
+  deadline?: FieldPolicy<any> | FieldReadFunction<any>
   title?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type EventConnectionKeySpecifier = ('edges' | 'pageInfo' | EventConnectionKeySpecifier)[]

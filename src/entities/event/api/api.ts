@@ -12,6 +12,7 @@ export type EventFragment = {
   _id: string
   title?: string | null | undefined
   content: string
+  deadline?: any | null | undefined
 }
 
 export type EventQueryVariables = Types.Exact<{
@@ -21,7 +22,13 @@ export type EventQueryVariables = Types.Exact<{
 export type EventQuery = {
   __typename?: 'Query'
   event?:
-    | {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+    | {
+        __typename?: 'Event'
+        _id: string
+        title?: string | null | undefined
+        content: string
+        deadline?: any | null | undefined
+      }
     | null
     | undefined
 }
@@ -29,13 +36,20 @@ export type EventQuery = {
 export type CreateEventMutationVariables = Types.Exact<{
   title?: Types.Maybe<Types.Scalars['String']>
   content: Types.Scalars['String']
+  deadline?: Types.Maybe<Types.Scalars['DateTime']>
   boardId: Types.Scalars['ID']
 }>
 
 export type CreateEventMutation = {
   __typename?: 'Mutation'
   createEvent?:
-    | {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+    | {
+        __typename?: 'Event'
+        _id: string
+        title?: string | null | undefined
+        content: string
+        deadline?: any | null | undefined
+      }
     | null
     | undefined
 }
@@ -44,12 +58,19 @@ export type EditEventMutationVariables = Types.Exact<{
   id: Types.Scalars['ID']
   title?: Types.Maybe<Types.Scalars['String']>
   content: Types.Scalars['String']
+  deadline?: Types.Maybe<Types.Scalars['DateTime']>
 }>
 
 export type EditEventMutation = {
   __typename?: 'Mutation'
   updateEvent?:
-    | {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+    | {
+        __typename?: 'Event'
+        _id: string
+        title?: string | null | undefined
+        content: string
+        deadline?: any | null | undefined
+      }
     | null
     | undefined
 }
@@ -61,7 +82,13 @@ export type RemoveEventMutationVariables = Types.Exact<{
 export type RemoveEventMutation = {
   __typename?: 'Mutation'
   removeEvent?:
-    | {__typename?: 'Event'; _id: string; title?: string | null | undefined; content: string}
+    | {
+        __typename?: 'Event'
+        _id: string
+        title?: string | null | undefined
+        content: string
+        deadline?: any | null | undefined
+      }
     | null
     | undefined
 }
@@ -71,6 +98,7 @@ export const EventFragmentDoc = gql`
     _id
     title
     content
+    deadline
   }
 `
 export const EventDocument = gql`
@@ -114,8 +142,8 @@ export type EventQueryHookResult = ReturnType<typeof useEventQuery>
 export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>
 export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>
 export const CreateEventDocument = gql`
-  mutation CreateEvent($title: String, $content: String!, $boardId: ID!) {
-    createEvent(event: {title: $title, content: $content, boardId: $boardId}) {
+  mutation CreateEvent($title: String, $content: String!, $deadline: DateTime, $boardId: ID!) {
+    createEvent(event: {title: $title, content: $content, deadline: $deadline, boardId: $boardId}) {
       ...Event
     }
   }
@@ -141,6 +169,7 @@ export type CreateEventMutationFn = Apollo.MutationFunction<
  *   variables: {
  *      title: // value for 'title'
  *      content: // value for 'content'
+ *      deadline: // value for 'deadline'
  *      boardId: // value for 'boardId'
  *   },
  * });
@@ -161,8 +190,8 @@ export type CreateEventMutationOptions = Apollo.BaseMutationOptions<
   CreateEventMutationVariables
 >
 export const EditEventDocument = gql`
-  mutation EditEvent($id: ID!, $title: String, $content: String!) {
-    updateEvent(event: {_id: $id, title: $title, content: $content}) {
+  mutation EditEvent($id: ID!, $title: String, $content: String!, $deadline: DateTime) {
+    updateEvent(event: {_id: $id, title: $title, content: $content, deadline: $deadline}) {
       ...Event
     }
   }
@@ -189,6 +218,7 @@ export type EditEventMutationFn = Apollo.MutationFunction<
  *      id: // value for 'id'
  *      title: // value for 'title'
  *      content: // value for 'content'
+ *      deadline: // value for 'deadline'
  *   },
  * });
  */

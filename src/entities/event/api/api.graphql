@@ -2,6 +2,7 @@ fragment Event on Event {
     _id
     title
     content
+    deadline
 }
 
 query Event($id: ID!) {
@@ -10,14 +11,14 @@ query Event($id: ID!) {
     }
 }
 
-mutation CreateEvent($title: String, $content: String!, $boardId: ID!) {
-    createEvent(event: {title: $title, content: $content, boardId: $boardId}) {
+mutation CreateEvent($title: String, $content: String!, $deadline: DateTime, $boardId: ID!) {
+    createEvent(event: {title: $title, content: $content, deadline: $deadline, boardId: $boardId}) {
         ...Event
     }
 }
 
-mutation EditEvent($id: ID!, $title: String, $content: String!) {
-    updateEvent(event: {_id: $id, title: $title, content: $content}) {
+mutation EditEvent($id: ID!, $title: String, $content: String!, $deadline: DateTime) {
+    updateEvent(event: {_id: $id, title: $title, content: $content, deadline: $deadline}) {
         ...Event
     }
 }
