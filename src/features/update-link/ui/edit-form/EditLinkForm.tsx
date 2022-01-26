@@ -69,7 +69,7 @@ export const EditLinkForm: React.FC<EditLinkFormProps> = ({linkId, onEdit}) => {
         render={({field}) => <PermissionsInput {...field} />}
       />
 
-      <Button type="submit" appearance="primary" disabled={!formState.isDirty}>
+      <Button className={S.save} type="submit" appearance="primary" disabled={!formState.isDirty}>
         Save
       </Button>
 

@@ -122,11 +122,11 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
         )}
       </div>
 
-      <Modal open={isCreateOpen} onClose={closeCreate}>
+      <Modal open={isCreateOpen} onClose={closeCreate} full>
         <CreateLinkForm boardId={board._id} onCreate={closeCreate} />
       </Modal>
 
-      <Modal open={!!editedLinkId} onClose={() => setEditedLinkId(null)}>
+      <Modal open={!!editedLinkId} onClose={() => setEditedLinkId(null)} full>
         {editedLinkId && (
           <div>
             <EditLinkForm linkId={editedLinkId} onEdit={() => setEditedLinkId(null)} />
@@ -138,7 +138,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
         )}
       </Modal>
 
-      <Modal open={!!viewedLinkId} onClose={() => setViewedLinkId(null)}>
+      <Modal open={!!viewedLinkId} onClose={() => setViewedLinkId(null)} full>
         {viewedLinkId && <LinkView linkId={viewedLinkId} />}
       </Modal>
     </div>
