@@ -54,7 +54,12 @@ export const Board: React.FC = () => {
               Settings
             </Button>
           )}
-          <Modal open={isCreateEventOpened} onClose={closeCreateEvent} backdrop>
+          <Modal
+            size={isTablet ? 'sm' : 'lg'}
+            open={isCreateEventOpened}
+            onClose={closeCreateEvent}
+            backdrop
+          >
             <CreateEventForm boardId={id} onCreate={closeCreateEvent} />
           </Modal>
         </Flex>
