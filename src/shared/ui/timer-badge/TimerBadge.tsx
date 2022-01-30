@@ -1,22 +1,34 @@
 import React, {useEffect} from 'react'
+import {format} from 'date-fns'
 import {TimerSettings, useTimer} from 'react-timer-hook'
-import {Tag} from 'rsuite'
+import {Tag, Tooltip, Whisper} from 'rsuite'
 import {formatTime} from './helpers'
 
 export type TimerBadgeProps = TimerSettings
 
 export const TimerBadge: React.FC<TimerBadgeProps> = ({expiryTimestamp, ...props}) => {
-  const {start, ...rest} = useTimer({expiryTimestamp, ...props})
+  const {start, pause, ...rest} = useTimer({expiryTimestamp, ...props})
 
   const time = formatTime(rest)
 
   useEffect(() => {
-    start()
+    if (time) {
+      start()
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   if (!time) {
-    return <Tag color="red">Time is up</Tag>
+    return (
+      <Whisper
+        placement="bottom"
+        controlId="control-id-hover"
+        trigger="hover"
+        speaker={<Tooltip>{format(expiryTimestamp, 'dd-MM-yyyy')}</Tooltip>}
+      >
+        <Tag color="red">Time is up</Tag>
+      </Whisper>
+    )
   }
 
   return <Tag color="violet">{time}</Tag>
