@@ -9,6 +9,8 @@ export const useFullBoard = (id: string, eventsPerPage = 25) => {
         first: eventsPerPage,
       },
     },
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-first',
   })
 
   const pageInfo = data?.board.events.pageInfo

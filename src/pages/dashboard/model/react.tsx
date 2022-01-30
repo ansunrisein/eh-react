@@ -4,6 +4,8 @@ import {useDashboardQuery} from '../api'
 export const useBoards = (boardsPerPage = 25, eventsPerPage = 25) => {
   const {data, loading, fetchMore} = useDashboardQuery({
     variables: {page: {first: boardsPerPage}, eventsPage: {first: eventsPerPage}},
+    fetchPolicy: 'network-only',
+    nextFetchPolicy: 'cache-first',
   })
 
   const pageInfo = data?.dashboard.pageInfo
