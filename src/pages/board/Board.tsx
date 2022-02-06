@@ -1,11 +1,12 @@
 import React, {useCallback, useState} from 'react'
-import {RiHashtag} from 'react-icons/ri'
+import {RiHashtag, RiQrCodeFill} from 'react-icons/ri'
+import QRCode from 'react-qr-code'
 import {useMedia, useTitle} from 'react-use'
-import {Button, Divider, Drawer} from 'rsuite'
+import {Button, Divider, Drawer, IconButton, Modal as RModal} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
-import {useNavigate, useParams} from '@eh/shared/lib/router'
+import {useLocation, useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {usePermissions} from '@eh/entities/board'
 import {EventCard, useNewEvents, useNewEventsGate} from '@eh/entities/event'
@@ -20,9 +21,11 @@ export const Board: React.FC = () => {
   const [openedEventId, setOpenedEventId] = useState<string | null>(null)
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
   const [isBoardSettingsOpened, openBoardSettings, closeBoardSettings] = useBooleanState(false)
+  const [isQRCodeOpened, openQRCode, closeQRCode] = useBooleanState(false)
 
   const {id = ''} = useParams<'id'>()
   const navigate = useNavigate()
+  const {pathname} = useLocation()
 
   const {board, loading} = useFullBoard(id)
   const {canCreateEvent, canUpdateEvent, canRemoveEvent, canViewSettings} = usePermissions(board)
@@ -44,6 +47,7 @@ export const Board: React.FC = () => {
     <Layout header loading={loading}>
       {(canCreateEvent || canViewSettings) && (
         <Flex justifyContent="flex-end" className={S.panel}>
+          <IconButton onClick={openQRCode} size="xs" icon={<Icon as={RiQrCodeFill} />} />
           {canCreateEvent && (
             <Button size="xs" color="blue" appearance="primary" onClick={openCreateEvent}>
               Create event
@@ -115,6 +119,22 @@ export const Board: React.FC = () => {
           />
         )}
       </Modal>
+
+      <RModal size="xs" open={isQRCodeOpened} onClose={closeQRCode} backdrop>
+        <RModal.Header>
+          <h4 className={S.qrcode}>{board?.title}</h4>
+        </RModal.Header>
+
+        <RModal.Body>
+          <Flex justifyContent="center">
+            <QRCode
+              bgColor="var(--rs-body)"
+              fgColor="var(--rs-text-primary)"
+              value={`${process.env.REACT_APP_URL}${pathname}`}
+            />
+          </Flex>
+        </RModal.Body>
+      </RModal>
 
       <Drawer
         open={isBoardSettingsOpened}
