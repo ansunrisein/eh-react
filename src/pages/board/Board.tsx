@@ -1,5 +1,12 @@
 import React, {useCallback, useState} from 'react'
-import {RiHashtag, RiHeart3Fill, RiHeart3Line, RiQrCodeFill} from 'react-icons/ri'
+import {
+  RiHashtag,
+  RiHeart3Fill,
+  RiHeart3Line,
+  RiPushpin2Fill,
+  RiPushpinFill,
+  RiQrCodeFill,
+} from 'react-icons/ri'
 import QRCode from 'react-qr-code'
 import {useMedia, useTitle} from 'react-use'
 import {Button, Divider, Drawer, IconButton, Modal as RModal} from 'rsuite'
@@ -12,6 +19,7 @@ import {usePermissions} from '@eh/entities/board'
 import {EventCard, useNewEvents, useNewEventsGate} from '@eh/entities/event'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {useToggleIsFavorite} from '@eh/features/favorite-board'
+import {useToggleIsPin} from '@eh/features/pin-board'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
@@ -33,7 +41,8 @@ export const Board: React.FC = () => {
 
   const {board, loading} = useFullBoard(id)
   const {canCreateEvent, canUpdateEvent, canRemoveEvent, canViewSettings} = usePermissions(board)
-  const {loading: toggleIsFavoriteLoading, toggle} = useToggleIsFavorite(board)
+  const {loading: toggleIsFavoriteLoading, toggle: toggleFavorite} = useToggleIsFavorite(board)
+  const {loading: toggleIsPinLoading, toggle: togglePin} = useToggleIsPin(board)
 
   const newEvents = useNewEvents()
 
@@ -59,9 +68,18 @@ export const Board: React.FC = () => {
           {isAuthenticated && (
             <IconButton
               loading={toggleIsFavoriteLoading}
-              onClick={toggle}
+              onClick={toggleFavorite}
               size="xs"
               icon={<Icon as={board?.isFavorite ? RiHeart3Fill : RiHeart3Line} />}
+            />
+          )}
+
+          {isAuthenticated && (
+            <IconButton
+              loading={toggleIsPinLoading}
+              onClick={togglePin}
+              size="xs"
+              icon={<Icon as={board?.isPin ? RiPushpinFill : RiPushpin2Fill} />}
             />
           )}
 
