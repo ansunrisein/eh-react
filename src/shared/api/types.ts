@@ -78,6 +78,11 @@ export type BoardLinkEdge = {
   node: BoardLink
 }
 
+export type BoardsFilter = {
+  favorite?: Maybe<Scalars['Int']>
+  pin?: Maybe<Scalars['Int']>
+}
+
 export type BoardsSort = {
   favorite?: Maybe<Scalars['String']>
   nearestEvent?: Maybe<Scalars['String']>
@@ -277,6 +282,7 @@ export type QueryBoardLinksArgs = {
 }
 
 export type QueryDashboardArgs = {
+  filter?: Maybe<BoardsFilter>
   page: Page
   sort?: Maybe<BoardsSort>
 }

@@ -6,7 +6,6 @@ import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
 import * as Apollo from '@apollo/client'
-
 const defaultOptions = {}
 export type MarkBoardAsFavoriteMutationVariables = Types.Exact<{
   board: Types.BoardId
@@ -68,7 +67,6 @@ export function useMarkBoardAsFavoriteMutation(
     options,
   )
 }
-
 export type MarkBoardAsFavoriteMutationHookResult = ReturnType<
   typeof useMarkBoardAsFavoriteMutation
 >
@@ -119,7 +117,6 @@ export function useUnmarkBoardAsFavoriteMutation(
     options,
   )
 }
-
 export type UnmarkBoardAsFavoriteMutationHookResult = ReturnType<
   typeof useUnmarkBoardAsFavoriteMutation
 >

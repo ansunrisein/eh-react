@@ -13,6 +13,8 @@ import {BoardCard} from '@eh/entities/board/ui'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
+import {Filters} from '@eh/pages/dashboard/ui/filters'
+import {filterConfig} from './filters'
 import {useBoards} from './model'
 import {sortConfig} from './sorts'
 import {MiniBoard, Sorts, SortState} from './ui'
@@ -23,12 +25,19 @@ export const Dashboard: React.FC = () => {
   const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
     sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
   )
+  const [filtersState, setFiltersState] = useState<Record<string, number>>(() =>
+    filterConfig.reduce((acc, e) => ({...acc, [e.name]: 0}), {}),
+  )
   const [isCreateBoardOpened, openCreateBoard, closeCreateBoard] = useBooleanState(false)
 
   const isAuthenticated = useIsAuthenticated()
 
   const newBoards = useNewBoards()
-  const {boards, loading, fetchMoreBoards, hasMoreBoards} = useBoards({sort: sortsState})
+
+  const {boards, loading, fetchMoreBoards, hasMoreBoards} = useBoards({
+    sort: sortsState,
+    filter: filtersState,
+  })
 
   const [fetchMoreBoardsState, fetchMore] = useAsyncFn(fetchMoreBoards, [fetchMoreBoards])
 
@@ -45,7 +54,10 @@ export const Dashboard: React.FC = () => {
     <Layout header>
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
         <Flex height="100%" flexDirection="column" justifyContent="space-between">
-          <Sorts sorts={sortConfig} onChange={setSortsState} />
+          <Flex flexDirection="column" gap="1rem">
+            <Sorts sorts={sortConfig} onChange={setSortsState} />
+            <Filters filters={filterConfig} onChange={setFiltersState} />
+          </Flex>
 
           <Flex flexDirection="column">
             <IconButton onClick={switchDisplay} icon={<Icon as={RiDashboardLine} />} size="lg" />

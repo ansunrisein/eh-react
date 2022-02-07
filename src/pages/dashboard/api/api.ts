@@ -41,6 +41,7 @@ export type DashboardQueryVariables = Types.Exact<{
   page: Types.Page
   eventsPage: Types.Page
   sort?: Types.Maybe<Types.BoardsSort>
+  filter?: Types.Maybe<Types.BoardsFilter>
 }>
 
 export type DashboardQuery = {
@@ -105,8 +106,8 @@ export const DashboardNodeFragmentDoc = gql`
   ${EventFragmentDoc}
 `
 export const DashboardDocument = gql`
-  query Dashboard($page: Page!, $eventsPage: Page!, $sort: BoardsSort) {
-    dashboard(page: $page, sort: $sort) {
+  query Dashboard($page: Page!, $eventsPage: Page!, $sort: BoardsSort, $filter: BoardsFilter) {
+    dashboard(page: $page, sort: $sort, filter: $filter) {
       pageInfo {
         hasNextPage
         endCursor
@@ -136,6 +137,7 @@ export const DashboardDocument = gql`
  *      page: // value for 'page'
  *      eventsPage: // value for 'eventsPage'
  *      sort: // value for 'sort'
+ *      filter: // value for 'filter'
  *   },
  * });
  */
