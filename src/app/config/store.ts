@@ -9,6 +9,7 @@ import {
   AuthWithFirebaseFeatureProvider,
   createAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
+import {createFavoriteBoardFeature, FavoriteBoardFeatureProvider} from '@eh/features/favorite-board'
 import {
   createUpdateUserAvatarFeature,
   UpdateUserAvatarFeatureProvider,
@@ -31,6 +32,7 @@ export const updateUserAvatarFeature = createUpdateUserAvatarFeature({
   apollo,
   imageUploadService: cloudinary,
 })
+export const favoriteBoardFeature = createFavoriteBoardFeature({domain, apollo})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(EventEntityProvider, {event: eventEntity})
@@ -40,4 +42,5 @@ export const AppStoreProvider = createProviderBuilder()
   .add(SessionEntityProvider, {session: sessionEntity})
   .add(AuthWithFirebaseFeatureProvider, {authWithFirebase: authWithFirebaseFeature})
   .add(UpdateUserAvatarFeatureProvider, {updateUserAvatar: updateUserAvatarFeature})
+  .add(FavoriteBoardFeatureProvider, {favoriteBoard: favoriteBoardFeature})
   .return()

@@ -1,0 +1,13 @@
+mutation MarkBoardAsFavorite($board: BoardId!) {
+    markBoardAsFavorite(board: $board) {
+        _id
+        isFavorite
+    }
+}
+
+mutation UnmarkBoardAsFavorite($board: BoardId!) {
+    unmarkBoardAsFavorite(board: $board) {
+        _id
+        isFavorite
+    }
+}
