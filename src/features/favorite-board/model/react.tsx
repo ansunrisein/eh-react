@@ -1,5 +1,6 @@
-import React, {createContext, useContext} from 'react'
+import React, {createContext, useCallback, useContext} from 'react'
 import {useAsyncFn} from 'react-use'
+import {Board} from '@eh/shared/api'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
 import {FavoriteBoardFeature} from './favorite-board'
 
@@ -51,4 +52,20 @@ export const useUnmarkBoardAsFavorite = () => {
   return useAsyncFn<RemoveEffector<typeof unmarkBoardAsFavoriteFx>>(unmarkBoardAsFavoriteFx, [
     unmarkBoardAsFavoriteFx,
   ])
+}
+
+export const useToggleIsFavorite = (board: Pick<Board, '_id' | 'isFavorite'> | undefined) => {
+  const [markingState, mark] = useMarkBoardAsFavorite()
+  const [unmarkingState, unmark] = useUnmarkBoardAsFavorite()
+
+  const toggle = useCallback(async () => {
+    if (board) {
+      await (board.isFavorite ? unmark : mark)({board: {_id: board._id}})
+    }
+  }, [mark, board, unmark])
+
+  return {
+    toggle,
+    loading: markingState.loading || unmarkingState.loading,
+  }
 }

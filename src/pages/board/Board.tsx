@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react'
-import {RiHashtag, RiQrCodeFill} from 'react-icons/ri'
+import {RiHashtag, RiHeart3Fill, RiHeart3Line, RiQrCodeFill} from 'react-icons/ri'
 import QRCode from 'react-qr-code'
 import {useMedia, useTitle} from 'react-use'
 import {Button, Divider, Drawer, IconButton, Modal as RModal} from 'rsuite'
@@ -10,6 +10,8 @@ import {useLocation, useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {usePermissions} from '@eh/entities/board'
 import {EventCard, useNewEvents, useNewEventsGate} from '@eh/entities/event'
+import {useIsAuthenticated} from '@eh/entities/session'
+import {useToggleIsFavorite} from '@eh/features/favorite-board'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
@@ -27,8 +29,11 @@ export const Board: React.FC = () => {
   const navigate = useNavigate()
   const {pathname} = useLocation()
 
+  const isAuthenticated = useIsAuthenticated()
+
   const {board, loading} = useFullBoard(id)
   const {canCreateEvent, canUpdateEvent, canRemoveEvent, canViewSettings} = usePermissions(board)
+  const {loading: toggleIsFavoriteLoading, toggle} = useToggleIsFavorite(board)
 
   const newEvents = useNewEvents()
 
@@ -46,8 +51,22 @@ export const Board: React.FC = () => {
   return (
     <Layout header loading={loading}>
       {(canCreateEvent || canViewSettings) && (
-        <Flex justifyContent="flex-end" className={S.panel}>
+        <Flex justifyContent="flex-end" alignItems="center" className={S.panel}>
           <IconButton onClick={openQRCode} size="xs" icon={<Icon as={RiQrCodeFill} />} />
+
+          <Divider vertical />
+
+          {isAuthenticated && (
+            <IconButton
+              loading={toggleIsFavoriteLoading}
+              onClick={toggle}
+              size="xs"
+              icon={<Icon as={board?.isFavorite ? RiHeart3Fill : RiHeart3Line} />}
+            />
+          )}
+
+          <Divider vertical />
+
           {canCreateEvent && (
             <Button size="xs" color="blue" appearance="primary" onClick={openCreateEvent}>
               Create event
