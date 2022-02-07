@@ -1,0 +1,13 @@
+mutation MarkBoardAsPin($board: BoardId!) {
+    markBoardAsPin(board: $board) {
+        _id
+        isPin
+    }
+}
+
+mutation UnmarkBoardAsPin($board: BoardId!) {
+    unmarkBoardAsPin(board: $board) {
+        _id
+        isPin
+    }
+}
