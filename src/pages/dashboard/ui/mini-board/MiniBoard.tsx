@@ -1,6 +1,9 @@
 import React from 'react'
+import {RiHeart3Fill} from 'react-icons/ri'
 import {useMedia} from 'react-use'
 import {Panel, PanelProps} from 'rsuite'
+import {Icon} from '@rsuite/icons'
+import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {SwiperBreakpoints} from '@eh/shared/ui/swiper/Swiper'
@@ -17,9 +20,12 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
 
   return (
     <Panel bordered shaded {...props}>
-      <Link to={`/board/${board._id}`}>
-        <h4 className={S.title}>{board.title}</h4>
-      </Link>
+      <Flex justifyContent="space-between">
+        <Link to={`/board/${board._id}`}>
+          <h4 className={S.title}>{board.title}</h4>
+        </Link>
+        {board.isFavorite && <Icon as={RiHeart3Fill} />}
+      </Flex>
 
       <Swiper withNavigation={isTablet} breakpoints={swiperBreakpoints}>
         {board.events.edges.length ? (
