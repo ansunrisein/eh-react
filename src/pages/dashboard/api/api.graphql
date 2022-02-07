@@ -14,8 +14,8 @@ fragment DashboardNode on Board {
     }
 }
 
-query Dashboard($page: Page!, $eventsPage: Page!) {
-    dashboard(page: $page) {
+query Dashboard($page: Page!, $eventsPage: Page!, $sort: BoardsSort) {
+    dashboard(page: $page, sort: $sort) {
         pageInfo {
             hasNextPage
             endCursor

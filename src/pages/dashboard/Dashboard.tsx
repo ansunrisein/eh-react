@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react'
 import cx from 'classnames'
 import {RiAddFill, RiDashboardLine, RiHashtag} from 'react-icons/ri'
 import {useAsyncFn, useTitle} from 'react-use'
-import {Button, Divider, IconButton, Panel, Popover, Whisper} from 'rsuite'
+import {Button, Divider, IconButton, Loader, Panel, Popover, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -14,17 +14,21 @@ import {useIsAuthenticated} from '@eh/entities/session'
 import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
 import {useBoards} from './model'
-import {MiniBoard} from './ui'
+import {sortConfig} from './sorts'
+import {MiniBoard, Sorts, SortState} from './ui'
 import S from './Dashboard.module.scss'
 
 export const Dashboard: React.FC = () => {
   const [display, setDisplay] = useState('grid')
+  const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
+    sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
+  )
   const [isCreateBoardOpened, openCreateBoard, closeCreateBoard] = useBooleanState(false)
 
   const isAuthenticated = useIsAuthenticated()
 
   const newBoards = useNewBoards()
-  const {boards, loading, fetchMoreBoards, hasMoreBoards} = useBoards()
+  const {boards, loading, fetchMoreBoards, hasMoreBoards} = useBoards({sort: sortsState})
 
   const [fetchMoreBoardsState, fetchMore] = useAsyncFn(fetchMoreBoards, [fetchMoreBoards])
 
@@ -38,34 +42,40 @@ export const Dashboard: React.FC = () => {
   useNewBoardsGate()
 
   return (
-    <Layout header loading={loading}>
+    <Layout header>
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
-        <Flex height="100%" flexDirection="column" justifyContent="flex-end">
-          <IconButton onClick={switchDisplay} icon={<Icon as={RiDashboardLine} />} size="lg" />
+        <Flex height="100%" flexDirection="column" justifyContent="space-between">
+          <Sorts sorts={sortConfig} onChange={setSortsState} />
 
-          <Whisper
-            trigger={isAuthenticated ? 'none' : 'hover'}
-            placement="auto"
-            speaker={
-              <Popover>
-                <p>You should be logged in to create a board</p>
-              </Popover>
-            }
-          >
-            <div className={S.add}>
-              <IconButton
-                onClick={openCreateBoard}
-                className={cx(!isAuthenticated && S.disabled)}
-                disabled={!isAuthenticated}
-                icon={<Icon as={RiAddFill} />}
-                appearance="primary"
-                size="lg"
-              />
-            </div>
-          </Whisper>
+          <Flex flexDirection="column">
+            <IconButton onClick={switchDisplay} icon={<Icon as={RiDashboardLine} />} size="lg" />
+
+            <Whisper
+              trigger={isAuthenticated ? 'none' : 'hover'}
+              placement="auto"
+              speaker={
+                <Popover>
+                  <p>You should be logged in to create a board</p>
+                </Popover>
+              }
+            >
+              <div className={S.add}>
+                <IconButton
+                  onClick={openCreateBoard}
+                  className={cx(!isAuthenticated && S.disabled)}
+                  disabled={!isAuthenticated}
+                  icon={<Icon as={RiAddFill} />}
+                  appearance="primary"
+                  size="lg"
+                />
+              </div>
+            </Whisper>
+          </Flex>
         </Flex>
 
-        {!boards?.edges.length && !newBoards.length ? (
+        {loading ? (
+          <Loader backdrop center size="lg" />
+        ) : !boards?.edges.length && !newBoards.length ? (
           <Empty>
             {isAuthenticated ? (
               <>

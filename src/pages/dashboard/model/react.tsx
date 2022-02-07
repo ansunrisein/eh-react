@@ -1,9 +1,16 @@
 import {useCallback} from 'react'
+import {BoardsSort} from '@eh/shared/api'
 import {useDashboardQuery} from '../api'
 
-export const useBoards = (boardsPerPage = 25, eventsPerPage = 25) => {
+export type UseBoardsProps = {
+  boardsPerPage?: number
+  eventsPerPage?: number
+  sort?: BoardsSort
+}
+
+export const useBoards = ({boardsPerPage = 25, eventsPerPage = 25, sort}: UseBoardsProps = {}) => {
   const {data, loading, fetchMore} = useDashboardQuery({
-    variables: {page: {first: boardsPerPage}, eventsPage: {first: eventsPerPage}},
+    variables: {page: {first: boardsPerPage}, eventsPage: {first: eventsPerPage}, sort},
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-first',
   })
