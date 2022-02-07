@@ -17,6 +17,7 @@ export type BoardPageFragment = {
   isPrivate: boolean
   permissions: Array<Types.Permission>
   eventsCount: number
+  isFavorite: boolean
   events: {
     __typename?: 'EventConnection'
     pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
@@ -50,6 +51,7 @@ export type BoardPageQuery = {
     isPrivate: boolean
     permissions: Array<Types.Permission>
     eventsCount: number
+    isFavorite: boolean
     events: {
       __typename?: 'EventConnection'
       pageInfo: {

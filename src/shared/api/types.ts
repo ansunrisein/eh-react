@@ -25,6 +25,7 @@ export type Board = {
   description?: Maybe<Scalars['String']>
   events: EventConnection
   eventsCount: Scalars['Float']
+  isFavorite: Scalars['Boolean']
   isPrivate: Scalars['Boolean']
   permissions: Array<Permission>
   sub?: Maybe<Sub>
@@ -52,6 +53,10 @@ export type BoardEdge = {
   node: Board
 }
 
+export type BoardId = {
+  _id: Scalars['ID']
+}
+
 export type BoardLink = {
   __typename?: 'BoardLink'
   _id: Scalars['ID']
@@ -71,6 +76,12 @@ export type BoardLinkEdge = {
   __typename?: 'BoardLinkEdge'
   cursor: Scalars['ID']
   node: BoardLink
+}
+
+export type BoardsSort = {
+  favorite?: Maybe<Scalars['String']>
+  nearestEvent?: Maybe<Scalars['String']>
+  pin?: Maybe<Scalars['String']>
 }
 
 export type CreateBoard = {
@@ -128,10 +139,12 @@ export type Mutation = {
   createBoardLink: BoardLink
   createEvent?: Maybe<Event>
   createSub: Sub
+  markBoardAsFavorite: Board
   removeBoard: Board
   removeBoardLink: BoardLink
   removeEvent?: Maybe<Event>
   removeSub: Sub
+  unmarkBoardAsFavorite: Board
   updateAvatar: User
   updateBoardDescription: Board
   updateBoardLink: BoardLink
@@ -156,6 +169,10 @@ export type MutationCreateSubArgs = {
   sub: CreateSub
 }
 
+export type MutationMarkBoardAsFavoriteArgs = {
+  board: BoardId
+}
+
 export type MutationRemoveBoardArgs = {
   boardId: Scalars['ID']
 }
@@ -170,6 +187,10 @@ export type MutationRemoveEventArgs = {
 
 export type MutationRemoveSubArgs = {
   sub: RemoveSub
+}
+
+export type MutationUnmarkBoardAsFavoriteArgs = {
+  board: BoardId
 }
 
 export type MutationUpdateAvatarArgs = {
@@ -257,6 +278,7 @@ export type QueryBoardLinksArgs = {
 
 export type QueryDashboardArgs = {
   page: Page
+  sort?: Maybe<BoardsSort>
 }
 
 export type QueryEventArgs = {
@@ -310,6 +332,7 @@ export type BoardKeySpecifier = (
   | 'description'
   | 'events'
   | 'eventsCount'
+  | 'isFavorite'
   | 'isPrivate'
   | 'permissions'
   | 'sub'
@@ -323,6 +346,7 @@ export type BoardFieldPolicy = {
   description?: FieldPolicy<any> | FieldReadFunction<any>
   events?: FieldPolicy<any> | FieldReadFunction<any>
   eventsCount?: FieldPolicy<any> | FieldReadFunction<any>
+  isFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   sub?: FieldPolicy<any> | FieldReadFunction<any>
@@ -399,10 +423,12 @@ export type MutationKeySpecifier = (
   | 'createBoardLink'
   | 'createEvent'
   | 'createSub'
+  | 'markBoardAsFavorite'
   | 'removeBoard'
   | 'removeBoardLink'
   | 'removeEvent'
   | 'removeSub'
+  | 'unmarkBoardAsFavorite'
   | 'updateAvatar'
   | 'updateBoardDescription'
   | 'updateBoardLink'
@@ -416,10 +442,12 @@ export type MutationFieldPolicy = {
   createBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   createEvent?: FieldPolicy<any> | FieldReadFunction<any>
   createSub?: FieldPolicy<any> | FieldReadFunction<any>
+  markBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoard?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
   removeSub?: FieldPolicy<any> | FieldReadFunction<any>
+  unmarkBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   updateAvatar?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardDescription?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardLink?: FieldPolicy<any> | FieldReadFunction<any>

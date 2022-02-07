@@ -16,6 +16,7 @@ export default {
         _id: 'user-1',
       },
       eventsCount: 12,
+      isFavorite: false,
     },
   },
 } as Meta<BoardCardProps>
