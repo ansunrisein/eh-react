@@ -26,6 +26,7 @@ export type Board = {
   events: EventConnection
   eventsCount: Scalars['Float']
   isFavorite: Scalars['Boolean']
+  isPin: Scalars['Boolean']
   isPrivate: Scalars['Boolean']
   permissions: Array<Permission>
   sub?: Maybe<Sub>
@@ -145,11 +146,13 @@ export type Mutation = {
   createEvent?: Maybe<Event>
   createSub: Sub
   markBoardAsFavorite: Board
+  markBoardAsPin: Board
   removeBoard: Board
   removeBoardLink: BoardLink
   removeEvent?: Maybe<Event>
   removeSub: Sub
   unmarkBoardAsFavorite: Board
+  unmarkBoardAsPin: Board
   updateAvatar: User
   updateBoardDescription: Board
   updateBoardLink: BoardLink
@@ -178,6 +181,10 @@ export type MutationMarkBoardAsFavoriteArgs = {
   board: BoardId
 }
 
+export type MutationMarkBoardAsPinArgs = {
+  board: BoardId
+}
+
 export type MutationRemoveBoardArgs = {
   boardId: Scalars['ID']
 }
@@ -195,6 +202,10 @@ export type MutationRemoveSubArgs = {
 }
 
 export type MutationUnmarkBoardAsFavoriteArgs = {
+  board: BoardId
+}
+
+export type MutationUnmarkBoardAsPinArgs = {
   board: BoardId
 }
 
@@ -339,6 +350,7 @@ export type BoardKeySpecifier = (
   | 'events'
   | 'eventsCount'
   | 'isFavorite'
+  | 'isPin'
   | 'isPrivate'
   | 'permissions'
   | 'sub'
@@ -353,6 +365,7 @@ export type BoardFieldPolicy = {
   events?: FieldPolicy<any> | FieldReadFunction<any>
   eventsCount?: FieldPolicy<any> | FieldReadFunction<any>
   isFavorite?: FieldPolicy<any> | FieldReadFunction<any>
+  isPin?: FieldPolicy<any> | FieldReadFunction<any>
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   sub?: FieldPolicy<any> | FieldReadFunction<any>
@@ -430,11 +443,13 @@ export type MutationKeySpecifier = (
   | 'createEvent'
   | 'createSub'
   | 'markBoardAsFavorite'
+  | 'markBoardAsPin'
   | 'removeBoard'
   | 'removeBoardLink'
   | 'removeEvent'
   | 'removeSub'
   | 'unmarkBoardAsFavorite'
+  | 'unmarkBoardAsPin'
   | 'updateAvatar'
   | 'updateBoardDescription'
   | 'updateBoardLink'
@@ -449,11 +464,13 @@ export type MutationFieldPolicy = {
   createEvent?: FieldPolicy<any> | FieldReadFunction<any>
   createSub?: FieldPolicy<any> | FieldReadFunction<any>
   markBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
+  markBoardAsPin?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoard?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
   removeSub?: FieldPolicy<any> | FieldReadFunction<any>
   unmarkBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
+  unmarkBoardAsPin?: FieldPolicy<any> | FieldReadFunction<any>
   updateAvatar?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardDescription?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardLink?: FieldPolicy<any> | FieldReadFunction<any>

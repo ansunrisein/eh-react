@@ -18,6 +18,7 @@ export type DashboardNodeFragment = {
   permissions: Array<Types.Permission>
   eventsCount: number
   isFavorite: boolean
+  isPin: boolean
   events: {
     __typename?: 'EventConnection'
     pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
@@ -60,6 +61,7 @@ export type DashboardQuery = {
         permissions: Array<Types.Permission>
         eventsCount: number
         isFavorite: boolean
+        isPin: boolean
         events: {
           __typename?: 'EventConnection'
           pageInfo: {

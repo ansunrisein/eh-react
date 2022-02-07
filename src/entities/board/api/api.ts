@@ -16,6 +16,7 @@ export type BoardFragment = {
   permissions: Array<Types.Permission>
   eventsCount: number
   isFavorite: boolean
+  isPin: boolean
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
 }
@@ -35,6 +36,7 @@ export type BoardQuery = {
     permissions: Array<Types.Permission>
     eventsCount: number
     isFavorite: boolean
+    isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -57,6 +59,7 @@ export type CreateBoardMutation = {
     permissions: Array<Types.Permission>
     eventsCount: number
     isFavorite: boolean
+    isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -79,6 +82,7 @@ export type EditBoardDescriptionMutation = {
     permissions: Array<Types.Permission>
     eventsCount: number
     isFavorite: boolean
+    isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -100,6 +104,7 @@ export type EditBoardVisibilityMutation = {
     permissions: Array<Types.Permission>
     eventsCount: number
     isFavorite: boolean
+    isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -120,6 +125,7 @@ export type RemoveBoardMutation = {
     permissions: Array<Types.Permission>
     eventsCount: number
     isFavorite: boolean
+    isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   }
@@ -140,6 +146,7 @@ export const BoardFragmentDoc = gql`
     permissions
     eventsCount
     isFavorite
+    isPin
   }
 `
 export const BoardDocument = gql`

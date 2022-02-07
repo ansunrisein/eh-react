@@ -12,6 +12,7 @@ fragment Board on Board {
     permissions
     eventsCount
     isFavorite
+    isPin
 }
 
 query Board($id: ID!) {

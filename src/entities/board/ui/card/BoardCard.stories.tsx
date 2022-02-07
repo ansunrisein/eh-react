@@ -17,6 +17,7 @@ export default {
       },
       eventsCount: 12,
       isFavorite: false,
+      isPin: false,
     },
   },
 } as Meta<BoardCardProps>
