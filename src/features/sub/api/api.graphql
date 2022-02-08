@@ -1,0 +1,17 @@
+mutation CreateSub($boardId: ID!) {
+    createSub(sub: {boardId: $boardId}) {
+        _id
+        sub {
+            _id
+        }
+    }
+}
+
+mutation RemoveSub($boardId: ID!) {
+    removeSub(board: {_id: $boardId}) {
+        _id
+        sub {
+            _id
+        }
+    }
+}

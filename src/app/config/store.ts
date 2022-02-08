@@ -11,6 +11,7 @@ import {
 } from '@eh/features/auth-with-firebase'
 import {createFavoriteBoardFeature, FavoriteBoardFeatureProvider} from '@eh/features/favorite-board'
 import {createPinBoardFeature, PinBoardFeatureProvider} from '@eh/features/pin-board'
+import {createSubFeature, SubFeatureProvider} from '@eh/features/sub'
 import {
   createUpdateUserAvatarFeature,
   UpdateUserAvatarFeatureProvider,
@@ -35,6 +36,7 @@ export const updateUserAvatarFeature = createUpdateUserAvatarFeature({
 })
 export const favoriteBoardFeature = createFavoriteBoardFeature({domain, apollo})
 export const pinBoardFeature = createPinBoardFeature({domain, apollo})
+export const subFeature = createSubFeature({domain, apollo})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(EventEntityProvider, {event: eventEntity})
@@ -46,4 +48,5 @@ export const AppStoreProvider = createProviderBuilder()
   .add(UpdateUserAvatarFeatureProvider, {updateUserAvatar: updateUserAvatarFeature})
   .add(FavoriteBoardFeatureProvider, {favoriteBoard: favoriteBoardFeature})
   .add(PinBoardFeatureProvider, {pinBoard: pinBoardFeature})
+  .add(SubFeatureProvider, {sub: subFeature})
   .return()

@@ -150,13 +150,13 @@ export type Mutation = {
   createBoard: Board
   createBoardLink: BoardLink
   createEvent?: Maybe<Event>
-  createSub: Sub
+  createSub: Board
   markBoardAsFavorite: Board
   markBoardAsPin: Board
   removeBoard: Board
   removeBoardLink: BoardLink
   removeEvent?: Maybe<Event>
-  removeSub: Sub
+  removeSub: Board
   unmarkBoardAsFavorite: Board
   unmarkBoardAsPin: Board
   updateAvatar: User
@@ -204,7 +204,7 @@ export type MutationRemoveEventArgs = {
 }
 
 export type MutationRemoveSubArgs = {
-  sub: RemoveSub
+  board: BoardId
 }
 
 export type MutationUnmarkBoardAsFavoriteArgs = {
@@ -306,10 +306,6 @@ export type QueryDashboardArgs = {
 
 export type QueryEventArgs = {
   eventId: Scalars['ID']
-}
-
-export type RemoveSub = {
-  _id: Scalars['ID']
 }
 
 export type Sub = {
