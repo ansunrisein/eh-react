@@ -7,7 +7,7 @@ import {
   UnmarkBoardAsPinDocument,
   UnmarkBoardAsPinMutation,
   UnmarkBoardAsPinMutationVariables,
-} from '../api/api'
+} from '../api'
 
 export type PinBoardFeature = ReturnType<typeof createPinBoardFeature>
 

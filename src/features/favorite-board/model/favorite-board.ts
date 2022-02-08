@@ -7,7 +7,7 @@ import {
   UnmarkBoardAsFavoriteDocument,
   UnmarkBoardAsFavoriteMutation,
   UnmarkBoardAsFavoriteMutationVariables,
-} from '@eh/features/favorite-board/api/api'
+} from '../api'
 
 export type FavoriteBoardFeature = ReturnType<typeof createFavoriteBoardFeature>
 
