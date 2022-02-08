@@ -11,8 +11,8 @@ export type SortButtonProps = {
 } & Omit<StateButtonProps, 'state' | 'onChange' | 'states'>
 
 const sortStates = [
-  <Icon style={{fontSize: '12px'}} as={RiArrowDownSFill} key={0} />,
-  <Icon style={{fontSize: '12px'}} as={RiArrowUpSFill} key={1} />,
+  <Icon style={{fontSize: '10px'}} as={RiArrowDownSFill} key={0} />,
+  <Icon style={{fontSize: '10px'}} as={RiArrowUpSFill} key={1} />,
 ]
 
 export const SortButton: React.FC<SortButtonProps> = ({state = 'none', onChange, ...props}) => {

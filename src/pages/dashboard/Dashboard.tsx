@@ -55,7 +55,7 @@ export const Dashboard: React.FC = () => {
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
         <Flex height="100%" flexDirection="column" justifyContent="space-between">
           <Flex flexDirection="column" gap="1rem">
-            <Sorts sorts={sortConfig} onChange={setSortsState} />
+            <Sorts sorts={sortConfig} onChange={setSortsState} vertical />
             <Filters filters={filterConfig} onChange={setFiltersState} />
           </Flex>
 
