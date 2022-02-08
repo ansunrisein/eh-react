@@ -23,7 +23,6 @@ export const Filters: React.FC<FiltersProps> = ({onChange, filters}) => {
         <FilterButton
           key={i}
           state={filter[e.name]}
-          block
           defaultState={filter[e.name]}
           onChange={onStateChange(e.name)}
         >
