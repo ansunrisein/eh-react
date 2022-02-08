@@ -6,7 +6,6 @@ import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
 import * as Apollo from '@apollo/client'
-
 const defaultOptions = {}
 export type MarkBoardAsPinMutationVariables = Types.Exact<{
   board: Types.BoardId
@@ -65,7 +64,6 @@ export function useMarkBoardAsPinMutation(
     options,
   )
 }
-
 export type MarkBoardAsPinMutationHookResult = ReturnType<typeof useMarkBoardAsPinMutation>
 export type MarkBoardAsPinMutationResult = Apollo.MutationResult<MarkBoardAsPinMutation>
 export type MarkBoardAsPinMutationOptions = Apollo.BaseMutationOptions<
@@ -114,7 +112,6 @@ export function useUnmarkBoardAsPinMutation(
     options,
   )
 }
-
 export type UnmarkBoardAsPinMutationHookResult = ReturnType<typeof useUnmarkBoardAsPinMutation>
 export type UnmarkBoardAsPinMutationResult = Apollo.MutationResult<UnmarkBoardAsPinMutation>
 export type UnmarkBoardAsPinMutationOptions = Apollo.BaseMutationOptions<

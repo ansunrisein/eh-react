@@ -40,6 +40,7 @@ export type BoardPageFragment = {
 export type BoardPageQueryVariables = Types.Exact<{
   id: Types.Scalars['ID']
   eventsPage: Types.Page
+  sort?: Types.Maybe<Types.EventsSort>
 }>
 
 export type BoardPageQuery = {
@@ -80,7 +81,7 @@ export type BoardPageQuery = {
 export const BoardPageFragmentDoc = gql`
   fragment BoardPage on Board {
     ...Board
-    events(page: $eventsPage) {
+    events(page: $eventsPage, sort: $sort) {
       pageInfo {
         hasNextPage
         endCursor
@@ -96,7 +97,7 @@ export const BoardPageFragmentDoc = gql`
   ${EventFragmentDoc}
 `
 export const BoardPageDocument = gql`
-  query BoardPage($id: ID!, $eventsPage: Page!) {
+  query BoardPage($id: ID!, $eventsPage: Page!, $sort: EventsSort) {
     board(boardId: $id) {
       ...BoardPage
     }
@@ -118,6 +119,7 @@ export const BoardPageDocument = gql`
  *   variables: {
  *      id: // value for 'id'
  *      eventsPage: // value for 'eventsPage'
+ *      sort: // value for 'sort'
  *   },
  * });
  */

@@ -40,6 +40,7 @@ export type BoardBoardLinksArgs = {
 
 export type BoardEventsArgs = {
   page: Page
+  sort?: Maybe<EventsSort>
 }
 
 export type BoardConnection = {
@@ -137,6 +138,11 @@ export type EventEdge = {
   __typename?: 'EventEdge'
   cursor: Scalars['ID']
   node: Event
+}
+
+export type EventsSort = {
+  nearestEvent?: Maybe<Scalars['String']>
+  pin?: Maybe<Scalars['String']>
 }
 
 export type Mutation = {

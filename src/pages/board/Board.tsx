@@ -9,7 +9,7 @@ import {
 } from 'react-icons/ri'
 import QRCode from 'react-qr-code'
 import {useMedia, useTitle} from 'react-use'
-import {Button, Divider, Drawer, IconButton, Modal as RModal} from 'rsuite'
+import {Button, Divider, Drawer, IconButton, Loader, Modal as RModal} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -20,10 +20,12 @@ import {EventCard, useNewEvents, useNewEventsGate} from '@eh/entities/event'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {useToggleIsFavorite} from '@eh/features/favorite-board'
 import {useToggleIsPin} from '@eh/features/pin-board'
+import {Sorts, SortState} from '@eh/features/sort'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
+import {sortConfig} from '@eh/pages/board/sorts'
 import {useFullBoard} from './model'
 import S from './Board.module.scss'
 
@@ -32,6 +34,9 @@ export const Board: React.FC = () => {
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
   const [isBoardSettingsOpened, openBoardSettings, closeBoardSettings] = useBooleanState(false)
   const [isQRCodeOpened, openQRCode, closeQRCode] = useBooleanState(false)
+  const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
+    sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
+  )
 
   const {id = ''} = useParams<'id'>()
   const navigate = useNavigate()
@@ -39,7 +44,7 @@ export const Board: React.FC = () => {
 
   const isAuthenticated = useIsAuthenticated()
 
-  const {board, loading} = useFullBoard(id)
+  const {board, loading} = useFullBoard({id, sort: sortsState})
   const {canCreateEvent, canUpdateEvent, canRemoveEvent, canViewSettings} = usePermissions(board)
   const {loading: toggleIsFavoriteLoading, toggle: toggleFavorite} = useToggleIsFavorite(board)
   const {loading: toggleIsPinLoading, toggle: togglePin} = useToggleIsPin(board)
@@ -58,47 +63,50 @@ export const Board: React.FC = () => {
   useNewEventsGate()
 
   return (
-    <Layout header loading={loading}>
-      {(canCreateEvent || canViewSettings) && (
-        <Flex justifyContent="flex-end" alignItems="center" className={S.panel}>
+    <Layout header>
+      <Flex justifyContent="space-between">
+        <Sorts sorts={sortConfig} onChange={setSortsState} size="xs" />
+
+        <Flex alignItems="center" className={S.panel}>
           <IconButton onClick={openQRCode} size="xs" icon={<Icon as={RiQrCodeFill} />} />
 
-          <Divider vertical />
-
           {isAuthenticated && (
-            <IconButton
-              loading={toggleIsFavoriteLoading}
-              onClick={toggleFavorite}
-              size="xs"
-              icon={<Icon as={board?.isFavorite ? RiHeart3Fill : RiHeart3Line} />}
-            />
+            <>
+              <Divider vertical />
+
+              <IconButton
+                loading={toggleIsFavoriteLoading}
+                onClick={toggleFavorite}
+                size="xs"
+                icon={<Icon as={board?.isFavorite ? RiHeart3Fill : RiHeart3Line} />}
+              />
+
+              <IconButton
+                loading={toggleIsPinLoading}
+                onClick={togglePin}
+                size="xs"
+                icon={<Icon as={board?.isPin ? RiPushpinFill : RiPushpin2Fill} />}
+              />
+
+              <Divider vertical />
+            </>
           )}
-
-          {isAuthenticated && (
-            <IconButton
-              loading={toggleIsPinLoading}
-              onClick={togglePin}
-              size="xs"
-              icon={<Icon as={board?.isPin ? RiPushpinFill : RiPushpin2Fill} />}
-            />
-          )}
-
-          <Divider vertical />
-
           {canCreateEvent && (
-            <Button size="xs" color="blue" appearance="primary" onClick={openCreateEvent}>
+            <Button size="xs" appearance="primary" onClick={openCreateEvent}>
               Create event
             </Button>
           )}
           {canViewSettings && (
-            <Button size="xs" color="red" onClick={openBoardSettings}>
+            <Button size="xs" onClick={openBoardSettings}>
               Settings
             </Button>
           )}
         </Flex>
-      )}
+      </Flex>
 
-      {!newEvents.length && !board?.events.edges.length ? (
+      {loading ? (
+        <Loader backdrop size="lg" />
+      ) : !newEvents.length && !board?.events.edges.length ? (
         <Empty>
           <p>There is no events in this board :(</p>
           {canCreateEvent && (
