@@ -5,10 +5,20 @@ import {
   RiPushpin2Fill,
   RiPushpin2Line,
   RiPushpinFill,
+  RiTeamFill,
+  RiUserFill,
 } from 'react-icons/ri'
 import {Icon} from '@rsuite/icons'
 
 export const filterConfig = [
+  {
+    name: 'ownership',
+    icons: [
+      <Icon key={0} as={RiUserFill} aria-label="disabled" style={{opacity: '0.4'}} />,
+      <Icon key={1} as={RiUserFill} />,
+      <Icon key={2} as={RiTeamFill} aria-label="inverted" />,
+    ],
+  },
   {
     name: 'favorite',
     icons: [

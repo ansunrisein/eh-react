@@ -82,6 +82,7 @@ export type BoardLinkEdge = {
 
 export type BoardsFilter = {
   favorite?: Maybe<Scalars['Int']>
+  ownership?: Maybe<Scalars['Int']>
   pin?: Maybe<Scalars['Int']>
 }
 
