@@ -18,18 +18,14 @@ export const TimerBadge: React.FC<TimerBadgeProps> = ({expiryTimestamp, ...props
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!time) {
-    return (
-      <Whisper
-        placement="bottom"
-        controlId="control-id-hover"
-        trigger="hover"
-        speaker={<Tooltip>{format(expiryTimestamp, 'dd-MM-yyyy')}</Tooltip>}
-      >
-        <Tag color="red">Time is up</Tag>
-      </Whisper>
-    )
-  }
-
-  return <Tag color="violet">{time}</Tag>
+  return (
+    <Whisper
+      placement="bottom"
+      controlId="control-id-hover"
+      trigger="hover"
+      speaker={<Tooltip>{format(expiryTimestamp, 'dd-MM-yyyy')}</Tooltip>}
+    >
+      <Tag color={time ? 'violet' : 'red'}>{time ? time : 'Time is up'}</Tag>
+    </Whisper>
+  )
 }
