@@ -21,12 +21,13 @@ import {useIsAuthenticated} from '@eh/entities/session'
 import {useToggleIsFavorite} from '@eh/features/favorite-board'
 import {useToggleIsPin} from '@eh/features/pin-board'
 import {Sorts, SortState} from '@eh/features/sort'
+import {useToggleSub} from '@eh/features/sub'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
 import {sortConfig} from '@eh/pages/board/sorts'
-import {useFullBoard} from './model'
+import {useFullBoard, useIsMyBoard} from './model'
 import S from './Board.module.scss'
 
 export const Board: React.FC = () => {
@@ -38,6 +39,7 @@ export const Board: React.FC = () => {
     sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
   )
 
+  const isTablet = useMedia('(min-width: 768px)')
   const {id = ''} = useParams<'id'>()
   const navigate = useNavigate()
   const {pathname} = useLocation()
@@ -46,12 +48,20 @@ export const Board: React.FC = () => {
 
   const {board, loading, fetchMoreEvents, hasMoreEvents} = useFullBoard({id, sort: sortsState})
   const {canCreateEvent, canUpdateEvent, canRemoveEvent, canViewSettings} = usePermissions(board)
+
   const {loading: toggleIsFavoriteLoading, toggle: toggleFavorite} = useToggleIsFavorite(board)
   const {loading: toggleIsPinLoading, toggle: togglePin} = useToggleIsPin(board)
 
-  const [fetchMoreEventsState, fetchMore] = useAsyncFn(fetchMoreEvents, [fetchMoreEvents])
+  const {loading: toggleSubLoading, toggle: toggleSub} = useToggleSub({
+    boardId: board?._id || '',
+    isFollow: !!board?.sub?._id,
+  })
+
+  const isMyBoard = useIsMyBoard(board?._id)
 
   const newEvents = useNewEvents()
+
+  const [fetchMoreEventsState, fetchMore] = useAsyncFn(fetchMoreEvents, [fetchMoreEvents])
 
   useTitle(`Board | ${board?.title || ''}`)
 
@@ -59,8 +69,6 @@ export const Board: React.FC = () => {
     closeBoardSettings()
     navigate('/')
   }, [closeBoardSettings, navigate])
-
-  const isTablet = useMedia('(min-width: 768px)')
 
   useNewEventsGate()
 
@@ -70,7 +78,15 @@ export const Board: React.FC = () => {
         <Sorts sorts={sortConfig} onChange={setSortsState} size="xs" />
 
         <Flex alignItems="center" className={S.panel}>
-          <IconButton onClick={openQRCode} size="xs" icon={<Icon as={RiQrCodeFill} />} />
+          <Flex gap="1rem">
+            <IconButton onClick={openQRCode} size="xs" icon={<Icon as={RiQrCodeFill} />} />
+
+            {!isMyBoard && board && (
+              <Button loading={toggleSubLoading} onClick={toggleSub} size="xs" appearance="primary">
+                {board.sub?._id ? 'Unfollow' : 'Follow'}
+              </Button>
+            )}
+          </Flex>
 
           {isAuthenticated && (
             <>
@@ -90,7 +106,7 @@ export const Board: React.FC = () => {
                 icon={<Icon as={board?.isPin ? RiPushpinFill : RiPushpin2Fill} />}
               />
 
-              <Divider vertical />
+              {(canCreateEvent || canViewSettings) && <Divider vertical />}
             </>
           )}
           {canCreateEvent && (

@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
 import {EventsSort} from '@eh/shared/api'
+import {useUser} from '@eh/entities/user'
 import {useBoardPageQuery} from '../api'
 
 export type UseFullBoardProps = {
@@ -42,4 +43,15 @@ export const useFullBoard = ({id, eventsPerPage = 25, sort}: UseFullBoardProps) 
     hasMoreEvents: !!pageInfo?.hasNextPage,
     loading,
   }
+}
+
+export const useIsMyBoard = (id = '') => {
+  const {board} = useFullBoard({id})
+  const {user} = useUser()
+
+  if (!board || !user) {
+    return false
+  }
+
+  return user._id === board.user._id
 }
