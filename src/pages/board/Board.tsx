@@ -8,7 +8,7 @@ import {
   RiQrCodeFill,
 } from 'react-icons/ri'
 import QRCode from 'react-qr-code'
-import {useMedia, useTitle} from 'react-use'
+import {useAsyncFn, useMedia, useTitle} from 'react-use'
 import {Button, Divider, Drawer, IconButton, Loader, Modal as RModal} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
@@ -44,10 +44,12 @@ export const Board: React.FC = () => {
 
   const isAuthenticated = useIsAuthenticated()
 
-  const {board, loading} = useFullBoard({id, sort: sortsState})
+  const {board, loading, fetchMoreEvents, hasMoreEvents} = useFullBoard({id, sort: sortsState})
   const {canCreateEvent, canUpdateEvent, canRemoveEvent, canViewSettings} = usePermissions(board)
   const {loading: toggleIsFavoriteLoading, toggle: toggleFavorite} = useToggleIsFavorite(board)
   const {loading: toggleIsPinLoading, toggle: togglePin} = useToggleIsPin(board)
+
+  const [fetchMoreEventsState, fetchMore] = useAsyncFn(fetchMoreEvents, [fetchMoreEvents])
 
   const newEvents = useNewEvents()
 
@@ -143,6 +145,18 @@ export const Board: React.FC = () => {
                 </li>
               ))}
           </ul>
+
+          {hasMoreEvents && (
+            <Button
+              onClick={fetchMore}
+              loading={fetchMoreEventsState.loading}
+              className={S.more}
+              appearance="ghost"
+              block
+            >
+              Fetch more events
+            </Button>
+          )}
         </>
       )}
 
