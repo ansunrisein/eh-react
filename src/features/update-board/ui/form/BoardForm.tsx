@@ -45,6 +45,7 @@ export const BoardForm: React.FC<BoardFormProps> = ({
             <Controller
               control={control}
               name="title"
+              rules={{required: true}}
               render={({field}) => (
                 <Input
                   aria-label="title"
