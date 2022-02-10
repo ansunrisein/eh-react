@@ -6,7 +6,7 @@ export type FlexType = {
   flexDirection?: 'row' | 'row-reverse' | 'column' | 'column-reverse' | DefaultType
   flexWrap?: 'nowrap' | 'wrap' | 'wrap-reverse' | DefaultType
   order?: number
-  flex?: number | 'auto' | 'none' | DefaultType
+  flex?: number | 'auto' | 'none' | DefaultType | string
   flexGrow?: number | DefaultType
   flexShrink?: number | DefaultType
   flexBasis?: 'auto' | 'content' | string | number | DefaultType
@@ -62,7 +62,6 @@ export const Flex: React.FC<FlexType & CommonType & React.HTMLAttributes<HTMLDiv
       flexDirection,
       flexWrap,
       order,
-      flex,
       flexGrow,
       flexShrink,
       flexBasis,
@@ -74,6 +73,7 @@ export const Flex: React.FC<FlexType & CommonType & React.HTMLAttributes<HTMLDiv
       height,
       width,
       overflow,
+      flex: String(flex),
       ...style,
     }}
     {...props}
