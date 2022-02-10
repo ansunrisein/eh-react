@@ -27,23 +27,7 @@
   margin-bottom: 1rem;
 }
 
-.actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-
-  @media (min-width: 500px) {
-    justify-content: flex-end;
-    gap: 0.8rem;
-  }
-
-  @media (min-width: 1000px) {
-    gap: 1rem;
-  }
-}
-
-.title {
+.created {
   font-weight: 300;
   margin-bottom: 1rem;
 }
@@ -52,15 +36,7 @@
   vertical-align: text-top;
 }
 
-.qrcode {
-  text-align: center;
-}
-
 .more {
   width: fit-content;
   margin: 2rem auto auto;
-}
-
-.divider {
-  margin: 0;
 }

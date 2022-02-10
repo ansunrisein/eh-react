@@ -1,0 +1,23 @@
+.divider {
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  @media (min-width: 500px) {
+    justify-content: flex-end;
+    gap: 0.8rem;
+  }
+
+  @media (min-width: 1000px) {
+    gap: 1rem;
+  }
+}
+
+.qrcode {
+  text-align: center;
+}
