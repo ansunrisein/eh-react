@@ -90,7 +90,7 @@ export const Board: React.FC = () => {
 
           {isAuthenticated && (
             <>
-              <Divider vertical />
+              <Divider vertical className={S.divider} />
 
               <IconButton
                 loading={toggleIsFavoriteLoading}
@@ -106,7 +106,7 @@ export const Board: React.FC = () => {
                 icon={<Icon as={board?.isPin ? RiPushpinFill : RiPushpin2Fill} />}
               />
 
-              {(canCreateEvent || canViewSettings) && <Divider vertical />}
+              {(canCreateEvent || canViewSettings) && <Divider vertical className={S.divider} />}
             </>
           )}
           {canCreateEvent && (
