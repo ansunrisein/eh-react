@@ -79,7 +79,7 @@ export const Board: React.FC = () => {
 
         <Flex alignItems="center" className={S.panel}>
           <Flex gap="1rem">
-            <IconButton onClick={openQRCode} size="xs" icon={<Icon as={RiQrCodeFill} />} />
+            <IconButton onClick={openQRCode} size="sm" icon={<Icon as={RiQrCodeFill} />} />
 
             {!isMyBoard && board && (
               <Button loading={toggleSubLoading} onClick={toggleSub} size="xs" appearance="primary">
@@ -95,14 +95,14 @@ export const Board: React.FC = () => {
               <IconButton
                 loading={toggleIsFavoriteLoading}
                 onClick={toggleFavorite}
-                size="xs"
+                size="sm"
                 icon={<Icon as={board?.isFavorite ? RiHeart3Fill : RiHeart3Line} />}
               />
 
               <IconButton
                 loading={toggleIsPinLoading}
                 onClick={togglePin}
-                size="xs"
+                size="sm"
                 icon={<Icon as={board?.isPin ? RiPushpinFill : RiPushpin2Fill} />}
               />
 
@@ -110,71 +110,79 @@ export const Board: React.FC = () => {
             </>
           )}
           {canCreateEvent && (
-            <Button size="xs" appearance="primary" onClick={openCreateEvent}>
+            <Button size="sm" appearance="primary" onClick={openCreateEvent}>
               Create event
             </Button>
           )}
           {canViewSettings && (
-            <Button size="xs" onClick={openBoardSettings}>
+            <Button size="sm" onClick={openBoardSettings}>
               Settings
             </Button>
           )}
+        </div>
+      </div>
+
+      <Flex>
+        <div style={{marginRight: '1rem'}}>
+          <Sorts sorts={sortConfig} onChange={setSortsState} vertical />
+        </div>
+
+        <Flex flexDirection="column" flex={1}>
+          {loading ? (
+            <Loader backdrop size="lg" />
+          ) : !newEvents.length && !board?.events.edges.length ? (
+            <Empty>
+              <p>There is no events in this board :(</p>
+              {canCreateEvent && (
+                <Button onClick={openCreateEvent} appearance="link">
+                  Create now!
+                </Button>
+              )}
+            </Empty>
+          ) : (
+            <>
+              {!!newEvents.length && (
+                <div>
+                  <h4 className={S.title}>
+                    <Icon as={RiHashtag} />
+                    <span className={S.vertical}>Latest created events</span>
+                  </h4>
+                  <ul className={S.grid}>
+                    {newEvents.map(e => (
+                      <li key={e._id} onClick={() => setOpenedEventId(e._id)}>
+                        <EventCard event={e} className={S.event} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {!!newEvents.length && !!board?.events.edges && <Divider />}
+
+              <ul className={S.grid}>
+                {!!board?.events.edges &&
+                  board.events.edges.map(e => (
+                    <li key={e.node._id} onClick={() => setOpenedEventId(e.node._id)}>
+                      <EventCard event={e.node} className={S.event} />
+                    </li>
+                  ))}
+              </ul>
+
+              {hasMoreEvents && (
+                <Button
+                  onClick={fetchMore}
+                  loading={fetchMoreEventsState.loading}
+                  className={S.more}
+                  appearance="ghost"
+                  block
+                >
+                  Fetch more events
+                </Button>
+              )}
+            </>
+          )}
         </Flex>
       </Flex>
-
-      {loading ? (
-        <Loader backdrop size="lg" />
-      ) : !newEvents.length && !board?.events.edges.length ? (
-        <Empty>
-          <p>There is no events in this board :(</p>
-          {canCreateEvent && (
-            <Button onClick={openCreateEvent} appearance="link">
-              Create now!
-            </Button>
-          )}
-        </Empty>
-      ) : (
-        <>
-          {!!newEvents.length && (
-            <div>
-              <h4 className={S.title}>
-                <Icon as={RiHashtag} />
-                <span className={S.vertical}>Latest created events</span>
-              </h4>
-              <ul className={S.grid}>
-                {newEvents.map(e => (
-                  <li key={e._id} onClick={() => setOpenedEventId(e._id)}>
-                    <EventCard event={e} className={S.event} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-
-          {!!newEvents.length && !!board?.events.edges && <Divider />}
-
-          <ul className={S.grid}>
-            {!!board?.events.edges &&
-              board.events.edges.map(e => (
-                <li key={e.node._id} onClick={() => setOpenedEventId(e.node._id)}>
-                  <EventCard event={e.node} className={S.event} />
-                </li>
-              ))}
-          </ul>
-
-          {hasMoreEvents && (
-            <Button
-              onClick={fetchMore}
-              loading={fetchMoreEventsState.loading}
-              className={S.more}
-              appearance="ghost"
-              block
-            >
-              Fetch more events
-            </Button>
-          )}
-        </>
-      )}
 
       <Modal open={openedEventId !== null} onClose={() => setOpenedEventId(null)} backdrop>
         {openedEventId && (
