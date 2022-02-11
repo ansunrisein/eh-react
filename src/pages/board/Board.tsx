@@ -58,8 +58,8 @@ export const Board: React.FC = () => {
         <Info board={board} withPrivateIcon className={S.info} />
         <Actions
           board={board}
-          openBoardSettings={openBoardSettings}
-          openCreateEvent={openCreateEvent}
+          onOpenBoardSettings={openBoardSettings}
+          onOpenCreateEvent={openCreateEvent}
         />
       </div>
 

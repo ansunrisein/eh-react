@@ -25,11 +25,15 @@ import S from './Actions.module.scss'
 
 export type ActionsProps = {
   board?: BoardFragment
-  openBoardSettings?: () => unknown
-  openCreateEvent?: () => unknown
+  onOpenBoardSettings?: () => unknown
+  onOpenCreateEvent?: () => unknown
 }
 
-export const Actions: React.FC<ActionsProps> = ({board, openBoardSettings, openCreateEvent}) => {
+export const Actions: React.FC<ActionsProps> = ({
+  board,
+  onOpenBoardSettings,
+  onOpenCreateEvent,
+}) => {
   const [isQRCodeOpened, openQRCode, closeQRCode] = useBooleanState(false)
 
   const {pathname} = useLocation()
@@ -85,26 +89,26 @@ export const Actions: React.FC<ActionsProps> = ({board, openBoardSettings, openC
         )}
         {canCreateEvent &&
           (isTablet ? (
-            <Button size="sm" appearance="primary" onClick={openCreateEvent}>
+            <Button size="sm" appearance="primary" onClick={onOpenCreateEvent}>
               Create event
             </Button>
           ) : (
             <IconButton
               size="sm"
               appearance="primary"
-              onClick={openCreateEvent}
+              onClick={onOpenCreateEvent}
               icon={<Icon as={RiAddFill} />}
             />
           ))}
         {canViewSettings &&
           (isTablet ? (
-            <Button size="sm" onClick={openBoardSettings}>
+            <Button size="sm" onClick={onOpenBoardSettings}>
               Settings
             </Button>
           ) : (
             <IconButton
               size="sm"
-              onClick={openBoardSettings}
+              onClick={onOpenBoardSettings}
               icon={<Icon as={RiSettings2Line} />}
             />
           ))}
