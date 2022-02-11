@@ -32,7 +32,11 @@ export const Board: React.FC = () => {
   const {id = ''} = useParams<'id'>()
   const navigate = useNavigate()
 
-  const {board, loading, fetchMoreEvents, hasMoreEvents} = useFullBoard({id, sort: sortsState})
+  const {board, loading, fetchMoreEvents, hasMoreEvents} = useFullBoard({
+    id,
+    sort: sortsState,
+    refetch: true,
+  })
   const {canCreateEvent, canUpdateEvent, canRemoveEvent} = usePermissions(board)
 
   const newEvents = useNewEvents()

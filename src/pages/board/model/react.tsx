@@ -7,9 +7,10 @@ export type UseFullBoardProps = {
   id: string
   eventsPerPage?: number
   sort?: EventsSort
+  refetch?: boolean
 }
 
-export const useFullBoard = ({id, eventsPerPage = 25, sort}: UseFullBoardProps) => {
+export const useFullBoard = ({id, eventsPerPage = 25, sort, refetch}: UseFullBoardProps) => {
   const {data, loading, fetchMore} = useBoardPageQuery({
     variables: {
       id,
@@ -18,8 +19,7 @@ export const useFullBoard = ({id, eventsPerPage = 25, sort}: UseFullBoardProps) 
       },
       sort,
     },
-    fetchPolicy: 'network-only',
-    nextFetchPolicy: 'cache-first',
+    ...(refetch ? {fetchPolicy: 'network-only', nextFetchPolicy: 'cache-first'} : {}),
   })
 
   const pageInfo = data?.board.events.pageInfo
