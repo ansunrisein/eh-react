@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react'
-import {RiHashtag} from 'react-icons/ri'
+import {RiCalendar2Fill, RiHashtag} from 'react-icons/ri'
 import {useAsyncFn, useMedia, useTitle} from 'react-use'
-import {Button, Divider, Drawer, Loader} from 'rsuite'
+import {Button, ButtonGroup, Divider, Drawer, Loader} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -16,11 +16,13 @@ import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
 import {sortConfig} from '@eh/pages/board/sorts'
 import {useFullBoard} from './model'
-import {Actions} from './ui'
+import {Actions, EventCalendar} from './ui'
 import S from './Board.module.scss'
 
 export const Board: React.FC = () => {
+  const [defaultDeadline, setDefaultDeadline] = useState<Date | null>(null)
   const [openedEventId, setOpenedEventId] = useState<string | null>(null)
+  const [openCalendar, setOpenCalendar] = useState(false)
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
   const [isBoardSettingsOpened, openBoardSettings, closeBoardSettings] = useBooleanState(false)
 
@@ -52,6 +54,14 @@ export const Board: React.FC = () => {
 
   useNewEventsGate()
 
+  const createEvent = useCallback(
+    (date: Date) => {
+      setDefaultDeadline(date)
+      openCreateEvent()
+    },
+    [openCreateEvent],
+  )
+
   return (
     <Layout header>
       <div className={S.panel}>
@@ -64,13 +74,20 @@ export const Board: React.FC = () => {
       </div>
 
       <Flex height="100%">
-        <div style={{marginRight: '1rem'}}>
+        <div className={S.left}>
           <Sorts
             sorts={sortConfig}
             onChange={setSortsState}
             vertical
             size={isTablet ? 'md' : 'sm'}
           />
+          <ButtonGroup size={isTablet ? 'md' : 'sm'}>
+            <Button onClick={() => setOpenCalendar(state => !state)}>
+              <div style={{padding: '3px'}}>
+                <Icon as={RiCalendar2Fill} />
+              </div>
+            </Button>
+          </ButtonGroup>
         </div>
 
         <Flex flexDirection="column" flex={1}>
@@ -85,6 +102,8 @@ export const Board: React.FC = () => {
                 </Button>
               )}
             </Empty>
+          ) : openCalendar ? (
+            <EventCalendar events={board?.events} onCreateClick={createEvent} />
           ) : (
             <>
               {!!newEvents.length && (
@@ -157,7 +176,11 @@ export const Board: React.FC = () => {
         onClose={closeCreateEvent}
         backdrop
       >
-        <CreateEventForm boardId={id} onCreate={closeCreateEvent} />
+        <CreateEventForm
+          boardId={id}
+          onCreate={closeCreateEvent}
+          defaultValues={{deadline: defaultDeadline, content: ''}}
+        />
       </Modal>
     </Layout>
   )

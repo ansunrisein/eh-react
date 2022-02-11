@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
 import {Controller, useForm} from 'react-hook-form'
+import {useDeepCompareEffect} from 'react-use'
 import {Button, DatePicker, Input, Loader, Steps} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
@@ -29,11 +30,13 @@ export const EventForm: React.FC<EventFormProps> = ({
   const [isTitleProcess, startIsTitleProcess, stopIsTitleProcess] = useBooleanState(false)
   const [isContentProcess, startIsContentProcess, stopIsContentProcess] = useBooleanState(false)
 
-  const {handleSubmit, control, formState, watch} = useForm({
+  const {handleSubmit, control, formState, watch, reset} = useForm({
     mode: 'onChange',
     defaultValues,
   })
   const {title, content, deadline} = watch()
+
+  useDeepCompareEffect(() => reset(defaultValues), [defaultValues, reset])
 
   const handleEnter = useFormInputEnter()
 
