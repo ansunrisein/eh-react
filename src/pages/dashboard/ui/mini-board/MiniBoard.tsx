@@ -7,6 +7,7 @@ import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {SwiperBreakpoints} from '@eh/shared/ui/swiper/Swiper'
+import {Info} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
 import {DashboardNodeFragment} from '../../api'
 import S from './MiniBoard.module.scss'
@@ -22,7 +23,7 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
     <Panel bordered shaded {...props}>
       <Flex justifyContent="space-between">
         <Link to={`/board/${board._id}`}>
-          <h4 className={S.title}>{board.title}</h4>
+          <Info board={board} className={S.title} />
         </Link>
         {board.isFavorite && <Icon as={RiHeart3Fill} />}
       </Flex>

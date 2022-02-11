@@ -7,7 +7,7 @@ import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
-import {usePermissions} from '@eh/entities/board'
+import {Info, usePermissions} from '@eh/entities/board'
 import {EventCard, useNewEvents, useNewEventsGate} from '@eh/entities/event'
 import {Sorts, SortState} from '@eh/features/sort'
 import {CreateEventForm} from '@eh/features/update-event'
@@ -16,7 +16,7 @@ import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
 import {sortConfig} from '@eh/pages/board/sorts'
 import {useFullBoard} from './model'
-import {Actions, Info} from './ui'
+import {Actions} from './ui'
 import S from './Board.module.scss'
 
 export const Board: React.FC = () => {
@@ -55,7 +55,7 @@ export const Board: React.FC = () => {
   return (
     <Layout header>
       <div className={S.panel}>
-        <Info board={board} />
+        <Info board={board} withPrivateIcon className={S.info} />
         <Actions
           board={board}
           openBoardSettings={openBoardSettings}
