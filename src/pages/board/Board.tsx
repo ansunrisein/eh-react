@@ -102,8 +102,6 @@ export const Board: React.FC = () => {
                 </Button>
               )}
             </Empty>
-          ) : openCalendar ? (
-            <EventCalendar events={board?.events} onCreateClick={createEvent} />
           ) : (
             <>
               {!!newEvents.length && (
@@ -124,25 +122,30 @@ export const Board: React.FC = () => {
 
               {!!newEvents.length && !!board?.events.edges && <Divider />}
 
-              <ul className={S.grid}>
-                {!!board?.events.edges &&
-                  board.events.edges.map(e => (
-                    <li key={e.node._id} onClick={() => setOpenedEventId(e.node._id)}>
-                      <EventCard event={e.node} className={S.event} />
-                    </li>
-                  ))}
-              </ul>
-
-              {hasMoreEvents && (
-                <Button
-                  onClick={fetchMore}
-                  loading={fetchMoreEventsState.loading}
-                  className={S.more}
-                  appearance="ghost"
-                  block
-                >
-                  Fetch more events
-                </Button>
+              {openCalendar ? (
+                <EventCalendar events={board?.events} onCreateClick={createEvent} />
+              ) : (
+                <>
+                  <ul className={S.grid}>
+                    {!!board?.events.edges &&
+                      board.events.edges.map(e => (
+                        <li key={e.node._id} onClick={() => setOpenedEventId(e.node._id)}>
+                          <EventCard event={e.node} className={S.event} />
+                        </li>
+                      ))}
+                  </ul>
+                  {hasMoreEvents && (
+                    <Button
+                      onClick={fetchMore}
+                      loading={fetchMoreEventsState.loading}
+                      className={S.more}
+                      appearance="ghost"
+                      block
+                    >
+                      Fetch more events
+                    </Button>
+                  )}
+                </>
               )}
             </>
           )}
