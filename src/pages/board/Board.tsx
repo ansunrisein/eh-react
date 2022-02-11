@@ -16,7 +16,7 @@ import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
 import {sortConfig} from '@eh/pages/board/sorts'
 import {useFullBoard} from './model'
-import {Actions} from './ui'
+import {Actions, Info} from './ui'
 import S from './Board.module.scss'
 
 export const Board: React.FC = () => {
@@ -55,6 +55,7 @@ export const Board: React.FC = () => {
   return (
     <Layout header>
       <div className={S.panel}>
+        <Info board={board} />
         <Actions
           board={board}
           openBoardSettings={openBoardSettings}
@@ -62,9 +63,14 @@ export const Board: React.FC = () => {
         />
       </div>
 
-      <Flex>
+      <Flex height="100%">
         <div style={{marginRight: '1rem'}}>
-          <Sorts sorts={sortConfig} onChange={setSortsState} vertical />
+          <Sorts
+            sorts={sortConfig}
+            onChange={setSortsState}
+            vertical
+            size={isTablet ? 'md' : 'sm'}
+          />
         </div>
 
         <Flex flexDirection="column" flex={1}>

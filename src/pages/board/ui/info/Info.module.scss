@@ -1,0 +1,29 @@
+.info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 0.5rem;
+
+  @media (min-width: 768px) {
+    gap: 1rem;
+    margin-left: 1rem;
+  }
+}
+
+.title {
+  display: block;
+  font-weight: 500;
+  font-size: 14px;
+
+  @media (min-width: 768px) {
+    font-size: 22px;
+  }
+}
+
+.icon {
+  font-size: 16px;
+
+  @media (min-width: 768px) {
+    font-size: 20px;
+  }
+}
