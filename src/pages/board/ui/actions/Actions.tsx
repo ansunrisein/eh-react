@@ -1,12 +1,15 @@
 import React from 'react'
 import {
+  RiAddFill,
   RiHeart3Fill,
   RiHeart3Line,
   RiPushpin2Fill,
   RiPushpinFill,
   RiQrCodeFill,
+  RiSettings2Line,
 } from 'react-icons/ri'
 import QRCode from 'react-qr-code'
+import {useMedia} from 'react-use'
 import {Button, Divider, IconButton, Modal as RModal} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
@@ -44,6 +47,8 @@ export const Actions: React.FC<ActionsProps> = ({board, openBoardSettings, openC
     isFollow: !!board?.sub?._id,
   })
 
+  const isTablet = useMedia('(min-width: 768px)')
+
   return (
     <>
       <div className={S.actions}>
@@ -78,16 +83,31 @@ export const Actions: React.FC<ActionsProps> = ({board, openBoardSettings, openC
             {(canCreateEvent || canViewSettings) && <Divider vertical className={S.divider} />}
           </>
         )}
-        {canCreateEvent && (
-          <Button size="sm" appearance="primary" onClick={openCreateEvent}>
-            Create event
-          </Button>
-        )}
-        {canViewSettings && (
-          <Button size="sm" onClick={openBoardSettings}>
-            Settings
-          </Button>
-        )}
+        {canCreateEvent &&
+          (isTablet ? (
+            <Button size="sm" appearance="primary" onClick={openCreateEvent}>
+              Create event
+            </Button>
+          ) : (
+            <IconButton
+              size="sm"
+              appearance="primary"
+              onClick={openCreateEvent}
+              icon={<Icon as={RiAddFill} />}
+            />
+          ))}
+        {canViewSettings &&
+          (isTablet ? (
+            <Button size="sm" onClick={openBoardSettings}>
+              Settings
+            </Button>
+          ) : (
+            <IconButton
+              size="sm"
+              onClick={openBoardSettings}
+              icon={<Icon as={RiSettings2Line} />}
+            />
+          ))}
       </div>
 
       <RModal size="xs" open={isQRCodeOpened} onClose={closeQRCode} backdrop>
