@@ -36,11 +36,12 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
           ))
         ) : (
           <Panel>
-            There is no events :({' '}
+            There is no events
+            <br />
             <Link to={`/board/${board._id}`} className={S.link}>
               Go to the board
             </Link>{' '}
-            to create event{' '}
+            to create event :)
           </Panel>
         )}
       </Swiper>

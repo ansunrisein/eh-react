@@ -72,10 +72,10 @@ export const Board: React.FC = () => {
             <Loader backdrop size="lg" />
           ) : !newEvents.length && !board?.events.edges.length ? (
             <Empty>
-              <p>There is no events in this board :(</p>
+              <p>There is no events in this board</p>
               {canCreateEvent && (
                 <Button onClick={openCreateEvent} appearance="link">
-                  Create now!
+                  Create now! :)
                 </Button>
               )}
             </Empty>

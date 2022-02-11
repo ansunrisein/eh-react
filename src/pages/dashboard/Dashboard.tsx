@@ -96,19 +96,19 @@ export const Dashboard: React.FC = () => {
           <Empty>
             {isAuthenticated ? (
               <>
-                <p>You have no boards :(</p>
+                <p>You have no boards</p>
                 <Button onClick={openCreateBoard} appearance="link">
-                  Create now!
+                  Create now! :)
                 </Button>
               </>
             ) : (
               <>
-                <p>There is no public boards :( </p>
+                <p>There is no public boards</p>
                 <p>
                   <Link to="/id" className={S.link}>
                     Sign in
                   </Link>{' '}
-                  and create first public board
+                  and create first public board :)
                 </p>
               </>
             )}
