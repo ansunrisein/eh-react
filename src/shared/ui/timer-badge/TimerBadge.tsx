@@ -1,12 +1,20 @@
 import React, {useEffect} from 'react'
 import {format} from 'date-fns'
 import {TimerSettings, useTimer} from 'react-timer-hook'
-import {Tag, Tooltip, Whisper} from 'rsuite'
+import {Tag, Tooltip, Whisper, WhisperProps} from 'rsuite'
 import {formatTime} from './helpers'
 
-export type TimerBadgeProps = TimerSettings
+export type TimerBadgeProps = {
+  withTooltip?: boolean
+} & TimerSettings &
+  WhisperProps
 
-export const TimerBadge: React.FC<TimerBadgeProps> = ({expiryTimestamp, ...props}) => {
+export const TimerBadge: React.FC<TimerBadgeProps> = ({
+  expiryTimestamp,
+  withTooltip,
+  className,
+  ...props
+}) => {
   const {start, pause, ...rest} = useTimer({expiryTimestamp, ...props})
 
   const time = formatTime(rest)
@@ -23,9 +31,12 @@ export const TimerBadge: React.FC<TimerBadgeProps> = ({expiryTimestamp, ...props
       placement="bottom"
       controlId="control-id-hover"
       trigger="hover"
+      disabled={!withTooltip}
       speaker={<Tooltip>{format(expiryTimestamp, 'dd-MM-yyyy')}</Tooltip>}
     >
-      <Tag color={time ? 'violet' : 'red'}>{time ? time : 'Time is up'}</Tag>
+      <Tag className={className} color={time ? 'violet' : 'red'}>
+        {time ? time : 'Time is up'}
+      </Tag>
     </Whisper>
   )
 }

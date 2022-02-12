@@ -12,7 +12,7 @@ export const EventCard: React.FC<EventCardProps> = ({event, ...props}) => (
   <Panel shaded bordered {...props}>
     <Flex justifyContent="space-between" alignItems="center" style={{marginBottom: '1rem'}}>
       <h4>{event.title}</h4>
-      {event.deadline && <TimerBadge expiryTimestamp={new Date(event.deadline)} />}
+      {event.deadline && <TimerBadge withTooltip expiryTimestamp={new Date(event.deadline)} />}
     </Flex>
     <span>{event.content}</span>
   </Panel>
