@@ -15,9 +15,16 @@ export const TimerBadge: React.FC<TimerBadgeProps> = ({
   className,
   ...props
 }) => {
-  const {start, pause, ...rest} = useTimer({expiryTimestamp, ...props})
+  const {start, pause, restart, ...rest} = useTimer({expiryTimestamp, ...props})
 
   const time = formatTime(rest)
+
+  useEffect(() => {
+    if (expiryTimestamp) {
+      restart(expiryTimestamp)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [expiryTimestamp])
 
   useEffect(() => {
     if (time) {
