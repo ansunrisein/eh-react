@@ -1,11 +1,13 @@
 import React from 'react'
 import {
+  RiHeart3Fill,
   RiHeartFill,
   RiHeartLine,
   RiPushpin2Fill,
   RiPushpin2Line,
   RiPushpinFill,
   RiTeamFill,
+  RiTimeLine,
   RiUserFill,
 } from 'react-icons/ri'
 import {Icon} from '@rsuite/icons'
@@ -34,5 +36,20 @@ export const filterConfig = [
       <Icon key={1} as={RiPushpinFill} />,
       <Icon key={2} as={RiPushpin2Line} aria-label="inverted" />,
     ],
+  },
+]
+
+export const sortConfig = [
+  {
+    name: 'nearestEvent',
+    icon: <Icon as={RiTimeLine} />,
+  },
+  {
+    name: 'favorite',
+    icon: <Icon as={RiHeart3Fill} />,
+  },
+  {
+    name: 'pin',
+    icon: <Icon as={RiPushpin2Fill} />,
   },
 ]
