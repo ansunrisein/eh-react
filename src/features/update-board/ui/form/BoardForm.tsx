@@ -1,6 +1,6 @@
 import React from 'react'
 import {Controller, useForm} from 'react-hook-form'
-import {Button, Input, Loader, Steps, Toggle} from 'rsuite'
+import {Button, Input, Loader, Steps, TagPicker, Toggle} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
 import {useFormInputEnter} from '@eh/shared/lib/use-form-input-enter'
@@ -89,6 +89,23 @@ export const BoardForm: React.FC<BoardFormProps> = ({
               render={({field: {value, ...field}}) => (
                 <Toggle checked={value} defaultChecked={false} {...field} />
               )}
+            />
+          }
+        />
+        <Steps.Item
+          status="finish"
+          title={<h4>Tags</h4>}
+          description={
+            <TagPicker
+              data={[]}
+              creatable
+              style={{width: 300}}
+              menuStyle={{width: 300}}
+              groupBy="role"
+              placeholder="Group Select"
+              onCreate={(value, item) => {
+                console.log(value, item)
+              }}
             />
           }
         />
