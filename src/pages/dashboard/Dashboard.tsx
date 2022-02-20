@@ -12,6 +12,7 @@ import {useNewBoards, useNewBoardsGate} from '@eh/entities/board'
 import {BoardCard} from '@eh/entities/board/ui'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {Filters} from '@eh/features/filter'
+import {SearchInput} from '@eh/features/search'
 import {Sorts, SortState} from '@eh/features/sort'
 import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
@@ -22,13 +23,25 @@ import S from './Dashboard.module.scss'
 
 export const Dashboard: React.FC = () => {
   const [display, setDisplay] = useState('grid')
+  const [createWithSearchTitle, setCreateWithSearchTitle] = useState(false)
+
   const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
     sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
   )
   const [filtersState, setFiltersState] = useState<Record<string, number>>(() =>
     filterConfig.reduce((acc, e) => ({...acc, [e.name]: 0}), {}),
   )
+  const [searchText, setSearchText] = useState<string | undefined>(undefined)
+
   const [isCreateBoardOpened, openCreateBoard, closeCreateBoard] = useBooleanState(false)
+  const openCreate = () => {
+    setCreateWithSearchTitle(true)
+    openCreateBoard()
+  }
+  const closeCreate = () => {
+    setCreateWithSearchTitle(false)
+    closeCreateBoard()
+  }
 
   const isAuthenticated = useIsAuthenticated()
 
@@ -37,6 +50,7 @@ export const Dashboard: React.FC = () => {
   const {boards, loading, fetchMoreBoards, hasMoreBoards} = useBoards({
     sort: sortsState,
     filter: filtersState,
+    search: {text: searchText},
   })
 
   const [fetchMoreBoardsState, fetchMore] = useAsyncFn(fetchMoreBoards, [fetchMoreBoards])
@@ -52,6 +66,9 @@ export const Dashboard: React.FC = () => {
 
   return (
     <Layout header>
+      <Flex justifyContent="flex-end" style={{marginRight: '1rem', marginBottom: '1rem'}}>
+        <SearchInput style={{width: '300px'}} onChange={setSearchText} />
+      </Flex>
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
         <Flex height="100%" flexDirection="column" justifyContent="space-between">
           <Flex flexDirection="column" gap="1rem">
@@ -94,12 +111,27 @@ export const Dashboard: React.FC = () => {
         ) : !boards?.edges.length && !newBoards.length ? (
           <Empty>
             {isAuthenticated ? (
-              <>
-                <p>You have no boards</p>
-                <Button onClick={openCreateBoard} appearance="link">
-                  Create now! :)
-                </Button>
-              </>
+              !searchText?.length ? (
+                <>
+                  <p>You have no boards</p>
+                  <Button onClick={openCreateBoard} appearance="link">
+                    Create now! :)
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <p>Not found</p>
+                  <span>
+                    <span>You can </span>
+                    <button onClick={openCreate} className={S.link}>
+                      create
+                    </button>
+                    <span> new board with the name </span>
+                    <span className={S.name}>{searchText}</span>
+                    <span> :)</span>
+                  </span>
+                </>
+              )
             ) : (
               <>
                 <p>There is no public boards</p>
@@ -160,8 +192,15 @@ export const Dashboard: React.FC = () => {
         )}
       </Flex>
 
-      <Modal open={isCreateBoardOpened} onClose={closeCreateBoard} backdrop>
-        <CreateBoardForm onCreate={closeCreateBoard} />
+      <Modal open={isCreateBoardOpened} onClose={closeCreate} backdrop>
+        <CreateBoardForm
+          defaultValues={
+            searchText?.length && createWithSearchTitle
+              ? {title: searchText, isPrivate: false}
+              : undefined
+          }
+          onCreate={closeCreate}
+        />
       </Modal>
     </Layout>
   )

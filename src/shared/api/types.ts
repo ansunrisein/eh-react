@@ -87,6 +87,10 @@ export type BoardsFilter = {
   pin?: Maybe<Scalars['Int']>
 }
 
+export type BoardsSearch = {
+  text?: Maybe<Scalars['String']>
+}
+
 export type BoardsSort = {
   favorite?: Maybe<Scalars['String']>
   nearestEvent?: Maybe<Scalars['String']>
@@ -307,6 +311,7 @@ export type QueryBoardLinksArgs = {
 export type QueryDashboardArgs = {
   filter?: Maybe<BoardsFilter>
   page: Page
+  search?: Maybe<BoardsSearch>
   sort?: Maybe<BoardsSort>
 }
 

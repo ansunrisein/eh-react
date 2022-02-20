@@ -1,6 +1,6 @@
 fragment DashboardNode on Board {
     ...Board
-    events(page: $eventsPage, sort: {nearestEvent: "asc"}) {
+    events(page: $eventsPage, sort: {nearestEvent: "asc"}, filter: {expired: 1}) {
         pageInfo {
             hasNextPage
             endCursor
@@ -14,8 +14,8 @@ fragment DashboardNode on Board {
     }
 }
 
-query Dashboard($page: Page!, $eventsPage: Page!, $sort: BoardsSort, $filter: BoardsFilter) {
-    dashboard(page: $page, sort: $sort, filter: $filter) {
+query Dashboard($page: Page!, $eventsPage: Page!, $sort: BoardsSort, $filter: BoardsFilter, $search: BoardsSearch) {
+    dashboard(page: $page, sort: $sort, filter: $filter, search: $search) {
         pageInfo {
             hasNextPage
             endCursor

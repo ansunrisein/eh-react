@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {BoardsFilter, BoardsSort} from '@eh/shared/api'
+import {BoardsFilter, BoardsSearch, BoardsSort} from '@eh/shared/api'
 import {useDashboardQuery} from '../api'
 
 export type UseBoardsProps = {
@@ -7,6 +7,7 @@ export type UseBoardsProps = {
   eventsPerPage?: number
   sort?: BoardsSort
   filter?: BoardsFilter
+  search?: BoardsSearch
 }
 
 export const useBoards = ({
@@ -14,9 +15,16 @@ export const useBoards = ({
   eventsPerPage = 25,
   sort,
   filter,
+  search,
 }: UseBoardsProps = {}) => {
   const {data, loading, fetchMore} = useDashboardQuery({
-    variables: {page: {first: boardsPerPage}, eventsPage: {first: eventsPerPage}, sort, filter},
+    variables: {
+      page: {first: boardsPerPage},
+      eventsPage: {first: eventsPerPage},
+      sort,
+      filter,
+      search,
+    },
     fetchPolicy: 'network-only',
     nextFetchPolicy: 'cache-first',
   })
