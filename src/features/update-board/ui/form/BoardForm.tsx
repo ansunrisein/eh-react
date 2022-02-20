@@ -1,5 +1,6 @@
 import React from 'react'
 import {Controller, useForm} from 'react-hook-form'
+import {useDeepCompareEffect} from 'react-use'
 import {Button, Input, Loader, Steps, TagPicker, Toggle} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
@@ -27,11 +28,13 @@ export const BoardForm: React.FC<BoardFormProps> = ({
   const [isDescriptionProcess, startIsDescriptionProcess, stopIsDescriptionProcess] =
     useBooleanState(false)
 
-  const {handleSubmit, control, formState, watch} = useForm({
+  const {handleSubmit, control, formState, watch, reset} = useForm({
     mode: 'onChange',
     defaultValues,
   })
   const {title, description} = watch()
+
+  useDeepCompareEffect(() => reset(defaultValues), [defaultValues, reset])
 
   const handleEnter = useFormInputEnter()
 
