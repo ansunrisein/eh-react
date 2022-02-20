@@ -1,6 +1,6 @@
 fragment BoardPage on Board {
     ...Board
-    events(page: $eventsPage, sort: $sort) {
+    events(page: $eventsPage, sort: $sort, filter: $filter) {
         pageInfo {
             hasNextPage
             endCursor
@@ -13,7 +13,7 @@ fragment BoardPage on Board {
     }
 }
 
-query BoardPage($id: ID!, $eventsPage: Page!, $sort: EventsSort) {
+query BoardPage($id: ID!, $eventsPage: Page!, $sort: EventsSort, $filter: EventsFilter) {
     board(boardId: $id) {
         ...BoardPage
     }

@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {EventsSort} from '@eh/shared/api'
+import {EventsFilter, EventsSort} from '@eh/shared/api'
 import {useUser} from '@eh/entities/user'
 import {useBoardPageQuery} from '../api'
 
@@ -7,10 +7,17 @@ export type UseFullBoardProps = {
   id: string
   eventsPerPage?: number
   sort?: EventsSort
+  filter?: EventsFilter
   refetch?: boolean
 }
 
-export const useFullBoard = ({id, eventsPerPage = 25, sort, refetch}: UseFullBoardProps) => {
+export const useFullBoard = ({
+  id,
+  eventsPerPage = 25,
+  sort,
+  filter,
+  refetch,
+}: UseFullBoardProps) => {
   const {data, loading, fetchMore} = useBoardPageQuery({
     variables: {
       id,
@@ -18,6 +25,7 @@ export const useFullBoard = ({id, eventsPerPage = 25, sort, refetch}: UseFullBoa
         first: eventsPerPage,
       },
       sort,
+      filter,
     },
     ...(refetch ? {fetchPolicy: 'network-only', nextFetchPolicy: 'cache-first'} : {}),
   })

@@ -9,12 +9,13 @@ import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {Info, usePermissions} from '@eh/entities/board'
 import {EventCard, useNewEvents, useNewEventsGate} from '@eh/entities/event'
+import {Filters} from '@eh/features/filter'
 import {Sorts, SortState} from '@eh/features/sort'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
-import {sortConfig} from './config'
+import {filterConfig, sortConfig} from './config'
 import {useFullBoard} from './model'
 import {Actions, EventCalendar} from './ui'
 import S from './Board.module.scss'
@@ -29,6 +30,9 @@ export const Board: React.FC = () => {
   const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
     sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
   )
+  const [filtersState, setFiltersState] = useState<Record<string, number>>(() =>
+    filterConfig.reduce((acc, e) => ({...acc, [e.name]: 0}), {}),
+  )
 
   const isTablet = useMedia('(min-width: 768px)')
   const {id = ''} = useParams<'id'>()
@@ -37,6 +41,7 @@ export const Board: React.FC = () => {
   const {board, loading, fetchMoreEvents, hasMoreEvents} = useFullBoard({
     id,
     sort: sortsState,
+    filter: filtersState,
     refetch: true,
   })
   const {canCreateEvent, canUpdateEvent, canRemoveEvent} = usePermissions(board)
@@ -78,6 +83,12 @@ export const Board: React.FC = () => {
           <Sorts
             sorts={sortConfig}
             onChange={setSortsState}
+            vertical
+            size={isTablet ? 'md' : 'sm'}
+          />
+          <Filters
+            filters={filterConfig}
+            onChange={setFiltersState}
             vertical
             size={isTablet ? 'md' : 'sm'}
           />

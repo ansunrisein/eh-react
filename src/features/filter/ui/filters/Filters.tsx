@@ -1,14 +1,14 @@
 import React, {useState} from 'react'
-import {ButtonGroup} from 'rsuite'
+import {ButtonGroup, ButtonGroupProps} from 'rsuite'
 import {FilterButton} from '../filter-button'
 import {mapFiltersConfigToObj} from './helpers'
 
 export type FiltersProps = {
   onChange?: (filters: Record<string, number>) => void
   filters: {name: string; icons: React.ReactNode[]}[]
-}
+} & ButtonGroupProps
 
-export const Filters: React.FC<FiltersProps> = ({onChange, filters}) => {
+export const Filters: React.FC<FiltersProps> = ({onChange, filters, ...props}) => {
   const [filter, setFilter] = useState(() => mapFiltersConfigToObj(filters))
 
   const onStateChange = (name: string) => (state: number) => {
@@ -18,7 +18,7 @@ export const Filters: React.FC<FiltersProps> = ({onChange, filters}) => {
   }
 
   return (
-    <ButtonGroup vertical>
+    <ButtonGroup {...props}>
       {filters.map((e, i) => (
         <FilterButton
           key={i}

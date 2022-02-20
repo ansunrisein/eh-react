@@ -58,7 +58,7 @@ export const Dashboard: React.FC = () => {
             {isAuthenticated && (
               <>
                 <Sorts sorts={sortConfig} onChange={setSortsState} vertical />
-                <Filters filters={filterConfig} onChange={setFiltersState} />
+                <Filters filters={filterConfig} onChange={setFiltersState} vertical />
               </>
             )}
           </Flex>
