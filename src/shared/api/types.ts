@@ -39,6 +39,7 @@ export type BoardBoardLinksArgs = {
 }
 
 export type BoardEventsArgs = {
+  filter?: Maybe<EventsFilter>
   page: Page
   sort?: Maybe<EventsSort>
 }
@@ -139,6 +140,10 @@ export type EventEdge = {
   __typename?: 'EventEdge'
   cursor: Scalars['ID']
   node: Event
+}
+
+export type EventsFilter = {
+  expired?: Maybe<Scalars['Int']>
 }
 
 export type EventsSort = {

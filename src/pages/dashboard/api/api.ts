@@ -91,7 +91,7 @@ export type DashboardQuery = {
 export const DashboardNodeFragmentDoc = gql`
   fragment DashboardNode on Board {
     ...Board
-    events(page: $eventsPage, sort: {nearestEvent: "asc"}) {
+    events(page: $eventsPage, sort: {nearestEvent: "asc"}, filter: {expired: 1}) {
       pageInfo {
         hasNextPage
         endCursor
