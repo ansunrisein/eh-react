@@ -52,7 +52,7 @@ export type BoardConnection = {
 
 export type BoardEdge = {
   __typename?: 'BoardEdge'
-  cursor: Scalars['ID']
+  cursor: Scalars['String']
   node: Board
 }
 
@@ -77,7 +77,7 @@ export type BoardLinkConnection = {
 
 export type BoardLinkEdge = {
   __typename?: 'BoardLinkEdge'
-  cursor: Scalars['ID']
+  cursor: Scalars['String']
   node: BoardLink
 }
 
@@ -138,7 +138,7 @@ export type EventConnection = {
 
 export type EventEdge = {
   __typename?: 'EventEdge'
-  cursor: Scalars['ID']
+  cursor: Scalars['String']
   node: Event
 }
 
@@ -247,16 +247,16 @@ export type MutationUpdateProfileArgs = {
 }
 
 export type Page = {
-  after?: Maybe<Scalars['ID']>
+  after?: Maybe<Scalars['String']>
   first: Scalars['Int']
 }
 
 export type PageInfo = {
   __typename?: 'PageInfo'
-  endCursor?: Maybe<Scalars['ID']>
+  endCursor?: Maybe<Scalars['String']>
   hasNextPage: Scalars['Boolean']
   hasPreviousPage: Scalars['Boolean']
-  startCursor?: Maybe<Scalars['ID']>
+  startCursor?: Maybe<Scalars['String']>
 }
 
 export enum Permission {
