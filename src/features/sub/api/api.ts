@@ -6,7 +6,6 @@ import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
 import * as Apollo from '@apollo/client'
-
 const defaultOptions = {}
 export type CreateSubMutationVariables = Types.Exact<{
   boardId: Types.Scalars['ID']
@@ -75,7 +74,6 @@ export function useCreateSubMutation(
     options,
   )
 }
-
 export type CreateSubMutationHookResult = ReturnType<typeof useCreateSubMutation>
 export type CreateSubMutationResult = Apollo.MutationResult<CreateSubMutation>
 export type CreateSubMutationOptions = Apollo.BaseMutationOptions<
@@ -123,7 +121,6 @@ export function useRemoveSubMutation(
     options,
   )
 }
-
 export type RemoveSubMutationHookResult = ReturnType<typeof useRemoveSubMutation>
 export type RemoveSubMutationResult = Apollo.MutationResult<RemoveSubMutation>
 export type RemoveSubMutationOptions = Apollo.BaseMutationOptions<

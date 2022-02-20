@@ -1,6 +1,6 @@
 fragment DashboardNode on Board {
     ...Board
-    events(page: $eventsPage) {
+    events(page: $eventsPage, sort: {nearestEvent: "asc"}) {
         pageInfo {
             hasNextPage
             endCursor
