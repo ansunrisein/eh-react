@@ -67,7 +67,12 @@ export const Dashboard: React.FC = () => {
   return (
     <Layout header>
       <Flex justifyContent="flex-end" style={{marginRight: '1rem', marginBottom: '1rem'}}>
-        <SearchInput style={{width: '300px'}} onChange={setSearchText} />
+        <SearchInput
+          style={{width: '300px'}}
+          value={searchText}
+          onChange={setSearchText}
+          onReset={() => setSearchText('')}
+        />
       </Flex>
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
         <Flex height="100%" flexDirection="column" justifyContent="space-between">
