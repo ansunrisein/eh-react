@@ -1,6 +1,48 @@
-import {useCallback} from 'react'
+import React, {createContext, useCallback, useContext} from 'react'
+import {useStore} from 'effector-react'
 import {BoardsFilter, BoardsSearch, BoardsSort} from '@eh/shared/api'
+import {Hoc} from '@eh/shared/types'
+import {DashboardPage} from '@eh/pages/dashboard/model/dashboard'
 import {useDashboardQuery} from '../api'
+
+export const DashboardPageContext = createContext<DashboardPage>(
+  new Proxy({} as DashboardPage, {
+    get() {
+      throw new Error('Use DashboardPageProvider!')
+    },
+  }),
+)
+
+export type DashboardPageProviderProps = {
+  dashboard: DashboardPage
+}
+
+export const DashboardPageProvider: React.FC<DashboardPageProviderProps> = ({
+  children,
+  dashboard,
+}) => <DashboardPageContext.Provider value={dashboard}>{children}</DashboardPageContext.Provider>
+
+export const withDashboardPage =
+  (providerProps: DashboardPageProviderProps): Hoc =>
+  Component =>
+  props =>
+    (
+      <DashboardPageProvider {...providerProps}>
+        <Component {...props} />
+      </DashboardPageProvider>
+    )
+
+export const useDashboardPage = (): DashboardPage => useContext(DashboardPageContext)
+
+export const useDashboardSearch = () => {
+  const {$search, resetSearch, changeSearch} = useDashboardPage()
+
+  return {
+    search: useStore($search),
+    changeSearch,
+    resetSearch,
+  }
+}
 
 export type UseBoardsProps = {
   boardsPerPage?: number

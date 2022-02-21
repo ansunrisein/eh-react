@@ -16,6 +16,7 @@ import {
   createUpdateUserAvatarFeature,
   UpdateUserAvatarFeatureProvider,
 } from '@eh/features/update-user/avatar/model'
+import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard'
 import {cloudinary} from '@eh/app/config/cloudinary'
 import {apollo} from './apollo'
 import {auth} from './firebase'
@@ -37,6 +38,7 @@ export const updateUserAvatarFeature = createUpdateUserAvatarFeature({
 export const favoriteBoardFeature = createFavoriteBoardFeature({domain, apollo})
 export const pinBoardFeature = createPinBoardFeature({domain, apollo})
 export const subFeature = createSubFeature({domain, apollo})
+export const dashboardPageFeature = createDashboardPage({domain})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(EventEntityProvider, {event: eventEntity})
@@ -49,4 +51,5 @@ export const AppStoreProvider = createProviderBuilder()
   .add(FavoriteBoardFeatureProvider, {favoriteBoard: favoriteBoardFeature})
   .add(PinBoardFeatureProvider, {pinBoard: pinBoardFeature})
   .add(SubFeatureProvider, {sub: subFeature})
+  .add(DashboardPageProvider, {dashboard: dashboardPageFeature})
   .return()

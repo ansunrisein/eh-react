@@ -17,7 +17,7 @@ import {Sorts, SortState} from '@eh/features/sort'
 import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
 import {filterConfig, sortConfig} from './config'
-import {useBoards} from './model'
+import {useBoards, useDashboardSearch} from './model'
 import {MiniBoard} from './ui'
 import S from './Dashboard.module.scss'
 
@@ -31,7 +31,7 @@ export const Dashboard: React.FC = () => {
   const [filtersState, setFiltersState] = useState<Record<string, number>>(() =>
     filterConfig.reduce((acc, e) => ({...acc, [e.name]: 0}), {}),
   )
-  const [searchText, setSearchText] = useState<string | undefined>(undefined)
+  const {search, changeSearch, resetSearch} = useDashboardSearch()
 
   const [isCreateBoardOpened, openCreateBoard, closeCreateBoard] = useBooleanState(false)
   const openCreate = () => {
@@ -50,7 +50,7 @@ export const Dashboard: React.FC = () => {
   const {boards, loading, fetchMoreBoards, hasMoreBoards} = useBoards({
     sort: sortsState,
     filter: filtersState,
-    search: {text: searchText},
+    search: {text: search},
   })
 
   const [fetchMoreBoardsState, fetchMore] = useAsyncFn(fetchMoreBoards, [fetchMoreBoards])
@@ -69,9 +69,9 @@ export const Dashboard: React.FC = () => {
       <Flex justifyContent="flex-end" style={{marginRight: '1rem', marginBottom: '1rem'}}>
         <SearchInput
           style={{width: '300px'}}
-          value={searchText}
-          onChange={setSearchText}
-          onReset={() => setSearchText('')}
+          value={search}
+          onChange={changeSearch}
+          onReset={resetSearch}
         />
       </Flex>
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
@@ -116,7 +116,7 @@ export const Dashboard: React.FC = () => {
         ) : !boards?.edges.length && !newBoards.length ? (
           <Empty>
             {isAuthenticated ? (
-              !searchText?.length ? (
+              !search?.length ? (
                 <>
                   <p>You have no boards</p>
                   <Button onClick={openCreateBoard} appearance="link">
@@ -132,7 +132,7 @@ export const Dashboard: React.FC = () => {
                       create
                     </button>
                     <span> new board with the name </span>
-                    <span className={S.name}>{searchText}</span>
+                    <span className={S.name}>{search}</span>
                     <span> :)</span>
                   </span>
                 </>
@@ -200,9 +200,7 @@ export const Dashboard: React.FC = () => {
       <Modal open={isCreateBoardOpened} onClose={closeCreate} backdrop>
         <CreateBoardForm
           defaultValues={
-            searchText?.length && createWithSearchTitle
-              ? {title: searchText, isPrivate: false}
-              : undefined
+            search?.length && createWithSearchTitle ? {title: search, isPrivate: false} : undefined
           }
           onCreate={closeCreate}
         />
