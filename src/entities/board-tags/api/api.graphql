@@ -1,0 +1,6 @@
+query BoardTags {
+    boardTags {
+        _id
+        name
+    }
+}
