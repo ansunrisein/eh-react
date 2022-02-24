@@ -46,6 +46,7 @@ export type CreateBoardMutationVariables = Types.Exact<{
   title: Types.Scalars['String']
   description?: Types.Maybe<Types.Scalars['String']>
   isPrivate: Types.Scalars['Boolean']
+  tagsIds?: Types.Maybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
 }>
 
 export type CreateBoardMutation = {
@@ -190,8 +191,15 @@ export type BoardQueryHookResult = ReturnType<typeof useBoardQuery>
 export type BoardLazyQueryHookResult = ReturnType<typeof useBoardLazyQuery>
 export type BoardQueryResult = Apollo.QueryResult<BoardQuery, BoardQueryVariables>
 export const CreateBoardDocument = gql`
-  mutation CreateBoard($title: String!, $description: String, $isPrivate: Boolean!) {
-    createBoard(board: {title: $title, description: $description, isPrivate: $isPrivate}) {
+  mutation CreateBoard(
+    $title: String!
+    $description: String
+    $isPrivate: Boolean!
+    $tagsIds: [ID!]
+  ) {
+    createBoard(
+      board: {title: $title, description: $description, isPrivate: $isPrivate, tagsIds: $tagsIds}
+    ) {
       ...Board
     }
   }
@@ -218,6 +226,7 @@ export type CreateBoardMutationFn = Apollo.MutationFunction<
  *      title: // value for 'title'
  *      description: // value for 'description'
  *      isPrivate: // value for 'isPrivate'
+ *      tagsIds: // value for 'tagsIds'
  *   },
  * });
  */

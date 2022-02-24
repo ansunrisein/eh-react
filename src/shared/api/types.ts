@@ -30,6 +30,7 @@ export type Board = {
   isPrivate: Scalars['Boolean']
   permissions: Array<Permission>
   sub?: Maybe<Sub>
+  tags?: Maybe<Array<BoardTag>>
   title: Scalars['String']
   user: User
 }
@@ -81,6 +82,16 @@ export type BoardLinkEdge = {
   node: BoardLink
 }
 
+export type BoardTag = {
+  __typename?: 'BoardTag'
+  _id: Scalars['ID']
+  name: Scalars['String']
+}
+
+export type BoardTagId = {
+  _id: Scalars['ID']
+}
+
 export type BoardsFilter = {
   favorite?: Maybe<Scalars['Int']>
   ownership?: Maybe<Scalars['Int']>
@@ -100,6 +111,7 @@ export type BoardsSort = {
 export type CreateBoard = {
   description?: Maybe<Scalars['String']>
   isPrivate: Scalars['Boolean']
+  tagsIds?: Maybe<Array<Scalars['ID']>>
   title: Scalars['String']
 }
 
@@ -107,6 +119,10 @@ export type CreateBoardLink = {
   boardId: Scalars['ID']
   name: Scalars['String']
   permissions: Array<Permission>
+}
+
+export type CreateBoardTag = {
+  name: Scalars['String']
 }
 
 export type CreateEvent = {
@@ -159,12 +175,14 @@ export type Mutation = {
   __typename?: 'Mutation'
   createBoard: Board
   createBoardLink: BoardLink
+  createBoardTag: BoardTag
   createEvent?: Maybe<Event>
   createSub: Board
   markBoardAsFavorite: Board
   markBoardAsPin: Board
   removeBoard: Board
   removeBoardLink: BoardLink
+  removeBoardTag: BoardTag
   removeEvent?: Maybe<Event>
   removeSub: Board
   unmarkBoardAsFavorite: Board
@@ -183,6 +201,10 @@ export type MutationCreateBoardArgs = {
 
 export type MutationCreateBoardLinkArgs = {
   boardLink: CreateBoardLink
+}
+
+export type MutationCreateBoardTagArgs = {
+  boardTag: CreateBoardTag
 }
 
 export type MutationCreateEventArgs = {
@@ -207,6 +229,10 @@ export type MutationRemoveBoardArgs = {
 
 export type MutationRemoveBoardLinkArgs = {
   boardLinkId: Scalars['ID']
+}
+
+export type MutationRemoveBoardTagArgs = {
+  boardTag: BoardTagId
 }
 
 export type MutationRemoveEventArgs = {
@@ -289,6 +315,7 @@ export type Query = {
   board: Board
   boardLink?: Maybe<BoardLink>
   boardLinks: BoardLinkConnection
+  boardTags: Array<BoardTag>
   dashboard: BoardConnection
   event?: Maybe<Event>
   me?: Maybe<User>
@@ -367,6 +394,7 @@ export type BoardKeySpecifier = (
   | 'isPrivate'
   | 'permissions'
   | 'sub'
+  | 'tags'
   | 'title'
   | 'user'
   | BoardKeySpecifier
@@ -382,6 +410,7 @@ export type BoardFieldPolicy = {
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   sub?: FieldPolicy<any> | FieldReadFunction<any>
+  tags?: FieldPolicy<any> | FieldReadFunction<any>
   title?: FieldPolicy<any> | FieldReadFunction<any>
   user?: FieldPolicy<any> | FieldReadFunction<any>
 }
@@ -424,6 +453,11 @@ export type BoardLinkEdgeFieldPolicy = {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>
   node?: FieldPolicy<any> | FieldReadFunction<any>
 }
+export type BoardTagKeySpecifier = ('_id' | 'name' | BoardTagKeySpecifier)[]
+export type BoardTagFieldPolicy = {
+  _id?: FieldPolicy<any> | FieldReadFunction<any>
+  name?: FieldPolicy<any> | FieldReadFunction<any>
+}
 export type EntityPermissionsKeySpecifier = (
   | 'name'
   | 'permissions'
@@ -453,12 +487,14 @@ export type EventEdgeFieldPolicy = {
 export type MutationKeySpecifier = (
   | 'createBoard'
   | 'createBoardLink'
+  | 'createBoardTag'
   | 'createEvent'
   | 'createSub'
   | 'markBoardAsFavorite'
   | 'markBoardAsPin'
   | 'removeBoard'
   | 'removeBoardLink'
+  | 'removeBoardTag'
   | 'removeEvent'
   | 'removeSub'
   | 'unmarkBoardAsFavorite'
@@ -474,12 +510,14 @@ export type MutationKeySpecifier = (
 export type MutationFieldPolicy = {
   createBoard?: FieldPolicy<any> | FieldReadFunction<any>
   createBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
+  createBoardTag?: FieldPolicy<any> | FieldReadFunction<any>
   createEvent?: FieldPolicy<any> | FieldReadFunction<any>
   createSub?: FieldPolicy<any> | FieldReadFunction<any>
   markBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   markBoardAsPin?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoard?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
+  removeBoardTag?: FieldPolicy<any> | FieldReadFunction<any>
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
   removeSub?: FieldPolicy<any> | FieldReadFunction<any>
   unmarkBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
@@ -517,6 +555,7 @@ export type QueryKeySpecifier = (
   | 'board'
   | 'boardLink'
   | 'boardLinks'
+  | 'boardTags'
   | 'dashboard'
   | 'event'
   | 'me'
@@ -527,6 +566,7 @@ export type QueryFieldPolicy = {
   board?: FieldPolicy<any> | FieldReadFunction<any>
   boardLink?: FieldPolicy<any> | FieldReadFunction<any>
   boardLinks?: FieldPolicy<any> | FieldReadFunction<any>
+  boardTags?: FieldPolicy<any> | FieldReadFunction<any>
   dashboard?: FieldPolicy<any> | FieldReadFunction<any>
   event?: FieldPolicy<any> | FieldReadFunction<any>
   me?: FieldPolicy<any> | FieldReadFunction<any>
@@ -573,6 +613,10 @@ export type StrictTypedTypePolicies = {
   BoardLinkEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | BoardLinkEdgeKeySpecifier | (() => undefined | BoardLinkEdgeKeySpecifier)
     fields?: BoardLinkEdgeFieldPolicy
+  }
+  BoardTag?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?: false | BoardTagKeySpecifier | (() => undefined | BoardTagKeySpecifier)
+    fields?: BoardTagFieldPolicy
   }
   EntityPermissions?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:

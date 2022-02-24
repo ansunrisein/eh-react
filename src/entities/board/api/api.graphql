@@ -21,8 +21,8 @@ query Board($id: ID!) {
     }
 }
 
-mutation CreateBoard($title: String!, $description: String, $isPrivate: Boolean!) {
-    createBoard(board: {title: $title, description: $description, isPrivate: $isPrivate}) {
+mutation CreateBoard($title: String!, $description: String, $isPrivate: Boolean!, $tagsIds: [ID!]) {
+    createBoard(board: {title: $title, description: $description, isPrivate: $isPrivate, tagsIds: $tagsIds}) {
         ...Board
     }
 }
@@ -38,6 +38,10 @@ mutation EditBoardVisibility($id: ID!, $isPrivate: Boolean!) {
         ...Board
     }
 }
+
+#mutation EditBoardTags($id: ID!m $tagsIds: [ID!]) {
+#
+#}
 
 mutation RemoveBoard($id: ID!) {
     removeBoard(boardId: $id) {

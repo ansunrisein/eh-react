@@ -1,11 +1,12 @@
 import React from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {useDeepCompareEffect} from 'react-use'
-import {Button, Input, Loader, Steps, TagPicker, Toggle} from 'rsuite'
+import {Button, Input, Loader, Steps, Toggle} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import noop from '@stdlib/utils-noop'
 import {useFormInputEnter} from '@eh/shared/lib/use-form-input-enter'
 import {CreateBoardMutationVariables} from '@eh/entities/board'
+import {BoardTagPicker} from '@eh/entities/board-tags'
 import S from './BoardForm.module.scss'
 
 export type BoardFormProps = {
@@ -61,6 +62,7 @@ export const BoardForm: React.FC<BoardFormProps> = ({
             />
           }
         />
+
         <Steps.Item
           status={!description ? 'wait' : isDescriptionProcess ? 'process' : 'finish'}
           title={<h4>Description</h4>}
@@ -81,6 +83,7 @@ export const BoardForm: React.FC<BoardFormProps> = ({
             />
           }
         />
+
         <Steps.Item
           status="finish"
           title={<h4>Private</h4>}
@@ -95,20 +98,24 @@ export const BoardForm: React.FC<BoardFormProps> = ({
             />
           }
         />
+
         <Steps.Item
           status="finish"
           title={<h4>Tags</h4>}
           description={
-            <TagPicker
-              data={[]}
-              creatable
-              style={{width: 300}}
-              menuStyle={{width: 300}}
-              groupBy="role"
-              placeholder="Group Select"
-              onCreate={(value, item) => {
-                console.log(value, item)
-              }}
+            <Controller
+              name="tagsIds"
+              control={control}
+              defaultValue={[]}
+              render={({field: {value, name, onChange, onBlur}}) => (
+                <BoardTagPicker
+                  className={S.tag}
+                  value={value}
+                  name={name}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+              )}
             />
           }
         />
