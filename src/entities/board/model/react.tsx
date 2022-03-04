@@ -91,6 +91,12 @@ export const useEditDescriptionBoard = () => {
   ])
 }
 
+export const useEditBoardTags = () => {
+  const {editBoardTagsFx} = useBoardEntity()
+
+  return useAsyncFn<RemoveEffector<typeof editBoardTagsFx>>(editBoardTagsFx, [editBoardTagsFx])
+}
+
 export const useEditVisibilityBoard = () => {
   const {editBoardVisibilityFx} = useBoardEntity()
 

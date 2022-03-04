@@ -19,6 +19,7 @@ export type BoardFragment = {
   isPin: boolean
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+  tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
 }
 
 export type BoardQueryVariables = Types.Exact<{
@@ -39,6 +40,7 @@ export type BoardQuery = {
     isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
   }
 }
 
@@ -63,6 +65,7 @@ export type CreateBoardMutation = {
     isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
   }
 }
 
@@ -86,6 +89,7 @@ export type EditBoardDescriptionMutation = {
     isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
   }
 }
 
@@ -108,6 +112,30 @@ export type EditBoardVisibilityMutation = {
     isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
+  }
+}
+
+export type EditBoardTagsMutationVariables = Types.Exact<{
+  id: Types.Scalars['ID']
+  tagsIds?: Types.Maybe<Array<Types.Scalars['ID']> | Types.Scalars['ID']>
+}>
+
+export type EditBoardTagsMutation = {
+  __typename?: 'Mutation'
+  updateBoardTags: {
+    __typename?: 'Board'
+    _id: string
+    title: string
+    description?: string | null | undefined
+    isPrivate: boolean
+    permissions: Array<Types.Permission>
+    eventsCount: number
+    isFavorite: boolean
+    isPin: boolean
+    user: {__typename?: 'User'; _id: string}
+    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
   }
 }
 
@@ -129,6 +157,7 @@ export type RemoveBoardMutation = {
     isPin: boolean
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
   }
 }
 
@@ -148,6 +177,10 @@ export const BoardFragmentDoc = gql`
     eventsCount
     isFavorite
     isPin
+    tags {
+      _id
+      name
+    }
   }
 `
 export const BoardDocument = gql`
@@ -347,6 +380,52 @@ export type EditBoardVisibilityMutationResult = Apollo.MutationResult<EditBoardV
 export type EditBoardVisibilityMutationOptions = Apollo.BaseMutationOptions<
   EditBoardVisibilityMutation,
   EditBoardVisibilityMutationVariables
+>
+export const EditBoardTagsDocument = gql`
+  mutation EditBoardTags($id: ID!, $tagsIds: [ID!]) {
+    updateBoardTags(board: {_id: $id, tagsIds: $tagsIds}) {
+      ...Board
+    }
+  }
+  ${BoardFragmentDoc}
+`
+export type EditBoardTagsMutationFn = Apollo.MutationFunction<
+  EditBoardTagsMutation,
+  EditBoardTagsMutationVariables
+>
+
+/**
+ * __useEditBoardTagsMutation__
+ *
+ * To run a mutation, you first call `useEditBoardTagsMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useEditBoardTagsMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [editBoardTagsMutation, { data, loading, error }] = useEditBoardTagsMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      tagsIds: // value for 'tagsIds'
+ *   },
+ * });
+ */
+export function useEditBoardTagsMutation(
+  baseOptions?: Apollo.MutationHookOptions<EditBoardTagsMutation, EditBoardTagsMutationVariables>,
+) {
+  const options = {...defaultOptions, ...baseOptions}
+  return Apollo.useMutation<EditBoardTagsMutation, EditBoardTagsMutationVariables>(
+    EditBoardTagsDocument,
+    options,
+  )
+}
+export type EditBoardTagsMutationHookResult = ReturnType<typeof useEditBoardTagsMutation>
+export type EditBoardTagsMutationResult = Apollo.MutationResult<EditBoardTagsMutation>
+export type EditBoardTagsMutationOptions = Apollo.BaseMutationOptions<
+  EditBoardTagsMutation,
+  EditBoardTagsMutationVariables
 >
 export const RemoveBoardDocument = gql`
   mutation RemoveBoard($id: ID!) {

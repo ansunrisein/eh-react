@@ -13,6 +13,10 @@ fragment Board on Board {
     eventsCount
     isFavorite
     isPin
+    tags {
+        _id
+        name
+    }
 }
 
 query Board($id: ID!) {
@@ -39,9 +43,11 @@ mutation EditBoardVisibility($id: ID!, $isPrivate: Boolean!) {
     }
 }
 
-#mutation EditBoardTags($id: ID!m $tagsIds: [ID!]) {
-#
-#}
+mutation EditBoardTags($id: ID!, $tagsIds: [ID!]) {
+    updateBoardTags(board: {_id: $id, tagsIds: $tagsIds}) {
+        ...Board
+    }
+}
 
 mutation RemoveBoard($id: ID!) {
     removeBoard(boardId: $id) {

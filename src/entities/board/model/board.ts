@@ -9,6 +9,9 @@ import {
   EditBoardDescriptionDocument,
   EditBoardDescriptionMutation,
   EditBoardDescriptionMutationVariables,
+  EditBoardTagsDocument,
+  EditBoardTagsMutation,
+  EditBoardTagsMutationVariables,
   EditBoardVisibilityDocument,
   EditBoardVisibilityMutation,
   EditBoardVisibilityMutationVariables,
@@ -41,6 +44,15 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
         variables,
       })
       .then(result => result?.data?.updateBoardDescription),
+  )
+
+  const editBoardTagsFx = domain.effect((variables: EditBoardTagsMutationVariables) =>
+    apollo
+      .mutate<EditBoardTagsMutation, EditBoardTagsMutationVariables>({
+        mutation: EditBoardTagsDocument,
+        variables,
+      })
+      .then(result => result?.data?.updateBoardTags),
   )
 
   const editBoardVisibilityFx = domain.effect((variables: EditBoardVisibilityMutationVariables) =>
@@ -77,6 +89,7 @@ export const createBoardEntity = ({domain, apollo}: BoardEntityDeps) => {
   return {
     createBoardFx,
     editBoardDescriptionFx,
+    editBoardTagsFx,
     editBoardVisibilityFx,
     removeBoardFx,
     resetNewBoards,

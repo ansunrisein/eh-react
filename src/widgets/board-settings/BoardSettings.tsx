@@ -2,6 +2,7 @@ import React from 'react'
 import {Button, Divider, Loader} from 'rsuite'
 import {BoardFragment, useBoard, usePermissions, useRemoveBoard} from '@eh/entities/board'
 import {EditBoardForm} from '@eh/features/update-board'
+import {EditBoardTags} from '@eh/features/update-board-tags'
 import {BoardLinks} from './ui'
 import S from './BoardSettings.module.scss'
 
@@ -32,6 +33,10 @@ export const BoardSettings: React.FC<BoardSettingsProps> = ({id, onRemove}) => {
           <Divider />
 
           <BoardLinks board={board} />
+
+          <Divider />
+
+          <EditBoardTags board={board} />
 
           <Divider />
 

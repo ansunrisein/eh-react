@@ -35,6 +35,7 @@ export type BoardPageFragment = {
   }
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+  tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
 }
 
 export type BoardPageQueryVariables = Types.Exact<{
@@ -76,6 +77,7 @@ export type BoardPageQuery = {
     }
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
   }
 }
 

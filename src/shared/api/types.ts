@@ -190,6 +190,7 @@ export type Mutation = {
   updateAvatar: User
   updateBoardDescription: Board
   updateBoardLink: BoardLink
+  updateBoardTags: Board
   updateBoardVisibility: Board
   updateEvent?: Maybe<Event>
   updateProfile: User
@@ -261,6 +262,10 @@ export type MutationUpdateBoardDescriptionArgs = {
 
 export type MutationUpdateBoardLinkArgs = {
   boardLink: UpdateBoardLink
+}
+
+export type MutationUpdateBoardTagsArgs = {
+  board: UpdateBoardTags
 }
 
 export type MutationUpdateBoardVisibilityArgs = {
@@ -361,6 +366,11 @@ export type UpdateBoardLink = {
   _id: Scalars['ID']
   name: Scalars['String']
   permissions: Array<Permission>
+}
+
+export type UpdateBoardTags = {
+  _id: Scalars['ID']
+  tagsIds?: Maybe<Array<Scalars['ID']>>
 }
 
 export type UpdateBoardVisibility = {
@@ -502,6 +512,7 @@ export type MutationKeySpecifier = (
   | 'updateAvatar'
   | 'updateBoardDescription'
   | 'updateBoardLink'
+  | 'updateBoardTags'
   | 'updateBoardVisibility'
   | 'updateEvent'
   | 'updateProfile'
@@ -525,6 +536,7 @@ export type MutationFieldPolicy = {
   updateAvatar?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardDescription?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
+  updateBoardTags?: FieldPolicy<any> | FieldReadFunction<any>
   updateBoardVisibility?: FieldPolicy<any> | FieldReadFunction<any>
   updateEvent?: FieldPolicy<any> | FieldReadFunction<any>
   updateProfile?: FieldPolicy<any> | FieldReadFunction<any>
