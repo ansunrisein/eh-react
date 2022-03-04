@@ -70,7 +70,7 @@ export const Board: React.FC = () => {
   return (
     <Layout header>
       <div className={S.panel}>
-        <Info board={board} withPrivateIcon className={S.info} />
+        <Info board={board} withPrivateIcon withTags className={S.info} />
         <Actions
           board={board}
           onOpenBoardSettings={openBoardSettings}
