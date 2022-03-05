@@ -29,7 +29,7 @@ export const Info: React.FC<InfoProps> = ({
           />
         )}
         <h4 className={S.title}>{board.title}</h4>
-        {withTags && (
+        {withTags && !!board.tags?.length && (
           <Whisper
             trigger="click"
             placement="topStart"
