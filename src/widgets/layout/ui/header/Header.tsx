@@ -9,6 +9,7 @@ import {Logo} from '@eh/shared/ui'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {Avatar} from '@eh/entities/user'
 import {LoginButton} from '@eh/features/auth-with-firebase'
+import {LocaleSwitcher} from '../locale-switcher'
 import {Menu} from '../menu'
 import S from './Header.module.scss'
 
@@ -30,8 +31,12 @@ export const Header: React.FC = () => {
         <Logo />
       </Link>
 
-      <Flex gap={10}>
-        <ThemeSwitcher size="md" appearance="link" className={S.link} />
+      <Flex gap={10} alignItems="center">
+        <div>
+          <ThemeSwitcher size="md" appearance="link" className={S.link} />
+        </div>
+
+        <LocaleSwitcher />
 
         {isAuthenticated ? (
           <Whisper
