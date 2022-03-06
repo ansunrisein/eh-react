@@ -1,4 +1,5 @@
 import {createDomain} from 'effector'
+import {createI18N, I18NProvider} from '@eh/shared/lib/i18n'
 import {createProviderBuilder} from '@eh/shared/lib/provider-builder'
 import {BoardEntityProvider, createBoardEntity} from '@eh/entities/board'
 import {BoardLinkEntityProvider, createBoardLinkEntity} from '@eh/entities/board-link'
@@ -23,6 +24,16 @@ import {auth} from './firebase'
 
 export const domain = createDomain()
 
+export const i18n = createI18N({
+  sourceLocale: 'en-US',
+  supportedLocales: [
+    {code: 'en-US', name: 'English'},
+    {code: 'ru-RU', name: 'Русский'},
+    {code: 'uk-UA', name: 'Українська'},
+  ],
+  domain,
+})
+
 export const eventEntity = createEventEntity({domain, apollo})
 export const boardEntity = createBoardEntity({domain, apollo})
 export const boardLinkEntity = createBoardLinkEntity({domain, apollo})
@@ -41,6 +52,7 @@ export const subFeature = createSubFeature({domain, apollo})
 export const dashboardPageFeature = createDashboardPage({domain})
 
 export const AppStoreProvider = createProviderBuilder()
+  .add(I18NProvider, {i18n})
   .add(EventEntityProvider, {event: eventEntity})
   .add(BoardEntityProvider, {board: boardEntity})
   .add(BoardLinkEntityProvider, {boardLink: boardLinkEntity})
