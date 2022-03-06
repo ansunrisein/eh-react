@@ -1,10 +1,13 @@
 import React, {useCallback} from 'react'
 import {Controller, useForm} from 'react-hook-form'
 import {RiCheckLine} from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import {IconButton, Loader} from 'rsuite'
 import {Icon} from '@rsuite/icons'
+import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {BoardFragment, useEditBoardTags} from '@eh/entities/board'
 import {BoardTagPicker, BoardTagPickerProps} from '@eh/entities/board-tags'
+import {texts} from './texts'
 import S from './EditBoardTags.module.scss'
 
 export type EditBoardTagsProps = {
@@ -12,7 +15,9 @@ export type EditBoardTagsProps = {
   onEdit?: () => unknown
 } & BoardTagPickerProps
 
-export const EditBoardTags: React.FC<EditBoardTagsProps> = ({board, onEdit}) => {
+export const EditBoardTags: React.FC<EditBoardTagsProps> = withModuleLocalization(
+  'update-board-tags-feature',
+)(({board, onEdit}) => {
   const [editing, edit] = useEditBoardTags()
 
   const {control, handleSubmit} = useForm({
@@ -29,7 +34,9 @@ export const EditBoardTags: React.FC<EditBoardTagsProps> = ({board, onEdit}) => 
 
   return (
     <div className="relative">
-      <h5>Tags</h5>
+      <h5>
+        <FormattedMessage {...texts.tags} />
+      </h5>
       <form onSubmit={handleSubmit(submit)} className={S.container}>
         {board?.tags !== null || !editing.loading ? (
           <>
@@ -55,4 +62,4 @@ export const EditBoardTags: React.FC<EditBoardTagsProps> = ({board, onEdit}) => 
       </form>
     </div>
   )
-}
+})

@@ -1,0 +1,6 @@
+{
+  "features.update-event.form.title": "Название",
+  "features.update-event.form.content": "Контент",
+  "features.update-event.form.deadline": "Дедлайн",
+  "features.update-event.form.save": "Сохранить"
+}

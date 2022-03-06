@@ -1,0 +1,13 @@
+{
+  "pages.dashboard.mini-board.noEvents": "На цій дошці немає івентів",
+  "pages.dashboard.mini-board.createEvent": "<link>Перейдіть на дошку</link>, щоб створити івент! :)",
+  "pages.dashboard.createBoardUnauthorized": "Ви повинні бути авторизовані, щоб створити дошку",
+  "pages.dashboard.noBoards": "У вас немає дощок",
+  "pages.dashboard.createNow": "Створіть зараз! :)",
+  "pages.dashboard.notFound": "Нічого не знайдено",
+  "pages.dashboard.createWithSearchedNameSuggestion": "Ви можете <createButton>створити</createButton> нову дошку під назвою <title>{search}</title> :)",
+  "pages.dashboard.noPublicBoards": "Публічних дощок поки що немає",
+  "pages.dashboard.createPublicBoardSuggestion": "<signInLink>Увійдіть</signInLink> і створіть першу публічну дошку :)",
+  "pages.dashboard.latestCreatedBoards": "Останні створені дошки",
+  "pages.dashboard.fetchMoreBoards": "Завантажити більше дощок"
+}

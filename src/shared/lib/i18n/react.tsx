@@ -58,6 +58,7 @@ export const withModuleLocalization =
         fetch(`/translation/${locale}/${name}.json`)
           .then(translations => translations.json())
           .then(setMessages)
+          .catch(() => setMessages({}))
       }
     }, [isSourceLocale, locale])
 

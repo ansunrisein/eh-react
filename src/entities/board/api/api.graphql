@@ -1,56 +1,58 @@
 fragment Board on Board {
+  _id
+  title
+  description
+  isPrivate
+  user {
     _id
-    title
-    description
-    isPrivate
-    user {
-        _id
-    }
-    sub {
-        _id
-    }
-    permissions
-    eventsCount
-    isFavorite
-    isPin
-    tags {
-        _id
-        name
-    }
+  }
+  sub {
+    _id
+  }
+  permissions
+  eventsCount
+  isFavorite
+  isPin
+  tags {
+    _id
+    name
+  }
 }
 
 query Board($id: ID!) {
-    board(boardId: $id) {
-        ...Board
-    }
+  board(boardId: $id) {
+    ...Board
+  }
 }
 
 mutation CreateBoard($title: String!, $description: String, $isPrivate: Boolean!, $tagsIds: [ID!]) {
-    createBoard(board: {title: $title, description: $description, isPrivate: $isPrivate, tagsIds: $tagsIds}) {
-        ...Board
-    }
+  createBoard(
+    board: {title: $title, description: $description, isPrivate: $isPrivate, tagsIds: $tagsIds}
+  ) {
+    ...Board
+  }
 }
 
 mutation EditBoardDescription($id: ID!, $title: String!, $description: String) {
-    updateBoardDescription(board: {_id: $id, title: $title, description: $description}) {
-        ...Board
-    }
+  updateBoardDescription(board: {_id: $id, title: $title, description: $description}) {
+    ...Board
+  }
 }
 
 mutation EditBoardVisibility($id: ID!, $isPrivate: Boolean!) {
-    updateBoardVisibility(board: {_id: $id, isPrivate: $isPrivate}) {
-        ...Board
-    }
+  updateBoardVisibility(board: {_id: $id, isPrivate: $isPrivate}) {
+    ...Board
+  }
 }
 
 mutation EditBoardTags($id: ID!, $tagsIds: [ID!]) {
-    updateBoardTags(board: {_id: $id, tagsIds: $tagsIds}) {
-        ...Board
-    }
+  updateBoardTags(board: {_id: $id, tagsIds: $tagsIds}) {
+    ...Board
+  }
 }
 
 mutation RemoveBoard($id: ID!) {
-    removeBoard(boardId: $id) {
-        ...Board
-    }
+  removeBoard(boardId: $id) {
+    ...Board
+  }
 }

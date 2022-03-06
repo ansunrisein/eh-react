@@ -9,7 +9,7 @@ export const transformCascaderDataToPermissions = (
     const group = availablePermissions?.find(({name}) => name === perm)
 
     if (group) {
-      return group.permissions.map(p => p.value)
+      return group.permissions
     }
 
     return isPermission(perm) ? perm : []

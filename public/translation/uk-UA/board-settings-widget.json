@@ -1,0 +1,9 @@
+{
+  "widgets.board-settings.removeBoard": "Видалити дошку",
+  "widgets.board-settings.links.links": "Посилання",
+  "widgets.board-settings.links.provideLink": "Посилання дають вам можливість поділитися своєю дошкою з іншими людьми!",
+  "widgets.board-settings.links.noAccess": "У вас немає доступу до перегляду посилань :(",
+  "widgets.board-settings.links.create": "Утворити",
+  "widgets.board-settings.links.linkCopied": "Посилання скопійовано",
+  "widgets.board-settings.remove-link-button.remove": "Видалити це посилання"
+}

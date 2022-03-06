@@ -1,6 +1,8 @@
 import React from 'react'
+import {FormattedMessage} from 'react-intl'
 import {Button} from 'rsuite'
 import {useRemoveBoardLink} from '@eh/entities/board-link'
+import {texts} from './texts'
 
 export type RemoveLinkButtonProps = {
   linkId: string
@@ -17,7 +19,7 @@ export const RemoveLinkButton: React.FC<RemoveLinkButtonProps> = ({linkId, onRem
 
   return (
     <Button onClick={handleRemove} loading={loading} appearance="primary" color="red">
-      Remove this link
+      <FormattedMessage {...texts.remove} />
     </Button>
   )
 }

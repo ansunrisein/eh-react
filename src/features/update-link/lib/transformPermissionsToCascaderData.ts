@@ -1,12 +1,19 @@
-import {sentenceCase} from 'change-case'
-import {EntityPermissions} from '@eh/shared/api'
+import {EntityName, EntityPermissions, Permission} from '@eh/shared/api'
 
-export const transformPermissionsToCascaderData = (permissions: EntityPermissions[]) =>
+export const transformPermissionsToCascaderData = ({
+  permissions,
+  transformEntityName,
+  transformPermissionName,
+}: {
+  permissions: EntityPermissions[]
+  transformEntityName: (name: EntityName) => string
+  transformPermissionName: (name: Permission) => string
+}) =>
   permissions.map(entity => ({
-    label: sentenceCase(entity.name),
+    label: transformEntityName(entity.name),
     value: entity.name,
     children: entity.permissions.map(permission => ({
-      label: sentenceCase(permission.name),
-      value: permission.value,
+      label: transformPermissionName(permission),
+      value: permission,
     })),
   }))

@@ -1,20 +1,20 @@
 fragment BoardPage on Board {
-    ...Board
-    events(page: $eventsPage, sort: $sort, filter: $filter) {
-        pageInfo {
-            hasNextPage
-            endCursor
-        }
-        edges {
-            node {
-                ...Event
-            }
-        }
+  ...Board
+  events(page: $eventsPage, sort: $sort, filter: $filter) {
+    pageInfo {
+      hasNextPage
+      endCursor
     }
+    edges {
+      node {
+        ...Event
+      }
+    }
+  }
 }
 
 query BoardPage($id: ID!, $eventsPage: Page!, $sort: EventsSort, $filter: EventsFilter) {
-    board(boardId: $id) {
-        ...BoardPage
-    }
+  board(boardId: $id) {
+    ...BoardPage
+  }
 }

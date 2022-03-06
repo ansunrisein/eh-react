@@ -1,5 +1,6 @@
 import React from 'react'
 import {RiHeart3Fill} from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import {useMedia} from 'react-use'
 import {Panel, PanelProps} from 'rsuite'
 import {Icon} from '@rsuite/icons'
@@ -10,6 +11,7 @@ import {SwiperBreakpoints} from '@eh/shared/ui/swiper/Swiper'
 import {Info} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
 import {DashboardNodeFragment} from '../../api'
+import {texts} from './texts'
 import S from './MiniBoard.module.scss'
 
 export type MiniBoardProps = {
@@ -37,12 +39,18 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
           ))
         ) : (
           <Panel>
-            There is no events
+            <FormattedMessage {...texts.noEvents} />
             <br />
-            <Link to={`/board/${board._id}`} className={S.link}>
-              Go to the board
-            </Link>{' '}
-            to create event :)
+            <FormattedMessage
+              {...texts.createEvent}
+              values={{
+                link: (text: string) => (
+                  <Link to={`/board/${board._id}`} className={S.link}>
+                    {text}
+                  </Link>
+                ),
+              }}
+            />
           </Panel>
         )}
       </Swiper>

@@ -8,6 +8,7 @@ import {
   RiQrCodeFill,
   RiSettings2Line,
 } from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import QRCode from 'react-qr-code'
 import {useMedia} from 'react-use'
 import {Button, Divider, IconButton, Modal as RModal} from 'rsuite'
@@ -21,6 +22,7 @@ import {useToggleIsFavorite} from '@eh/features/favorite-board'
 import {useToggleIsPin} from '@eh/features/pin-board'
 import {useToggleSub} from '@eh/features/sub'
 import {useIsMyBoard} from '../../model'
+import {texts} from './texts'
 import S from './Actions.module.scss'
 
 export type ActionsProps = {
@@ -61,7 +63,7 @@ export const Actions: React.FC<ActionsProps> = ({
 
           {!isMyBoard && board?._id && (
             <Button loading={toggleSubLoading} onClick={toggleSub} size="xs" appearance="primary">
-              {board.sub?._id ? 'Unfollow' : 'Follow'}
+              <FormattedMessage {...texts[board.sub?._id ? 'unfollow' : 'follow']} />
             </Button>
           )}
         </Flex>
@@ -90,7 +92,7 @@ export const Actions: React.FC<ActionsProps> = ({
         {canCreateEvent &&
           (isTablet ? (
             <Button size="sm" appearance="primary" onClick={onOpenCreateEvent}>
-              Create event
+              <FormattedMessage {...texts.createEvent} />
             </Button>
           ) : (
             <IconButton
@@ -103,7 +105,7 @@ export const Actions: React.FC<ActionsProps> = ({
         {canViewSettings &&
           (isTablet ? (
             <Button size="sm" onClick={onOpenBoardSettings}>
-              Settings
+              <FormattedMessage {...texts.settings} />
             </Button>
           ) : (
             <IconButton

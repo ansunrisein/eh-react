@@ -2,6 +2,7 @@ import React from 'react'
 import {RiBarChartBoxFill} from 'react-icons/ri'
 import {Button, IconButton, Popover, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
+import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {ThemeSwitcher} from '@eh/shared/lib/theme'
@@ -13,7 +14,7 @@ import {LocaleSwitcher} from '../locale-switcher'
 import {Menu} from '../menu'
 import S from './Header.module.scss'
 
-export const Header: React.FC = () => {
+export const Header: React.FC = withModuleLocalization('layout-widget')(() => {
   const isAuthenticated = useIsAuthenticated()
 
   return (
@@ -58,4 +59,4 @@ export const Header: React.FC = () => {
       </Flex>
     </header>
   )
-}
+})

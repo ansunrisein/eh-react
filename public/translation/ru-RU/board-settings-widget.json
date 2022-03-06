@@ -1,0 +1,9 @@
+{
+  "widgets.board-settings.removeBoard": "Удалить доску",
+  "widgets.board-settings.links.links": "Ссылки",
+  "widgets.board-settings.links.provideLink": "Ссылки дают вам возможность поделиться своей доской с другими людьми!",
+  "widgets.board-settings.links.noAccess": "У вас нет доступа к просмотру ссылок :(",
+  "widgets.board-settings.links.create": "Создать",
+  "widgets.board-settings.links.linkCopied": "Ссылка скопирована",
+  "widgets.board-settings.remove-link-button.remove": "Удалить эту ссылку"
+}

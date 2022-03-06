@@ -1,9 +1,9 @@
 fragment Me on User {
-    _id
+  _id
 }
 
 query Me {
-    me {
-        ...Me
-    }
+  me {
+    ...Me
+  }
 }

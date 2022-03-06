@@ -1,1 +1,1 @@
-export * from './board-tag-picker'
+export * from './picker'

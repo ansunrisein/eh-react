@@ -1,29 +1,35 @@
 fragment DashboardNode on Board {
-    ...Board
-    events(page: $eventsPage, sort: {nearestEvent: "asc"}, filter: {expired: 1}) {
-        pageInfo {
-            hasNextPage
-            endCursor
-        }
-        edges {
-            cursor
-            node {
-                ...Event
-            }
-        }
+  ...Board
+  events(page: $eventsPage, sort: {nearestEvent: "asc"}, filter: {expired: 1}) {
+    pageInfo {
+      hasNextPage
+      endCursor
     }
+    edges {
+      cursor
+      node {
+        ...Event
+      }
+    }
+  }
 }
 
-query Dashboard($page: Page!, $eventsPage: Page!, $sort: BoardsSort, $filter: BoardsFilter, $search: BoardsSearch) {
-    dashboard(page: $page, sort: $sort, filter: $filter, search: $search) {
-        pageInfo {
-            hasNextPage
-            endCursor
-        }
-        edges {
-            node {
-                ...DashboardNode
-            }
-        }
+query Dashboard(
+  $page: Page!
+  $eventsPage: Page!
+  $sort: BoardsSort
+  $filter: BoardsFilter
+  $search: BoardsSearch
+) {
+  dashboard(page: $page, sort: $sort, filter: $filter, search: $search) {
+    pageInfo {
+      hasNextPage
+      endCursor
     }
+    edges {
+      node {
+        ...DashboardNode
+      }
+    }
+  }
 }

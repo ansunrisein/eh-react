@@ -1,13 +1,16 @@
 import React from 'react'
 import cx from 'classnames'
 import {Controller, useForm} from 'react-hook-form'
+import {FormattedMessage} from 'react-intl'
 import {Button, Input, Toggle} from 'rsuite'
+import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {
   BoardFragment,
   useEditDescriptionBoard,
   useEditVisibilityBoard,
   usePermissions,
 } from '@eh/entities/board'
+import {texts} from './texts'
 import S from './EditBoardForm.module.scss'
 
 export type EditBoardFormProps = {
@@ -15,7 +18,9 @@ export type EditBoardFormProps = {
   onEdit?: () => void
 }
 
-export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => {
+export const EditBoardForm: React.FC<EditBoardFormProps> = withModuleLocalization(
+  'update-board-feature',
+)(({board, onEdit}) => {
   const {control, handleSubmit, formState, reset} = useForm({defaultValues: board})
 
   const {canUpdateDescription, canUpdateVisibility} = usePermissions(board)
@@ -37,7 +42,9 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
   return (
     <>
       <form onSubmit={handleSubmit(editDescription)} className={S.section}>
-        <h5>Title</h5>
+        <h5>
+          <FormattedMessage {...texts.title} />
+        </h5>
         <Controller
           control={control}
           name="title"
@@ -46,7 +53,9 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
           )}
         />
 
-        <h5 className={S.margin}>Description</h5>
+        <h5 className={S.margin}>
+          <FormattedMessage {...texts.description} />
+        </h5>
         <Controller
           control={control}
           name="description"
@@ -67,12 +76,14 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
           appearance="primary"
           type="submit"
         >
-          Save
+          <FormattedMessage {...texts.save} />
         </Button>
       </form>
 
       <section>
-        <h5>Private</h5>
+        <h5>
+          <FormattedMessage {...texts.private} />
+        </h5>
         <Toggle
           checked={board.isPrivate}
           className={cx(S.margin, 'block')}
@@ -83,4 +94,4 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = ({board, onEdit}) => 
       </section>
     </>
   )
-}
+})

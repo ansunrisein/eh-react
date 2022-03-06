@@ -1,0 +1,12 @@
+{
+  "pages.board.actions.createEvent": "Создать ивент",
+  "pages.board.actions.settings": "Настройки",
+  "pages.board.actions.follow": "Подписаться",
+  "pages.board.actions.unfollow": "Отписаться",
+  "pages.board.noEvents": "На этой доске нет ивентов",
+  "pages.board.createNow": "Создайте сейчас! :)",
+  "pages.board.calendar.more": "Ещё {count}",
+  "pages.board.calendar.events": "ивенты",
+  "pages.board.fetchMoreEvents": "Загрузить больше ивентов",
+  "pages.board.latestCreatedEvents": "Последние созданные ивенты"
+}

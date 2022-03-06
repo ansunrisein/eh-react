@@ -1,30 +1,30 @@
 fragment Event on Event {
-    _id
-    title
-    content
-    deadline
+  _id
+  title
+  content
+  deadline
 }
 
 query Event($id: ID!) {
-    event(eventId: $id) {
-        ...Event
-    }
+  event(eventId: $id) {
+    ...Event
+  }
 }
 
 mutation CreateEvent($title: String, $content: String!, $deadline: DateTime, $boardId: ID!) {
-    createEvent(event: {title: $title, content: $content, deadline: $deadline, boardId: $boardId}) {
-        ...Event
-    }
+  createEvent(event: {title: $title, content: $content, deadline: $deadline, boardId: $boardId}) {
+    ...Event
+  }
 }
 
 mutation EditEvent($id: ID!, $title: String, $content: String!, $deadline: DateTime) {
-    updateEvent(event: {_id: $id, title: $title, content: $content, deadline: $deadline}) {
-        ...Event
-    }
+  updateEvent(event: {_id: $id, title: $title, content: $content, deadline: $deadline}) {
+    ...Event
+  }
 }
 
 mutation RemoveEvent($id: ID!) {
-    removeEvent(eventId: $id) {
-        ...Event
-    }
+  removeEvent(eventId: $id) {
+    ...Event
+  }
 }

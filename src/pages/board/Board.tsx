@@ -1,9 +1,11 @@
 import React, {useCallback, useState} from 'react'
 import {RiCalendar2Fill, RiHashtag} from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import {useAsyncFn, useMedia, useTitle} from 'react-use'
 import {Button, ButtonGroup, Divider, Drawer, Loader} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
+import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
@@ -17,10 +19,11 @@ import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
 import {filterConfig, sortConfig} from './config'
 import {useFullBoard} from './model'
+import {texts} from './texts'
 import {Actions, EventCalendar} from './ui'
 import S from './Board.module.scss'
 
-export const Board: React.FC = () => {
+export const Board: React.FC = withModuleLocalization('board-page')(() => {
   const [defaultDeadline, setDefaultDeadline] = useState<Date | null>(null)
   const [openedEventId, setOpenedEventId] = useState<string | null>(null)
   const [openCalendar, setOpenCalendar] = useState(false)
@@ -106,10 +109,12 @@ export const Board: React.FC = () => {
             <Loader backdrop size="lg" />
           ) : !newEvents.length && !board?.events.edges.length ? (
             <Empty>
-              <p>There is no events in this board</p>
+              <p>
+                <FormattedMessage {...texts.noEvents} />
+              </p>
               {canCreateEvent && (
                 <Button onClick={openCreateEvent} appearance="link">
-                  Create now! :)
+                  <FormattedMessage {...texts.createNow} />
                 </Button>
               )}
             </Empty>
@@ -119,7 +124,9 @@ export const Board: React.FC = () => {
                 <div>
                   <h4 className={S.created}>
                     <Icon as={RiHashtag} />
-                    <span className={S.vertical}>Latest created events</span>
+                    <span className={S.vertical}>
+                      <FormattedMessage {...texts.latestCreatedEvents} />
+                    </span>
                   </h4>
                   <ul className={S.grid}>
                     {newEvents.map(e => (
@@ -153,7 +160,7 @@ export const Board: React.FC = () => {
                       appearance="ghost"
                       block
                     >
-                      Fetch more events
+                      <FormattedMessage {...texts.fetchMoreEvents} />
                     </Button>
                   )}
                 </>
@@ -198,4 +205,4 @@ export const Board: React.FC = () => {
       </Modal>
     </Layout>
   )
-}
+})

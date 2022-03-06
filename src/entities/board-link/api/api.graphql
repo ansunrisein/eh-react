@@ -1,57 +1,54 @@
 fragment BoardLink on BoardLink {
-    _id
-    link
-    name
-    permissions
+  _id
+  link
+  name
+  permissions
 }
 
 query Permissions {
-    permissions {
-        name
-        permissions {
-            name
-            value
-        }
-    }
+  permissions {
+    name
+    permissions
+  }
 }
 
 query BoardLink($id: ID!) {
-    boardLink(boardLinkId: $id) {
-        ...BoardLink
-    }
+  boardLink(boardLinkId: $id) {
+    ...BoardLink
+  }
 }
 
 query BoardLinks($boardId: ID!, $page: Page!) {
-    board(boardId: $boardId) {
-        _id
-        boardLinks(page: $page) {
-            pageInfo {
-                hasNextPage
-                endCursor
-            }
-            edges {
-                node {
-                    ...BoardLink
-                }
-            }
+  board(boardId: $boardId) {
+    _id
+    boardLinks(page: $page) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          ...BoardLink
         }
+      }
     }
+  }
 }
 
 mutation CreateBoardLink($boardId: ID!, $name: String!, $permissions: [Permission!]!) {
-    createBoardLink(boardLink: {boardId: $boardId, name: $name, permissions: $permissions}) {
-        ...BoardLink
-    }
+  createBoardLink(boardLink: {boardId: $boardId, name: $name, permissions: $permissions}) {
+    ...BoardLink
+  }
 }
 
 mutation EditBoardLink($_id: ID!, $name: String!, $permissions: [Permission!]!) {
-    updateBoardLink(boardLink: {_id: $_id, name: $name, permissions: $permissions}) {
-        ...BoardLink
-    }
+  updateBoardLink(boardLink: {_id: $_id, name: $name, permissions: $permissions}) {
+    ...BoardLink
+  }
 }
 
 mutation RemoveBoardLink($_id: ID!) {
-    removeBoardLink(boardLinkId: $_id) {
-        ...BoardLink
-    }
+  removeBoardLink(boardLinkId: $_id) {
+    ...BoardLink
+  }
 }

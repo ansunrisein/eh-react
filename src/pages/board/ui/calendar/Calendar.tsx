@@ -2,10 +2,12 @@ import React, {useCallback} from 'react'
 import cx from 'classnames'
 import {format} from 'date-fns'
 import {RiAddFill} from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import {useMedia} from 'react-use'
 import {Badge, Calendar, CalendarProps, IconButton, Popover, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {BoardPageFragment} from '../../api'
+import {texts} from './texts'
 import S from './Calendar.module.scss'
 
 export type EventCalendarProps = {
@@ -62,7 +64,13 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({events, onCreateCli
                     </Popover>
                   }
                 >
-                  <span className={S.link}>{isTablet ? `${moreCount} more` : 'events'}</span>
+                  <span className={S.link}>
+                    {isTablet ? (
+                      <FormattedMessage {...texts.more} values={{count: moreCount}} />
+                    ) : (
+                      <FormattedMessage {...texts.events} />
+                    )}
+                  </span>
                 </Whisper>
               )}
             </ul>

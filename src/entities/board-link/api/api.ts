@@ -21,8 +21,8 @@ export type PermissionsQuery = {
   __typename?: 'Query'
   permissions: Array<{
     __typename?: 'EntityPermissions'
-    name: string
-    permissions: Array<{__typename?: 'PermissionDescriptor'; name: string; value: Types.Permission}>
+    name: Types.EntityName
+    permissions: Array<Types.Permission>
   }>
 }
 
@@ -136,10 +136,7 @@ export const PermissionsDocument = gql`
   query Permissions {
     permissions {
       name
-      permissions {
-        name
-        value
-      }
+      permissions
     }
   }
 `

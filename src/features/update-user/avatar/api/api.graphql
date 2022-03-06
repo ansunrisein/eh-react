@@ -1,16 +1,16 @@
 fragment UserAvatar on User {
-    _id
-    avatar
+  _id
+  avatar
 }
 
 query UserAvatar {
-    me {
-        ...UserAvatar
-    }
+  me {
+    ...UserAvatar
+  }
 }
 
 mutation EditUserAvatar($avatar: String) {
-    updateAvatar(avatar: $avatar) {
-        ...UserAvatar
-    }
+  updateAvatar(avatar: $avatar) {
+    ...UserAvatar
+  }
 }

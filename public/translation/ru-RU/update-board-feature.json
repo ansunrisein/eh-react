@@ -1,0 +1,11 @@
+{
+  "features.update-board.edit-form.title": "Название",
+  "features.update-board.edit-form.description": "Описание",
+  "features.update-board.edit-form.save": "Сохранить",
+  "features.update-board.edit-form.private": "Приватность",
+  "features.update-board.form.title": "Название",
+  "features.update-board.form.description": "Описание",
+  "features.update-board.form.save": "Сохранить",
+  "features.update-board.form.private": "Приватность",
+  "features.update-board.form.tags": "Теги"
+}

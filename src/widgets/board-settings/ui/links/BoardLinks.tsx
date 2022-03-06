@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {RiFileCopy2Fill, RiInformationLine, RiSettings2Fill} from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import {useCopyToClipboard} from 'react-use'
 import {
   Button,
@@ -21,6 +22,7 @@ import {useBoardLinks} from '@eh/entities/board-link'
 import {CreateLinkForm, EditLinkForm} from '@eh/features/update-link'
 import {LinkView} from '@eh/widgets/board-settings/ui'
 import {RemoveLinkButton} from '../remove-link-button'
+import {texts} from './texts'
 import S from './BoardLinks.module.scss'
 
 const URL = process.env.REACT_APP_URL
@@ -44,7 +46,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
     copy(`${URL}/board/${board._id}?linkToken=${link}`)
     toaster.push(
       <Message type="success" showIcon>
-        Link is copied
+        <FormattedMessage {...texts.linkCopied} />
       </Message>,
       {placement: 'topStart'},
     )
@@ -54,12 +56,16 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
     <div>
       <Flex alignItems="center" justifyContent="space-between">
         <Flex alignItems="center" gap="10px">
-          <h5>Links</h5>
+          <h5>
+            <FormattedMessage {...texts.links} />
+          </h5>
           {!!boardLinks?.edges.length && (
             <Whisper
               trigger="hover"
               speaker={
-                <Tooltip>Links provide you the way to share your board with other people!</Tooltip>
+                <Tooltip>
+                  <FormattedMessage {...texts.provideLink} />
+                </Tooltip>
               }
             >
               <div>
@@ -75,7 +81,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
           loading={loading}
           appearance="primary"
         >
-          Create
+          <FormattedMessage {...texts.create} />
         </Button>
       </Flex>
 
@@ -115,10 +121,14 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
               ))}
             </div>
           ) : (
-            <Empty>Links provide you the way to share your board with other people!</Empty>
+            <Empty>
+              <FormattedMessage {...texts.provideLink} />
+            </Empty>
           )
         ) : (
-          <Empty>You have no access to view links :(</Empty>
+          <Empty>
+            <FormattedMessage {...texts.noAccess} />
+          </Empty>
         )}
       </div>
 

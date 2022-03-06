@@ -1,17 +1,22 @@
 import React from 'react'
+import cx from 'classnames'
 import {RiLogoutBoxLine, RiSettings2Fill} from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import {ButtonGroup, ButtonGroupProps, IconButton} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {useNavigate} from '@eh/shared/lib/router'
 import {useLogout} from '@eh/entities/session'
-import S from '@eh/widgets/layout/ui/header/Header.module.scss'
+import {texts} from './texts'
+import S from './Menu.module.scss'
 
-export const Menu: React.FC<ButtonGroupProps> = ({style, vertical = true, ...props}) => {
+export type MenuProps = Pick<ButtonGroupProps, keyof ButtonGroupProps>
+
+export const Menu: React.FC<MenuProps> = ({className, vertical = true, ...props}) => {
   const logout = useLogout()
   const navigate = useNavigate()
 
   return (
-    <ButtonGroup style={{width: '100%', ...style}} vertical={vertical} {...props}>
+    <ButtonGroup className={cx(S.menu, className)} vertical={vertical} {...props}>
       <IconButton
         href="/settings"
         onClick={e => {
@@ -23,7 +28,7 @@ export const Menu: React.FC<ButtonGroupProps> = ({style, vertical = true, ...pro
         appearance="link"
         className={S.link}
       >
-        Settings
+        <FormattedMessage {...texts.settings} />
       </IconButton>
 
       <IconButton
@@ -33,7 +38,7 @@ export const Menu: React.FC<ButtonGroupProps> = ({style, vertical = true, ...pro
         appearance="link"
         className={S.link}
       >
-        Logout
+        <FormattedMessage {...texts.logout} />
       </IconButton>
     </ButtonGroup>
   )

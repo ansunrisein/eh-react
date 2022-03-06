@@ -1,10 +1,12 @@
 import React, {useCallback, useState} from 'react'
 import cx from 'classnames'
 import {RiAddFill, RiDashboardLine, RiHashtag} from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
 import {useAsyncFn, useTitle} from 'react-use'
 import {Button, Divider, IconButton, Loader, Panel, Popover, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
+import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
@@ -18,10 +20,11 @@ import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
 import {filterConfig, sortConfig} from './config'
 import {useBoards, useDashboardSearch} from './model'
+import {texts} from './texts'
 import {MiniBoard} from './ui'
 import S from './Dashboard.module.scss'
 
-export const Dashboard: React.FC = () => {
+export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() => {
   const [display, setDisplay] = useState('grid')
   const [createWithSearchTitle, setCreateWithSearchTitle] = useState(false)
 
@@ -68,7 +71,7 @@ export const Dashboard: React.FC = () => {
     <Layout header>
       <Flex justifyContent="flex-end" style={{marginRight: '1rem', marginBottom: '1rem'}}>
         <SearchInput
-          style={{width: '300px'}}
+          className={S.searchInput}
           value={search}
           onChange={changeSearch}
           onReset={resetSearch}
@@ -93,7 +96,9 @@ export const Dashboard: React.FC = () => {
               placement="auto"
               speaker={
                 <Popover>
-                  <p>You should be logged in to create a board</p>
+                  <p>
+                    <FormattedMessage {...texts.createBoardUnauthorized} />
+                  </p>
                 </Popover>
               }
             >
@@ -118,33 +123,49 @@ export const Dashboard: React.FC = () => {
             {isAuthenticated ? (
               !search?.length ? (
                 <>
-                  <p>You have no boards</p>
+                  <p>
+                    <FormattedMessage {...texts.noBoards} />
+                  </p>
                   <Button onClick={openCreateBoard} appearance="link">
-                    Create now! :)
+                    <FormattedMessage {...texts.createNow} />
                   </Button>
                 </>
               ) : (
                 <>
-                  <p>Not found</p>
-                  <span>
-                    <span>You can </span>
-                    <button onClick={openCreate} className={S.link}>
-                      create
-                    </button>
-                    <span> new board with the name </span>
-                    <span className={S.name}>{search}</span>
-                    <span> :)</span>
-                  </span>
+                  <p>
+                    <FormattedMessage {...texts.notFound} />
+                  </p>
+                  <FormattedMessage
+                    tagName="span"
+                    {...texts.createWithSearchedNameSuggestion}
+                    values={{
+                      search,
+                      createButton: (text: string) => (
+                        <button onClick={openCreate} className={S.link}>
+                          {text}
+                        </button>
+                      ),
+                      title: (text: string) => <span className={S.name}>{text}</span>,
+                    }}
+                  />
                 </>
               )
             ) : (
               <>
-                <p>There is no public boards</p>
                 <p>
-                  <Link to="/id" className={S.link}>
-                    Sign in
-                  </Link>{' '}
-                  and create first public board :)
+                  <FormattedMessage {...texts.noPublicBoards} />
+                </p>
+                <p>
+                  <FormattedMessage
+                    {...texts.createPublicBoardSuggestion}
+                    values={{
+                      signInLink: (text: string) => (
+                        <Link to="/id" className={S.link}>
+                          {text}
+                        </Link>
+                      ),
+                    }}
+                  />
                 </p>
               </>
             )}
@@ -155,7 +176,9 @@ export const Dashboard: React.FC = () => {
               <Panel bodyFill>
                 <h4 className={S.title}>
                   <Icon as={RiHashtag} />
-                  <span className={S.vertical}>Latest created boards</span>
+                  <span className={S.vertical}>
+                    <FormattedMessage {...texts.latestCreatedBoards} />
+                  </span>
                 </h4>
                 <div className={S.grid}>
                   {newBoards.map(e => (
@@ -190,7 +213,7 @@ export const Dashboard: React.FC = () => {
                 onClick={fetchMore}
                 loading={fetchMoreBoardsState.loading}
               >
-                Fetch more boards
+                <FormattedMessage {...texts.fetchMoreBoards} />
               </Button>
             )}
           </div>
@@ -207,4 +230,4 @@ export const Dashboard: React.FC = () => {
       </Modal>
     </Layout>
   )
-}
+})

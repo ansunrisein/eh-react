@@ -1,0 +1,13 @@
+{
+  "pages.dashboard.mini-board.noEvents": "На этой доске нет ивентов",
+  "pages.dashboard.mini-board.createEvent": "<link>Перейдите на доску</link>, чтобы создать ивент! :)",
+  "pages.dashboard.createBoardUnauthorized": "Вы должны быть авторизованы, чтобы создать доску",
+  "pages.dashboard.noBoards": "У вас нет досок",
+  "pages.dashboard.createNow": "Создайте сейчас! :)",
+  "pages.dashboard.notFound": "Ничего не найдено",
+  "pages.dashboard.createWithSearchedNameSuggestion": "Вы можете <createButton>создать</createButton> новую доску с названием <title>{search}</title> :)'",
+  "pages.dashboard.noPublicBoards": "Публичных досок пока что нет",
+  "pages.dashboard.createPublicBoardSuggestion": "'<signInLink>Войдите</signInLink> и создайте первую публичную доску :)'",
+  "pages.dashboard.latestCreatedBoards": "Последние созданные доски",
+  "pages.dashboard.fetchMoreBoards": "Загрузить больше досок"
+}

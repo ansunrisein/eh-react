@@ -136,10 +136,16 @@ export type CreateSub = {
   boardId: Scalars['ID']
 }
 
+export enum EntityName {
+  Board = 'Board',
+  BoardLink = 'BoardLink',
+  Event = 'Event',
+}
+
 export type EntityPermissions = {
   __typename?: 'EntityPermissions'
-  name: Scalars['String']
-  permissions: Array<PermissionDescriptor>
+  name: EntityName
+  permissions: Array<Permission>
 }
 
 export type Event = {
@@ -307,12 +313,6 @@ export enum Permission {
   VIEW_BOARD = 'VIEW_BOARD',
   VIEW_BOARD_LINK = 'VIEW_BOARD_LINK',
   VIEW_EVENT = 'VIEW_EVENT',
-}
-
-export type PermissionDescriptor = {
-  __typename?: 'PermissionDescriptor'
-  name: Scalars['String']
-  value: Permission
 }
 
 export type Query = {
@@ -554,15 +554,6 @@ export type PageInfoFieldPolicy = {
   hasPreviousPage?: FieldPolicy<any> | FieldReadFunction<any>
   startCursor?: FieldPolicy<any> | FieldReadFunction<any>
 }
-export type PermissionDescriptorKeySpecifier = (
-  | 'name'
-  | 'value'
-  | PermissionDescriptorKeySpecifier
-)[]
-export type PermissionDescriptorFieldPolicy = {
-  name?: FieldPolicy<any> | FieldReadFunction<any>
-  value?: FieldPolicy<any> | FieldReadFunction<any>
-}
 export type QueryKeySpecifier = (
   | 'board'
   | 'boardLink'
@@ -659,13 +650,6 @@ export type StrictTypedTypePolicies = {
   PageInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier)
     fields?: PageInfoFieldPolicy
-  }
-  PermissionDescriptor?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
-    keyFields?:
-      | false
-      | PermissionDescriptorKeySpecifier
-      | (() => undefined | PermissionDescriptorKeySpecifier)
-    fields?: PermissionDescriptorFieldPolicy
   }
   Query?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | QueryKeySpecifier | (() => undefined | QueryKeySpecifier)
