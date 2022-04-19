@@ -4,19 +4,20 @@
 
   &.size-md {
     letter-spacing: 5px;
+    font-size: small;
 
-    @media (max-width: 678px) {
+    @media (min-width: 768px) {
       font-size: medium;
     }
   }
 
   &.size-lg {
-    font-size: xx-large;
-    letter-spacing: 25px;
+    font-size: x-large;
+    letter-spacing: 20px;
 
-    @media (max-width: 678px) {
-      font-size: x-large;
-      letter-spacing: 20px;
+    @media (min-width: 768px) {
+      font-size: xx-large;
+      letter-spacing: 25px;
     }
   }
 }
