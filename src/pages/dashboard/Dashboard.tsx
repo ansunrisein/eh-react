@@ -79,7 +79,7 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
       </Flex>
       <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
         <Flex height="100%" flexDirection="column" justifyContent="space-between">
-          <Flex flexDirection="column" gap="1rem">
+          <Flex flexDirection="column" gap="5px">
             {isAuthenticated && (
               <>
                 <Sorts sorts={sortConfig} onChange={setSortsState} vertical />

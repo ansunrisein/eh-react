@@ -23,6 +23,7 @@
           "rsuite/dist/rsuite.min.css",
           "effector-storage/*",
           "react-icons/ri",
+          "react-icons/bi",
           "swiper/react",
           "swiper/swiper-bundle.min.css",
           "firebase/*",
