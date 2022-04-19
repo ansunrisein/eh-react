@@ -4,7 +4,6 @@ import {FormattedMessage} from 'react-intl'
 import {ButtonGroup, ButtonGroupProps, Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
-import {Flex} from '@eh/shared/lib/reflexbox'
 import {SortButton, SortState} from '../sort-button'
 import {mapSortsConfigToObj} from './helpers'
 import {texts} from './texts'
@@ -26,9 +25,9 @@ export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature'
     }
 
     return (
-      <Flex flexDirection="column">
+      <div className={S.container}>
         <Whisper
-          trigger="hover"
+          trigger={['click', 'hover']}
           speaker={
             <Tooltip>
               <FormattedMessage {...texts.sorts} />
@@ -36,7 +35,7 @@ export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature'
           }
         >
           <div className={S.sort}>
-            <Icon as={BiSort} style={{fontSize: '1rem'}} />
+            <Icon as={BiSort} className={S.icon} />
           </div>
         </Whisper>
 
@@ -52,7 +51,7 @@ export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature'
             </SortButton>
           ))}
         </ButtonGroup>
-      </Flex>
+      </div>
     )
   },
 )

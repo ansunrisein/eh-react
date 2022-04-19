@@ -4,7 +4,6 @@ import {FormattedMessage} from 'react-intl'
 import {ButtonGroup, ButtonGroupProps, Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
-import {Flex} from '@eh/shared/lib/reflexbox'
 import {FilterButton} from '../filter-button'
 import {mapFiltersConfigToObj} from './helpers'
 import {texts} from './texts'
@@ -26,9 +25,9 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
     }
 
     return (
-      <Flex flexDirection="column">
+      <div className={S.container}>
         <Whisper
-          trigger="hover"
+          trigger={['hover', 'click']}
           speaker={
             <Tooltip>
               <FormattedMessage {...texts.filters} />
@@ -36,7 +35,7 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
           }
         >
           <div className={S.filter}>
-            <Icon as={RiFilterLine} style={{fontSize: '1rem'}} />
+            <Icon as={RiFilterLine} className={S.icon} />
           </div>
         </Whisper>
 
@@ -52,7 +51,7 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
             </FilterButton>
           ))}
         </ButtonGroup>
-      </Flex>
+      </div>
     )
   },
 )
