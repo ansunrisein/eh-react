@@ -1,8 +1,8 @@
 import React, {useCallback, useState} from 'react'
 import cx from 'classnames'
-import {RiAddFill, RiDashboardLine, RiHashtag} from 'react-icons/ri'
+import {RiAddFill, RiDashboardLine, RiEarthFill, RiHashtag, RiUser6Fill} from 'react-icons/ri'
 import {FormattedMessage} from 'react-intl'
-import {useAsyncFn, useTitle} from 'react-use'
+import {useAsyncFn, useMedia, useTitle} from 'react-use'
 import {Button, Divider, IconButton, Loader, Panel, Popover, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
@@ -26,6 +26,7 @@ import S from './Dashboard.module.scss'
 
 export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() => {
   const [display, setDisplay] = useState('grid')
+  const [isMyBoards, setIsMyBoards] = useState(true)
   const [createWithSearchTitle, setCreateWithSearchTitle] = useState(false)
 
   const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
@@ -65,31 +66,60 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
     [],
   )
 
+  const isTablet = useMedia('(min-width: 769px)')
+
   useNewBoardsGate()
 
   return (
     <Layout header>
-      <Flex justifyContent="flex-end" style={{marginRight: '1rem', marginBottom: '1rem'}}>
+      <div className={S.main}>
+        <Flex alignItems="center" justifyContent="center">
+          <IconButton
+            onClick={() => setIsMyBoards(state => !state)}
+            icon={<Icon as={isMyBoards ? RiEarthFill : RiUser6Fill} />}
+            size={isTablet ? 'md' : 'sm'}
+            appearance="primary"
+            color="violet"
+          />
+        </Flex>
+
         <SearchInput
+          size={isTablet ? 'md' : 'sm'}
           className={S.searchInput}
           value={search}
           onChange={changeSearch}
           onReset={resetSearch}
         />
-      </Flex>
-      <Flex height="100%" gap={15} alignItems="flex-start" overflow="hidden">
-        <Flex height="100%" flexDirection="column" justifyContent="space-between">
-          <Flex flexDirection="column" gap="1rem">
-            {isAuthenticated && (
-              <>
-                <Sorts sorts={sortConfig} onChange={setSortsState} vertical />
-                <Filters filters={filterConfig} onChange={setFiltersState} vertical />
-              </>
-            )}
-          </Flex>
+
+        <Flex
+          height="100%"
+          flexDirection="column"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          {isAuthenticated && (
+            <Flex flexDirection="column" gap="1rem">
+              <Sorts
+                sorts={sortConfig}
+                onChange={setSortsState}
+                vertical
+                size={isTablet ? 'md' : 'sm'}
+              />
+              <Filters
+                filters={filterConfig}
+                onChange={setFiltersState}
+                vertical
+                size={isTablet ? 'md' : 'sm'}
+              />
+            </Flex>
+          )}
 
           <Flex flexDirection="column">
-            <IconButton onClick={switchDisplay} icon={<Icon as={RiDashboardLine} />} size="lg" />
+            <IconButton
+              onClick={switchDisplay}
+              icon={<Icon as={RiDashboardLine} />}
+              size={isTablet ? 'lg' : 'md'}
+            />
 
             <Whisper
               trigger={isAuthenticated ? 'none' : 'hover'}
@@ -109,116 +139,118 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
                   disabled={!isAuthenticated}
                   icon={<Icon as={RiAddFill} />}
                   appearance="primary"
-                  size="lg"
+                  size={isTablet ? 'lg' : 'md'}
                 />
               </div>
             </Whisper>
           </Flex>
         </Flex>
 
-        {loading ? (
-          <Loader backdrop center size="lg" />
-        ) : !boards?.edges.length && !newBoards.length ? (
-          <Empty>
-            {isAuthenticated ? (
-              !search?.length ? (
-                <>
-                  <p>
-                    <FormattedMessage {...texts.noBoards} />
-                  </p>
-                  <Button onClick={openCreateBoard} appearance="link">
-                    <FormattedMessage {...texts.createNow} />
-                  </Button>
-                </>
+        <div className={S.content}>
+          {loading ? (
+            <Loader backdrop center size="lg" />
+          ) : !boards?.edges.length && !newBoards.length ? (
+            <Empty>
+              {isAuthenticated ? (
+                !search?.length ? (
+                  <>
+                    <p>
+                      <FormattedMessage {...texts.noBoards} />
+                    </p>
+                    <Button onClick={openCreateBoard} appearance="link">
+                      <FormattedMessage {...texts.createNow} />
+                    </Button>
+                  </>
+                ) : (
+                  <>
+                    <p>
+                      <FormattedMessage {...texts.notFound} />
+                    </p>
+                    <FormattedMessage
+                      tagName="span"
+                      {...texts.createWithSearchedNameSuggestion}
+                      values={{
+                        search,
+                        createButton: (text: string) => (
+                          <button onClick={openCreate} className={S.link}>
+                            {text}
+                          </button>
+                        ),
+                        title: (text: string) => <span className={S.name}>{text}</span>,
+                      }}
+                    />
+                  </>
+                )
               ) : (
                 <>
                   <p>
-                    <FormattedMessage {...texts.notFound} />
+                    <FormattedMessage {...texts.noPublicBoards} />
                   </p>
-                  <FormattedMessage
-                    tagName="span"
-                    {...texts.createWithSearchedNameSuggestion}
-                    values={{
-                      search,
-                      createButton: (text: string) => (
-                        <button onClick={openCreate} className={S.link}>
-                          {text}
-                        </button>
-                      ),
-                      title: (text: string) => <span className={S.name}>{text}</span>,
-                    }}
-                  />
+                  <p>
+                    <FormattedMessage
+                      {...texts.createPublicBoardSuggestion}
+                      values={{
+                        signInLink: (text: string) => (
+                          <Link to="/id" className={S.link}>
+                            {text}
+                          </Link>
+                        ),
+                      }}
+                    />
+                  </p>
                 </>
-              )
-            ) : (
-              <>
-                <p>
-                  <FormattedMessage {...texts.noPublicBoards} />
-                </p>
-                <p>
-                  <FormattedMessage
-                    {...texts.createPublicBoardSuggestion}
-                    values={{
-                      signInLink: (text: string) => (
-                        <Link to="/id" className={S.link}>
-                          {text}
-                        </Link>
-                      ),
-                    }}
-                  />
-                </p>
-              </>
-            )}
-          </Empty>
-        ) : (
-          <div className={S.content}>
-            {!!newBoards.length && (
-              <Panel bodyFill>
-                <h4 className={S.title}>
-                  <Icon as={RiHashtag} />
-                  <span className={S.vertical}>
-                    <FormattedMessage {...texts.latestCreatedBoards} />
-                  </span>
-                </h4>
-                <div className={S.grid}>
-                  {newBoards.map(e => (
-                    <BoardCard key={e._id} board={e} />
-                  ))}
-                </div>
-              </Panel>
-            )}
+              )}
+            </Empty>
+          ) : (
+            <>
+              {!!newBoards.length && (
+                <Panel bodyFill>
+                  <h4 className={S.title}>
+                    <Icon as={RiHashtag} />
+                    <span className={S.vertical}>
+                      <FormattedMessage {...texts.latestCreatedBoards} />
+                    </span>
+                  </h4>
+                  <div className={S.grid}>
+                    {newBoards.map(e => (
+                      <BoardCard key={e._id} board={e} />
+                    ))}
+                  </div>
+                </Panel>
+              )}
 
-            {!!boards?.edges.length && !!newBoards.length && <Divider />}
+              {!!boards?.edges.length && !!newBoards.length && <Divider />}
 
-            {!!boards?.edges.length &&
-              (display === 'grid' ? (
-                <div className={S.boards}>
-                  {boards.edges.map(e => (
-                    <MiniBoard key={e.node._id} board={e.node} className={S.shrink} />
-                  ))}
-                </div>
-              ) : (
-                <div className={S.grid}>
-                  {boards.edges.map(e => (
-                    <BoardCard key={e.node._id} board={e.node} />
-                  ))}
-                </div>
-              ))}
+              {!!boards?.edges.length &&
+                (display === 'grid' ? (
+                  <div className={S.boards}>
+                    {boards.edges.map(e => (
+                      <MiniBoard key={e.node._id} board={e.node} className={S.shrink} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className={S.grid}>
+                    {boards.edges.map(e => (
+                      <BoardCard key={e.node._id} board={e.node} />
+                    ))}
+                  </div>
+                ))}
 
-            {hasMoreBoards && (
-              <Button
-                className={S.more}
-                appearance="ghost"
-                block
-                onClick={fetchMore}
-                loading={fetchMoreBoardsState.loading}
-              >
-                <FormattedMessage {...texts.fetchMoreBoards} />
-              </Button>
-            )}
-          </div>
-        )}
-      </Flex>
+              {hasMoreBoards && (
+                <Button
+                  className={S.more}
+                  appearance="ghost"
+                  block
+                  onClick={fetchMore}
+                  loading={fetchMoreBoardsState.loading}
+                >
+                  <FormattedMessage {...texts.fetchMoreBoards} />
+                </Button>
+              )}
+            </>
+          )}
+        </div>
+      </div>
 
       <Modal open={isCreateBoardOpened} onClose={closeCreate} backdrop>
         <CreateBoardForm
