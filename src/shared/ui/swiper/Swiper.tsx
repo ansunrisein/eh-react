@@ -70,7 +70,6 @@ export const Swiper: React.FC<SwiperProps> = ({
       navigation={isNav && {nextEl: next.current || '', prevEl: prev.current || ''}}
       slidesPerGroup={1}
       speed={1000}
-      autoHeight
       slidesPerView={currentSlidesPerView}
       breakpoints={breakpoints}
       onInit={swiper => {
