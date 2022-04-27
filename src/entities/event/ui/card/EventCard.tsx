@@ -1,8 +1,8 @@
 import React from 'react'
 import {Panel, PanelProps} from 'rsuite'
-import {Flex} from '@eh/shared/lib/reflexbox'
 import {TimerBadge} from '@eh/shared/ui'
 import {EventFragment} from '../../api'
+import S from './EventCard.module.scss'
 
 export type EventCardProps = {
   event: EventFragment
@@ -10,10 +10,12 @@ export type EventCardProps = {
 
 export const EventCard: React.FC<EventCardProps> = ({event, ...props}) => (
   <Panel shaded bordered {...props}>
-    <Flex justifyContent="space-between" alignItems="center" style={{marginBottom: '1rem'}}>
-      <h4>{event.title}</h4>
-      {event.deadline && <TimerBadge withTooltip expiryTimestamp={new Date(event.deadline)} />}
-    </Flex>
-    <span>{event.content}</span>
+    <div className={S.header}>
+      <h4 className={S.title}>{event.title}</h4>
+      {event.deadline && (
+        <TimerBadge withTooltip expiryTimestamp={new Date(event.deadline)} className={S.badge} />
+      )}
+    </div>
+    <span className={S.content}>{event.content}</span>
   </Panel>
 )
