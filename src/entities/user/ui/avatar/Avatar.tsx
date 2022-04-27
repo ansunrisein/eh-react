@@ -1,5 +1,6 @@
 import React from 'react'
 import {Avatar as RAvatar, AvatarProps as RAvatarProps, Loader} from 'rsuite'
+import {Flex} from '@eh/shared/lib/reflexbox'
 import {useUser} from '../../model'
 
 export type AvatarProps = RAvatarProps
@@ -8,7 +9,7 @@ export const Avatar: React.FC<AvatarProps> = props => {
   const {user, loading} = useUser()
 
   return (
-    <div className="relative">
+    <Flex className="relative">
       {loading ? (
         <Loader size="sm" center />
       ) : (
@@ -17,6 +18,6 @@ export const Avatar: React.FC<AvatarProps> = props => {
           {...props}
         />
       )}
-    </div>
+    </Flex>
   )
 }
