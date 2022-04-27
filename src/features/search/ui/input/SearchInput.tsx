@@ -10,7 +10,7 @@ export type SearchInputProps = {
   value?: string
   onChange?: (text: string) => unknown
   onReset?: () => unknown
-} & Omit<InputGroupProps, 'onChange'>
+} & InputGroupProps
 
 export const SearchInput: React.FC<SearchInputProps> = withModuleLocalization('search-feature')(
   ({value, onChange, onReset, ...props}) => {

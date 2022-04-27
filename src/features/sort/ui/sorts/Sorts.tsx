@@ -12,7 +12,7 @@ import S from './Sorts.module.scss'
 export type SortsProps = {
   onChange?: (sort: Record<string, SortState>) => unknown
   sorts: {name: string; icon: ReactNode}[]
-} & Omit<ButtonGroupProps, 'onChange'>
+} & ButtonGroupProps
 
 export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature')(
   ({onChange, sorts, ...props}) => {

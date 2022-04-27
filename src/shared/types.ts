@@ -1,9 +1,7 @@
 import React from 'react'
 import {Effect, Event} from 'effector'
 
-export type Hoc = <Props extends Record<string, unknown>>(
-  Component: React.FC<Props>,
-) => React.FC<Props>
+export type Hoc = <Props>(Component: React.FC<Props>) => React.FC<Props>
 
 export type RemoveEffector<T> = T extends Effect<infer A, infer R>
   ? A extends void

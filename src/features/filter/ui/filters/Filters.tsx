@@ -12,7 +12,7 @@ import S from './Filters.module.scss'
 export type FiltersProps = {
   onChange?: (filters: Record<string, number>) => void
   filters: {name: string; icons: React.ReactNode[]}[]
-} & Omit<ButtonGroupProps, 'onChange'>
+} & ButtonGroupProps
 
 export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-feature')(
   ({onChange, filters, ...props}) => {
