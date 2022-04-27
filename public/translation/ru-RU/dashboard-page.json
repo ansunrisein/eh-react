@@ -7,7 +7,7 @@
   "pages.dashboard.notFound": "Ничего не найдено",
   "pages.dashboard.createWithSearchedNameSuggestion": "Вы можете <createButton>создать</createButton> новую доску с названием <title>{search}</title> :)'",
   "pages.dashboard.noPublicBoards": "Публичных досок пока что нет",
-  "pages.dashboard.createPublicBoardSuggestion": "'<signInLink>Войдите</signInLink> и создайте первую публичную доску :)'",
+  "pages.dashboard.createPublicBoardSuggestion": "<signInLink>Войдите</signInLink> и создайте первую публичную доску :)",
   "pages.dashboard.latestCreatedBoards": "Последние созданные доски",
   "pages.dashboard.fetchMoreBoards": "Загрузить больше досок"
 }
