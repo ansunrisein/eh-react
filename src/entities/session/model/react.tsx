@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useContext, useEffect, useState} from 'react'
+import React, {createContext, ReactNode, useContext, useEffect} from 'react'
 import {useStore} from 'effector-react'
 import {Hoc} from '@eh/shared/types'
 import {SessionEntity} from './session'
@@ -35,24 +35,15 @@ export type MeSuspenseProps = {
 }
 
 export const MeSuspense: React.FC<MeSuspenseProps> = ({fallback, children}) => {
-  const {fetchMeFx} = useSessionEntity()
+  const {fetchMeFx, $isMeFetched} = useSessionEntity()
 
-  const [isInitialized, setIsInitialized] = useState(false)
+  const isMeFetched = useStore($isMeFetched)
 
   useEffect(() => {
     fetchMeFx()
+  }, [fetchMeFx])
 
-    const unsubscribe = fetchMeFx.pending.watch(pending => {
-      if (!pending) {
-        setIsInitialized(true)
-        unsubscribe()
-      }
-    })
-
-    return unsubscribe
-  }, [setIsInitialized, fetchMeFx])
-
-  return <>{isInitialized ? children : fallback}</>
+  return <>{isMeFetched ? children : fallback}</>
 }
 
 export const useSessionEntity = (): SessionEntity => useContext(SessionEntityContext)

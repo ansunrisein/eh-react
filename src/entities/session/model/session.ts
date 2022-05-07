@@ -38,6 +38,8 @@ export const createSessionEntity = (
     .on(setToken, (_, token) => token)
     .reset(resetToken)
 
+  const $isMeFetched = domain.store(false).on(fetchMeFx.finally, () => true)
+
   forward({
     from: [setToken, resetToken],
     to: domain.effect(() => apollo.cache.reset()),
@@ -56,6 +58,7 @@ export const createSessionEntity = (
     $me,
     $token,
     $isAuthenticated,
+    $isMeFetched,
     setToken,
     resetToken,
     fetchMeFx,
