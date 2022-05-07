@@ -55,7 +55,12 @@ export const pinBoardFeature = createPinBoardFeature({domain, apollo})
 export const subFeature = createSubFeature({domain, apollo})
 
 export const dashboardPage = createDashboardPage({domain})
-export const boardPage = createBoardPage({domain, event: eventEntity, apollo})
+export const boardPage = createBoardPage({
+  domain,
+  session: sessionEntity,
+  event: eventEntity,
+  apollo,
+})
 
 createAnalyticsProcess({domain, history, session: sessionEntity, boardPage, analytics})
 

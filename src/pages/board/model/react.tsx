@@ -2,8 +2,6 @@ import React, {createContext, useCallback, useContext, useEffect} from 'react'
 import {useStore} from 'effector-react'
 import {EventsFilter, EventsSort} from '@eh/shared/api'
 import {Hoc} from '@eh/shared/types'
-import {useUser} from '@eh/entities/user'
-import {useBoardPageQuery} from '../api'
 import {BoardPage} from './board'
 
 export const BoardPageContext = createContext<BoardPage>(
@@ -80,22 +78,8 @@ export const useFullBoard = ({
   }
 }
 
-export const useIsMyBoard = (id = '') => {
-  const {data} = useBoardPageQuery({
-    variables: {
-      id,
-      eventsPage: {
-        first: 0,
-      },
-    },
-    fetchPolicy: 'cache-only',
-  })
+export const useIsMyBoard = () => {
+  const {$isMyBoard} = useBoardPage()
 
-  const {user} = useUser()
-
-  if (!data?.board || !user) {
-    return false
-  }
-
-  return user?._id === data.board?.user?._id
+  return useStore($isMyBoard)
 }

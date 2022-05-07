@@ -1,4 +1,4 @@
-import {attach, Domain} from 'effector'
+import {attach, combine, Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
 import {EventEntity} from '@eh/entities/event'
 import {
@@ -15,11 +15,12 @@ export type BoardPage = ReturnType<typeof createBoardPage>
 
 export type BoardPageDeps = {
   domain: Domain
+  session: SessionEntity
   event: EventEntity
   apollo: ApolloClient<unknown>
 }
 
-export const createBoardPage = ({domain, event, apollo}: BoardPageDeps) => {
+export const createBoardPage = ({domain, session, event, apollo}: BoardPageDeps) => {
   const reset = domain.event()
 
   const fetchBoardFx = domain.effect((variables: BoardPageQueryVariables) =>
@@ -110,12 +111,19 @@ export const createBoardPage = ({domain, event, apollo}: BoardPageDeps) => {
     }),
   })
 
+  const $isMyBoard = combine(
+    $board,
+    session.$me,
+    (board, me) => !!board && !!me && me._id === board.user._id,
+  )
+
   return {
     reset,
     fetchBoardFx,
     fetchMoreEventsFx,
     $board,
     $latestVariables,
+    $isMyBoard,
     fetchMoreFx,
   }
 }

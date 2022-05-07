@@ -41,7 +41,7 @@ export const Actions: React.FC<ActionsProps> = ({
   const {pathname} = useLocation()
 
   const isAuthenticated = useIsAuthenticated()
-  const isMyBoard = useIsMyBoard(board?._id)
+  const isMyBoard = useIsMyBoard()
 
   const {canCreateEvent, canViewSettings} = usePermissions(board)
 
