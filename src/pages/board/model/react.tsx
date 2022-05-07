@@ -1,7 +1,38 @@
-import {useCallback} from 'react'
+import React, {createContext, useCallback, useContext, useEffect} from 'react'
+import {useStore} from 'effector-react'
 import {EventsFilter, EventsSort} from '@eh/shared/api'
+import {Hoc} from '@eh/shared/types'
 import {useUser} from '@eh/entities/user'
 import {useBoardPageQuery} from '../api'
+import {BoardPage} from './board'
+
+export const BoardPageContext = createContext<BoardPage>(
+  new Proxy({} as BoardPage, {
+    get() {
+      throw new Error('Use BoardPageProvider!')
+    },
+  }),
+)
+
+export type BoardPageProviderProps = {
+  board: BoardPage
+}
+
+export const BoardPageProvider: React.FC<BoardPageProviderProps> = ({children, board}) => (
+  <BoardPageContext.Provider value={board}>{children}</BoardPageContext.Provider>
+)
+
+export const withBoardPage =
+  (providerProps: BoardPageProviderProps): Hoc =>
+  Component =>
+  props =>
+    (
+      <BoardPageProvider {...providerProps}>
+        <Component {...props} />
+      </BoardPageProvider>
+    )
+
+export const useBoardPage = (): BoardPage => useContext(BoardPageContext)
 
 export type UseFullBoardProps = {
   id: string
@@ -18,48 +49,53 @@ export const useFullBoard = ({
   filter,
   refetch,
 }: UseFullBoardProps) => {
-  const {data, loading, fetchMore} = useBoardPageQuery({
-    variables: {
-      id,
-      eventsPage: {
-        first: eventsPerPage,
-      },
-      sort,
-      filter,
-    },
-    ...(refetch ? {fetchPolicy: 'network-only', nextFetchPolicy: 'cache-first'} : {}),
-  })
+  const {$board, fetchBoardFx, fetchMoreFx, reset} = useBoardPage()
 
-  const pageInfo = data?.board.events.pageInfo
+  const board = useStore($board)
+  const loading = useStore(fetchBoardFx.pending)
 
-  const fetchMoreEvents = useCallback(
-    () =>
-      fetchMore({
-        variables: {
-          eventsPage: {
-            first: eventsPerPage,
-            after: pageInfo?.endCursor,
-          },
+  const fetchMoreEvents = useCallback(() => fetchMoreFx(), [fetchMoreFx])
+
+  const pageInfo = board?.events.pageInfo
+
+  useEffect(() => {
+    if (refetch)
+      fetchBoardFx({
+        id,
+        sort,
+        filter,
+        eventsPage: {
+          first: eventsPerPage,
         },
-      }),
-    [eventsPerPage, pageInfo, fetchMore],
-  )
+      })
+
+    return reset
+  }, [fetchBoardFx, id, eventsPerPage, sort, filter, reset, refetch])
 
   return {
-    board: data?.board,
+    board: board || undefined,
     fetchMoreEvents,
     hasMoreEvents: !!pageInfo?.hasNextPage,
-    loading,
+    loading: loading,
   }
 }
 
 export const useIsMyBoard = (id = '') => {
-  const {board} = useFullBoard({id})
+  const {data} = useBoardPageQuery({
+    variables: {
+      id,
+      eventsPage: {
+        first: 0,
+      },
+    },
+    fetchPolicy: 'cache-only',
+  })
+
   const {user} = useUser()
 
-  if (!board || !user) {
+  if (!data?.board || !user) {
     return false
   }
 
-  return user._id === board.user._id
+  return user?._id === data.board?.user?._id
 }

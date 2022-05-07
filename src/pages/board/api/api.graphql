@@ -1,5 +1,4 @@
-fragment BoardPage on Board {
-  ...Board
+fragment BoardPageEvents on Board {
   events(page: $eventsPage, sort: $sort, filter: $filter) {
     pageInfo {
       hasNextPage
@@ -13,8 +12,20 @@ fragment BoardPage on Board {
   }
 }
 
+fragment BoardPage on Board {
+  ...Board
+  ...BoardPageEvents
+}
+
 query BoardPage($id: ID!, $eventsPage: Page!, $sort: EventsSort, $filter: EventsFilter) {
   board(boardId: $id) {
     ...BoardPage
+  }
+}
+
+query MoreBoardPageEvents($id: ID!, $eventsPage: Page!, $sort: EventsSort, $filter: EventsFilter) {
+  board(boardId: $id) {
+    _id
+    ...BoardPageEvents
   }
 }

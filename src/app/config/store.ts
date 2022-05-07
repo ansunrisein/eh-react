@@ -16,7 +16,9 @@ import {createSubFeature, SubFeatureProvider} from '@eh/features/sub'
 import {
   createUpdateUserAvatarFeature,
   UpdateUserAvatarFeatureProvider,
-} from '@eh/features/update-user/avatar/model'
+} from '@eh/features/update-user/avatar'
+import {BoardPageProvider} from '@eh/pages/board/model'
+import {createBoardPage} from '@eh/pages/board/model/board'
 import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard'
 import {cloudinary} from '@eh/app/config/cloudinary'
 import {apollo} from './apollo'
@@ -49,7 +51,9 @@ export const updateUserAvatarFeature = createUpdateUserAvatarFeature({
 export const favoriteBoardFeature = createFavoriteBoardFeature({domain, apollo})
 export const pinBoardFeature = createPinBoardFeature({domain, apollo})
 export const subFeature = createSubFeature({domain, apollo})
-export const dashboardPageFeature = createDashboardPage({domain})
+
+export const dashboardPage = createDashboardPage({domain})
+export const boardPage = createBoardPage({domain, event: eventEntity, apollo})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(I18NProvider, {i18n})
@@ -63,5 +67,6 @@ export const AppStoreProvider = createProviderBuilder()
   .add(FavoriteBoardFeatureProvider, {favoriteBoard: favoriteBoardFeature})
   .add(PinBoardFeatureProvider, {pinBoard: pinBoardFeature})
   .add(SubFeatureProvider, {sub: subFeature})
-  .add(DashboardPageProvider, {dashboard: dashboardPageFeature})
+  .add(DashboardPageProvider, {dashboard: dashboardPage})
+  .add(BoardPageProvider, {board: boardPage})
   .return()
