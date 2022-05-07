@@ -15,24 +15,6 @@ export type EventFragment = {
   deadline?: any | null | undefined
 }
 
-export type EventQueryVariables = Types.Exact<{
-  id: Types.Scalars['ID']
-}>
-
-export type EventQuery = {
-  __typename?: 'Query'
-  event?:
-    | {
-        __typename?: 'Event'
-        _id: string
-        title?: string | null | undefined
-        content: string
-        deadline?: any | null | undefined
-      }
-    | null
-    | undefined
-}
-
 export type CreateEventMutationVariables = Types.Exact<{
   title?: Types.Maybe<Types.Scalars['String']>
   content: Types.Scalars['String']
@@ -101,46 +83,6 @@ export const EventFragmentDoc = gql`
     deadline
   }
 `
-export const EventDocument = gql`
-  query Event($id: ID!) {
-    event(eventId: $id) {
-      ...Event
-    }
-  }
-  ${EventFragmentDoc}
-`
-
-/**
- * __useEventQuery__
- *
- * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
- * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useEventQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useEventQuery(
-  baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>,
-) {
-  const options = {...defaultOptions, ...baseOptions}
-  return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options)
-}
-export function useEventLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>,
-) {
-  const options = {...defaultOptions, ...baseOptions}
-  return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options)
-}
-export type EventQueryHookResult = ReturnType<typeof useEventQuery>
-export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>
-export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>
 export const CreateEventDocument = gql`
   mutation CreateEvent($title: String, $content: String!, $deadline: DateTime, $boardId: ID!) {
     createEvent(event: {title: $title, content: $content, deadline: $deadline, boardId: $boardId}) {

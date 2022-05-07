@@ -5,12 +5,6 @@ fragment Event on Event {
   deadline
 }
 
-query Event($id: ID!) {
-  event(eventId: $id) {
-    ...Event
-  }
-}
-
 mutation CreateEvent($title: String, $content: String!, $deadline: DateTime, $boardId: ID!) {
   createEvent(event: {title: $title, content: $content, deadline: $deadline, boardId: $boardId}) {
     ...Event

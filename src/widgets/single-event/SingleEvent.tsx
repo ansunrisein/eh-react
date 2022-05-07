@@ -2,8 +2,9 @@ import React, {useCallback} from 'react'
 import {Loader} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Empty, Modal} from '@eh/shared/ui'
-import {EventFragment, EventView, useEvent, useRemoveEvent} from '@eh/entities/event'
+import {EventFragment, EventView, useRemoveEvent} from '@eh/entities/event'
 import {EditEventForm} from '@eh/features/update-event'
+import {useSingleEvent} from './model'
 
 export type SingleEventProps = {
   id: EventFragment['_id']
@@ -15,7 +16,7 @@ export type SingleEventProps = {
 export const SingleEvent: React.FC<SingleEventProps> = ({id, withEdit, withRemove, onRemove}) => {
   const [isEditOpened, openEdit, closeEdit] = useBooleanState(false)
 
-  const {event, loading} = useEvent(id)
+  const {event, loading} = useSingleEvent(id)
 
   const [removingState, removeEvent] = useRemoveEvent()
 

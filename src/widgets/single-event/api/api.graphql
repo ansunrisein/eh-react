@@ -1,0 +1,9 @@
+fragment SingleEvent on Event {
+    ...Event
+}
+
+query SingleEvent($id: ID!) {
+    event(eventId: $id) {
+        ...SingleEvent
+    }
+}

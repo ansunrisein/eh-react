@@ -17,6 +17,7 @@ import {
   createUpdateUserAvatarFeature,
   UpdateUserAvatarFeatureProvider,
 } from '@eh/features/update-user/avatar'
+import {createSingleEventWidget, SingleEventWidgetProvider} from '@eh/widgets/single-event/model'
 import {BoardPageProvider} from '@eh/pages/board/model'
 import {createBoardPage} from '@eh/pages/board/model/board'
 import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard'
@@ -54,6 +55,8 @@ export const favoriteBoardFeature = createFavoriteBoardFeature({domain, apollo})
 export const pinBoardFeature = createPinBoardFeature({domain, apollo})
 export const subFeature = createSubFeature({domain, apollo})
 
+export const singleEventWidget = createSingleEventWidget({domain, apollo})
+
 export const dashboardPage = createDashboardPage({domain})
 export const boardPage = createBoardPage({
   domain,
@@ -76,6 +79,7 @@ export const AppStoreProvider = createProviderBuilder()
   .add(FavoriteBoardFeatureProvider, {favoriteBoard: favoriteBoardFeature})
   .add(PinBoardFeatureProvider, {pinBoard: pinBoardFeature})
   .add(SubFeatureProvider, {sub: subFeature})
+  .add(SingleEventWidgetProvider, {singleEvent: singleEventWidget})
   .add(DashboardPageProvider, {dashboard: dashboardPage})
   .add(BoardPageProvider, {board: boardPage})
   .return()

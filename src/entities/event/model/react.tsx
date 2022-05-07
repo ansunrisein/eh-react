@@ -1,7 +1,6 @@
 import React, {createContext, useContext} from 'react'
 import {useAsyncFn} from 'react-use'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
-import {useEventQuery} from '../api'
 import {EventEntity} from './event'
 
 export const EventEntityContext = createContext<EventEntity>(
@@ -31,15 +30,6 @@ export const withEventEntity =
     )
 
 export const useEventEntity = (): EventEntity => useContext(EventEntityContext)
-
-export const useEvent = (id: string) => {
-  const {data, loading} = useEventQuery({variables: {id}})
-
-  return {
-    event: data?.event,
-    loading,
-  }
-}
 
 export const useCreateEvent = () => {
   const {createEventFx} = useEventEntity()
