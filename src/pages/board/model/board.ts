@@ -1,6 +1,8 @@
 import {attach, combine, Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
-import {EventEntity} from '@eh/entities/event'
+import {isDefined} from '@eh/shared/lib/is-defined'
+import {EventEntity, EventFragment} from '@eh/entities/event'
+import {SessionEntity} from '@eh/entities/session'
 import {
   BoardPageDocument,
   BoardPageFragment,
@@ -86,6 +88,19 @@ export const createBoardPage = ({domain, session, event, apollo}: BoardPageDeps)
     })
     .reset(reset)
 
+  const resetNewEvents = domain.event()
+
+  const $newEvents = domain
+    .store<EventFragment[]>([])
+    .on(event.createEventFx.doneData.filter({fn: isDefined}), (events, newEvent) => [
+      newEvent,
+      ...events,
+    ])
+    .on(event.removeEventFx.doneData.filter({fn: isDefined}), (events, removedEvent) =>
+      events.filter(event => event._id !== removedEvent._id),
+    )
+    .reset(resetNewEvents)
+
   const $latestVariables = domain
     .store<MoreBoardPageEventsQueryVariables | null>(null)
     .on(fetchBoardFx, (_, payload) => payload)
@@ -119,8 +134,10 @@ export const createBoardPage = ({domain, session, event, apollo}: BoardPageDeps)
 
   return {
     reset,
+    resetNewEvents,
     fetchBoardFx,
     fetchMoreEventsFx,
+    $newEvents,
     $board,
     $latestVariables,
     $isMyBoard,

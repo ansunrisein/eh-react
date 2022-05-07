@@ -1,5 +1,4 @@
-import React, {createContext, useContext, useEffect} from 'react'
-import {useEvent as useEffectorEvent, useStore} from 'effector-react'
+import React, {createContext, useContext} from 'react'
 import {useAsyncFn} from 'react-use'
 import {Hoc, RemoveEffector} from '@eh/shared/types'
 import {useEventQuery} from '../api'
@@ -42,12 +41,6 @@ export const useEvent = (id: string) => {
   }
 }
 
-export const useNewEvents = () => {
-  const {$newEvents} = useEventEntity()
-
-  return useStore($newEvents)
-}
-
 export const useCreateEvent = () => {
   const {createEventFx} = useEventEntity()
 
@@ -64,20 +57,4 @@ export const useRemoveEvent = () => {
   const {removeEventFx} = useEventEntity()
 
   return useAsyncFn<RemoveEffector<typeof removeEventFx>>(removeEventFx, [removeEventFx])
-}
-
-export const useResetNewEvents = () => {
-  const {resetNewEvents} = useEventEntity()
-
-  return useEffectorEvent(resetNewEvents)
-}
-
-export const useNewEventsGate = () => {
-  const {resetNewEvents} = useEventEntity()
-
-  useEffect(() => {
-    resetNewEvents()
-
-    return resetNewEvents
-  }, [resetNewEvents])
 }

@@ -83,3 +83,19 @@ export const useIsMyBoard = () => {
 
   return useStore($isMyBoard)
 }
+
+export const useNewEvents = () => {
+  const {$newEvents} = useBoardPage()
+
+  return useStore($newEvents)
+}
+
+export const useNewEventsGate = () => {
+  const {resetNewEvents} = useBoardPage()
+
+  useEffect(() => {
+    resetNewEvents()
+
+    return resetNewEvents
+  }, [resetNewEvents])
+}
