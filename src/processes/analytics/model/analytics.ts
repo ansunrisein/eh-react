@@ -2,12 +2,14 @@ import {Domain, guard} from 'effector'
 import {Analytics} from 'firebase/analytics'
 import {History} from 'history'
 import {SessionEntity} from '@eh/entities/session'
+import {BoardPage} from '@eh/pages/board/model/board'
 import {AnalyticsService} from './service'
 
 export type AnalyticsProcessDeps = {
   domain: Domain
   history: History
   session: SessionEntity
+  boardPage: BoardPage
   analytics: Analytics
 }
 
@@ -15,6 +17,7 @@ export const createAnalyticsProcess = ({
   domain,
   session,
   history,
+  boardPage,
   analytics,
 }: AnalyticsProcessDeps) => {
   const service = new AnalyticsService(analytics)
@@ -38,4 +41,6 @@ export const createAnalyticsProcess = ({
       history.listen(track)
     }),
   })
+
+  boardPage.fetchBoardFx.doneData.watch(board => service.trackBoard({boardId: board._id}))
 }

@@ -16,4 +16,8 @@ export class AnalyticsService {
       page_location: location,
     })
   }
+
+  public trackBoard({boardId}: {boardId: string}) {
+    logEvent(this.analytics, 'board', {item_id: boardId})
+  }
 }

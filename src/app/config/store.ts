@@ -57,7 +57,7 @@ export const subFeature = createSubFeature({domain, apollo})
 export const dashboardPage = createDashboardPage({domain})
 export const boardPage = createBoardPage({domain, event: eventEntity, apollo})
 
-createAnalyticsProcess({domain, history, session: sessionEntity, analytics})
+createAnalyticsProcess({domain, history, session: sessionEntity, boardPage, analytics})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(I18NProvider, {i18n})
