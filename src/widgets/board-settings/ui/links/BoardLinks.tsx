@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {RiFileCopy2Fill, RiInformationLine, RiSettings2Fill} from 'react-icons/ri'
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage, useIntl} from 'react-intl'
 import {useCopyToClipboard} from 'react-use'
 import {
   Button,
@@ -37,6 +37,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
   const [editedLinkId, setEditedLinkId] = useState<string | null>(null)
 
   const [, copy] = useCopyToClipboard()
+  const {formatMessage} = useIntl()
 
   const {canCreateLink, canViewLinks, canUpdateLink} = usePermissions(board)
 
@@ -46,7 +47,7 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
     copy(`${URL}/board/${board._id}?linkToken=${link}`)
     toaster.push(
       <Message type="success" showIcon>
-        <FormattedMessage {...texts.linkCopied} />
+        {formatMessage(texts.linkCopied)}
       </Message>,
       {placement: 'topStart'},
     )
