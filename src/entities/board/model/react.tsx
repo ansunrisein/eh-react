@@ -49,9 +49,11 @@ export const useNewBoards = () => {
   return useStore($newBoards)
 }
 
-export const usePermissions = ({permissions = []}: Partial<Pick<Board, 'permissions'>> = {}) =>
-  useMemo(
-    () => ({
+export const usePermissions = (board: Partial<Pick<Board, 'permissions'>> | undefined | null) =>
+  useMemo(() => {
+    const permissions = board?.permissions || []
+
+    return {
       canCreateEvent: permissions.includes(Permission.CREATE_EVENT),
       canUpdateEvent: permissions.includes(Permission.UPDATE_EVENT),
       canRemoveEvent: permissions.includes(Permission.REMOVE_EVENT),
@@ -73,9 +75,8 @@ export const usePermissions = ({permissions = []}: Partial<Pick<Board, 'permissi
       canCreateLink: permissions.includes(Permission.CREATE_BOARD_LINK),
       canUpdateLink: permissions.includes(Permission.UPDATE_BOARD_LINK),
       canRemoveLink: permissions.includes(Permission.REMOVE_BOARD_LINK),
-    }),
-    [permissions],
-  )
+    }
+  }, [board?.permissions])
 
 export const useCreateBoard = () => {
   const {createBoardFx} = useBoardEntity()

@@ -317,7 +317,7 @@ export enum Permission {
 
 export type Query = {
   __typename?: 'Query'
-  board: Board
+  board?: Maybe<Board>
   boardLink?: Maybe<BoardLink>
   boardLinks: BoardLinkConnection
   boardTags: Array<BoardTag>

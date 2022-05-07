@@ -65,38 +65,41 @@ export type BoardPageQueryVariables = Types.Exact<{
 
 export type BoardPageQuery = {
   __typename?: 'Query'
-  board: {
-    __typename?: 'Board'
-    _id: string
-    title: string
-    description?: string | null | undefined
-    isPrivate: boolean
-    permissions: Array<Types.Permission>
-    eventsCount: number
-    isFavorite: boolean
-    isPin: boolean
-    user: {__typename?: 'User'; _id: string}
-    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
-    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
-    events: {
-      __typename?: 'EventConnection'
-      pageInfo: {
-        __typename?: 'PageInfo'
-        hasNextPage: boolean
-        endCursor?: string | null | undefined
-      }
-      edges: Array<{
-        __typename?: 'EventEdge'
-        node: {
-          __typename?: 'Event'
-          _id: string
-          title?: string | null | undefined
-          content: string
-          deadline?: any | null | undefined
+  board?:
+    | {
+        __typename?: 'Board'
+        _id: string
+        title: string
+        description?: string | null | undefined
+        isPrivate: boolean
+        permissions: Array<Types.Permission>
+        eventsCount: number
+        isFavorite: boolean
+        isPin: boolean
+        user: {__typename?: 'User'; _id: string}
+        sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+        tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
+        events: {
+          __typename?: 'EventConnection'
+          pageInfo: {
+            __typename?: 'PageInfo'
+            hasNextPage: boolean
+            endCursor?: string | null | undefined
+          }
+          edges: Array<{
+            __typename?: 'EventEdge'
+            node: {
+              __typename?: 'Event'
+              _id: string
+              title?: string | null | undefined
+              content: string
+              deadline?: any | null | undefined
+            }
+          }>
         }
-      }>
-    }
-  }
+      }
+    | null
+    | undefined
 }
 
 export type MoreBoardPageEventsQueryVariables = Types.Exact<{
@@ -108,28 +111,31 @@ export type MoreBoardPageEventsQueryVariables = Types.Exact<{
 
 export type MoreBoardPageEventsQuery = {
   __typename?: 'Query'
-  board: {
-    __typename?: 'Board'
-    _id: string
-    events: {
-      __typename?: 'EventConnection'
-      pageInfo: {
-        __typename?: 'PageInfo'
-        hasNextPage: boolean
-        endCursor?: string | null | undefined
-      }
-      edges: Array<{
-        __typename?: 'EventEdge'
-        node: {
-          __typename?: 'Event'
-          _id: string
-          title?: string | null | undefined
-          content: string
-          deadline?: any | null | undefined
+  board?:
+    | {
+        __typename?: 'Board'
+        _id: string
+        events: {
+          __typename?: 'EventConnection'
+          pageInfo: {
+            __typename?: 'PageInfo'
+            hasNextPage: boolean
+            endCursor?: string | null | undefined
+          }
+          edges: Array<{
+            __typename?: 'EventEdge'
+            node: {
+              __typename?: 'Event'
+              _id: string
+              title?: string | null | undefined
+              content: string
+              deadline?: any | null | undefined
+            }
+          }>
         }
-      }>
-    }
-  }
+      }
+    | null
+    | undefined
 }
 
 export const BoardPageEventsFragmentDoc = gql`

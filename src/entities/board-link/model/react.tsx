@@ -53,7 +53,7 @@ export const useBoardLinks = (boardId: string, linksPerPage = 25) => {
     variables: {boardId, page: {first: linksPerPage}},
   })
 
-  const pageInfo = data?.board.boardLinks.pageInfo
+  const pageInfo = data?.board?.boardLinks.pageInfo
 
   const fetchMoreLinks = useCallback(
     () =>

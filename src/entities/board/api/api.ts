@@ -28,20 +28,23 @@ export type BoardQueryVariables = Types.Exact<{
 
 export type BoardQuery = {
   __typename?: 'Query'
-  board: {
-    __typename?: 'Board'
-    _id: string
-    title: string
-    description?: string | null | undefined
-    isPrivate: boolean
-    permissions: Array<Types.Permission>
-    eventsCount: number
-    isFavorite: boolean
-    isPin: boolean
-    user: {__typename?: 'User'; _id: string}
-    sub?: {__typename?: 'Sub'; _id: string} | null | undefined
-    tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
-  }
+  board?:
+    | {
+        __typename?: 'Board'
+        _id: string
+        title: string
+        description?: string | null | undefined
+        isPrivate: boolean
+        permissions: Array<Types.Permission>
+        eventsCount: number
+        isFavorite: boolean
+        isPin: boolean
+        user: {__typename?: 'User'; _id: string}
+        sub?: {__typename?: 'Sub'; _id: string} | null | undefined
+        tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
+      }
+    | null
+    | undefined
 }
 
 export type CreateBoardMutationVariables = Types.Exact<{

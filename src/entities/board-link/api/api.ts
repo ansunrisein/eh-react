@@ -51,28 +51,31 @@ export type BoardLinksQueryVariables = Types.Exact<{
 
 export type BoardLinksQuery = {
   __typename?: 'Query'
-  board: {
-    __typename?: 'Board'
-    _id: string
-    boardLinks: {
-      __typename?: 'BoardLinkConnection'
-      pageInfo: {
-        __typename?: 'PageInfo'
-        hasNextPage: boolean
-        endCursor?: string | null | undefined
-      }
-      edges: Array<{
-        __typename?: 'BoardLinkEdge'
-        node: {
-          __typename?: 'BoardLink'
-          _id: string
-          link: string
-          name: string
-          permissions: Array<Types.Permission>
+  board?:
+    | {
+        __typename?: 'Board'
+        _id: string
+        boardLinks: {
+          __typename?: 'BoardLinkConnection'
+          pageInfo: {
+            __typename?: 'PageInfo'
+            hasNextPage: boolean
+            endCursor?: string | null | undefined
+          }
+          edges: Array<{
+            __typename?: 'BoardLinkEdge'
+            node: {
+              __typename?: 'BoardLink'
+              _id: string
+              link: string
+              name: string
+              permissions: Array<Types.Permission>
+            }
+          }>
         }
-      }>
-    }
-  }
+      }
+    | null
+    | undefined
 }
 
 export type CreateBoardLinkMutationVariables = Types.Exact<{
