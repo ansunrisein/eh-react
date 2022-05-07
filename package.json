@@ -15,6 +15,7 @@
     "@types/react-dom": "^17.0.9",
     "change-case": "^4.1.2",
     "classnames": "^2.3.1",
+    "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.28.0",
     "delay": "^5.0.0",
     "effector": "^22.1.1",

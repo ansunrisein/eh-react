@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import {RiFileCopy2Fill, RiInformationLine, RiSettings2Fill} from 'react-icons/ri'
 import {FormattedMessage, useIntl} from 'react-intl'
-import {useCopyToClipboard} from 'react-use'
 import {
   Button,
   ButtonGroup,
@@ -21,11 +20,10 @@ import {BoardFragment, usePermissions} from '@eh/entities/board'
 import {useBoardLinks} from '@eh/entities/board-link'
 import {CreateLinkForm, EditLinkForm} from '@eh/features/update-link'
 import {LinkView} from '@eh/widgets/board-settings/ui'
+import {useCopyLink} from '../../model'
 import {RemoveLinkButton} from '../remove-link-button'
 import {texts} from './texts'
 import S from './BoardLinks.module.scss'
-
-const URL = process.env.REACT_APP_URL
 
 export type BoardLinksProps = {
   board: BoardFragment
@@ -36,15 +34,15 @@ export const BoardLinks: React.FC<BoardLinksProps> = ({board}) => {
   const [viewedLinkId, setViewedLinkId] = useState<string | null>(null)
   const [editedLinkId, setEditedLinkId] = useState<string | null>(null)
 
-  const [, copy] = useCopyToClipboard()
+  const [, copyLink] = useCopyLink()
   const {formatMessage} = useIntl()
 
   const {canCreateLink, canViewLinks, canUpdateLink} = usePermissions(board)
 
   const {boardLinks, loading} = useBoardLinks(board._id)
 
-  const handleCopy = (link: string) => () => {
-    copy(`${URL}/board/${board._id}?linkToken=${link}`)
+  const handleCopy = (linkToken: string) => () => {
+    copyLink({boardId: board._id, linkToken})
     toaster.push(
       <Message type="success" showIcon>
         {formatMessage(texts.linkCopied)}
