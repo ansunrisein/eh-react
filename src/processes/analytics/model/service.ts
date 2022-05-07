@@ -17,6 +17,10 @@ export class AnalyticsService {
     })
   }
 
+  public trackEvent({eventId}: {eventId: string}) {
+    logEvent(this.analytics, 'event', {item_id: eventId})
+  }
+
   public trackBoard({boardId}: {boardId: string}) {
     logEvent(this.analytics, 'board', {item_id: boardId})
   }

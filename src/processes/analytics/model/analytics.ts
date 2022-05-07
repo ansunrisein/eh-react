@@ -2,6 +2,7 @@ import {Domain, guard} from 'effector'
 import {Analytics} from 'firebase/analytics'
 import {History} from 'history'
 import {SessionEntity} from '@eh/entities/session'
+import {SingleEventWidget} from '@eh/widgets/single-event'
 import {BoardPage} from '@eh/pages/board'
 import {AnalyticsService} from './service'
 
@@ -9,14 +10,16 @@ export type AnalyticsProcessDeps = {
   domain: Domain
   history: History
   session: SessionEntity
+  singleEvent: SingleEventWidget
   boardPage: BoardPage
   analytics: Analytics
 }
 
 export const createAnalyticsProcess = ({
   domain,
-  session,
   history,
+  session,
+  singleEvent,
   boardPage,
   analytics,
 }: AnalyticsProcessDeps) => {
@@ -42,5 +45,9 @@ export const createAnalyticsProcess = ({
     }),
   })
 
-  boardPage.fetchBoardFx.doneData.watch(board => service.trackBoard({boardId: board._id}))
+  singleEvent.fetchEventFx.doneData.watch(
+    event => event && service.trackEvent({eventId: event._id}),
+  )
+
+  boardPage.fetchBoardFx.doneData.watch(board => board && service.trackBoard({boardId: board._id}))
 }
