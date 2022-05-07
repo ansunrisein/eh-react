@@ -17,6 +17,10 @@ export class AnalyticsService {
     })
   }
 
+  public trackLinkCopy({boardId}: {boardId: string}) {
+    logEvent(this.analytics, 'copy link', {item_id: boardId})
+  }
+
   public trackEvent({eventId}: {eventId: string}) {
     logEvent(this.analytics, 'event', {item_id: eventId})
   }

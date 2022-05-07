@@ -73,6 +73,7 @@ createAnalyticsProcess({
   domain,
   history,
   session: sessionEntity,
+  boardSettingsWidget: boardSettingsWidget,
   singleEvent: singleEventWidget,
   boardPage,
   analytics,
