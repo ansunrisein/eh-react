@@ -2,7 +2,7 @@ import {Domain, guard} from 'effector'
 import {Analytics} from 'firebase/analytics'
 import {History} from 'history'
 import {SessionEntity} from '@eh/entities/session'
-import {BoardPage} from '@eh/pages/board/model/board'
+import {BoardPage} from '@eh/pages/board'
 import {AnalyticsService} from './service'
 
 export type AnalyticsProcessDeps = {

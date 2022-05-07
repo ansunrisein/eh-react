@@ -17,13 +17,12 @@ import {
   createUpdateUserAvatarFeature,
   UpdateUserAvatarFeatureProvider,
 } from '@eh/features/update-user/avatar'
-import {createSingleEventWidget, SingleEventWidgetProvider} from '@eh/widgets/single-event/model'
-import {BoardPageProvider} from '@eh/pages/board/model'
-import {createBoardPage} from '@eh/pages/board/model/board'
+import {createSingleEventWidget, SingleEventWidgetProvider} from '@eh/widgets/single-event'
+import {BoardPageProvider, createBoardPage} from '@eh/pages/board'
 import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard'
 import {createAnalyticsProcess} from '@eh/processes/analytics'
-import {cloudinary} from '@eh/app/config/cloudinary'
 import {apollo} from './apollo'
+import {cloudinary} from './cloudinary'
 import {analytics, auth} from './firebase'
 import {history} from './history'
 
@@ -65,7 +64,14 @@ export const boardPage = createBoardPage({
   apollo,
 })
 
-createAnalyticsProcess({domain, history, session: sessionEntity, boardPage, analytics})
+createAnalyticsProcess({
+  domain,
+  history,
+  session: sessionEntity,
+  singleEvent: singleEventWidget,
+  boardPage,
+  analytics,
+})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(I18NProvider, {i18n})
