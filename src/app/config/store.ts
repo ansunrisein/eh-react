@@ -24,6 +24,7 @@ import {createAnalyticsProcess} from '@eh/processes/analytics'
 import {cloudinary} from '@eh/app/config/cloudinary'
 import {apollo} from './apollo'
 import {analytics, auth} from './firebase'
+import {history} from './history'
 
 export const domain = createDomain()
 
@@ -56,7 +57,7 @@ export const subFeature = createSubFeature({domain, apollo})
 export const dashboardPage = createDashboardPage({domain})
 export const boardPage = createBoardPage({domain, event: eventEntity, apollo})
 
-createAnalyticsProcess({domain, session: sessionEntity, analytics})
+createAnalyticsProcess({domain, history, session: sessionEntity, analytics})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(I18NProvider, {i18n})
