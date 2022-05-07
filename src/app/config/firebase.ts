@@ -1,3 +1,4 @@
+import {initializeAnalytics} from 'firebase/analytics'
 import {initializeApp} from 'firebase/app'
 import {getAuth} from 'firebase/auth'
 
@@ -13,3 +14,4 @@ export const firebase = initializeApp({
 })
 
 export const auth = getAuth(firebase)
+export const analytics = initializeAnalytics(firebase, {config: {send_page_view: false}})

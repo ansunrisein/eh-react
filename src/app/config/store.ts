@@ -20,9 +20,10 @@ import {
 import {BoardPageProvider} from '@eh/pages/board/model'
 import {createBoardPage} from '@eh/pages/board/model/board'
 import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard'
+import {createAnalyticsProcess} from '@eh/processes/analytics'
 import {cloudinary} from '@eh/app/config/cloudinary'
 import {apollo} from './apollo'
-import {auth} from './firebase'
+import {analytics, auth} from './firebase'
 
 export const domain = createDomain()
 
@@ -54,6 +55,8 @@ export const subFeature = createSubFeature({domain, apollo})
 
 export const dashboardPage = createDashboardPage({domain})
 export const boardPage = createBoardPage({domain, event: eventEntity, apollo})
+
+createAnalyticsProcess({domain, analytics})
 
 export const AppStoreProvider = createProviderBuilder()
   .add(I18NProvider, {i18n})
