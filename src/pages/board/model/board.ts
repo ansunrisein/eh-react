@@ -96,6 +96,16 @@ export const createBoardPage = ({domain, session, event, apollo}: BoardPageDeps)
       newEvent,
       ...events,
     ])
+    .on(event.editEventFx.doneData.filter({fn: isDefined}), (events, newEvent) =>
+      events.map(event =>
+        event._id === newEvent._id
+          ? {
+              ...event,
+              ...newEvent,
+            }
+          : event,
+      ),
+    )
     .on(event.removeEventFx.doneData.filter({fn: isDefined}), (events, removedEvent) =>
       events.filter(event => event._id !== removedEvent._id),
     )
