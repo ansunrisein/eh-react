@@ -1,4 +1,4 @@
-import {Analytics, logEvent, setUserId} from 'firebase/analytics'
+import {Analytics, logEvent, setUserId, setUserProperties} from 'firebase/analytics'
 
 export class AnalyticsService {
   constructor(private analytics: Analytics) {}
@@ -6,6 +6,7 @@ export class AnalyticsService {
   public setUserId(userId?: string) {
     if (userId) {
       setUserId(this.analytics, userId)
+      setUserProperties(this.analytics, {uid: userId})
     }
   }
 
