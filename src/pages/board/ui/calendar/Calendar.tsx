@@ -12,10 +12,15 @@ import S from './Calendar.module.scss'
 
 export type EventCalendarProps = {
   events?: BoardPageFragment['events']
+  canCreateEvent?: boolean
   onCreateClick?: (date: Date) => unknown
 } & CalendarProps
 
-export const EventCalendar: React.FC<EventCalendarProps> = ({events, onCreateClick}) => {
+export const EventCalendar: React.FC<EventCalendarProps> = ({
+  events,
+  canCreateEvent,
+  onCreateClick,
+}) => {
   const isTablet = useMedia('(min-width: 1220px)')
 
   const renderCell = useCallback(
@@ -34,13 +39,15 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({events, onCreateCli
 
       return (
         <div className={cx(S.ceil, 'relative')}>
-          <IconButton
-            onClick={() => onCreateClick?.(date)}
-            className={S.add}
-            appearance="subtle"
-            size="xs"
-            icon={<Icon as={RiAddFill} style={{fontSize: '50px'}} />}
-          />
+          {canCreateEvent && (
+            <IconButton
+              onClick={() => onCreateClick?.(date)}
+              className={S.add}
+              appearance="subtle"
+              size="xs"
+              icon={<Icon as={RiAddFill} style={{fontSize: '50px'}} />}
+            />
+          )}
           {!!list?.length && (
             <ul className={S.list}>
               {isTablet &&
@@ -79,7 +86,7 @@ export const EventCalendar: React.FC<EventCalendarProps> = ({events, onCreateCli
         </div>
       )
     },
-    [events, isTablet, onCreateClick],
+    [canCreateEvent, events?.edges, isTablet, onCreateClick],
   )
 
   return <Calendar bordered renderCell={renderCell} />

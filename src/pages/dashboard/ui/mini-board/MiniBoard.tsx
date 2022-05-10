@@ -8,7 +8,7 @@ import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {SwiperBreakpoints} from '@eh/shared/ui/swiper/Swiper'
-import {Info} from '@eh/entities/board'
+import {Info, usePermissions} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
 import {DashboardNodeFragment} from '../../api'
 import {texts} from './texts'
@@ -19,6 +19,8 @@ export type MiniBoardProps = {
 } & PanelProps
 
 export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
+  const {canCreateEvent} = usePermissions(board)
+
   const isTablet = useMedia('(min-width: 768px)')
 
   return (
@@ -40,17 +42,21 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
         ) : (
           <Panel>
             <FormattedMessage {...texts.noEvents} />
-            <br />
-            <FormattedMessage
-              {...texts.createEvent}
-              values={{
-                link: (text: string) => (
-                  <Link to={`/board/${board._id}`} className={S.link}>
-                    {text}
-                  </Link>
-                ),
-              }}
-            />
+            {canCreateEvent && (
+              <>
+                <br />
+                <FormattedMessage
+                  {...texts.createEvent}
+                  values={{
+                    link: (text: string) => (
+                      <Link to={`/board/${board._id}`} className={S.link}>
+                        {text}
+                      </Link>
+                    ),
+                  }}
+                />
+              </>
+            )}
           </Panel>
         )}
       </Swiper>

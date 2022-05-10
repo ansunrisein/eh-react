@@ -141,7 +141,11 @@ export const Board: React.FC = withModuleLocalization('board-page')(() => {
               {!!newEvents.length && !!board?.events.edges && <Divider />}
 
               {openCalendar ? (
-                <EventCalendar events={board?.events} onCreateClick={createEvent} />
+                <EventCalendar
+                  events={board?.events}
+                  onCreateClick={createEvent}
+                  canCreateEvent={canCreateEvent}
+                />
               ) : (
                 <>
                   <ul className={S.grid}>
