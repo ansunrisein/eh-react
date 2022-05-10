@@ -19,6 +19,7 @@ export type DashboardNodeFragment = {
   eventsCount: number
   isFavorite: boolean
   isPin: boolean
+  views: number
   events: {
     __typename?: 'EventConnection'
     pageInfo: {__typename?: 'PageInfo'; hasNextPage: boolean; endCursor?: string | null | undefined}
@@ -64,6 +65,7 @@ export type DashboardQuery = {
         eventsCount: number
         isFavorite: boolean
         isPin: boolean
+        views: number
         events: {
           __typename?: 'EventConnection'
           pageInfo: {

@@ -106,6 +106,7 @@ export type BoardsSort = {
   favorite?: Maybe<Scalars['String']>
   nearestEvent?: Maybe<Scalars['String']>
   pin?: Maybe<Scalars['String']>
+  views?: Maybe<Scalars['String']>
 }
 
 export type CreateBoard = {

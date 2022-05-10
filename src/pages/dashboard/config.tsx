@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  RiEyeFill,
   RiHeart3Fill,
   RiHeartFill,
   RiHeartLine,
@@ -51,5 +52,9 @@ export const sortConfig = [
   {
     name: 'pin',
     icon: <Icon as={RiPushpin2Fill} />,
+  },
+  {
+    name: 'views',
+    icon: <Icon as={RiEyeFill} />,
   },
 ]
