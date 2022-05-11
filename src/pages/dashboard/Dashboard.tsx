@@ -14,12 +14,12 @@ import {useNewBoards, useNewBoardsGate} from '@eh/entities/board'
 import {BoardCard} from '@eh/entities/board/ui'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {Filters} from '@eh/features/filter'
-import {SearchInput} from '@eh/features/search'
+import {SearchInput, useSearch} from '@eh/features/search'
 import {Sorts, SortState} from '@eh/features/sort'
 import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
 import {filterConfig, sortConfig} from './config'
-import {useBoards, useDashboardSearch} from './model'
+import {useBoards} from './model'
 import {texts} from './texts'
 import {MiniBoard} from './ui'
 import S from './Dashboard.module.scss'
@@ -35,7 +35,7 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
   const [filtersState, setFiltersState] = useState<Record<string, number>>(() =>
     filterConfig.reduce((acc, e) => ({...acc, [e.name]: 0}), {}),
   )
-  const {search, changeSearch, resetSearch} = useDashboardSearch()
+  const {search} = useSearch()
 
   const [isCreateBoardOpened, openCreateBoard, closeCreateBoard] = useBooleanState(false)
   const openCreate = () => {
@@ -83,13 +83,7 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
           />
         </Flex>
 
-        <SearchInput
-          size={isTablet ? 'md' : 'sm'}
-          className={S.searchInput}
-          value={search}
-          onChange={changeSearch}
-          onReset={resetSearch}
-        />
+        <SearchInput size={isTablet ? 'md' : 'sm'} className={S.searchInput} />
 
         <Flex
           height="100%"
