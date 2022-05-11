@@ -29,6 +29,7 @@ export const apollo = new ApolloClient({
       Query: {
         fields: {
           dashboard: relayStylePagination(),
+          popularBoards: relayStylePagination(),
         },
       },
       Board: {

@@ -24,7 +24,7 @@ import {
 } from '@eh/widgets/board-settings/model'
 import {createSingleEventWidget, SingleEventWidgetProvider} from '@eh/widgets/single-event'
 import {BoardPageProvider, createBoardPage} from '@eh/pages/board'
-import {createDashboardPage, DashboardPageProvider} from '@eh/pages/dashboard'
+import {createWorldPage, WorldPageProvider} from '@eh/pages/world/model'
 import {createAnalyticsProcess} from '@eh/processes/analytics'
 import {apollo} from './apollo'
 import {cloudinary} from './cloudinary'
@@ -63,13 +63,14 @@ export const searchFeature = createSearchFeature({domain})
 export const singleEventWidget = createSingleEventWidget({domain, apollo})
 export const boardSettingsWidget = createBoardSettingsWidget({domain})
 
-export const dashboardPage = createDashboardPage({domain})
 export const boardPage = createBoardPage({
   domain,
   session: sessionEntity,
   event: eventEntity,
   apollo,
 })
+
+export const worldPage = createWorldPage({domain, apollo})
 
 createAnalyticsProcess({
   domain,
@@ -96,6 +97,6 @@ export const AppStoreProvider = createProviderBuilder()
   .add(SearchFeatureProvider, {search: searchFeature})
   .add(SingleEventWidgetProvider, {singleEvent: singleEventWidget})
   .add(BoardSettingsWidgetProvider, {boardSettings: boardSettingsWidget})
-  .add(DashboardPageProvider, {dashboard: dashboardPage})
   .add(BoardPageProvider, {board: boardPage})
+  .add(WorldPageProvider, {world: worldPage})
   .return()

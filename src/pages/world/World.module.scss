@@ -1,0 +1,94 @@
+.main {
+  height: 100%;
+  overflow-y: auto;
+  flex: 1;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto 1fr;
+  column-gap: 0.5rem;
+  row-gap: 1rem;
+}
+
+.content {
+  height: 100%;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.title {
+  font-weight: 300;
+  margin-bottom: 1rem;
+}
+
+.vertical {
+  vertical-align: text-top;
+}
+
+.boards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1rem;
+
+  justify-content: space-between;
+
+  @media (min-width: 678px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1000px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @media (min-width: 1340px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.add {
+  margin: 1rem 0;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.shrink {
+  flex-shrink: 0;
+}
+
+.more {
+  width: fit-content;
+  margin: 2rem auto auto;
+}
+
+.name {
+  font-weight: 600;
+  letter-spacing: 1px;
+  color: var(--rs-violet-500);
+}
+
+.link,
+.link:hover,
+.link:focus-within {
+  color: var(--rs-text-link);
+}
+
+.search-input {
+  align-self: center;
+  margin-left: auto;
+
+  @media (min-width: 425px) {
+    width: 300px;
+  }
+}
+
+.home {
+  justify-self: center;
+  align-self: center;
+}

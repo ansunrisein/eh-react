@@ -1,5 +1,5 @@
 import React from 'react'
-import {RiBarChartBoxFill} from 'react-icons/ri'
+import {RiBarChartBoxFill, RiGlobalLine} from 'react-icons/ri'
 import {useMedia} from 'react-use'
 import {Button, IconButton, Popover, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
@@ -21,14 +21,25 @@ export const Header: React.FC = withModuleLocalization('layout-widget')(() => {
 
   return (
     <header className={S.header}>
-      <Link to="/">
-        <IconButton
-          icon={<Icon as={RiBarChartBoxFill} />}
-          size={isTablet ? 'md' : 'sm'}
-          appearance="link"
-          className={S.link}
-        />
-      </Link>
+      <Flex gap={isTablet ? 10 : 5} alignItems="center">
+        <Link to="/">
+          <IconButton
+            icon={<Icon as={RiBarChartBoxFill} />}
+            size={isTablet ? 'md' : 'sm'}
+            appearance="link"
+            className={S.link}
+          />
+        </Link>
+
+        <Link to="/world">
+          <IconButton
+            icon={<Icon as={RiGlobalLine} />}
+            size={isTablet ? 'md' : 'sm'}
+            appearance="link"
+            className={S.link}
+          />
+        </Link>
+      </Flex>
 
       <Link to="/">
         <Logo />

@@ -37,6 +37,7 @@ export type BoardPageFragment = {
   eventsCount: number
   isFavorite: boolean
   isPin: boolean
+  views: number
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -76,6 +77,7 @@ export type BoardPageQuery = {
         eventsCount: number
         isFavorite: boolean
         isPin: boolean
+        views: number
         user: {__typename?: 'User'; _id: string}
         sub?: {__typename?: 'Sub'; _id: string} | null | undefined
         tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined

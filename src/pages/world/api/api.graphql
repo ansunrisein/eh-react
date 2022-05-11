@@ -1,0 +1,33 @@
+fragment WorldNode on Board {
+  ...Board
+  events(page: $eventsPage, sort: {nearestEvent: "asc"}, filter: {expired: 1}) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        ...Event
+      }
+    }
+  }
+}
+
+query Popular(
+  $page: Page!
+  $eventsPage: Page!
+  $filter: BoardsFilter
+) {
+  popularBoards(page: $page, filter: $filter) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        ...WorldNode
+      }
+    }
+  }
+}

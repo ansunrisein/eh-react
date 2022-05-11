@@ -17,6 +17,7 @@ export type BoardFragment = {
   eventsCount: number
   isFavorite: boolean
   isPin: boolean
+  views: number
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -39,6 +40,7 @@ export type BoardQuery = {
         eventsCount: number
         isFavorite: boolean
         isPin: boolean
+        views: number
         user: {__typename?: 'User'; _id: string}
         sub?: {__typename?: 'Sub'; _id: string} | null | undefined
         tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -66,6 +68,7 @@ export type CreateBoardMutation = {
     eventsCount: number
     isFavorite: boolean
     isPin: boolean
+    views: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
     tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -90,6 +93,7 @@ export type EditBoardDescriptionMutation = {
     eventsCount: number
     isFavorite: boolean
     isPin: boolean
+    views: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
     tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -113,6 +117,7 @@ export type EditBoardVisibilityMutation = {
     eventsCount: number
     isFavorite: boolean
     isPin: boolean
+    views: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
     tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -136,6 +141,7 @@ export type EditBoardTagsMutation = {
     eventsCount: number
     isFavorite: boolean
     isPin: boolean
+    views: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
     tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -158,6 +164,7 @@ export type RemoveBoardMutation = {
     eventsCount: number
     isFavorite: boolean
     isPin: boolean
+    views: number
     user: {__typename?: 'User'; _id: string}
     sub?: {__typename?: 'Sub'; _id: string} | null | undefined
     tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -184,6 +191,7 @@ export const BoardFragmentDoc = gql`
       _id
       name
     }
+    views
   }
 `
 export const BoardDocument = gql`

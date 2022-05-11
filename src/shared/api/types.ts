@@ -33,6 +33,7 @@ export type Board = {
   tags?: Maybe<Array<BoardTag>>
   title: Scalars['String']
   user: User
+  views: Scalars['Int']
 }
 
 export type BoardBoardLinksArgs = {
@@ -326,6 +327,7 @@ export type Query = {
   event?: Maybe<Event>
   me?: Maybe<User>
   permissions: Array<EntityPermissions>
+  popularBoards: BoardConnection
 }
 
 export type QueryBoardArgs = {
@@ -350,6 +352,11 @@ export type QueryDashboardArgs = {
 
 export type QueryEventArgs = {
   eventId: Scalars['ID']
+}
+
+export type QueryPopularBoardsArgs = {
+  filter?: Maybe<BoardsFilter>
+  page: Page
 }
 
 export type Sub = {
@@ -408,6 +415,7 @@ export type BoardKeySpecifier = (
   | 'tags'
   | 'title'
   | 'user'
+  | 'views'
   | BoardKeySpecifier
 )[]
 export type BoardFieldPolicy = {
@@ -424,6 +432,7 @@ export type BoardFieldPolicy = {
   tags?: FieldPolicy<any> | FieldReadFunction<any>
   title?: FieldPolicy<any> | FieldReadFunction<any>
   user?: FieldPolicy<any> | FieldReadFunction<any>
+  views?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type BoardConnectionKeySpecifier = ('edges' | 'pageInfo' | BoardConnectionKeySpecifier)[]
 export type BoardConnectionFieldPolicy = {
@@ -564,6 +573,7 @@ export type QueryKeySpecifier = (
   | 'event'
   | 'me'
   | 'permissions'
+  | 'popularBoards'
   | QueryKeySpecifier
 )[]
 export type QueryFieldPolicy = {
@@ -575,6 +585,7 @@ export type QueryFieldPolicy = {
   event?: FieldPolicy<any> | FieldReadFunction<any>
   me?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
+  popularBoards?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type SubKeySpecifier = ('_id' | SubKeySpecifier)[]
 export type SubFieldPolicy = {

@@ -6,5 +6,6 @@ declare module '@eh/shared/lib/router' {
     board: `/board/${string}`
     dashboard: '/'
     id: '/id'
+    world: '/world'
   }
 }

@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from 'react'
 import cx from 'classnames'
-import {RiAddFill, RiDashboardLine, RiEarthFill, RiHashtag, RiUser6Fill} from 'react-icons/ri'
+import {RiAddFill, RiDashboardLine, RiGlobalLine, RiHashtag} from 'react-icons/ri'
 import {FormattedMessage} from 'react-intl'
 import {useAsyncFn, useMedia, useTitle} from 'react-use'
 import {Button, Divider, IconButton, Loader, Panel, Popover, Whisper} from 'rsuite'
@@ -26,7 +26,6 @@ import S from './Dashboard.module.scss'
 
 export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() => {
   const [display, setDisplay] = useState('grid')
-  const [isMyBoards, setIsMyBoards] = useState(true)
   const [createWithSearchTitle, setCreateWithSearchTitle] = useState(false)
 
   const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
@@ -66,7 +65,7 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
     [],
   )
 
-  const isTablet = useMedia('(min-width: 769px)')
+  const isTablet = useMedia('(min-width: 768px)')
 
   useNewBoardsGate()
 
@@ -74,13 +73,14 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
     <Layout header>
       <div className={S.main}>
         <Flex alignItems="center" justifyContent="center">
-          <IconButton
-            onClick={() => setIsMyBoards(state => !state)}
-            icon={<Icon as={isMyBoards ? RiEarthFill : RiUser6Fill} />}
-            size={isTablet ? 'md' : 'sm'}
-            appearance="primary"
-            color="violet"
-          />
+          <Link to="/world">
+            <IconButton
+              icon={<Icon as={RiGlobalLine} />}
+              size={isTablet ? 'md' : 'sm'}
+              appearance="primary"
+              color="violet"
+            />
+          </Link>
         </Flex>
 
         <SearchInput size={isTablet ? 'md' : 'sm'} className={S.searchInput} />

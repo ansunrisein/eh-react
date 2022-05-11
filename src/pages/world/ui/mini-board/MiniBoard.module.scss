@@ -1,0 +1,27 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 1rem;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+
+  font-size: large;
+  font-weight: bold;
+}
+
+.star {
+  margin-right: 0.5rem;
+
+  color: var(--rs-yellow-300);
+}
+
+.link,
+.link:hover,
+.link:focus-within {
+  color: var(--rs-text-link);
+}

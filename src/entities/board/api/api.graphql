@@ -17,6 +17,7 @@ fragment Board on Board {
     _id
     name
   }
+  views
 }
 
 query Board($id: ID!) {
