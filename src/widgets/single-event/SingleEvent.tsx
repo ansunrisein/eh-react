@@ -1,5 +1,4 @@
 import React, {useCallback} from 'react'
-import {Loader} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Empty, Modal} from '@eh/shared/ui'
 import {EventFragment, EventView, useRemoveEvent} from '@eh/entities/event'
@@ -25,11 +24,7 @@ export const SingleEvent: React.FC<SingleEventProps> = ({id, withEdit, withRemov
     onRemove?.()
   }, [id, onRemove, removeEvent])
 
-  if (loading) {
-    return <Loader backdrop center size="lg" />
-  }
-
-  if (!event) {
+  if (!event && !loading) {
     return <Empty>Not found</Empty>
   }
 
@@ -44,7 +39,9 @@ export const SingleEvent: React.FC<SingleEventProps> = ({id, withEdit, withRemov
       />
 
       <Modal open={isEditOpened} onClose={closeEdit}>
-        <EditEventForm event={event} onEdit={closeEdit} loading={removingState.loading} />
+        {event && (
+          <EditEventForm event={event} onEdit={closeEdit} loading={removingState.loading} />
+        )}
       </Modal>
     </>
   )
