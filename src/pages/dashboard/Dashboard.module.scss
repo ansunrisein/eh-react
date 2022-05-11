@@ -1,12 +1,16 @@
 .main {
   height: 100%;
+
   overflow-y: auto;
+
   flex: 1;
   display: grid;
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   column-gap: 0.5rem;
   row-gap: 1rem;
+
+  padding-bottom: 1rem;
 }
 
 .content {
