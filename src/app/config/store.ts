@@ -70,7 +70,7 @@ export const boardPage = createBoardPage({
   apollo,
 })
 
-export const worldPage = createWorldPage({domain, apollo})
+export const worldPage = createWorldPage({domain, search: searchFeature, apollo})
 
 createAnalyticsProcess({
   domain,

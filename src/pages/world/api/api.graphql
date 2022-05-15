@@ -31,3 +31,23 @@ query Popular(
     }
   }
 }
+
+query Boards(
+  $page: Page!
+  $eventsPage: Page!
+  $sort: BoardsSort
+  $filter: BoardsFilter
+  $search: BoardsSearch
+) {
+  boards(page: $page, filter: $filter, search: $search, sort: $sort) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      node {
+        ...WorldNode
+      }
+    }
+  }
+}

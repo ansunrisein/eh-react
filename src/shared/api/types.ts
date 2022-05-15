@@ -323,6 +323,7 @@ export type Query = {
   boardLink?: Maybe<BoardLink>
   boardLinks: BoardLinkConnection
   boardTags: Array<BoardTag>
+  boards: BoardConnection
   dashboard: BoardConnection
   event?: Maybe<Event>
   me?: Maybe<User>
@@ -341,6 +342,13 @@ export type QueryBoardLinkArgs = {
 export type QueryBoardLinksArgs = {
   boardId: Scalars['ID']
   page: Page
+}
+
+export type QueryBoardsArgs = {
+  filter?: Maybe<BoardsFilter>
+  page: Page
+  search?: Maybe<BoardsSearch>
+  sort?: Maybe<BoardsSort>
 }
 
 export type QueryDashboardArgs = {
@@ -569,6 +577,7 @@ export type QueryKeySpecifier = (
   | 'boardLink'
   | 'boardLinks'
   | 'boardTags'
+  | 'boards'
   | 'dashboard'
   | 'event'
   | 'me'
@@ -581,6 +590,7 @@ export type QueryFieldPolicy = {
   boardLink?: FieldPolicy<any> | FieldReadFunction<any>
   boardLinks?: FieldPolicy<any> | FieldReadFunction<any>
   boardTags?: FieldPolicy<any> | FieldReadFunction<any>
+  boards?: FieldPolicy<any> | FieldReadFunction<any>
   dashboard?: FieldPolicy<any> | FieldReadFunction<any>
   event?: FieldPolicy<any> | FieldReadFunction<any>
   me?: FieldPolicy<any> | FieldReadFunction<any>

@@ -1,5 +1,6 @@
 import React, {createContext, useCallback, useContext, useEffect} from 'react'
 import {useStore} from 'effector-react'
+import {BoardsFilter, BoardsSort} from '@eh/shared/api'
 import {Hoc} from '@eh/shared/types'
 import {WorldPage} from './world'
 
@@ -32,13 +33,15 @@ export const withWorldPage =
 export const useWorldPage = (): WorldPage => useContext(WorldPageContext)
 
 export const usePopularBoards = ({filter}: {filter: Record<string, number>}) => {
-  const {fetchPopularBoardsFx, $popular, reset, fetchMorePopularBoardsFx} = useWorldPage()
+  const {
+    popular: {fetchPopularBoardsFx, $popular, reset, fetchMorePopularBoardsFx},
+  } = useWorldPage()
 
   const popularBoards = useStore($popular)
   const loading = useStore(fetchPopularBoardsFx.pending)
-  const loadingMore = useStore(fetchMorePopularBoardsFx.pending)
+  const loadingMorePopular = useStore(fetchMorePopularBoardsFx.pending)
 
-  const initialLoading = !loadingMore && loading
+  const initialPopularLoading = !loadingMorePopular && loading
 
   const fetchMorePopularBoards = useCallback(
     () => fetchMorePopularBoardsFx(),
@@ -56,8 +59,60 @@ export const usePopularBoards = ({filter}: {filter: Record<string, number>}) => 
   return {
     popularBoards: popularBoards || undefined,
     fetchMorePopularBoards,
+    hasMorePopularBoards: !!pageInfo?.hasNextPage,
+    initialPopularLoading,
+    loadingMorePopular,
+  }
+}
+
+export type UseBoardsProps = {
+  boardsPerPage?: number
+  eventsPerPage?: number
+  sort?: BoardsSort
+  filter?: BoardsFilter
+}
+
+export const useBoards = ({
+  boardsPerPage = 25,
+  eventsPerPage = 25,
+  sort,
+  filter,
+}: UseBoardsProps) => {
+  const {
+    boards: {fetchBoardsFx, $boards, reset, fetchMoreBoardsFx, $search, $isSearchDebounced},
+  } = useWorldPage()
+
+  const search = useStore($search)
+  const isSearchDebounced = useStore($isSearchDebounced)
+
+  const boards = useStore($boards)
+  const loading = useStore(fetchBoardsFx.pending)
+  const loadingMoreBoards = useStore(fetchMoreBoardsFx.pending)
+
+  const initialBoardsLoading = !loadingMoreBoards && (loading || isSearchDebounced)
+
+  const fetchMoreBoards = useCallback(() => fetchMoreBoardsFx(), [fetchMoreBoardsFx])
+
+  const pageInfo = boards?.pageInfo
+
+  useEffect(() => reset, [reset])
+
+  useEffect(() => {
+    if (search) {
+      fetchBoardsFx({
+        page: {first: boardsPerPage},
+        eventsPage: {first: eventsPerPage},
+        sort,
+        filter,
+      })
+    }
+  }, [boardsPerPage, eventsPerPage, fetchBoardsFx, filter, search, sort])
+
+  return {
+    boards: boards || undefined,
+    fetchMoreBoards,
     hasMoreBoards: !!pageInfo?.hasNextPage,
-    initialLoading,
-    loadingMore,
+    initialBoardsLoading,
+    loadingMoreBoards,
   }
 }
