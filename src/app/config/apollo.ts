@@ -1,19 +1,18 @@
-import {parse} from 'query-string'
 import {ApolloClient, concat, HttpLink, InMemoryCache} from '@apollo/client'
 import {setContext} from '@apollo/client/link/context'
 import {relayStylePagination} from '@apollo/client/utilities'
 import {TypedTypePolicies} from '@eh/shared/api'
-import {history} from './history'
-import {sessionEntity} from './store'
+import {boardLinkEntity, sessionEntity} from './store'
 
 const authLink = setContext((_, {headers}) => {
   const token = sessionEntity.$token.getState()
+  const linkToken = boardLinkEntity.$linkToken.getState()
 
   return {
     headers: {
       ...headers,
       Authorization: token ? `Bearer ${token}` : undefined,
-      LinkToken: parse(history.location.search).linkToken,
+      LinkToken: linkToken,
     },
   }
 })

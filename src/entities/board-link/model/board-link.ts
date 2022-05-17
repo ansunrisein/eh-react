@@ -1,4 +1,6 @@
 import {Domain} from 'effector'
+import {History, Location} from 'history'
+import {parse} from 'query-string'
 import {ApolloClient} from '@apollo/client'
 import {Board, BoardLinkConnection, ConnectionRef, createEmptyConnection} from '@eh/shared/api'
 import {
@@ -18,10 +20,27 @@ export type BoardLinkEntity = ReturnType<typeof createBoardLinkEntity>
 
 export type BoardLinkEntityDeps = {
   domain: Domain
+  history: History
   apollo: ApolloClient<unknown>
 }
 
-export const createBoardLinkEntity = ({domain, apollo}: BoardLinkEntityDeps) => {
+export const createBoardLinkEntity = ({domain, apollo, history}: BoardLinkEntityDeps) => {
+  const getLinkToken = ({location}: {location: Location}) => {
+    const search = parse(location.search).linkToken
+
+    return typeof search === 'string' ? search : null
+  }
+
+  const setLinkToken = domain.event<string | null>()
+  const resetLinkToken = domain.event()
+
+  const $linkToken = domain
+    .store<string | null>(getLinkToken(history))
+    .on(setLinkToken, (_, payload) => payload)
+    .reset(resetLinkToken)
+
+  history.listen(setLinkToken.prepend(getLinkToken))
+
   const createBoardLinkFx = domain.effect((variables: CreateBoardLinkMutationVariables) =>
     apollo
       .mutate<CreateBoardLinkMutation, CreateBoardLinkMutationVariables>({
@@ -81,6 +100,10 @@ export const createBoardLinkEntity = ({domain, apollo}: BoardLinkEntityDeps) => 
   )
 
   return {
+    setLinkToken,
+    resetLinkToken,
+    $linkToken,
+
     createBoardLinkFx,
     editBoardLinkFx,
     removeBoardLinkFx,

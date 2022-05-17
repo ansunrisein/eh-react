@@ -45,7 +45,7 @@ export const i18n = createI18N({
 
 export const eventEntity = createEventEntity({domain, apollo})
 export const boardEntity = createBoardEntity({domain, apollo})
-export const boardLinkEntity = createBoardLinkEntity({domain, apollo})
+export const boardLinkEntity = createBoardLinkEntity({domain, apollo, history})
 export const userEntity = createUserEntity({domain, apollo})
 export const sessionEntity = createSessionEntity({domain, apollo})
 
