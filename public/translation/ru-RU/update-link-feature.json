@@ -3,6 +3,8 @@
   "features.update-link-edit-form.permissions": "Разрешения",
   "features.update-link-edit-form.save": "Сохранить",
   "features.update-link.create-form.name": "Название",
+  "features.update-link.create-form.allowParticipation": "Разрешить участие",
+  "features.update-link.create-form.participationInfo": "Люди, получившие доступ к вашей доске по ссылке, смогут стать участниками этой доски с разрешениями в ссылке",
   "features.update-link.create-form.permissions": "Разрешения",
   "features.update-link.create-form.create": "Создать",
   "features.update-link.permissions-input.entities.event": "Ивент",

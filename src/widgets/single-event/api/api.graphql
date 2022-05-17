@@ -1,9 +1,9 @@
 fragment SingleEvent on Event {
-    ...Event
+  ...Event
 }
 
 query SingleEvent($id: ID!) {
-    event(eventId: $id) {
-        ...SingleEvent
-    }
+  event(eventId: $id) {
+    ...SingleEvent
+  }
 }

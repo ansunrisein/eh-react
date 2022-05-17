@@ -65,6 +65,7 @@ export type BoardId = {
 export type BoardLink = {
   __typename?: 'BoardLink'
   _id: Scalars['ID']
+  allowParticipation: Scalars['Boolean']
   board: Board
   link: Scalars['String']
   name: Scalars['String']
@@ -118,6 +119,7 @@ export type CreateBoard = {
 }
 
 export type CreateBoardLink = {
+  allowParticipation: Scalars['Boolean']
   boardId: Scalars['ID']
   name: Scalars['String']
   permissions: Array<Permission>
@@ -454,6 +456,7 @@ export type BoardEdgeFieldPolicy = {
 }
 export type BoardLinkKeySpecifier = (
   | '_id'
+  | 'allowParticipation'
   | 'board'
   | 'link'
   | 'name'
@@ -462,6 +465,7 @@ export type BoardLinkKeySpecifier = (
 )[]
 export type BoardLinkFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
+  allowParticipation?: FieldPolicy<any> | FieldReadFunction<any>
   board?: FieldPolicy<any> | FieldReadFunction<any>
   link?: FieldPolicy<any> | FieldReadFunction<any>
   name?: FieldPolicy<any> | FieldReadFunction<any>

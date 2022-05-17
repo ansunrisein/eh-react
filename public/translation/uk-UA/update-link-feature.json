@@ -3,6 +3,8 @@
   "features.update-link-edit-form.permissions": "Дозволи",
   "features.update-link-edit-form.save": "Зберегти",
   "features.update-link.create-form.name": "Назва",
+  "features.update-link.create-form.allowParticipation": "Дозволити участь",
+  "features.update-link.create-form.participationInfo": "Люди, які отримали доступ до вашої дошки за посиланням, зможуть стати учасниками цієї дошки з дозволами із посилання",
   "features.update-link.create-form.permissions": "Дозволи",
   "features.update-link.create-form.create": "Створити",
   "features.update-link.permissions-input.entities.event": "Івент",

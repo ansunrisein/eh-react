@@ -14,11 +14,7 @@ fragment WorldNode on Board {
   }
 }
 
-query Popular(
-  $page: Page!
-  $eventsPage: Page!
-  $filter: BoardsFilter
-) {
+query Popular($page: Page!, $eventsPage: Page!, $filter: BoardsFilter) {
   popularBoards(page: $page, filter: $filter) {
     pageInfo {
       hasNextPage

@@ -82,6 +82,7 @@ export type CreateBoardLinkMutationVariables = Types.Exact<{
   boardId: Types.Scalars['ID']
   name: Types.Scalars['String']
   permissions: Array<Types.Permission> | Types.Permission
+  allowParticipation: Types.Scalars['Boolean']
 }>
 
 export type CreateBoardLinkMutation = {
@@ -270,8 +271,20 @@ export type BoardLinksQueryHookResult = ReturnType<typeof useBoardLinksQuery>
 export type BoardLinksLazyQueryHookResult = ReturnType<typeof useBoardLinksLazyQuery>
 export type BoardLinksQueryResult = Apollo.QueryResult<BoardLinksQuery, BoardLinksQueryVariables>
 export const CreateBoardLinkDocument = gql`
-  mutation CreateBoardLink($boardId: ID!, $name: String!, $permissions: [Permission!]!) {
-    createBoardLink(boardLink: {boardId: $boardId, name: $name, permissions: $permissions}) {
+  mutation CreateBoardLink(
+    $boardId: ID!
+    $name: String!
+    $permissions: [Permission!]!
+    $allowParticipation: Boolean!
+  ) {
+    createBoardLink(
+      boardLink: {
+        boardId: $boardId
+        name: $name
+        permissions: $permissions
+        allowParticipation: $allowParticipation
+      }
+    ) {
       ...BoardLink
     }
   }
@@ -298,6 +311,7 @@ export type CreateBoardLinkMutationFn = Apollo.MutationFunction<
  *      boardId: // value for 'boardId'
  *      name: // value for 'name'
  *      permissions: // value for 'permissions'
+ *      allowParticipation: // value for 'allowParticipation'
  *   },
  * });
  */

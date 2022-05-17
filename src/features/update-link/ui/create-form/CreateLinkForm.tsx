@@ -1,8 +1,8 @@
 import React from 'react'
 import {Controller, useForm} from 'react-hook-form'
-import {RiLightbulbFlashFill, RiLightbulbFlashLine} from 'react-icons/ri'
+import {RiInformationLine, RiLightbulbFlashFill, RiLightbulbFlashLine} from 'react-icons/ri'
 import {FormattedMessage, useIntl} from 'react-intl'
-import {Button, Divider, Input, InputGroup, Loader} from 'rsuite'
+import {Button, Divider, Input, InputGroup, Loader, Toggle, Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {Permission} from '@eh/shared/api'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
@@ -20,6 +20,7 @@ export type CreateLinkFormProps = {
 export type CreateLinkFormFields = {
   name: string
   permissions: Permission[]
+  allowParticipation: boolean
 }
 
 export const CreateLinkForm: React.FC<CreateLinkFormProps> = withModuleLocalization(
@@ -61,6 +62,34 @@ export const CreateLinkForm: React.FC<CreateLinkFormProps> = withModuleLocalizat
               />
             </InputGroup.Addon>
           </InputGroup>
+        )}
+      />
+
+      <Divider />
+
+      <Flex alignItems="center" gap="10px" className={S.title}>
+        <h4>
+          <FormattedMessage {...texts.allowParticipation} />
+        </h4>
+        <Whisper
+          trigger="hover"
+          speaker={
+            <Tooltip>
+              <FormattedMessage {...texts.participationInfo} />
+            </Tooltip>
+          }
+        >
+          <div>
+            <Icon as={RiInformationLine} />
+          </div>
+        </Whisper>
+      </Flex>
+
+      <Controller
+        control={control}
+        name="allowParticipation"
+        render={({field: {onChange, ...field}}) => (
+          <Toggle {...field} onChange={(_, checked) => onChange(checked)} />
         )}
       />
 

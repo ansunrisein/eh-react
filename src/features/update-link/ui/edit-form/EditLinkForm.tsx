@@ -74,7 +74,7 @@ export const EditLinkForm: React.FC<EditLinkFormProps> = withModuleLocalization(
       {isNameEditingActive && <Divider />}
 
       <h5 className={S.title}>
-        <FormattedMessage {...texts.name} />
+        <FormattedMessage {...texts.permissions} />
       </h5>
       <Controller
         control={control}

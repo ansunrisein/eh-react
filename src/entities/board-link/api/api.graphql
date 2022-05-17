@@ -35,8 +35,20 @@ query BoardLinks($boardId: ID!, $page: Page!) {
   }
 }
 
-mutation CreateBoardLink($boardId: ID!, $name: String!, $permissions: [Permission!]!) {
-  createBoardLink(boardLink: {boardId: $boardId, name: $name, permissions: $permissions}) {
+mutation CreateBoardLink(
+  $boardId: ID!
+  $name: String!
+  $permissions: [Permission!]!
+  $allowParticipation: Boolean!
+) {
+  createBoardLink(
+    boardLink: {
+      boardId: $boardId
+      name: $name
+      permissions: $permissions
+      allowParticipation: $allowParticipation
+    }
+  ) {
     ...BoardLink
   }
 }
