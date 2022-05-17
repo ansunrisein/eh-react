@@ -15,6 +15,7 @@ fragment BoardPageEvents on Board {
 fragment BoardPage on Board {
   ...Board
   ...BoardPageEvents
+  participationSuggestion
 }
 
 query BoardPage($id: ID!, $eventsPage: Page!, $sort: EventsSort, $filter: EventsFilter) {

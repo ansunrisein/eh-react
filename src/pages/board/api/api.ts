@@ -29,6 +29,7 @@ export type BoardPageEventsFragment = {
 
 export type BoardPageFragment = {
   __typename?: 'Board'
+  participationSuggestion: boolean
   _id: string
   title: string
   description?: string | null | undefined
@@ -69,6 +70,7 @@ export type BoardPageQuery = {
   board?:
     | {
         __typename?: 'Board'
+        participationSuggestion: boolean
         _id: string
         title: string
         description?: string | null | undefined
@@ -160,6 +162,7 @@ export const BoardPageFragmentDoc = gql`
   fragment BoardPage on Board {
     ...Board
     ...BoardPageEvents
+    participationSuggestion
   }
   ${BoardFragmentDoc}
   ${BoardPageEventsFragmentDoc}

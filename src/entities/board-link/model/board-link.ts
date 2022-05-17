@@ -4,10 +4,14 @@ import {parse} from 'query-string'
 import {ApolloClient} from '@apollo/client'
 import {Board, BoardLinkConnection, ConnectionRef, createEmptyConnection} from '@eh/shared/api'
 import {
+  AcceptSuggestionDocument,
+  AcceptSuggestionMutation,
   BoardLinkFragmentDoc,
   CreateBoardLinkDocument,
   CreateBoardLinkMutation,
   CreateBoardLinkMutationVariables,
+  DeclineSuggestionDocument,
+  DeclineSuggestionMutation,
   EditBoardLinkDocument,
   EditBoardLinkMutation,
   EditBoardLinkMutationVariables,
@@ -99,10 +103,29 @@ export const createBoardLinkEntity = ({domain, apollo, history}: BoardLinkEntity
       .then(result => result?.data?.removeBoardLink),
   )
 
+  const acceptSuggestionFx = domain.effect(() =>
+    apollo
+      .mutate<AcceptSuggestionMutation>({
+        mutation: AcceptSuggestionDocument,
+      })
+      .then(response => response.data?.acceptSuggestion),
+  )
+
+  const declineSuggestionFx = domain.effect(() =>
+    apollo
+      .mutate<DeclineSuggestionMutation>({
+        mutation: DeclineSuggestionDocument,
+      })
+      .then(response => response.data?.declineSuggestion),
+  )
+
   return {
     setLinkToken,
     resetLinkToken,
     $linkToken,
+
+    acceptSuggestionFx,
+    declineSuggestionFx,
 
     createBoardLinkFx,
     editBoardLinkFx,

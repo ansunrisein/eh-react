@@ -106,3 +106,16 @@ export const useAvailablePermissions = () => {
     loading,
   }
 }
+
+export const useSuggestionActions = () => {
+  const {acceptSuggestionFx, declineSuggestionFx} = useBoardLinkEntity()
+
+  return {
+    accept: useAsyncFn<RemoveEffector<typeof acceptSuggestionFx>>(acceptSuggestionFx, [
+      acceptSuggestionFx,
+    ]),
+    decline: useAsyncFn<RemoveEffector<typeof declineSuggestionFx>>(declineSuggestionFx, [
+      declineSuggestionFx,
+    ]),
+  }
+}

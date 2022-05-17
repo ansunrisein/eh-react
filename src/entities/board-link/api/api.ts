@@ -128,6 +128,20 @@ export type RemoveBoardLinkMutation = {
   }
 }
 
+export type AcceptSuggestionMutationVariables = Types.Exact<{[key: string]: never}>
+
+export type AcceptSuggestionMutation = {
+  __typename?: 'Mutation'
+  acceptSuggestion?: {__typename?: 'BoardParticipant'; _id: string} | null | undefined
+}
+
+export type DeclineSuggestionMutationVariables = Types.Exact<{[key: string]: never}>
+
+export type DeclineSuggestionMutation = {
+  __typename?: 'Mutation'
+  declineSuggestion?: {__typename?: 'BoardParticipationDecline'; _id: string} | null | undefined
+}
+
 export const BoardLinkFragmentDoc = gql`
   fragment BoardLink on BoardLink {
     _id
@@ -427,4 +441,96 @@ export type RemoveBoardLinkMutationResult = Apollo.MutationResult<RemoveBoardLin
 export type RemoveBoardLinkMutationOptions = Apollo.BaseMutationOptions<
   RemoveBoardLinkMutation,
   RemoveBoardLinkMutationVariables
+>
+export const AcceptSuggestionDocument = gql`
+  mutation AcceptSuggestion {
+    acceptSuggestion {
+      _id
+    }
+  }
+`
+export type AcceptSuggestionMutationFn = Apollo.MutationFunction<
+  AcceptSuggestionMutation,
+  AcceptSuggestionMutationVariables
+>
+
+/**
+ * __useAcceptSuggestionMutation__
+ *
+ * To run a mutation, you first call `useAcceptSuggestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useAcceptSuggestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [acceptSuggestionMutation, { data, loading, error }] = useAcceptSuggestionMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAcceptSuggestionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    AcceptSuggestionMutation,
+    AcceptSuggestionMutationVariables
+  >,
+) {
+  const options = {...defaultOptions, ...baseOptions}
+  return Apollo.useMutation<AcceptSuggestionMutation, AcceptSuggestionMutationVariables>(
+    AcceptSuggestionDocument,
+    options,
+  )
+}
+export type AcceptSuggestionMutationHookResult = ReturnType<typeof useAcceptSuggestionMutation>
+export type AcceptSuggestionMutationResult = Apollo.MutationResult<AcceptSuggestionMutation>
+export type AcceptSuggestionMutationOptions = Apollo.BaseMutationOptions<
+  AcceptSuggestionMutation,
+  AcceptSuggestionMutationVariables
+>
+export const DeclineSuggestionDocument = gql`
+  mutation DeclineSuggestion {
+    declineSuggestion {
+      _id
+    }
+  }
+`
+export type DeclineSuggestionMutationFn = Apollo.MutationFunction<
+  DeclineSuggestionMutation,
+  DeclineSuggestionMutationVariables
+>
+
+/**
+ * __useDeclineSuggestionMutation__
+ *
+ * To run a mutation, you first call `useDeclineSuggestionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeclineSuggestionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [declineSuggestionMutation, { data, loading, error }] = useDeclineSuggestionMutation({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useDeclineSuggestionMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    DeclineSuggestionMutation,
+    DeclineSuggestionMutationVariables
+  >,
+) {
+  const options = {...defaultOptions, ...baseOptions}
+  return Apollo.useMutation<DeclineSuggestionMutation, DeclineSuggestionMutationVariables>(
+    DeclineSuggestionDocument,
+    options,
+  )
+}
+export type DeclineSuggestionMutationHookResult = ReturnType<typeof useDeclineSuggestionMutation>
+export type DeclineSuggestionMutationResult = Apollo.MutationResult<DeclineSuggestionMutation>
+export type DeclineSuggestionMutationOptions = Apollo.BaseMutationOptions<
+  DeclineSuggestionMutation,
+  DeclineSuggestionMutationVariables
 >

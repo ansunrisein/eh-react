@@ -28,6 +28,7 @@ export type Board = {
   isFavorite: Scalars['Boolean']
   isPin: Scalars['Boolean']
   isPrivate: Scalars['Boolean']
+  participationSuggestion: Scalars['Boolean']
   permissions: Array<Permission>
   sub?: Maybe<Sub>
   tags?: Maybe<Array<BoardTag>>
@@ -82,6 +83,17 @@ export type BoardLinkEdge = {
   __typename?: 'BoardLinkEdge'
   cursor: Scalars['String']
   node: BoardLink
+}
+
+export type BoardParticipant = {
+  __typename?: 'BoardParticipant'
+  _id: Scalars['ID']
+  permissions: Array<Permission>
+}
+
+export type BoardParticipationDecline = {
+  __typename?: 'BoardParticipationDecline'
+  _id: Scalars['ID']
 }
 
 export type BoardTag = {
@@ -183,11 +195,13 @@ export type EventsSort = {
 
 export type Mutation = {
   __typename?: 'Mutation'
+  acceptSuggestion?: Maybe<BoardParticipant>
   createBoard: Board
   createBoardLink: BoardLink
   createBoardTag: BoardTag
   createEvent?: Maybe<Event>
   createSub: Board
+  declineSuggestion?: Maybe<BoardParticipationDecline>
   markBoardAsFavorite: Board
   markBoardAsPin: Board
   removeBoard: Board
@@ -420,6 +434,7 @@ export type BoardKeySpecifier = (
   | 'isFavorite'
   | 'isPin'
   | 'isPrivate'
+  | 'participationSuggestion'
   | 'permissions'
   | 'sub'
   | 'tags'
@@ -437,6 +452,7 @@ export type BoardFieldPolicy = {
   isFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   isPin?: FieldPolicy<any> | FieldReadFunction<any>
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
+  participationSuggestion?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   sub?: FieldPolicy<any> | FieldReadFunction<any>
   tags?: FieldPolicy<any> | FieldReadFunction<any>
@@ -485,6 +501,18 @@ export type BoardLinkEdgeFieldPolicy = {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>
   node?: FieldPolicy<any> | FieldReadFunction<any>
 }
+export type BoardParticipantKeySpecifier = ('_id' | 'permissions' | BoardParticipantKeySpecifier)[]
+export type BoardParticipantFieldPolicy = {
+  _id?: FieldPolicy<any> | FieldReadFunction<any>
+  permissions?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type BoardParticipationDeclineKeySpecifier = (
+  | '_id'
+  | BoardParticipationDeclineKeySpecifier
+)[]
+export type BoardParticipationDeclineFieldPolicy = {
+  _id?: FieldPolicy<any> | FieldReadFunction<any>
+}
 export type BoardTagKeySpecifier = ('_id' | 'name' | BoardTagKeySpecifier)[]
 export type BoardTagFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
@@ -517,11 +545,13 @@ export type EventEdgeFieldPolicy = {
   node?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type MutationKeySpecifier = (
+  | 'acceptSuggestion'
   | 'createBoard'
   | 'createBoardLink'
   | 'createBoardTag'
   | 'createEvent'
   | 'createSub'
+  | 'declineSuggestion'
   | 'markBoardAsFavorite'
   | 'markBoardAsPin'
   | 'removeBoard'
@@ -541,11 +571,13 @@ export type MutationKeySpecifier = (
   | MutationKeySpecifier
 )[]
 export type MutationFieldPolicy = {
+  acceptSuggestion?: FieldPolicy<any> | FieldReadFunction<any>
   createBoard?: FieldPolicy<any> | FieldReadFunction<any>
   createBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
   createBoardTag?: FieldPolicy<any> | FieldReadFunction<any>
   createEvent?: FieldPolicy<any> | FieldReadFunction<any>
   createSub?: FieldPolicy<any> | FieldReadFunction<any>
+  declineSuggestion?: FieldPolicy<any> | FieldReadFunction<any>
   markBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   markBoardAsPin?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoard?: FieldPolicy<any> | FieldReadFunction<any>
@@ -642,6 +674,20 @@ export type StrictTypedTypePolicies = {
   BoardLinkEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | BoardLinkEdgeKeySpecifier | (() => undefined | BoardLinkEdgeKeySpecifier)
     fields?: BoardLinkEdgeFieldPolicy
+  }
+  BoardParticipant?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | BoardParticipantKeySpecifier
+      | (() => undefined | BoardParticipantKeySpecifier)
+    fields?: BoardParticipantFieldPolicy
+  }
+  BoardParticipationDecline?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | BoardParticipationDeclineKeySpecifier
+      | (() => undefined | BoardParticipationDeclineKeySpecifier)
+    fields?: BoardParticipationDeclineFieldPolicy
   }
   BoardTag?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?: false | BoardTagKeySpecifier | (() => undefined | BoardTagKeySpecifier)

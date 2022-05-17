@@ -64,3 +64,15 @@ mutation RemoveBoardLink($_id: ID!) {
     ...BoardLink
   }
 }
+
+mutation AcceptSuggestion {
+  acceptSuggestion {
+    _id
+  }
+}
+
+mutation DeclineSuggestion {
+  declineSuggestion {
+    _id
+  }
+}

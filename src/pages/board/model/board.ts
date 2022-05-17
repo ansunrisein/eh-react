@@ -1,6 +1,7 @@
 import {attach, combine, Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
 import {isDefined} from '@eh/shared/lib/is-defined'
+import {BoardLinkEntity} from '@eh/entities/board-link'
 import {EventEntity, EventFragment} from '@eh/entities/event'
 import {SessionEntity} from '@eh/entities/session'
 import {
@@ -19,10 +20,11 @@ export type BoardPageDeps = {
   domain: Domain
   session: SessionEntity
   event: EventEntity
+  boardLink: BoardLinkEntity
   apollo: ApolloClient<unknown>
 }
 
-export const createBoardPage = ({domain, session, event, apollo}: BoardPageDeps) => {
+export const createBoardPage = ({domain, session, event, boardLink, apollo}: BoardPageDeps) => {
   const reset = domain.event()
 
   const fetchBoardFx = domain.effect((variables: BoardPageQueryVariables) =>
@@ -86,6 +88,14 @@ export const createBoardPage = ({domain, session, event, apollo}: BoardPageDeps)
         },
       }
     })
+    .on(
+      [boardLink.acceptSuggestionFx.done, boardLink.declineSuggestionFx.done],
+      board =>
+        board && {
+          ...board,
+          participationSuggestion: false,
+        },
+    )
     .reset(reset)
 
   const resetNewEvents = domain.event()

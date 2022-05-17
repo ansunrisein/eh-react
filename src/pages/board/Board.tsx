@@ -20,7 +20,7 @@ import {SingleEvent} from '@eh/widgets/single-event'
 import {filterConfig, sortConfig} from './config'
 import {useFullBoard, useNewEvents, useNewEventsGate} from './model'
 import {texts} from './texts'
-import {Actions, EventCalendar} from './ui'
+import {Actions, EventCalendar, ParticipationSuggestion} from './ui'
 import S from './Board.module.scss'
 
 export const Board: React.FC = withModuleLocalization('board-page')(() => {
@@ -72,6 +72,8 @@ export const Board: React.FC = withModuleLocalization('board-page')(() => {
 
   return (
     <Layout header>
+      {board?.participationSuggestion && <ParticipationSuggestion />}
+
       <div className={S.panel}>
         <Info board={board} withPrivateIcon withTags className={S.info} />
         <Actions
