@@ -88,6 +88,7 @@ export const CreateLinkForm: React.FC<CreateLinkFormProps> = withModuleLocalizat
       <Controller
         control={control}
         name="allowParticipation"
+        defaultValue={false}
         render={({field: {onChange, ...field}}) => (
           <Toggle {...field} onChange={(_, checked) => onChange(checked)} />
         )}
