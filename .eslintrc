@@ -27,7 +27,8 @@
           "swiper/react",
           "swiper/swiper-bundle.min.css",
           "firebase/*",
-          "@apollo/**"
+          "@apollo/**",
+          "patronum/debounce"
         ]
       }
     ],
