@@ -1,0 +1,30 @@
+fragment BoardParticipants on Board {
+  participants(page: $page) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        _id
+        user {
+          ...User
+        }
+      }
+    }
+  }
+}
+
+query BoardParticipants($boardId: ID!, $page: Page!) {
+  board(boardId: $boardId) {
+    _id
+    ...BoardParticipants
+  }
+}
+
+mutation RemoveBoardParticipants($boardId: ID!, $participantIds: [ID!]!) {
+  removeBoardParticipants(board: {_id: $boardId, participantsId: $participantIds}) {
+    _id
+  }
+}

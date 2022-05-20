@@ -1,0 +1,8 @@
+{
+  "features.manage-board-participants.participant-manager.participants":  "Участники",
+  "features.manage-board-participants.participant-manager.remove": "Удалить",
+  "features.manage-board-participants.participant-manager.cancel":  "Отменить",
+  "features.manage-board-participants.participant-manager.select": "Выбрать",
+  "features.manage-board-participants.participant-manager.fetchMore":  "Завантажити ще",
+  "features.manage-board-participants.participant-manager.canInviteAUser": "Вы можете предложить пользователю стать участником, создав ссылку с параметром <bold>Разрешить участие</bold>"
+}

@@ -28,6 +28,7 @@ export type Board = {
   isFavorite: Scalars['Boolean']
   isPin: Scalars['Boolean']
   isPrivate: Scalars['Boolean']
+  participants: BoardParticipantConnection
   participationSuggestion: Scalars['Boolean']
   permissions: Array<Permission>
   sub?: Maybe<Sub>
@@ -45,6 +46,10 @@ export type BoardEventsArgs = {
   filter?: Maybe<EventsFilter>
   page: Page
   sort?: Maybe<EventsSort>
+}
+
+export type BoardParticipantsArgs = {
+  page: Page
 }
 
 export type BoardConnection = {
@@ -89,6 +94,19 @@ export type BoardParticipant = {
   __typename?: 'BoardParticipant'
   _id: Scalars['ID']
   permissions: Array<Permission>
+  user: User
+}
+
+export type BoardParticipantConnection = {
+  __typename?: 'BoardParticipantConnection'
+  edges: Array<BoardParticipantEdge>
+  pageInfo: PageInfo
+}
+
+export type BoardParticipantEdge = {
+  __typename?: 'BoardParticipantEdge'
+  cursor: Scalars['String']
+  node: BoardParticipant
 }
 
 export type BoardParticipationDecline = {
@@ -206,6 +224,7 @@ export type Mutation = {
   markBoardAsPin: Board
   removeBoard: Board
   removeBoardLink: BoardLink
+  removeBoardParticipants: Array<BoardParticipant>
   removeBoardTag: BoardTag
   removeEvent?: Maybe<Event>
   removeSub: Board
@@ -254,6 +273,10 @@ export type MutationRemoveBoardArgs = {
 
 export type MutationRemoveBoardLinkArgs = {
   boardLinkId: Scalars['ID']
+}
+
+export type MutationRemoveBoardParticipantsArgs = {
+  board: RemoveBoardParticipants
 }
 
 export type MutationRemoveBoardTagArgs = {
@@ -343,6 +366,7 @@ export type Query = {
   dashboard: BoardConnection
   event?: Maybe<Event>
   me?: Maybe<User>
+  my: BoardConnection
   permissions: Array<EntityPermissions>
   popularBoards: BoardConnection
 }
@@ -378,9 +402,19 @@ export type QueryEventArgs = {
   eventId: Scalars['ID']
 }
 
+export type QueryMyArgs = {
+  page: Page
+  search?: Maybe<BoardsSearch>
+}
+
 export type QueryPopularBoardsArgs = {
   filter?: Maybe<BoardsFilter>
   page: Page
+}
+
+export type RemoveBoardParticipants = {
+  _id: Scalars['ID']
+  participantsId: Array<Scalars['ID']>
 }
 
 export type Sub = {
@@ -434,6 +468,7 @@ export type BoardKeySpecifier = (
   | 'isFavorite'
   | 'isPin'
   | 'isPrivate'
+  | 'participants'
   | 'participationSuggestion'
   | 'permissions'
   | 'sub'
@@ -452,6 +487,7 @@ export type BoardFieldPolicy = {
   isFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   isPin?: FieldPolicy<any> | FieldReadFunction<any>
   isPrivate?: FieldPolicy<any> | FieldReadFunction<any>
+  participants?: FieldPolicy<any> | FieldReadFunction<any>
   participationSuggestion?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   sub?: FieldPolicy<any> | FieldReadFunction<any>
@@ -501,10 +537,34 @@ export type BoardLinkEdgeFieldPolicy = {
   cursor?: FieldPolicy<any> | FieldReadFunction<any>
   node?: FieldPolicy<any> | FieldReadFunction<any>
 }
-export type BoardParticipantKeySpecifier = ('_id' | 'permissions' | BoardParticipantKeySpecifier)[]
+export type BoardParticipantKeySpecifier = (
+  | '_id'
+  | 'permissions'
+  | 'user'
+  | BoardParticipantKeySpecifier
+)[]
 export type BoardParticipantFieldPolicy = {
   _id?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
+  user?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type BoardParticipantConnectionKeySpecifier = (
+  | 'edges'
+  | 'pageInfo'
+  | BoardParticipantConnectionKeySpecifier
+)[]
+export type BoardParticipantConnectionFieldPolicy = {
+  edges?: FieldPolicy<any> | FieldReadFunction<any>
+  pageInfo?: FieldPolicy<any> | FieldReadFunction<any>
+}
+export type BoardParticipantEdgeKeySpecifier = (
+  | 'cursor'
+  | 'node'
+  | BoardParticipantEdgeKeySpecifier
+)[]
+export type BoardParticipantEdgeFieldPolicy = {
+  cursor?: FieldPolicy<any> | FieldReadFunction<any>
+  node?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type BoardParticipationDeclineKeySpecifier = (
   | '_id'
@@ -556,6 +616,7 @@ export type MutationKeySpecifier = (
   | 'markBoardAsPin'
   | 'removeBoard'
   | 'removeBoardLink'
+  | 'removeBoardParticipants'
   | 'removeBoardTag'
   | 'removeEvent'
   | 'removeSub'
@@ -582,6 +643,7 @@ export type MutationFieldPolicy = {
   markBoardAsPin?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoard?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoardLink?: FieldPolicy<any> | FieldReadFunction<any>
+  removeBoardParticipants?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoardTag?: FieldPolicy<any> | FieldReadFunction<any>
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
   removeSub?: FieldPolicy<any> | FieldReadFunction<any>
@@ -617,6 +679,7 @@ export type QueryKeySpecifier = (
   | 'dashboard'
   | 'event'
   | 'me'
+  | 'my'
   | 'permissions'
   | 'popularBoards'
   | QueryKeySpecifier
@@ -630,6 +693,7 @@ export type QueryFieldPolicy = {
   dashboard?: FieldPolicy<any> | FieldReadFunction<any>
   event?: FieldPolicy<any> | FieldReadFunction<any>
   me?: FieldPolicy<any> | FieldReadFunction<any>
+  my?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   popularBoards?: FieldPolicy<any> | FieldReadFunction<any>
 }
@@ -681,6 +745,20 @@ export type StrictTypedTypePolicies = {
       | BoardParticipantKeySpecifier
       | (() => undefined | BoardParticipantKeySpecifier)
     fields?: BoardParticipantFieldPolicy
+  }
+  BoardParticipantConnection?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | BoardParticipantConnectionKeySpecifier
+      | (() => undefined | BoardParticipantConnectionKeySpecifier)
+    fields?: BoardParticipantConnectionFieldPolicy
+  }
+  BoardParticipantEdge?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    keyFields?:
+      | false
+      | BoardParticipantEdgeKeySpecifier
+      | (() => undefined | BoardParticipantEdgeKeySpecifier)
+    fields?: BoardParticipantEdgeFieldPolicy
   }
   BoardParticipationDecline?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
     keyFields?:

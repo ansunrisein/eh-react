@@ -3,6 +3,7 @@ import {FormattedMessage} from 'react-intl'
 import {Button, Divider, Loader} from 'rsuite'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {BoardFragment, useBoard, usePermissions, useRemoveBoard} from '@eh/entities/board'
+import {ParticipantsManager} from '@eh/features/manage-board-participants'
 import {EditBoardForm} from '@eh/features/update-board'
 import {EditBoardTags} from '@eh/features/update-board-tags'
 import {texts} from './texts'
@@ -38,6 +39,10 @@ export const BoardSettings: React.FC<BoardSettingsProps> = withModuleLocalizatio
           <Divider />
 
           <BoardLinks board={board} />
+
+          <Divider />
+
+          <ParticipantsManager board={board} />
 
           <Divider />
 

@@ -11,6 +11,10 @@ import {
   createAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
 import {createFavoriteBoardFeature, FavoriteBoardFeatureProvider} from '@eh/features/favorite-board'
+import {
+  createManageBoardParticipantsFeature,
+  ManageBoardParticipantsFeatureProvider,
+} from '@eh/features/manage-board-participants'
 import {createPinBoardFeature, PinBoardFeatureProvider} from '@eh/features/pin-board'
 import {createSearchFeature, SearchFeatureProvider} from '@eh/features/search'
 import {createSubFeature, SubFeatureProvider} from '@eh/features/sub'
@@ -59,6 +63,7 @@ export const favoriteBoardFeature = createFavoriteBoardFeature({domain, apollo})
 export const pinBoardFeature = createPinBoardFeature({domain, apollo})
 export const subFeature = createSubFeature({domain, apollo})
 export const searchFeature = createSearchFeature({domain})
+export const manageBoardParticipantsFeature = createManageBoardParticipantsFeature({domain, apollo})
 
 export const singleEventWidget = createSingleEventWidget({domain, apollo})
 export const boardSettingsWidget = createBoardSettingsWidget({domain})
@@ -96,6 +101,9 @@ export const AppStoreProvider = createProviderBuilder()
   .add(PinBoardFeatureProvider, {pinBoard: pinBoardFeature})
   .add(SubFeatureProvider, {sub: subFeature})
   .add(SearchFeatureProvider, {search: searchFeature})
+  .add(ManageBoardParticipantsFeatureProvider, {
+    manageBoardParticipants: manageBoardParticipantsFeature,
+  })
   .add(SingleEventWidgetProvider, {singleEvent: singleEventWidget})
   .add(BoardSettingsWidgetProvider, {boardSettings: boardSettingsWidget})
   .add(BoardPageProvider, {board: boardPage})

@@ -1,0 +1,36 @@
+.title {
+  display: flex;
+  justify-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+
+  line-height: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nickname {
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+.more {
+  display: block;
+  margin: 1rem auto 0;
+}
+
+.text {
+  width: 80%;
+  text-align: center;
+}
