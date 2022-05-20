@@ -22,13 +22,10 @@ import {
   createUpdateUserAvatarFeature,
   UpdateUserAvatarFeatureProvider,
 } from '@eh/features/update-user/avatar'
-import {
-  BoardSettingsWidgetProvider,
-  createBoardSettingsWidget,
-} from '@eh/widgets/board-settings/model'
+import {BoardSettingsWidgetProvider, createBoardSettingsWidget} from '@eh/widgets/board-settings'
 import {createSingleEventWidget, SingleEventWidgetProvider} from '@eh/widgets/single-event'
 import {BoardPageProvider, createBoardPage} from '@eh/pages/board'
-import {createWorldPage, WorldPageProvider} from '@eh/pages/world/model'
+import {createWorldPage, WorldPageProvider} from '@eh/pages/world'
 import {createAnalyticsProcess} from '@eh/processes/analytics'
 import {apollo} from './apollo'
 import {cloudinary} from './cloudinary'
