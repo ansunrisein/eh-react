@@ -12,13 +12,38 @@ fragment BoardPageEvents on Board {
   }
 }
 
+fragment BoardPageParticipants on Board {
+  participants(page: $participantsPage) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    edges {
+      cursor
+      node {
+        _id
+        user {
+          ...User
+        }
+      }
+    }
+  }
+}
+
 fragment BoardPage on Board {
   ...Board
   ...BoardPageEvents
+  ...BoardPageParticipants
   participationSuggestion
 }
 
-query BoardPage($id: ID!, $eventsPage: Page!, $sort: EventsSort, $filter: EventsFilter) {
+query BoardPage(
+  $id: ID!
+  $eventsPage: Page!
+  $participantsPage: Page!
+  $sort: EventsSort
+  $filter: EventsFilter
+) {
   board(boardId: $id) {
     ...BoardPage
   }
@@ -28,5 +53,12 @@ query MoreBoardPageEvents($id: ID!, $eventsPage: Page!, $sort: EventsSort, $filt
   board(boardId: $id) {
     _id
     ...BoardPageEvents
+  }
+}
+
+query MoreBoardPageParticipants($id: ID!, $participantsPage: Page!) {
+  board(boardId: $id) {
+    _id
+    ...BoardPageParticipants
   }
 }

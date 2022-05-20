@@ -4,6 +4,7 @@ import {isDefined} from '@eh/shared/lib/is-defined'
 import {BoardLinkEntity} from '@eh/entities/board-link'
 import {EventEntity, EventFragment} from '@eh/entities/event'
 import {SessionEntity} from '@eh/entities/session'
+import {ManageBoardParticipantsFeature} from '@eh/features/manage-board-participants'
 import {
   BoardPageDocument,
   BoardPageFragment,
@@ -21,10 +22,18 @@ export type BoardPageDeps = {
   session: SessionEntity
   event: EventEntity
   boardLink: BoardLinkEntity
+  manageBoardParticipants: ManageBoardParticipantsFeature
   apollo: ApolloClient<unknown>
 }
 
-export const createBoardPage = ({domain, session, event, boardLink, apollo}: BoardPageDeps) => {
+export const createBoardPage = ({
+  domain,
+  session,
+  event,
+  boardLink,
+  manageBoardParticipants,
+  apollo,
+}: BoardPageDeps) => {
   const reset = domain.event()
 
   const fetchBoardFx = domain.effect((variables: BoardPageQueryVariables) =>
@@ -95,6 +104,30 @@ export const createBoardPage = ({domain, session, event, boardLink, apollo}: Boa
           ...board,
           participationSuggestion: false,
         },
+    )
+    .on(
+      manageBoardParticipants.participants.removeBoardParticipantsFx.doneData,
+      (board, payload) => {
+        if (!board) {
+          return null
+        }
+
+        if (!payload) {
+          return board
+        }
+
+        const participants = payload.map(({_id}) => _id)
+
+        return {
+          ...board,
+          participants: {
+            ...board.participants,
+            edges: board.participants.edges.filter(participant =>
+              participants.includes(participant.node._id),
+            ),
+          },
+        }
+      },
     )
     .reset(reset)
 

@@ -73,6 +73,7 @@ export const boardPage = createBoardPage({
   session: sessionEntity,
   event: eventEntity,
   boardLink: boardLinkEntity,
+  manageBoardParticipants: manageBoardParticipantsFeature,
   apollo,
 })
 

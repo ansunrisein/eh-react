@@ -35,6 +35,7 @@ export const useBoardPage = (): BoardPage => useContext(BoardPageContext)
 export type UseFullBoardProps = {
   id: string
   eventsPerPage?: number
+  participantsPerPage?: number
   sort?: EventsSort
   filter?: EventsFilter
   refetch?: boolean
@@ -43,6 +44,7 @@ export type UseFullBoardProps = {
 export const useFullBoard = ({
   id,
   eventsPerPage = 25,
+  participantsPerPage = 3,
   sort,
   filter,
   refetch,
@@ -65,10 +67,13 @@ export const useFullBoard = ({
         eventsPage: {
           first: eventsPerPage,
         },
+        participantsPage: {
+          first: participantsPerPage,
+        },
       })
 
     return reset
-  }, [fetchBoardFx, id, eventsPerPage, sort, filter, reset, refetch])
+  }, [fetchBoardFx, id, eventsPerPage, sort, filter, reset, refetch, participantsPerPage])
 
   return {
     board: board || undefined,

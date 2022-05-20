@@ -11,22 +11,33 @@ import {
 import {FormattedMessage} from 'react-intl'
 import QRCode from 'react-qr-code'
 import {useMedia} from 'react-use'
-import {Button, Divider, IconButton, Modal as RModal} from 'rsuite'
+import {
+  Avatar,
+  AvatarGroup,
+  Button,
+  Divider,
+  IconButton,
+  Modal as RModal,
+  Tooltip,
+  Whisper,
+} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useLocation} from '@eh/shared/lib/router'
-import {BoardFragment, usePermissions} from '@eh/entities/board'
+import {usePermissions} from '@eh/entities/board'
 import {useIsAuthenticated} from '@eh/entities/session'
+import {DEFAULT_USER_AVATAR} from '@eh/entities/user'
 import {useToggleIsFavorite} from '@eh/features/favorite-board'
 import {useToggleIsPin} from '@eh/features/pin-board'
 import {useToggleSub} from '@eh/features/sub'
+import {BoardPageFragment} from '../../api'
 import {useIsMyBoard} from '../../model'
 import {texts} from './texts'
 import S from './Actions.module.scss'
 
 export type ActionsProps = {
-  board?: BoardFragment
+  board?: BoardPageFragment
   onOpenBoardSettings?: () => unknown
   onOpenCreateEvent?: () => unknown
 }
@@ -58,6 +69,21 @@ export const Actions: React.FC<ActionsProps> = ({
   return (
     <>
       <div className={S.actions}>
+        <AvatarGroup stack size="sm">
+          {board?.participants.edges.map(({node, cursor}) => (
+            <Whisper
+              key={cursor}
+              placement="autoVertical"
+              trigger={['hover', 'click']}
+              speaker={<Tooltip>{node.user.nickname}</Tooltip>}
+            >
+              <Avatar src={node.user.avatar || DEFAULT_USER_AVATAR} circle />
+            </Whisper>
+          ))}
+        </AvatarGroup>
+
+        <Divider vertical className={S.divider} />
+
         <Flex gap="1rem">
           <IconButton onClick={openQRCode} size="sm" icon={<Icon as={RiQrCodeFill} />} />
 
