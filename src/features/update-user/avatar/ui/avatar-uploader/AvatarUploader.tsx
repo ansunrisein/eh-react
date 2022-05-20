@@ -23,6 +23,7 @@ export const AvatarUploader: React.FC = () => {
   return (
     <div className={S.container}>
       <Uploader
+        action=""
         multiple={false}
         listType="picture"
         autoUpload={false}

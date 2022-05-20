@@ -4141,10 +4141,15 @@
   resolved "https://registry.yarnpkg.com/@types/pretty-hrtime/-/pretty-hrtime-1.0.1.tgz#72a26101dc567b0d68fd956cf42314556e42d601"
   integrity sha512-VjID5MJb1eGKthz2qUerWT8+R4b9N+CHvGCzg9fn4kWZgaF9AhdYikQio3R7wV8YY1NsQKPaCwKz1Yff+aHNUQ==
 
-"@types/prop-types@*", "@types/prop-types@^15.7.1":
+"@types/prop-types@*":
   version "15.7.4"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.4.tgz#fcf7205c25dff795ee79af1e30da2c9790808f11"
   integrity sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==
+
+"@types/prop-types@^15.7.4":
+  version "15.7.5"
+  resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
+  integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
 "@types/q@^1.5.1":
   version "1.5.5"
@@ -7377,10 +7382,10 @@ dom-helpers@^5.1.3:
     "@babel/runtime" "^7.8.7"
     csstype "^3.0.2"
 
-dom-lib@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/dom-lib/-/dom-lib-3.0.0.tgz#4748469a4d4a76461f245bb5a3fc8422cf698851"
-  integrity sha512-3US7OyceYve90NSU4MhuE0lK4a7aB1hbb14h45v3CPV/ZolLoEOeuPrdS/A0L8kLnwgVCDiKwlPy/Ajq0u9vfA==
+dom-lib@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/dom-lib/-/dom-lib-3.1.2.tgz#b9667a4c3435e522f818704c821418614625b929"
+  integrity sha512-FKw/w51guhTwiSnyCQKTxEwglnZG7Q1qJO62asKwedcqCCHwrwQP8DnMPBTXL9y3JTePFDaPS95GLha/Q9nd/w==
   dependencies:
     "@babel/runtime" "^7.16.0"
 
@@ -15266,37 +15271,38 @@ rollup@^1.31.1:
     "@types/node" "*"
     acorn "^7.1.0"
 
-rsuite-table@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-5.2.0.tgz#0453336b1c60f9760f0988798ab940e93ccbc160"
-  integrity sha512-MiJtfZYSMXqaUdEFQ0Q5A5mNjiB0upZumoqMyd0WGsJDC6Ff8tbnMEDBbcMcQ6GcL2MSJoxi1vz3kIo/mZ1Wew==
+rsuite-table@^5.5.0:
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-5.5.0.tgz#17abfcc6290c76cb1414492d0d04acda8a562ebf"
+  integrity sha512-Bh4VUWsN8Q8q1oTvBx+Q4N05OpScsL7nEBi82M9ryY0gss7V0W8jaqBlJdvbxMZhZow3yfka0BLcbzeZfNADCA==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@juggle/resize-observer" "^3.3.1"
     "@rsuite/icons" "^1.0.0"
     classnames "^2.2.5"
-    dom-lib "^3.0.0"
+    dom-lib "^3.1.2"
     lodash "^4.17.21"
+    react-is "^17.0.2"
 
-rsuite@^5.2.2:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-5.2.2.tgz#86360aa381be165c12cf10e33aa8c6f024df177d"
-  integrity sha512-o+aEB5HBNjUq/Fd5gadjz/mq9V2uzLYFG85D7izKKbPG4L0rEMMHkgRfBAbyFTJGRoBuX4qNCWBDpF+/wgPAnQ==
+rsuite@^5.13.0:
+  version "5.13.0"
+  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-5.13.0.tgz#bee3fdfd127191c747d89ec255ef38f918a50b19"
+  integrity sha512-+BswyDJwk5hF6su1+scVVm2I0L7Krvx3y/Q+wLV0HczWx31hacJiOygAB7IYC+F0Kc6hR9C9JfdcKYV87JGtXA==
   dependencies:
     "@babel/runtime" "^7.8.4"
     "@juggle/resize-observer" "^3.3.1"
     "@rsuite/icons" "^1.0.2"
     "@types/chai" "^4.2.18"
     "@types/lodash" "^4.14.134"
-    "@types/prop-types" "^15.7.1"
+    "@types/prop-types" "^15.7.4"
     "@types/react-virtualized" "^9.21.11"
     classnames "^2.3.1"
     date-fns "^2.13.0"
-    dom-lib "^3.0.0"
+    dom-lib "^3.1.2"
     lodash "^4.17.11"
     prop-types "^15.7.2"
     react-virtualized "^9.22.3"
-    rsuite-table "^5.2.0"
+    rsuite-table "^5.5.0"
     schema-typed "^2.0.2"
 
 rsvp@^4.8.4:
