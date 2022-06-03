@@ -67,7 +67,7 @@ export const withModuleLocalization =
     }
 
     return (
-      <IntlProvider locale={locale} messages={messages}>
+      <IntlProvider locale={locale} messages={messages} onError={() => void 0}>
         <Component {...props} />
       </IntlProvider>
     )
