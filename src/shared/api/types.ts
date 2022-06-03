@@ -228,6 +228,7 @@ export type Mutation = {
   removeBoardParticipants: Array<BoardParticipant>
   removeBoardTag: BoardTag
   removeEvent?: Maybe<Event>
+  removeEventsByIds?: Maybe<Array<Event>>
   removeSub: Board
   unmarkBoardAsFavorite: Board
   unmarkBoardAsPin: Board
@@ -286,6 +287,10 @@ export type MutationRemoveBoardTagArgs = {
 
 export type MutationRemoveEventArgs = {
   eventId: Scalars['ID']
+}
+
+export type MutationRemoveEventsByIdsArgs = {
+  events: RemoveEvents
 }
 
 export type MutationRemoveSubArgs = {
@@ -370,6 +375,7 @@ export type Query = {
   my: BoardConnection
   permissions: Array<EntityPermissions>
   popularBoards: BoardConnection
+  timeExpiredEvents?: Maybe<Array<Event>>
 }
 
 export type QueryBoardArgs = {
@@ -413,9 +419,17 @@ export type QueryPopularBoardsArgs = {
   page: Page
 }
 
+export type QueryTimeExpiredEventsArgs = {
+  boardId: Scalars['ID']
+}
+
 export type RemoveBoardParticipants = {
   _id: Scalars['ID']
   participantsId: Array<Scalars['ID']>
+}
+
+export type RemoveEvents = {
+  ids: Array<Scalars['ID']>
 }
 
 export type Sub = {
@@ -622,6 +636,7 @@ export type MutationKeySpecifier = (
   | 'removeBoardParticipants'
   | 'removeBoardTag'
   | 'removeEvent'
+  | 'removeEventsByIds'
   | 'removeSub'
   | 'unmarkBoardAsFavorite'
   | 'unmarkBoardAsPin'
@@ -649,6 +664,7 @@ export type MutationFieldPolicy = {
   removeBoardParticipants?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoardTag?: FieldPolicy<any> | FieldReadFunction<any>
   removeEvent?: FieldPolicy<any> | FieldReadFunction<any>
+  removeEventsByIds?: FieldPolicy<any> | FieldReadFunction<any>
   removeSub?: FieldPolicy<any> | FieldReadFunction<any>
   unmarkBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   unmarkBoardAsPin?: FieldPolicy<any> | FieldReadFunction<any>
@@ -685,6 +701,7 @@ export type QueryKeySpecifier = (
   | 'my'
   | 'permissions'
   | 'popularBoards'
+  | 'timeExpiredEvents'
   | QueryKeySpecifier
 )[]
 export type QueryFieldPolicy = {
@@ -699,6 +716,7 @@ export type QueryFieldPolicy = {
   my?: FieldPolicy<any> | FieldReadFunction<any>
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   popularBoards?: FieldPolicy<any> | FieldReadFunction<any>
+  timeExpiredEvents?: FieldPolicy<any> | FieldReadFunction<any>
 }
 export type SubKeySpecifier = ('_id' | SubKeySpecifier)[]
 export type SubFieldPolicy = {

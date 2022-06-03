@@ -1,0 +1,31 @@
+.panel {
+  padding: 0.5rem;
+  min-height: 300px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.background {
+  background: var(--rs-body);
+}
+
+.event {
+  cursor: pointer;
+
+  transition: opacity 200ms linear;
+}

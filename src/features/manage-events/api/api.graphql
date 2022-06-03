@@ -1,0 +1,11 @@
+query TimeExpiredEvents($boardId: ID!) {
+  timeExpiredEvents(boardId: $boardId) {
+    ...Event
+  }
+}
+
+mutation RemoveTimeExpiredEvents($ids: [ID!]!) {
+  removeEventsByIds(events: {ids: $ids}) {
+    _id
+  }
+}

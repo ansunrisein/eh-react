@@ -4,6 +4,7 @@ import {Button, Divider, Loader} from 'rsuite'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {BoardFragment, useBoard, usePermissions, useRemoveBoard} from '@eh/entities/board'
 import {ParticipantsManager} from '@eh/features/manage-board-participants'
+import {EventManager} from '@eh/features/manage-events'
 import {EditBoardForm} from '@eh/features/update-board'
 import {EditBoardTags} from '@eh/features/update-board-tags'
 import {texts} from './texts'
@@ -47,6 +48,10 @@ export const BoardSettings: React.FC<BoardSettingsProps> = withModuleLocalizatio
           <Divider />
 
           <EditBoardTags board={board} />
+
+          <Divider />
+
+          <EventManager board={board} />
 
           <Divider />
 

@@ -15,6 +15,7 @@ import {
   createManageBoardParticipantsFeature,
   ManageBoardParticipantsFeatureProvider,
 } from '@eh/features/manage-board-participants'
+import {createManageEventsFeature, ManageEventsFeatureProvider} from '@eh/features/manage-events'
 import {createPinBoardFeature, PinBoardFeatureProvider} from '@eh/features/pin-board'
 import {createSearchFeature, SearchFeatureProvider} from '@eh/features/search'
 import {createSubFeature, SubFeatureProvider} from '@eh/features/sub'
@@ -61,6 +62,7 @@ export const pinBoardFeature = createPinBoardFeature({domain, apollo})
 export const subFeature = createSubFeature({domain, apollo})
 export const searchFeature = createSearchFeature({domain})
 export const manageBoardParticipantsFeature = createManageBoardParticipantsFeature({domain, apollo})
+export const manageEventsFeature = createManageEventsFeature({domain, apollo})
 
 export const singleEventWidget = createSingleEventWidget({domain, apollo})
 export const boardSettingsWidget = createBoardSettingsWidget({domain})
@@ -102,6 +104,7 @@ export const AppStoreProvider = createProviderBuilder()
   .add(ManageBoardParticipantsFeatureProvider, {
     manageBoardParticipants: manageBoardParticipantsFeature,
   })
+  .add(ManageEventsFeatureProvider, {manageEvents: manageEventsFeature})
   .add(SingleEventWidgetProvider, {singleEvent: singleEventWidget})
   .add(BoardSettingsWidgetProvider, {boardSettings: boardSettingsWidget})
   .add(BoardPageProvider, {board: boardPage})
