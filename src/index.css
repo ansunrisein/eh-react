@@ -35,6 +35,11 @@ a:focus-within {
   text-decoration: inherit;
 }
 
-.simplebar-scrollbar::before {
-  background-color: #fff !important;
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: var(--rs-table-scrollbar-vertical-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--rs-table-scrollbar-thumb);
 }
