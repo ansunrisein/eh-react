@@ -33,6 +33,7 @@ export type Board = {
   permissions: Array<Permission>
   sub?: Maybe<Sub>
   tags?: Maybe<Array<BoardTag>>
+  timeExpiredEventsCount: Scalars['Float']
   title: Scalars['String']
   user: User
   views: Scalars['Int']
@@ -473,6 +474,7 @@ export type BoardKeySpecifier = (
   | 'permissions'
   | 'sub'
   | 'tags'
+  | 'timeExpiredEventsCount'
   | 'title'
   | 'user'
   | 'views'
@@ -492,6 +494,7 @@ export type BoardFieldPolicy = {
   permissions?: FieldPolicy<any> | FieldReadFunction<any>
   sub?: FieldPolicy<any> | FieldReadFunction<any>
   tags?: FieldPolicy<any> | FieldReadFunction<any>
+  timeExpiredEventsCount?: FieldPolicy<any> | FieldReadFunction<any>
   title?: FieldPolicy<any> | FieldReadFunction<any>
   user?: FieldPolicy<any> | FieldReadFunction<any>
   views?: FieldPolicy<any> | FieldReadFunction<any>

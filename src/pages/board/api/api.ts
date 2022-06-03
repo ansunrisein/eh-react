@@ -63,6 +63,7 @@ export type BoardPageFragment = {
   isFavorite: boolean
   isPin: boolean
   views: number
+  timeExpiredEventsCount: number
   user: {__typename?: 'User'; _id: string}
   sub?: {__typename?: 'Sub'; _id: string} | null | undefined
   tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined
@@ -124,6 +125,7 @@ export type BoardPageQuery = {
         isFavorite: boolean
         isPin: boolean
         views: number
+        timeExpiredEventsCount: number
         user: {__typename?: 'User'; _id: string}
         sub?: {__typename?: 'Sub'; _id: string} | null | undefined
         tags?: Array<{__typename?: 'BoardTag'; _id: string; name: string}> | null | undefined

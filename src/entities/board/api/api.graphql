@@ -18,6 +18,7 @@ fragment Board on Board {
     name
   }
   views
+  timeExpiredEventsCount
 }
 
 query Board($id: ID!) {
