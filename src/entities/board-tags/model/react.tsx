@@ -1,6 +1,6 @@
-import React, {createContext, useContext} from 'react'
+import React, {createContext, useContext, useEffect} from 'react'
+import {useStore} from 'effector-react'
 import {Hoc} from '@eh/shared/types'
-import {useBoardTagsQuery} from '../api'
 import {BoardTagsEntity} from './board-tags'
 
 export const BoardTagsEntityContext = createContext<BoardTagsEntity>(
@@ -35,10 +35,19 @@ export const withBoardTagsEntity =
 export const useBoardTagsEntity = (): BoardTagsEntity => useContext(BoardTagsEntityContext)
 
 export const useBoardTags = () => {
-  const {data, loading} = useBoardTagsQuery()
+  const {fetchBoardTagsFx, $boardTags, reset} = useBoardTagsEntity()
+
+  const boardTags = useStore($boardTags)
+  const loading = useStore(fetchBoardTagsFx.pending)
+
+  useEffect(() => {
+    fetchBoardTagsFx()
+
+    return reset
+  }, [fetchBoardTagsFx, reset])
 
   return {
-    boardTags: data?.boardTags,
+    boardTags,
     loading,
   }
 }

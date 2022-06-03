@@ -3,6 +3,8 @@ import {createI18N, I18NProvider} from '@eh/shared/lib/i18n'
 import {createProviderBuilder} from '@eh/shared/lib/provider-builder'
 import {BoardEntityProvider, createBoardEntity} from '@eh/entities/board'
 import {BoardLinkEntityProvider, createBoardLinkEntity} from '@eh/entities/board-link'
+import {BoardTagsEntityProvider} from '@eh/entities/board-tags'
+import {createBoardTagsEntity} from '@eh/entities/board-tags/model/board-tags'
 import {createEventEntity, EventEntityProvider} from '@eh/entities/event'
 import {createSessionEntity, SessionEntityProvider} from '@eh/entities/session'
 import {createUserEntity, UserEntityProvider} from '@eh/entities/user'
@@ -50,6 +52,7 @@ export const boardEntity = createBoardEntity({domain, apollo})
 export const boardLinkEntity = createBoardLinkEntity({domain, apollo, history})
 export const userEntity = createUserEntity({domain, apollo})
 export const sessionEntity = createSessionEntity({domain, apollo})
+export const boardTagsEntity = createBoardTagsEntity({domain, apollo})
 
 export const authWithFirebaseFeature = createAuthWithFirebaseFeature({auth, session: sessionEntity})
 export const updateUserAvatarFeature = createUpdateUserAvatarFeature({
@@ -75,7 +78,6 @@ export const boardPage = createBoardPage({
   manageBoardParticipants: manageBoardParticipantsFeature,
   apollo,
 })
-
 export const worldPage = createWorldPage({domain, search: searchFeature, apollo})
 
 createAnalyticsProcess({
@@ -95,6 +97,7 @@ export const AppStoreProvider = createProviderBuilder()
   .add(BoardLinkEntityProvider, {boardLink: boardLinkEntity})
   .add(UserEntityProvider, {user: userEntity})
   .add(SessionEntityProvider, {session: sessionEntity})
+  .add(BoardTagsEntityProvider, {boardTags: boardTagsEntity})
   .add(AuthWithFirebaseFeatureProvider, {authWithFirebase: authWithFirebaseFeature})
   .add(UpdateUserAvatarFeatureProvider, {updateUserAvatar: updateUserAvatarFeature})
   .add(FavoriteBoardFeatureProvider, {favoriteBoard: favoriteBoardFeature})
