@@ -9,11 +9,12 @@ import {texts} from './texts'
 
 export type TimerBadgeProps = {
   withTooltip?: boolean
+  showTime?: boolean
   className?: string
 } & Pick<TimerSettings, 'expiryTimestamp' | 'onExpire' | 'autoStart'>
 
 export const TimerBadge: React.FC<TimerBadgeProps> = withModuleLocalization('shared')(
-  ({expiryTimestamp, withTooltip, className, ...props}) => {
+  ({expiryTimestamp, withTooltip, showTime, className, ...props}) => {
     const {start, pause, restart, ...rest} = useTimer({expiryTimestamp, ...props})
 
     const time = formatTime(rest)
@@ -40,8 +41,14 @@ export const TimerBadge: React.FC<TimerBadgeProps> = withModuleLocalization('sha
         disabled={!withTooltip}
         speaker={<Tooltip>{format(expiryTimestamp, 'dd-MM-yyyy')}</Tooltip>}
       >
-        <Tag className={className} color={time ? 'violet' : 'red'}>
-          {time ? time : <FormattedMessage {...texts.timeIsUp} />}
+        <Tag className={className} color={time || showTime ? 'violet' : 'red'}>
+          {showTime ? (
+            format(expiryTimestamp, 'dd-MM-yyyy')
+          ) : time ? (
+            time
+          ) : (
+            <FormattedMessage {...texts.timeIsUp} />
+          )}
         </Tag>
       </Whisper>
     )
