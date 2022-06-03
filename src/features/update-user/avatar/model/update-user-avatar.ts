@@ -24,9 +24,7 @@ export const createUpdateUserAvatarFeature = ({
 }: UpdateUserAvatarFeatureDeps) => {
   const fetchAvatarFx = domain.effect(() =>
     apollo
-      .query<UserAvatarQuery>({
-        query: UserAvatarDocument,
-      })
+      .query<UserAvatarQuery>({query: UserAvatarDocument})
       .then(e => e.data?.me?.avatar || null),
   )
 
