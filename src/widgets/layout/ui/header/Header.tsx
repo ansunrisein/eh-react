@@ -42,7 +42,7 @@ export const Header: React.FC = withModuleLocalization('layout-widget')(() => {
       </Flex>
 
       <Link to="/">
-        <Logo />
+        <Logo short={isTablet} />
       </Link>
 
       <Flex gap={isTablet ? 10 : 5} alignItems="center">
