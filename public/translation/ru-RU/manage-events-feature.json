@@ -1,6 +1,6 @@
 {
   "features.manage-events.manager.events":  "Ивенты",
-  "features.manage-events.manager.removeAllTimeExpiredEvents": "На доске {count, plural, one {присутствует} few {присутствуют} other {присутствуют}} <highlight>{count} {count, plural, one {ивент} few {ивента} other {ивентов}}</highlight>. Вы можете удалить {count, plural, one {его} other {их}} с доски",
+  "features.manage-events.manager.removeAllTimeExpiredEvents": "На доске {count, plural, one {присутствует} few {присутствуют} other {присутствуют}} <highlight>{count} {count, plural, one {истекший по времени} other {истекших по времени}} {count, plural, one {ивент} few {ивента} other {ивентов}}</highlight>. Вы можете удалить {count, plural, one {его} other {их}} с доски",
   "features.manage-events.manager.selectEventsForRemoving":  "Выбрать ивенты для удаления",
   "features.manage-events.select-list.selectAllEvents": "Выбрать все ивенты",
   "features.manage-events.select-list.reset":  "Сбросить",

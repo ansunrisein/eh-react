@@ -7,7 +7,7 @@ export const texts = defineMessages({
   },
   removeAllTimeExpiredEvents: {
     id: 'features.manage-events.manager.removeAllTimeExpiredEvents',
-    defaultMessage: `There are time-expired <highlight>{count} {count, plural, 
+    defaultMessage: `There are <highlight>{count} time-expired {count, plural, 
         one {event}
         other {events}
       }</highlight> on the board. You can remove {count, plural, 

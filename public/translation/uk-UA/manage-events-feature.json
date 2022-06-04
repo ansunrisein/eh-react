@@ -1,0 +1,8 @@
+{
+  "features.manage-events.manager.events":  "Івенти",
+  "features.manage-events.manager.removeAllTimeExpiredEvents": "На дошці {count, plural, one {присутня} few {присутні} other {присутні}} <highlight>{count} {count, plural, one {що минув за часом} other {минулих за часом}} {count, plural, one {івент} few {івента} other {івентів}}</highlight>. Ви можете видалити {count, plural, one {його} other {їх}} з дошки",
+  "features.manage-events.manager.selectEventsForRemoving":  "Вибрати івенти для видалення",
+  "features.manage-events.select-list.selectAllEvents": "Вибрати всі івенти",
+  "features.manage-events.select-list.reset":  "Скинути",
+  "features.manage-events.manager.timeExpiredEvents": "Івенти, що минули за часом"
+}
