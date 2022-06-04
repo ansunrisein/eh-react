@@ -26,10 +26,11 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
   return (
     <Panel bordered shaded {...props}>
       <Flex justifyContent="space-between">
-        <Link to={`/board/${board._id}`}>
+        <Link to={`/board/${board._id}`} className={S.titleContainer}>
           <Info board={board} className={S.title} />
         </Link>
-        {board.isFavorite && <Icon as={RiHeart3Fill} />}
+
+        {board.isFavorite && <Icon as={RiHeart3Fill} className={S.favorite} />}
       </Flex>
 
       <Swiper withNavigation={isTablet} breakpoints={swiperBreakpoints}>

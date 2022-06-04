@@ -76,11 +76,14 @@ export const Board: React.FC = withModuleLocalization('board-page')(() => {
 
       <div className={S.panel}>
         <Info board={board} withPrivateIcon withTags className={S.info} />
-        <Actions
-          board={board}
-          onOpenBoardSettings={openBoardSettings}
-          onOpenCreateEvent={openCreateEvent}
-        />
+
+        <div className={S.actions}>
+          <Actions
+            board={board}
+            onOpenBoardSettings={openBoardSettings}
+            onOpenCreateEvent={openCreateEvent}
+          />
+        </div>
       </div>
 
       <Flex height="100%">
@@ -132,7 +135,7 @@ export const Board: React.FC = withModuleLocalization('board-page')(() => {
                   </h4>
                   <ul className={S.grid}>
                     {newEvents.map(e => (
-                      <li key={e._id} onClick={() => setOpenedEventId(e._id)}>
+                      <li key={e._id} onClick={() => setOpenedEventId(e._id)} className={S.item}>
                         <EventCard event={e} className={S.event} />
                       </li>
                     ))}
@@ -153,7 +156,11 @@ export const Board: React.FC = withModuleLocalization('board-page')(() => {
                   <ul className={S.grid}>
                     {!!board?.events.edges &&
                       board.events.edges.map(e => (
-                        <li key={e.node._id} onClick={() => setOpenedEventId(e.node._id)}>
+                        <li
+                          key={e.node._id}
+                          onClick={() => setOpenedEventId(e.node._id)}
+                          className={S.item}
+                        >
                           <EventCard event={e.node} className={S.event} />
                         </li>
                       ))}

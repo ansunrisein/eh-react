@@ -1,9 +1,8 @@
 import React from 'react'
 import {format} from 'date-fns'
 import {RiDeleteBin7Fill, RiEdit2Fill} from 'react-icons/ri'
-import {ButtonGroup, IconButton, Panel, Placeholder, Tag} from 'rsuite'
+import {ButtonGroup, IconButton, Panel, Placeholder, Stack, Tag} from 'rsuite'
 import {Icon} from '@rsuite/icons'
-import {Flex} from '@eh/shared/lib/reflexbox'
 import {TimerBadge} from '@eh/shared/ui'
 import {EventFragment} from '../../api'
 import S from './EventView.module.scss'
@@ -25,8 +24,8 @@ export const EventView: React.FC<EventViewProps> = ({
   ...props
 }) => (
   <Panel {...props}>
-    <Flex justifyContent="space-between">
-      <div className={S.fullWidth}>
+    <Stack justifyContent="space-between" alignItems="flex-start">
+      <div>
         {!event ? <Placeholder.Paragraph active rows={1} /> : <h4>{event.title}</h4>}
 
         {!event ? (
@@ -51,6 +50,6 @@ export const EventView: React.FC<EventViewProps> = ({
           {withRemove && <IconButton onClick={onRemove} icon={<Icon as={RiDeleteBin7Fill} />} />}
         </ButtonGroup>
       )}
-    </Flex>
+    </Stack>
   </Panel>
 )

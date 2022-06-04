@@ -1,5 +1,14 @@
+.title-container {
+  overflow: hidden;
+}
+
 .title {
   margin-bottom: 1rem;
+}
+
+.favorite {
+  flex-shrink: 0;
+  margin-left: 1rem;
 }
 
 .link,

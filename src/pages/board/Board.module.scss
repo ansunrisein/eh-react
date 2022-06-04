@@ -28,6 +28,11 @@
   min-width: 200px;
 }
 
+.item {
+  min-width: 0;
+  min-height: 0;
+}
+
 .panel {
   display: flex;
   flex-direction: column;
@@ -57,11 +62,20 @@
   margin: 2rem auto auto;
 }
 
+.actions {
+  flex-shrink: 0;
+}
+
 .info {
-  margin-left: 0.5rem;
+  flex-grow: 0;
+  flex-shrink: 1;
+  overflow: hidden;
+  padding-left: 0.5rem;
+  padding-right: 1rem;
+  max-width: 100%;
 
   @media (min-width: 768px) {
-    margin-left: 1rem;
+    padding-left: 1rem;
   }
 }
 
