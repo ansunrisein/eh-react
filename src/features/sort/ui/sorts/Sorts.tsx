@@ -15,7 +15,7 @@ export type SortsProps = {
 } & ButtonGroupProps
 
 export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature')(
-  ({onChange, sorts, ...props}) => {
+  ({onChange, sorts, disabled, ...props}) => {
     const [sort, setSort] = useState(() => mapSortsConfigToObj(sorts))
 
     const onSortChange = (name: string) => (state: SortState) => {
@@ -46,6 +46,7 @@ export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature'
               state={sort[e.name]}
               onChange={onSortChange(e.name)}
               data-testid="sort-button"
+              disabled={disabled}
             >
               {e.icon}
             </SortButton>

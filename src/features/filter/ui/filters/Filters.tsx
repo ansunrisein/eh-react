@@ -15,7 +15,7 @@ export type FiltersProps = {
 } & ButtonGroupProps
 
 export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-feature')(
-  ({onChange, filters, ...props}) => {
+  ({onChange, filters, disabled, ...props}) => {
     const [filter, setFilter] = useState(() => mapFiltersConfigToObj(filters))
 
     const onStateChange = (name: string) => (state: number) => {
@@ -46,6 +46,7 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
               state={filter[e.name]}
               defaultState={filter[e.name]}
               onChange={onStateChange(e.name)}
+              disabled={disabled}
             >
               {e.icons}
             </FilterButton>
