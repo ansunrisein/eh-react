@@ -1,3 +1,4 @@
+export * from './dialog-modal'
 export * from './empty'
 export * from './logo'
 export * from './modal'
