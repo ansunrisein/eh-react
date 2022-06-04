@@ -1,0 +1,6 @@
+fragment BoardParticipant on BoardParticipant {
+  _id
+  user {
+    ...User
+  }
+}

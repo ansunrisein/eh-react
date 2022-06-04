@@ -11,21 +11,13 @@ import {
 import {FormattedMessage} from 'react-intl'
 import QRCode from 'react-qr-code'
 import {useMedia} from 'react-use'
-import {
-  Avatar,
-  AvatarGroup,
-  Button,
-  Divider,
-  IconButton,
-  Modal as RModal,
-  Tooltip,
-  Whisper,
-} from 'rsuite'
+import {Button, Divider, IconButton, Modal as RModal} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {Flex} from '@eh/shared/lib/reflexbox'
 import {useLocation} from '@eh/shared/lib/router'
 import {usePermissions} from '@eh/entities/board'
+import {ParticipantsAvatarGroup} from '@eh/entities/board-participants'
 import {useIsAuthenticated} from '@eh/entities/session'
 import {DEFAULT_USER_AVATAR} from '@eh/entities/user'
 import {useToggleIsFavorite} from '@eh/features/favorite-board'
@@ -69,18 +61,12 @@ export const Actions: React.FC<ActionsProps> = ({
   return (
     <>
       <div className={S.actions}>
-        <AvatarGroup stack size="sm">
-          {board?.participants.edges.map(({node, cursor}) => (
-            <Whisper
-              key={cursor}
-              placement="autoVertical"
-              trigger={['hover', 'click']}
-              speaker={<Tooltip>{node.user.nickname}</Tooltip>}
-            >
-              <Avatar src={node.user.avatar || DEFAULT_USER_AVATAR} circle />
-            </Whisper>
-          ))}
-        </AvatarGroup>
+        {board && (
+          <ParticipantsAvatarGroup
+            participants={board.participants.edges.map(e => e.node)}
+            defaultAvatar={DEFAULT_USER_AVATAR}
+          />
+        )}
 
         <Divider vertical className={S.divider} />
 

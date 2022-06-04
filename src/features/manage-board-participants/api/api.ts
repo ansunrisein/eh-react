@@ -5,7 +5,7 @@
 import * as Types from '@eh/shared/api'
 
 import {gql} from '@apollo/client'
-import {UserFragmentDoc} from '../../../entities/user/api/api'
+import {BoardParticipantFragmentDoc} from '../../../entities/board-participants/model/api/api'
 import * as Apollo from '@apollo/client'
 const defaultOptions = {}
 export type BoardParticipantsFragment = {
@@ -90,15 +90,12 @@ export const BoardParticipantsFragmentDoc = gql`
       edges {
         cursor
         node {
-          _id
-          user {
-            ...User
-          }
+          ...BoardParticipant
         }
       }
     }
   }
-  ${UserFragmentDoc}
+  ${BoardParticipantFragmentDoc}
 `
 export const BoardParticipantsDocument = gql`
   query BoardParticipants($boardId: ID!, $page: Page!) {
