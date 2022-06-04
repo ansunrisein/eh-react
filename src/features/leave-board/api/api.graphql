@@ -1,0 +1,8 @@
+mutation LeaveBoard($boardId: ID!) {
+  leaveBoard(boardId: $boardId) {
+    _id
+    board {
+      _id
+    }
+  }
+}

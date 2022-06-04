@@ -1,0 +1,6 @@
+{
+  "features.leave-board.button.leaveBoard": "Покинуть доску",
+  "features.leave-board.button.question": "Вы уверены, что хотите покинуть доску с названием <highlight>«{name}»</highlight>?",
+  "features.leave-board.button.leave": "Покинуть",
+  "features.leave-board.button.cancel": "Отменить"
+}

@@ -13,6 +13,7 @@ import {
   createAuthWithFirebaseFeature,
 } from '@eh/features/auth-with-firebase'
 import {createFavoriteBoardFeature, FavoriteBoardFeatureProvider} from '@eh/features/favorite-board'
+import {createLeaveBoardFeature, LeaveBoardFeatureProvider} from '@eh/features/leave-board'
 import {
   createManageBoardParticipantsFeature,
   ManageBoardParticipantsFeatureProvider,
@@ -66,6 +67,7 @@ export const subFeature = createSubFeature({domain, apollo})
 export const searchFeature = createSearchFeature({domain})
 export const manageBoardParticipantsFeature = createManageBoardParticipantsFeature({domain, apollo})
 export const manageEventsFeature = createManageEventsFeature({domain, apollo})
+export const leaveBoardFeature = createLeaveBoardFeature({domain, apollo})
 
 export const singleEventWidget = createSingleEventWidget({domain, apollo})
 export const boardSettingsWidget = createBoardSettingsWidget({domain})
@@ -108,6 +110,7 @@ export const AppStoreProvider = createProviderBuilder()
     manageBoardParticipants: manageBoardParticipantsFeature,
   })
   .add(ManageEventsFeatureProvider, {manageEvents: manageEventsFeature})
+  .add(LeaveBoardFeatureProvider, {leaveBoard: leaveBoardFeature})
   .add(SingleEventWidgetProvider, {singleEvent: singleEventWidget})
   .add(BoardSettingsWidgetProvider, {boardSettings: boardSettingsWidget})
   .add(BoardPageProvider, {board: boardPage})

@@ -1,0 +1,8 @@
+.title {
+  color: var(--rs-blue-500);
+
+  &:hover,
+  &:focus {
+    color: var(--rs-blue-600);
+  }
+}

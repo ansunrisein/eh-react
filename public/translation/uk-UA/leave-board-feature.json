@@ -1,0 +1,6 @@
+{
+  "features.leave-board.button.leaveBoard": "Залишити дошку",
+  "features.leave-board.button.question": "Ви впевнені, що хочете залишити дошку під назвою <highlight>«{name}»</highlight>?",
+  "features.leave-board.button.leave": "Залишити",
+  "features.leave-board.button.cancel": "Скасувати"
+}
