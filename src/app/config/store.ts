@@ -69,7 +69,7 @@ export const manageBoardParticipantsFeature = createManageBoardParticipantsFeatu
 export const manageEventsFeature = createManageEventsFeature({domain, apollo})
 export const leaveBoardFeature = createLeaveBoardFeature({domain, apollo})
 
-export const singleEventWidget = createSingleEventWidget({domain, apollo})
+export const singleEventWidget = createSingleEventWidget({domain, event: eventEntity, apollo})
 export const boardSettingsWidget = createBoardSettingsWidget({domain})
 
 export const boardPage = createBoardPage({

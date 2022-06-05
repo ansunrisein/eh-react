@@ -1,5 +1,6 @@
 import {Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
+import {EventEntity} from '@eh/entities/event'
 import {
   SingleEventDocument,
   SingleEventFragment,
@@ -11,10 +12,11 @@ export type SingleEventWidget = ReturnType<typeof createSingleEventWidget>
 
 export type SingleEventWidgetDeps = {
   domain: Domain
+  event: EventEntity
   apollo: ApolloClient<unknown>
 }
 
-export const createSingleEventWidget = ({domain, apollo}: SingleEventWidgetDeps) => {
+export const createSingleEventWidget = ({domain, event, apollo}: SingleEventWidgetDeps) => {
   const fetchEventFx = domain.effect((variables: SingleEventQueryVariables) =>
     apollo
       .query<SingleEventQuery, SingleEventQueryVariables>({
@@ -30,6 +32,9 @@ export const createSingleEventWidget = ({domain, apollo}: SingleEventWidgetDeps)
   const $event = domain
     .store<SingleEventFragment | null>(null)
     .on(fetchEventFx.doneData, (_, event) => event)
+    .on(event.editEventFx.doneData, (event, newEvent) =>
+      event && newEvent && event._id === newEvent._id ? {...event, ...newEvent} : event,
+    )
     .reset(fetchEventFx, reset)
 
   return {
