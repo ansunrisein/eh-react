@@ -4,21 +4,22 @@ import {FormattedMessage} from 'react-intl'
 import {ButtonGroup, ButtonGroupProps, Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
+import {AvailableFilter} from '../../config'
 import {FilterButton} from '../filter-button'
 import {mapFiltersConfigToObj} from './helpers'
 import {texts} from './texts'
 import S from './Filters.module.scss'
 
 export type FiltersProps = {
-  onChange?: (filters: Record<string, number>) => void
-  filters: {name: string; icons: React.ReactNode[]}[]
+  onChange?: (filters: Partial<Record<AvailableFilter, number>>) => void
+  filters: Array<{name: AvailableFilter; icons: React.ReactNode[]}>
 } & ButtonGroupProps
 
 export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-feature')(
   ({onChange, filters, disabled, ...props}) => {
     const [filter, setFilter] = useState(() => mapFiltersConfigToObj(filters))
 
-    const onStateChange = (name: string) => (state: number) => {
+    const onStateChange = (name: AvailableFilter) => (state: number) => {
       const newFilter = {...filter, [name]: state}
       setFilter(newFilter)
       onChange?.(newFilter)
@@ -43,7 +44,7 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
           {filters.map((e, i) => (
             <FilterButton
               key={i}
-              state={filter[e.name]}
+              state={filter[e.name] ?? 0}
               defaultState={filter[e.name]}
               onChange={onStateChange(e.name)}
               disabled={disabled}

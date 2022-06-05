@@ -9,15 +9,18 @@ import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Empty} from '@eh/shared/ui'
 import {useNewBoardsGate} from '@eh/entities/board'
-import {Filters} from '@eh/features/filter'
+import {availableFilters, Filters} from '@eh/features/filter'
 import {SearchInput, useSearch} from '@eh/features/search'
-import {Sorts, SortState} from '@eh/features/sort'
+import {availableSorts, Sorts, SortState} from '@eh/features/sort'
 import {Layout} from '@eh/widgets/layout'
-import {filterConfig, sortConfig} from './config'
 import {useBoards, usePopularBoards} from './model'
 import {texts} from './texts'
 import {MiniBoard} from './ui'
 import S from './World.module.scss'
+
+export const filterConfig = [availableFilters.favorite]
+
+export const sortConfig = [availableSorts.nearestEvent, availableSorts.favorite]
 
 export const World: React.FC = withModuleLocalization('world-page')(() => {
   const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>

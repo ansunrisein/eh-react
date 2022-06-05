@@ -1,4 +1,8 @@
-export const mapFiltersConfigToObj = (filters: Array<{name: string}>): Record<string, number> =>
+import {AvailableFilter} from '../../config'
+
+export const mapFiltersConfigToObj = (
+  filters: Array<{name: AvailableFilter}>,
+): Partial<Record<AvailableFilter, number>> =>
   filters.reduce(
     (acc, e) => ({
       ...acc,

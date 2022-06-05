@@ -1,6 +1,9 @@
+import {AvailableSort} from '../../config'
 import {SortState} from '../sort-button'
 
-export const mapSortsConfigToObj = (sorts: Array<{name: string}>): Record<string, SortState> =>
+export const mapSortsConfigToObj = (
+  sorts: Array<{name: AvailableSort}>,
+): Partial<Record<AvailableSort, SortState>> =>
   sorts.reduce(
     (acc, e) => ({
       ...acc,

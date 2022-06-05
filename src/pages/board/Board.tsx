@@ -11,17 +11,20 @@ import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {Info, usePermissions} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
-import {Filters} from '@eh/features/filter'
-import {Sorts, SortState} from '@eh/features/sort'
+import {availableFilters, Filters} from '@eh/features/filter'
+import {availableSorts, Sorts, SortState} from '@eh/features/sort'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
 import {SingleEvent} from '@eh/widgets/single-event'
-import {filterConfig, sortConfig} from './config'
 import {useFullBoard, useNewEvents, useNewEventsGate} from './model'
 import {texts} from './texts'
 import {Actions, EventCalendar, ParticipationSuggestion} from './ui'
 import S from './Board.module.scss'
+
+export const filterConfig = [availableFilters.expired]
+
+export const sortConfig = [availableSorts.nearest, availableSorts.pin]
 
 export const Board: React.FC = withModuleLocalization('board-page')(() => {
   const [defaultDeadline, setDefaultDeadline] = useState<Date | null>(null)

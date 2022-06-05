@@ -13,16 +13,28 @@ import {Empty, Modal} from '@eh/shared/ui'
 import {useNewBoards, useNewBoardsGate} from '@eh/entities/board'
 import {BoardCard} from '@eh/entities/board/ui'
 import {useIsAuthenticated} from '@eh/entities/session'
-import {Filters} from '@eh/features/filter'
+import {availableFilters, Filters} from '@eh/features/filter'
 import {SearchInput, useSearch} from '@eh/features/search'
-import {Sorts, SortState} from '@eh/features/sort'
+import {availableSorts, Sorts, SortState} from '@eh/features/sort'
 import {CreateBoardForm} from '@eh/features/update-board'
 import {Layout} from '@eh/widgets/layout'
-import {filterConfig, sortConfig} from './config'
 import {useBoards} from './model'
 import {texts} from './texts'
 import {MiniBoard} from './ui'
 import S from './Dashboard.module.scss'
+
+export const filterConfig = [
+  availableFilters.ownership,
+  availableFilters.favorite,
+  availableFilters.pin,
+]
+
+export const sortConfig = [
+  availableSorts.nearestEvent,
+  availableSorts.favorite,
+  availableSorts.pin,
+  availableSorts.views,
+]
 
 export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() => {
   const [display, setDisplay] = useState('grid')
