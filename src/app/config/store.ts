@@ -78,6 +78,9 @@ export const boardPage = createBoardPage({
   event: eventEntity,
   boardLink: boardLinkEntity,
   manageBoardParticipants: manageBoardParticipantsFeature,
+  pinBoard: pinBoardFeature,
+  sub: subFeature,
+  favoriteBoard: favoriteBoardFeature,
   apollo,
 })
 export const worldPage = createWorldPage({domain, search: searchFeature, apollo})

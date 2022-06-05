@@ -4,7 +4,10 @@ import {isDefined} from '@eh/shared/lib/is-defined'
 import {BoardLinkEntity} from '@eh/entities/board-link'
 import {EventEntity, EventFragment} from '@eh/entities/event'
 import {SessionEntity} from '@eh/entities/session'
+import {FavoriteBoardFeature} from '@eh/features/favorite-board'
 import {ManageBoardParticipantsFeature} from '@eh/features/manage-board-participants'
+import {PinBoardFeature} from '@eh/features/pin-board'
+import {SubFeature} from '@eh/features/sub'
 import {
   BoardPageDocument,
   BoardPageFragment,
@@ -23,6 +26,9 @@ export type BoardPageDeps = {
   event: EventEntity
   boardLink: BoardLinkEntity
   manageBoardParticipants: ManageBoardParticipantsFeature
+  sub: SubFeature
+  favoriteBoard: FavoriteBoardFeature
+  pinBoard: PinBoardFeature
   apollo: ApolloClient<unknown>
 }
 
@@ -32,6 +38,9 @@ export const createBoardPage = ({
   event,
   boardLink,
   manageBoardParticipants,
+  sub,
+  favoriteBoard,
+  pinBoard,
   apollo,
 }: BoardPageDeps) => {
   const reset = domain.event()
@@ -128,6 +137,24 @@ export const createBoardPage = ({
           },
         }
       },
+    )
+    .on(
+      [
+        sub.createSubFx.done.map(({params, ...rest}) => ({
+          params: {board: {_id: params.boardId}},
+          ...rest,
+        })),
+        sub.removeSubFx.done.map(({params, ...rest}) => ({
+          params: {board: {_id: params.boardId}},
+          ...rest,
+        })),
+        favoriteBoard.markBoardAsFavoriteFx.done,
+        favoriteBoard.unmarkBoardAsFavoriteFx.done,
+        pinBoard.markBoardAsPinFx.done,
+        pinBoard.unmarkBoardAsPinFx.done,
+      ],
+      (board, {params, result}) =>
+        board && result && board._id === params.board._id ? {...board, ...result} : board,
     )
     .reset(reset)
 
