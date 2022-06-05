@@ -101,12 +101,14 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
                 onChange={setSortsState}
                 vertical
                 size={isTablet ? 'md' : 'sm'}
+                disabled={loading || fetchMoreBoardsState.loading}
               />
               <Filters
                 filters={filterConfig}
                 onChange={setFiltersState}
                 vertical
                 size={isTablet ? 'md' : 'sm'}
+                disabled={loading || fetchMoreBoardsState.loading}
               />
             </Flex>
           )}

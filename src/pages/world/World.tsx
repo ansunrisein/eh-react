@@ -90,12 +90,14 @@ export const World: React.FC = withModuleLocalization('world-page')(() => {
               onChange={setSortsState}
               vertical
               size={isTablet ? 'md' : 'sm'}
+              disabled={initialLoading || loadingMore}
             />
             <Filters
               filters={filterConfig}
               onChange={setFiltersState}
               vertical
               size={isTablet ? 'md' : 'sm'}
+              disabled={initialLoading || loadingMore}
             />
           </Flex>
         </Flex>
