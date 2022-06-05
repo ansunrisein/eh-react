@@ -11,8 +11,8 @@ import {useNavigate, useParams} from '@eh/shared/lib/router'
 import {Empty, Modal} from '@eh/shared/ui'
 import {Info, usePermissions} from '@eh/entities/board'
 import {EventCard} from '@eh/entities/event'
-import {availableFilters, Filters} from '@eh/features/filter'
-import {availableSorts, Sorts, SortState} from '@eh/features/sort'
+import {AvailableFilter, Filters} from '@eh/features/filter'
+import {AvailableSort, Sorts, SortState} from '@eh/features/sort'
 import {CreateEventForm} from '@eh/features/update-event'
 import {BoardSettings} from '@eh/widgets/board-settings'
 import {Layout} from '@eh/widgets/layout'
@@ -22,9 +22,9 @@ import {texts} from './texts'
 import {Actions, EventCalendar, ParticipationSuggestion} from './ui'
 import S from './Board.module.scss'
 
-export const filterConfig = [availableFilters.expired]
+export const filterConfig = Array<AvailableFilter>('expired')
 
-export const sortConfig = [availableSorts.nearest, availableSorts.pin]
+export const sortConfig = Array<AvailableSort>('nearest', 'pin')
 
 export const Board: React.FC = withModuleLocalization('board-page')(() => {
   const [defaultDeadline, setDefaultDeadline] = useState<Date | null>(null)
@@ -33,11 +33,11 @@ export const Board: React.FC = withModuleLocalization('board-page')(() => {
   const [isCreateEventOpened, openCreateEvent, closeCreateEvent] = useBooleanState(false)
   const [isBoardSettingsOpened, openBoardSettings, closeBoardSettings] = useBooleanState(false)
 
-  const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
-    sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
+  const [sortsState, setSortsState] = useState<Partial<Record<AvailableSort, SortState>>>(() =>
+    sortConfig.reduce((acc, e) => ({...acc, [e]: 'none'}), {}),
   )
-  const [filtersState, setFiltersState] = useState<Record<string, number>>(() =>
-    filterConfig.reduce((acc, e) => ({...acc, [e.name]: 0}), {}),
+  const [filtersState, setFiltersState] = useState<Partial<Record<AvailableFilter, number>>>(() =>
+    filterConfig.reduce((acc, e) => ({...acc, [e]: 0}), {}),
   )
 
   const isTablet = useMedia('(min-width: 768px)')

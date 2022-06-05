@@ -4,7 +4,7 @@ import {FormattedMessage} from 'react-intl'
 import {ButtonGroup, ButtonGroupProps, Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
-import {AvailableFilter} from '../../config'
+import {AvailableFilter} from '../../filters'
 import {FilterButton} from '../filter-button'
 import {mapFiltersConfigToObj} from './helpers'
 import {texts} from './texts'
@@ -12,7 +12,7 @@ import S from './Filters.module.scss'
 
 export type FiltersProps = {
   onChange?: (filters: Partial<Record<AvailableFilter, number>>) => void
-  filters: Array<{name: AvailableFilter; icons: React.ReactNode[]}>
+  filters: AvailableFilter[]
 } & ButtonGroupProps
 
 export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-feature')(
@@ -44,14 +44,12 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
           {filters.map((e, i) => (
             <FilterButton
               key={i}
-              name={e.name}
-              state={filter[e.name] ?? 0}
-              defaultState={filter[e.name]}
+              name={e}
+              state={filter[e] ?? 0}
+              defaultState={filter[e]}
               onChange={onStateChange}
               disabled={disabled}
-            >
-              {e.icons}
-            </FilterButton>
+            />
           ))}
         </ButtonGroup>
       </div>

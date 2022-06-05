@@ -9,25 +9,25 @@ import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Empty} from '@eh/shared/ui'
 import {useNewBoardsGate} from '@eh/entities/board'
-import {availableFilters, Filters} from '@eh/features/filter'
+import {AvailableFilter, Filters} from '@eh/features/filter'
 import {SearchInput, useSearch} from '@eh/features/search'
-import {availableSorts, Sorts, SortState} from '@eh/features/sort'
+import {AvailableSort, Sorts, SortState} from '@eh/features/sort'
 import {Layout} from '@eh/widgets/layout'
 import {useBoards, usePopularBoards} from './model'
 import {texts} from './texts'
 import {MiniBoard} from './ui'
 import S from './World.module.scss'
 
-export const filterConfig = [availableFilters.favorite]
+export const filterConfig = Array<AvailableFilter>('favorite')
 
-export const sortConfig = [availableSorts.nearestEvent, availableSorts.favorite]
+export const sortConfig = Array<AvailableSort>('nearestEvent', 'favorite')
 
 export const World: React.FC = withModuleLocalization('world-page')(() => {
-  const [sortsState, setSortsState] = useState<Record<string, SortState>>(() =>
-    sortConfig.reduce((acc, e) => ({...acc, [e.name]: 'none'}), {}),
+  const [sortsState, setSortsState] = useState<Partial<Record<AvailableSort, SortState>>>(() =>
+    sortConfig.reduce((acc, e) => ({...acc, [e]: 'none'}), {}),
   )
-  const [filtersState, setFiltersState] = useState<Record<string, number>>(() =>
-    filterConfig.reduce((acc, e) => ({...acc, [e.name]: 0}), {}),
+  const [filtersState, setFiltersState] = useState<Partial<Record<AvailableFilter, number>>>(() =>
+    filterConfig.reduce((acc, e) => ({...acc, [e]: 0}), {}),
   )
   const {search} = useSearch()
 

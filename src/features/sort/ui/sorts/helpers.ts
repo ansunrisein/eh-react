@@ -1,13 +1,13 @@
-import {AvailableSort} from '../../config'
+import {AvailableSort} from '../../sorts'
 import {SortState} from '../sort-button'
 
 export const mapSortsConfigToObj = (
-  sorts: Array<{name: AvailableSort}>,
+  sorts: AvailableSort[],
 ): Partial<Record<AvailableSort, SortState>> =>
   sorts.reduce(
-    (acc, e) => ({
+    (acc, sort) => ({
       ...acc,
-      [e.name]: 'none',
+      [sort]: 'none',
     }),
     {},
   )

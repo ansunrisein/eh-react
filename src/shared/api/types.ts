@@ -208,7 +208,7 @@ export type EventsFilter = {
 }
 
 export type EventsSort = {
-  nearestEvent?: Maybe<Scalars['String']>
+  nearest?: Maybe<Scalars['String']>
   pin?: Maybe<Scalars['String']>
 }
 

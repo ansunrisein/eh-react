@@ -1,2 +1,2 @@
-export * from './config'
+export * from './sorts'
 export * from './ui'

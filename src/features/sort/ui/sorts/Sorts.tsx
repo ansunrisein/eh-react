@@ -1,10 +1,10 @@
-import React, {ReactNode, useState} from 'react'
+import React, {useState} from 'react'
 import {BiSort} from 'react-icons/bi'
 import {FormattedMessage} from 'react-intl'
 import {ButtonGroup, ButtonGroupProps, Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
-import {AvailableSort} from '../../config'
+import {AvailableSort} from '../../sorts'
 import {SortButton, SortState} from '../sort-button'
 import {mapSortsConfigToObj} from './helpers'
 import {texts} from './texts'
@@ -12,7 +12,7 @@ import S from './Sorts.module.scss'
 
 export type SortsProps = {
   onChange?: (sort: Partial<Record<AvailableSort, SortState>>) => unknown
-  sorts: Array<{name: AvailableSort; icon: ReactNode}>
+  sorts: AvailableSort[]
 } & ButtonGroupProps
 
 export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature')(
@@ -44,14 +44,12 @@ export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature'
           {sorts.map((e, i) => (
             <SortButton
               key={i}
-              name={e.name}
-              state={sort[e.name]}
+              name={e}
+              state={sort[e]}
               onChange={onSortChange}
               data-testid="sort-button"
               disabled={disabled}
-            >
-              {e.icon}
-            </SortButton>
+            />
           ))}
         </ButtonGroup>
       </div>

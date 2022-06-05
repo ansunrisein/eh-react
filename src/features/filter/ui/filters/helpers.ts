@@ -1,12 +1,12 @@
-import {AvailableFilter} from '../../config'
+import {AvailableFilter} from '../../filters'
 
 export const mapFiltersConfigToObj = (
-  filters: Array<{name: AvailableFilter}>,
+  filters: AvailableFilter[],
 ): Partial<Record<AvailableFilter, number>> =>
   filters.reduce(
     (acc, e) => ({
       ...acc,
-      [e.name]: 0,
+      [e]: 0,
     }),
     {},
   )
