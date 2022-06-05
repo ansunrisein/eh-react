@@ -1,12 +1,12 @@
-import {BoardFragment} from '../api'
+import {Board, User} from '@eh/shared/api'
 
 export const isBoardOwner = (
-  ownerId: string | null | undefined,
-  board: BoardFragment | null | undefined,
+  owner: Pick<User, '_id'> | null | undefined,
+  board: {user: Pick<Board['user'], '_id'>} | null | undefined,
 ) => {
-  if (!ownerId || !board) {
+  if (!owner || !board) {
     return false
   }
 
-  return ownerId === board.user._id
+  return owner._id === board.user._id
 }

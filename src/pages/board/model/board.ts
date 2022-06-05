@@ -1,6 +1,7 @@
 import {attach, combine, Domain} from 'effector'
 import {ApolloClient} from '@apollo/client'
 import {isDefined} from '@eh/shared/lib/is-defined'
+import {isBoardOwner} from '@eh/entities/board'
 import {BoardLinkEntity} from '@eh/entities/board-link'
 import {EventEntity, EventFragment} from '@eh/entities/event'
 import {SessionEntity} from '@eh/entities/session'
@@ -206,11 +207,7 @@ export const createBoardPage = ({
     }),
   })
 
-  const $isMyBoard = combine(
-    $board,
-    session.$me,
-    (board, me) => !!board && !!me && me._id === board.user._id,
-  )
+  const $isMyBoard = combine(session.$me, $board, isBoardOwner)
 
   return {
     reset,
