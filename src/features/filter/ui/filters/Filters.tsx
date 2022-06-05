@@ -19,7 +19,7 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
   ({onChange, filters, disabled, ...props}) => {
     const [filter, setFilter] = useState(() => mapFiltersConfigToObj(filters))
 
-    const onStateChange = (name: AvailableFilter) => (state: number) => {
+    const onStateChange = (name: AvailableFilter, state: number) => {
       const newFilter = {...filter, [name]: state}
       setFilter(newFilter)
       onChange?.(newFilter)
@@ -44,9 +44,10 @@ export const Filters: React.FC<FiltersProps> = withModuleLocalization('filter-fe
           {filters.map((e, i) => (
             <FilterButton
               key={i}
+              name={e.name}
               state={filter[e.name] ?? 0}
               defaultState={filter[e.name]}
-              onChange={onStateChange(e.name)}
+              onChange={onStateChange}
               disabled={disabled}
             >
               {e.icons}

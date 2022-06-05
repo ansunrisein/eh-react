@@ -1,14 +1,17 @@
 import React, {useCallback} from 'react'
 import {StateButton, StateButtonProps} from '@eh/shared/ui'
+import {AvailableFilter} from '../../config'
 import {mapFilterStateToState, mapStateToFilterState} from './helpers'
 
 export type FilterButtonProps = {
+  name: AvailableFilter
   state: number
-  onChange?: (state: number) => unknown
+  onChange?: (name: AvailableFilter, state: number) => unknown
   children: React.ReactNode[]
 } & Omit<StateButtonProps, 'states' | 'children' | 'neutralState' | 'state' | 'onChange'>
 
 export const FilterButton: React.FC<FilterButtonProps> = ({
+  name,
   state,
   onChange,
   children,
@@ -17,8 +20,8 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
   const buttonState = mapFilterStateToState(state)
 
   const onButtonStateChange = useCallback(
-    (state: number) => onChange?.(mapStateToFilterState(state)),
-    [onChange],
+    (state: number) => onChange?.(name, mapStateToFilterState(state)),
+    [name, onChange],
   )
 
   return (

@@ -19,7 +19,7 @@ export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature'
   ({onChange, sorts, disabled, ...props}) => {
     const [sort, setSort] = useState(() => mapSortsConfigToObj(sorts))
 
-    const onSortChange = (name: AvailableSort) => (state: SortState) => {
+    const onSortChange = (name: AvailableSort, state: SortState) => {
       const newSort = {[name]: state}
       setSort(newSort)
       onChange?.(newSort)
@@ -44,8 +44,9 @@ export const Sorts: React.FC<SortsProps> = withModuleLocalization('sort-feature'
           {sorts.map((e, i) => (
             <SortButton
               key={i}
+              name={e.name}
               state={sort[e.name]}
-              onChange={onSortChange(e.name)}
+              onChange={onSortChange}
               data-testid="sort-button"
               disabled={disabled}
             >
