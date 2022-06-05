@@ -221,6 +221,7 @@ export type Mutation = {
   createEvent?: Maybe<Event>
   createSub: Board
   declineSuggestion?: Maybe<BoardParticipationDecline>
+  leaveBoard: BoardParticipant
   markBoardAsFavorite: Board
   markBoardAsPin: Board
   removeBoard: Board
@@ -259,6 +260,10 @@ export type MutationCreateEventArgs = {
 
 export type MutationCreateSubArgs = {
   sub: CreateSub
+}
+
+export type MutationLeaveBoardArgs = {
+  boardId: Scalars['ID']
 }
 
 export type MutationMarkBoardAsFavoriteArgs = {
@@ -629,6 +634,7 @@ export type MutationKeySpecifier = (
   | 'createEvent'
   | 'createSub'
   | 'declineSuggestion'
+  | 'leaveBoard'
   | 'markBoardAsFavorite'
   | 'markBoardAsPin'
   | 'removeBoard'
@@ -657,6 +663,7 @@ export type MutationFieldPolicy = {
   createEvent?: FieldPolicy<any> | FieldReadFunction<any>
   createSub?: FieldPolicy<any> | FieldReadFunction<any>
   declineSuggestion?: FieldPolicy<any> | FieldReadFunction<any>
+  leaveBoard?: FieldPolicy<any> | FieldReadFunction<any>
   markBoardAsFavorite?: FieldPolicy<any> | FieldReadFunction<any>
   markBoardAsPin?: FieldPolicy<any> | FieldReadFunction<any>
   removeBoard?: FieldPolicy<any> | FieldReadFunction<any>
