@@ -2,9 +2,8 @@ import React from 'react'
 import {RiEyeFill, RiStarFill} from 'react-icons/ri'
 import {FormattedMessage} from 'react-intl'
 import {useMedia} from 'react-use'
-import {Divider, Panel, PanelProps} from 'rsuite'
+import {Panel, PanelProps} from 'rsuite'
 import {Icon} from '@rsuite/icons'
-import {Flex} from '@eh/shared/lib/reflexbox'
 import {Link} from '@eh/shared/lib/router'
 import {Swiper} from '@eh/shared/ui/swiper'
 import {SwiperBreakpoints} from '@eh/shared/ui/swiper/Swiper'
@@ -22,25 +21,23 @@ export const MiniBoard: React.FC<MiniBoardProps> = ({board, ...props}) => {
 
   return (
     <Panel bordered shaded {...props}>
-      <div className={S.header}>
-        <Link to={`/board/${board._id}`} className={S.title}>
-          <Icon as={RiStarFill} className={S.star} />
+      <Link to={`/board/${board._id}`} className={S.header}>
+        <div className={S.topContainer}>
+          <div className={S.title}>
+            <Icon as={RiStarFill} color="var(--rs-yellow-300)" />
 
-          <p>{board.title}</p>
+            <span>{board.title}</span>
+          </div>
 
-          {!!board.description && (
-            <>
-              <Divider vertical />
-              <span>{board.description}</span>
-            </>
-          )}
-        </Link>
+          <div className={S.views}>
+            <p>{board.views}</p>
 
-        <Flex alignItems="center" gap="0.5rem">
-          <p>{board.views}</p>
-          <Icon as={RiEyeFill} />
-        </Flex>
-      </div>
+            <Icon as={RiEyeFill} />
+          </div>
+        </div>
+
+        {!!board.description && <span className={S.description}>{board.description}</span>}
+      </Link>
 
       <Swiper withNavigation={isTablet} breakpoints={swiperBreakpoints}>
         {board.events.edges.length ? (

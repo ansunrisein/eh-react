@@ -1,23 +1,40 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@use "~@eh/shared/styles";
 
+.header {
+  display: block;
   margin-bottom: 1rem;
+}
+
+.top-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .title {
   display: flex;
   align-items: center;
+  gap: 0.5rem;
 
   font-size: large;
   font-weight: bold;
 }
 
-.star {
-  margin-right: 0.5rem;
+.views {
+  justify-self: flex-end;
 
-  color: var(--rs-yellow-300);
+  margin-left: 1rem;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.description {
+  margin-top: 1rem;
+
+  @include styles.line-clamp(3);
+  word-break: break-word;
 }
 
 .link,
