@@ -10,14 +10,10 @@
 }
 
 .content {
+  position: relative;
   height: 100%;
   overflow-y: auto;
   flex: 1;
-}
-
-.title {
-  font-weight: 300;
-  margin-bottom: 1rem;
 }
 
 .vertical {
@@ -91,4 +87,14 @@
 .home {
   justify-self: center;
   align-self: center;
+}
+
+.title {
+  font-size: medium;
+  font-weight: 300;
+
+  @media (min-width: 768px) {
+    font-size: x-large;
+    letter-spacing: 1px;
+  }
 }

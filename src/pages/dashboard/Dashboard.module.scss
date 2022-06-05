@@ -14,14 +14,20 @@
 }
 
 .content {
+  position: relative;
   height: 100%;
   overflow-y: auto;
   flex: 1;
 }
 
 .title {
+  font-size: medium;
   font-weight: 300;
-  margin-bottom: 1rem;
+
+  @media (min-width: 768px) {
+    font-size: x-large;
+    letter-spacing: 1px;
+  }
 }
 
 .vertical {

@@ -1,6 +1,10 @@
 import {defineMessages} from 'react-intl'
 
 export const texts = defineMessages({
+  title: {
+    id: 'pages.dashboard.title',
+    defaultMessage: 'Dashboard',
+  },
   createBoardUnauthorized: {
     id: 'pages.dashboard.createBoardUnauthorized',
     defaultMessage: 'You should be logged in to create a board',

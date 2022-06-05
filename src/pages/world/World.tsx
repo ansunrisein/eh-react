@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react'
 import {RiUser6Fill} from 'react-icons/ri'
 import {FormattedMessage} from 'react-intl'
 import {useMedia, useTitle} from 'react-use'
-import {Button, IconButton, Loader} from 'rsuite'
+import {Button, IconButton, Loader, Stack} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
 import {Flex} from '@eh/shared/lib/reflexbox'
@@ -76,7 +76,13 @@ export const World: React.FC = withModuleLocalization('world-page')(() => {
           />
         </Link>
 
-        <SearchInput size={isTablet ? 'md' : 'sm'} className={S.searchInput} />
+        <Stack justifyContent="space-between" alignItems="center">
+          <p className={S.title}>
+            <FormattedMessage {...texts.title} />
+          </p>
+
+          <SearchInput size={isTablet ? 'md' : 'sm'} className={S.searchInput} />
+        </Stack>
 
         <Flex
           height="100%"

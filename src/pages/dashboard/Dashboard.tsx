@@ -3,7 +3,7 @@ import cx from 'classnames'
 import {RiAddFill, RiDashboardLine, RiGlobalLine, RiHashtag} from 'react-icons/ri'
 import {FormattedMessage} from 'react-intl'
 import {useAsyncFn, useMedia, useTitle} from 'react-use'
-import {Button, Divider, IconButton, Loader, Panel, Popover, Whisper} from 'rsuite'
+import {Button, Divider, IconButton, Loader, Panel, Popover, Stack, Whisper} from 'rsuite'
 import {useBooleanState} from 'use-boolean-state'
 import {Icon} from '@rsuite/icons'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
@@ -86,7 +86,13 @@ export const Dashboard: React.FC = withModuleLocalization('dashboard-page')(() =
           </Link>
         </Flex>
 
-        <SearchInput size={isTablet ? 'md' : 'sm'} className={S.searchInput} />
+        <Stack justifyContent="space-between" alignItems="center">
+          <p className={S.title}>
+            <FormattedMessage {...texts.title} />
+          </p>
+
+          <SearchInput size={isTablet ? 'md' : 'sm'} className={S.searchInput} />
+        </Stack>
 
         <Flex
           height="100%"
