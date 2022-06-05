@@ -1,8 +1,15 @@
 import React from 'react'
 import {FormattedMessage} from 'react-intl'
-import {Button, Divider, Loader} from 'rsuite'
+import {Button, Divider, Loader, Stack, Tag} from 'rsuite'
 import {withModuleLocalization} from '@eh/shared/lib/i18n'
-import {BoardFragment, useBoard, usePermissions, useRemoveBoard} from '@eh/entities/board'
+import {
+  BoardFragment,
+  isBoardOwner,
+  useBoard,
+  usePermissions,
+  useRemoveBoard,
+} from '@eh/entities/board'
+import {useUser} from '@eh/entities/user'
 import {ParticipantsManager} from '@eh/features/manage-board-participants'
 import {EventManager} from '@eh/features/manage-events'
 import {EditBoardForm} from '@eh/features/update-board'
@@ -20,7 +27,10 @@ export const BoardSettings: React.FC<BoardSettingsProps> = withModuleLocalizatio
   'board-settings-widget',
 )(({id, onRemove}) => {
   const {board, loading} = useBoard(id)
-  const {canRemove} = usePermissions(board)
+  const {canRemove, canCreateLink, canRemoveEvent, canUpdateLink, canViewLinks, canRemoveLink} =
+    usePermissions(board)
+  const {user} = useUser()
+  const isMyBoard = isBoardOwner(user, board)
 
   const [removingState, remove] = useRemoveBoard()
 
@@ -39,19 +49,37 @@ export const BoardSettings: React.FC<BoardSettingsProps> = withModuleLocalizatio
 
           <Divider />
 
-          <BoardLinks board={board} />
+          {isMyBoard ? (
+            <EditBoardTags board={board} />
+          ) : (
+            <Stack>
+              {board.tags?.map(tag => (
+                <Tag key={tag._id} color="violet">
+                  {tag.name}
+                </Tag>
+              ))}
+            </Stack>
+          )}
+
+          {(canCreateLink || canRemoveLink || canUpdateLink || canViewLinks) && (
+            <>
+              <Divider />
+
+              <BoardLinks board={board} />
+            </>
+          )}
 
           <Divider />
 
           <ParticipantsManager board={board} />
 
-          <Divider />
+          {canRemoveEvent && (
+            <>
+              <Divider />
 
-          <EditBoardTags board={board} />
-
-          <Divider />
-
-          <EventManager board={board} />
+              <EventManager board={board} />
+            </>
+          )}
 
           <Divider />
 

@@ -69,15 +69,17 @@ export const EditBoardForm: React.FC<EditBoardFormProps> = withModuleLocalizatio
           )}
         />
 
-        <Button
-          loading={editingDescription.loading}
-          disabled={!formState.isDirty}
-          className={S.button}
-          appearance="primary"
-          type="submit"
-        >
-          <FormattedMessage {...texts.save} />
-        </Button>
+        {canUpdateDescription && (
+          <Button
+            loading={editingDescription.loading}
+            disabled={!formState.isDirty}
+            className={S.button}
+            appearance="primary"
+            type="submit"
+          >
+            <FormattedMessage {...texts.save} />
+          </Button>
+        )}
       </form>
 
       <section>
