@@ -7,10 +7,13 @@ import {
   RiPushpin2Fill,
   RiTimeLine,
 } from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
+import {Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {StateButton, StateButtonProps} from '@eh/shared/ui'
 import {AvailableSort} from '../../sorts'
 import {mapSortStateToState, mapStateToSortState} from './helpers'
+import {labels} from './texts'
 import {SortState} from './types'
 
 export type SortButtonProps = {
@@ -39,6 +42,7 @@ export const SortButton: React.FC<SortButtonProps> = ({
   ...props
 }) => {
   const buttonState = mapSortStateToState(state)
+  const nextState = (buttonState + 1) % (sortStates.length + 1)
 
   const onButtonStateChange = useCallback(
     (state: number) => onChange?.(name, mapStateToSortState(state)),
@@ -46,8 +50,23 @@ export const SortButton: React.FC<SortButtonProps> = ({
   )
 
   return (
-    <StateButton states={sortStates} state={buttonState} onChange={onButtonStateChange} {...props}>
-      {icons[name]}
-    </StateButton>
+    <Whisper
+      placement="autoHorizontal"
+      trigger="hover"
+      speaker={
+        <Tooltip>
+          <FormattedMessage {...labels[`${name}${nextState}`]} />
+        </Tooltip>
+      }
+    >
+      <StateButton
+        states={sortStates}
+        state={buttonState}
+        onChange={onButtonStateChange}
+        {...props}
+      >
+        {icons[name]}
+      </StateButton>
+    </Whisper>
   )
 }

@@ -10,10 +10,13 @@ import {
   RiTimerLine,
   RiUserFill,
 } from 'react-icons/ri'
+import {FormattedMessage} from 'react-intl'
+import {Tooltip, Whisper} from 'rsuite'
 import {Icon} from '@rsuite/icons'
 import {StateButton, StateButtonProps} from '@eh/shared/ui'
 import {AvailableFilter} from '../../filters'
 import {mapFilterStateToState, mapStateToFilterState} from './helpers'
+import {labels} from './texts'
 
 export type FilterButtonProps = {
   name: AvailableFilter
@@ -59,12 +62,22 @@ export const FilterButton: React.FC<FilterButtonProps> = ({
   )
 
   return (
-    <StateButton
-      states={icons[name]}
-      state={buttonState}
-      onChange={onButtonStateChange}
-      neutralState={false}
-      {...props}
-    />
+    <Whisper
+      placement="autoHorizontal"
+      trigger="hover"
+      speaker={
+        <Tooltip>
+          <FormattedMessage {...labels[`${name}${(buttonState + 1) % icons[name].length}`]} />
+        </Tooltip>
+      }
+    >
+      <StateButton
+        states={icons[name]}
+        state={buttonState}
+        onChange={onButtonStateChange}
+        neutralState={false}
+        {...props}
+      />
+    </Whisper>
   )
 }
