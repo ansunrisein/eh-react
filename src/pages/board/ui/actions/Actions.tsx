@@ -61,14 +61,16 @@ export const Actions: React.FC<ActionsProps> = ({
   return (
     <>
       <div className={S.actions}>
-        {board && (
-          <ParticipantsAvatarGroup
-            participants={board.participants.edges.map(e => e.node)}
-            defaultAvatar={DEFAULT_USER_AVATAR}
-          />
-        )}
+        {!!board?.participants.edges.length && (
+          <>
+            <ParticipantsAvatarGroup
+              participants={board.participants.edges.map(e => e.node)}
+              defaultAvatar={DEFAULT_USER_AVATAR}
+            />
 
-        <Divider vertical className={S.divider} />
+            <Divider vertical className={S.divider} />
+          </>
+        )}
 
         <Flex gap="1rem">
           <IconButton onClick={openQRCode} size="sm" icon={<Icon as={RiQrCodeFill} />} />
