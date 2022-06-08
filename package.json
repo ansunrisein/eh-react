@@ -101,7 +101,8 @@
     "react-app-rewire-aliases": "^0.2.0",
     "react-app-rewired": "^2.1.8",
     "sass": "^1.42.1",
-    "storybook-dark-mode": "^1.0.8"
+    "storybook-dark-mode": "^1.0.8",
+    "webworker": "^0.8.4"
   },
   "resolutions": {
     "babel-loader": "8.1.0"
